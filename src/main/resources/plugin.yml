@@ -1,0 +1,11 @@
+name: Feudal
+version: 1.0
+main: feudal.Feudal
+commands:
+  givekingdomstats:
+  giveplayerstats:
+  resetallclanmembers:
+  resetaplayer:
+  resetthekingdom:
+  spy:
+  openclassselection:
