@@ -29,11 +29,11 @@ public class KingdomInfoDB {
 
     }
 
-    public String createNewKingdom(String kingdomName, Player king, Player[] members, Chunk[] chunks, Player[] barons) {
+    public void createNewKingdom(String kingdomName, Player king, Player[] members, Chunk[] chunks, Player[] barons) {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
                 .iterator()
-                .hasNext()) return "Нельзя создать королевство с таким именем или оно уже существует";
+                .hasNext()) return;
 
         ClientSession session = mongoClient.startSession();
 
@@ -54,8 +54,6 @@ public class KingdomInfoDB {
         } finally {
             session.close();
         }
-
-        return "Королевство создано успешно";
     }
 
     public Object getField(String kingdomName, String fieldName) {

@@ -10,18 +10,8 @@ import java.util.Arrays;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TabUtils {
-    Player player;
-    Player[] hidePlayers;
 
-    public TabUtils(Player player) {
-        this.player = player;
-    }
-
-    public TabUtils(Player[] hidePlayers) {
-        this.hidePlayers = hidePlayers;
-    }
-
-    public void hidePlayer() {
+    public static void hidePlayer(Player player) {
 
         Bukkit.getServer().getOnlinePlayers().forEach(playerTab -> {
 
@@ -31,7 +21,7 @@ public class TabUtils {
         });
     }
 
-    public void hidePlayers() {
+    public void hidePlayers(Player player, Player[] hidePlayers) {
 
         Bukkit.getServer().getOnlinePlayers().forEach(playerTab -> Arrays.asList(hidePlayers).forEach(hidePlayer -> {
 

@@ -1,5 +1,6 @@
 package feudal.listeners.inventoryListeners;
 
+import feudal.gameClasses.PlayerGameClass;
 import feudal.info.PlayerInfoDB;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -27,27 +28,32 @@ public class InteractInventoryListener implements Listener {
         switch (event.getCurrentItem().getType()) {
 
             case BLACK_SHULKER_BOX:
-                playerInfoDB.setField(player, "classID", 6);
+                playerInfoDB.setField(player, "classID", 1);
+                PlayerGameClass.getPlayerInfo().get(player).setaClassID(1);
                 player.closeInventory();
                 break;
 
             case WHITE_SHULKER_BOX:
-                playerInfoDB.setField(player, "classID", 8);
+                playerInfoDB.setField(player, "classID", 2);
+                PlayerGameClass.getPlayerInfo().get(player).setaClassID(2);
                 player.closeInventory();
                 break;
 
             case RED_SHULKER_BOX:
-                playerInfoDB.setField(player, "classID", 2);
+                playerInfoDB.setField(player, "classID", 3);
+                PlayerGameClass.getPlayerInfo().get(player).setaClassID(3);
                 player.closeInventory();
                 break;
 
             case YELLOW_SHULKER_BOX:
-                playerInfoDB.setField(player, "classID", 7);
+                playerInfoDB.setField(player, "classID", 4);
+                PlayerGameClass.getPlayerInfo().get(player).setaClassID(4);
                 player.closeInventory();
                 break;
 
             case BLUE_SHULKER_BOX:
-                playerInfoDB.setField(player, "classID", 12);
+                playerInfoDB.setField(player, "classID", 5);
+                PlayerGameClass.getPlayerInfo().get(player).setaClassID(5);
                 player.closeInventory();
                 break;
         }

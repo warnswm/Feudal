@@ -1,13 +1,11 @@
 package feudal.info;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;
 
 @Getter
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PlayerInfo {
     Player player;
@@ -15,6 +13,9 @@ public class PlayerInfo {
     double gain;
     int aClassID;
     int experience;
+    int balance;
+    int deaths;
+    int kills;
 
     public void addExperience(int value) {
 
@@ -31,4 +32,46 @@ public class PlayerInfo {
 
     }
 
+    public PlayerInfo setPlayer(Player player) {
+        this.player = player;
+        return this;
+    }
+
+    public PlayerInfo setLvl(int lvl) {
+        this.lvl = lvl;
+        return this;
+    }
+
+    public PlayerInfo setGain(double gain) {
+        this.gain = gain;
+        return this;
+    }
+
+    public PlayerInfo setaClassID(int aClassID) {
+        this.aClassID = aClassID;
+        return this;
+    }
+
+    public PlayerInfo setExperience(int experience) {
+        this.experience = experience;
+        return this;
+    }
+
+    public PlayerInfo setBalance(int balance) {
+        this.balance = balance;
+        return this;
+    }
+
+    public PlayerInfo setDeaths(int deaths) {
+        this.deaths = deaths;
+        return this;
+    }
+
+    public PlayerInfo setKills(int kills) {
+        this.kills = kills;
+        return this;
+    }
+    public PlayerInfo build() {
+        return this;
+    }
 }

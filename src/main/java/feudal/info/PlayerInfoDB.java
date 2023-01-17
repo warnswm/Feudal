@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -123,6 +124,8 @@ public class PlayerInfoDB {
         try {
 
             session.startTransaction();
+
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "clear " + player.getName());
 
             collection.drop();
 

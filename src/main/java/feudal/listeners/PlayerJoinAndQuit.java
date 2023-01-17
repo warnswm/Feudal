@@ -1,8 +1,10 @@
 package feudal.listeners;
 
-import feudal.classes.PlayerClass;
+import feudal.gameClasses.PlayerGameClass;
 import feudal.info.PlayerInfo;
 import feudal.info.PlayerInfoDB;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -11,11 +13,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener {
 
-
-    final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    final PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
+    PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     @EventHandler
     public void playerJoin(PlayerJoinEvent event) {
@@ -25,25 +27,36 @@ public class PlayerJoinAndQuit implements Listener {
         if (!playerInfoDB.hasPlayer(player))
             playerInfoDB.createNewPlayer(player);
 
+        PlayerInfo playerInfo = new PlayerInfo()
+                .setPlayer(player)
+                .setLvl((Integer) playerInfoDB.getField(player, "lvl"))
+                .setGain((Double) playerInfoDB.getField(player, "gain"))
+                .setaClassID((Integer) playerInfoDB.getField(player, "classID"))
+                .setExperience((Integer) playerInfoDB.getField(player, "experience"))
+                .setBalance((Integer) playerInfoDB.getField(player, "balance"))
+                .setDeaths((Integer) playerInfoDB.getField(player, "deaths"))
+                .setKills((Integer) playerInfoDB.getField(player, "kills"));
 
-        PlayerInfo playerInfo = new PlayerInfo(player, (Integer) playerInfoDB.getField(player, "lvl"), (Double) playerInfoDB.getField(player, "gain"), (Integer) playerInfoDB.getField(player, "classID"), (Integer) playerInfoDB.getField(player, "experience"));
-
-        PlayerClass.getPlayerInfo().put(player, playerInfo);
-
+        PlayerGameClass.getPlayerInfo().put(player, playerInfo);
 
     }
 
     @EventHandler
     public void playerQuit(PlayerQuitEvent event) {
 
-        if (PlayerClass.getPlayerInfo().get(event.getPlayer()) == null) return;
+        if (PlayerGameClass.getPlayerInfo().get(event.getPlayer()) == null) return;
 
         Player player = event.getPlayer();
 
-        playerInfoDB.setField(player, "classID", PlayerClass.getPlayerInfo().get(player).getAClassID());
-        playerInfoDB.setField(player, "experience", PlayerClass.getPlayerInfo().get(player).getExperience());
+        playerInfoDB.setField(player, "lvl", PlayerGameClass.getPlayerInfo().get(player).getLvl());
+        playerInfoDB.setField(player, "gain", PlayerGameClass.getPlayerInfo().get(player).getGain());
+        playerInfoDB.setField(player, "classID", PlayerGameClass.getPlayerInfo().get(player).getAClassID());
+        playerInfoDB.setField(player, "experience", PlayerGameClass.getPlayerInfo().get(player).getExperience());
+        playerInfoDB.setField(player, "balance", PlayerGameClass.getPlayerInfo().get(player).getBalance());
+        playerInfoDB.setField(player, "deaths", PlayerGameClass.getPlayerInfo().get(player).getDeaths());
+        playerInfoDB.setField(player, "kills", PlayerGameClass.getPlayerInfo().get(player).getKills());
 
-        PlayerClass.getPlayerInfo().remove(player);
+        PlayerGameClass.getPlayerInfo().remove(player);
 
     }
 }

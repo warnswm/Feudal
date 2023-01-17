@@ -34,6 +34,8 @@ public final class Feudal extends JavaPlugin {
         getCommand("resetaplayer").setExecutor(new ResetAPlayer());
         getCommand("resetthekingdom").setExecutor(new ResetTheKingomdom());
         getCommand("spy").setExecutor(new SpyCommand());
+        getCommand("addls").setExecutor(new AddLS());
+        getCommand("getarmy").setExecutor(new GetArmy());
         getCommand("openclassselection").setExecutor(new OpenClassSelection());
     }
     public static Plugin getPlugin() {

@@ -17,9 +17,7 @@ public class SpyCommand implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        TabUtils tabUtils = new TabUtils(player);
-        tabUtils.hidePlayer();
-
+        TabUtils.hidePlayer(player);
         player.setGameMode(GameMode.SPECTATOR);
 
         return false;
