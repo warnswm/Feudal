@@ -17,13 +17,13 @@ public class PlayerInfoDB {
     MongoCollection<Document> collection;
 
     public PlayerInfoDB(String mongoClientName, String databaseName, String collectionName) {
-        
+
         this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
         this.collection = database.getCollection(collectionName);
-        
+
     }
-    
+
     public void createNewPlayer(Player player) {
 
         if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
@@ -55,6 +55,7 @@ public class PlayerInfoDB {
         }
 
     }
+
     public boolean hasPlayer(Player player) {
 
         return collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
@@ -62,6 +63,7 @@ public class PlayerInfoDB {
                 .hasNext();
 
     }
+
     public Object getField(Player player, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
@@ -87,6 +89,7 @@ public class PlayerInfoDB {
 
         return null;
     }
+
     public void setField(Player player, String fieldName, Object value) {
 
         ClientSession session = mongoClient.startSession();
@@ -108,6 +111,7 @@ public class PlayerInfoDB {
             session.close();
         }
     }
+
     public void resetAPlayer(Player player) {
 
         if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))

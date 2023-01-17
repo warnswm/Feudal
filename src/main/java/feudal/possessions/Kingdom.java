@@ -16,14 +16,13 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Kingdom {
+    final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
+    final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
     String kingdomName;
     Player king;
     List<Chunk> territory;
     List<Player> members;
     List<Player> barons;
-
-    final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     public void addTerritory(Chunk chunk) {
 
@@ -31,6 +30,7 @@ public class Kingdom {
 
         kingdomInfoDB.setField(kingdomName, "territory", territory);
     }
+
     public void addMembers(Player player) {
 
         members.add(player);
@@ -38,6 +38,7 @@ public class Kingdom {
         kingdomInfoDB.setField(kingdomName, "members", members);
 
     }
+
     public void addBarons(Player player) {
 
         barons.add(player);
@@ -45,6 +46,7 @@ public class Kingdom {
         kingdomInfoDB.setField(kingdomName, "barons", barons);
 
     }
+
     public void changeTheKing(Player player) {
 
         king = player;
@@ -52,6 +54,7 @@ public class Kingdom {
         kingdomInfoDB.setField(kingdomName, "king", king);
 
     }
+
     public void renameKingdom(String name) {
 
         kingdomName = name;

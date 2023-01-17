@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Farmer extends PlayerClass {
-    byte lvl = 1;
     final byte maxlvl = 35;
-    float gain = 0.45F;
     final Player player;
+    byte lvl = 1;
+    float gain = 0.45F;
 
     public Farmer(Player player) {
         this.player = player;

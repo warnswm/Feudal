@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 public class InteractNPCListener implements Listener {
 
     @EventHandler
-    public void playerInteractNPC(PlayerInteractEntityEvent event){
+    public void playerInteractNPC(PlayerInteractEntityEvent event) {
 
 
     }

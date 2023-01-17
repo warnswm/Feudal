@@ -8,10 +8,10 @@ import org.bukkit.entity.Player;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Woodcutter extends PlayerClass {
-    byte lvl = 1;
     final byte maxlvl = 30;
-    float gain = 0.8F;
     final Player player;
+    byte lvl = 1;
+    float gain = 0.8F;
 
     public Woodcutter(Player player) {
         this.player = player;

@@ -23,24 +23,27 @@ public class PlayerJoinAndQuit implements Listener {
         Player player = event.getPlayer();
 
         if (!playerInfoDB.hasPlayer(player))
-            playerInfoDB.createNewPlayer(event.getPlayer());
+            playerInfoDB.createNewPlayer(player);
 
 
         PlayerInfo playerInfo = new PlayerInfo(player, (Integer) playerInfoDB.getField(player, "lvl"), (Double) playerInfoDB.getField(player, "gain"), (Integer) playerInfoDB.getField(player, "classID"), (Integer) playerInfoDB.getField(player, "experience"));
 
-        PlayerClass.putElement(event.getPlayer(), playerInfo);
+        PlayerClass.getPlayerInfo().put(player, playerInfo);
 
 
     }
+
     @EventHandler
     public void playerQuit(PlayerQuitEvent event) {
 
         if (PlayerClass.getPlayerInfo().get(event.getPlayer()) == null) return;
 
-        playerInfoDB.setField(event.getPlayer(), "classID", PlayerClass.getPlayerInfo().get(event.getPlayer()).getAClassID());
-        playerInfoDB.setField(event.getPlayer(), "experience", PlayerClass.getPlayerInfo().get(event.getPlayer()).getExperience());
+        Player player = event.getPlayer();
 
-        PlayerClass.removeElement(event.getPlayer());
+        playerInfoDB.setField(player, "classID", PlayerClass.getPlayerInfo().get(player).getAClassID());
+        playerInfoDB.setField(player, "experience", PlayerClass.getPlayerInfo().get(player).getExperience());
+
+        PlayerClass.getPlayerInfo().remove(player);
 
     }
 }

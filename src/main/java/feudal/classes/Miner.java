@@ -10,13 +10,12 @@ import org.bukkit.entity.Player;
 public class Miner extends PlayerClass {
 
     Player player;
+    long lvl = PlayerClass.getPlayerInfo().get(player).getLvl();
+    double gain = PlayerClass.getPlayerInfo().get(player).getGain();
+    final long experience = PlayerClass.getPlayerInfo().get(player).getExperience();
     public Miner(Player player) {
         this.player = player;
     }
-
-    long lvl = PlayerClass.getPlayerInfo().get(player).getLvl();
-    double gain = PlayerClass.getPlayerInfo().get(player).getGain();
-    long experience = PlayerClass.getPlayerInfo().get(player).getExperience();
 
     @Override
     public void addLvl() {

@@ -23,6 +23,7 @@ public class PlayerInfo {
         experienceCalc();
 
     }
+
     private void experienceCalc() {
 
         if (experience >= Math.pow(lvl + 1, 3))

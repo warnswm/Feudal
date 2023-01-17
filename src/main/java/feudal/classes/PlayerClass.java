@@ -14,20 +14,6 @@ public abstract class PlayerClass {
     public static HashMap<Player, PlayerInfo> getPlayerInfo() {
         return playerInfo;
     }
-    public static void putElement(Player key, PlayerInfo playerInfoObj) {
 
-        playerInfo.put(key, playerInfoObj);
-
-    }
-    public static void removeElement(Player key) {
-
-        playerInfo.remove(key);
-
-    }
-    public static PlayerInfo getElement(Player key) {
-
-        return playerInfo.get(key);
-
-    }
     public abstract void addLvl();
 }

@@ -30,6 +30,7 @@ public class TabUtils {
 
         });
     }
+
     public void hidePlayers() {
 
         Bukkit.getServer().getOnlinePlayers().forEach(playerTab -> Arrays.asList(hidePlayers).forEach(hidePlayer -> {
