@@ -1,6 +1,6 @@
 package feudal.listeners.inventoryListeners;
 
-import feudal.statistics.PlayerStatistics;
+import feudal.info.PlayerInfoDB;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -13,30 +13,43 @@ public class InteractInventoryListener implements Listener {
     @EventHandler
     public void interactInventory(InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Выберите класс")) return;
+        if (!event.getView().getTitle().equals("Выберите класс") || event.getCurrentItem().getType() == null) return;
+
+        event.setCancelled(true);
 
         FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-        PlayerStatistics playerStatistics = new PlayerStatistics(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+        PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
         Player player = (Player) event.getView().getPlayer();
 
-        switch (event.getCurrentItem().getType()){
+        if (event.getCurrentItem().getType() == null) return;
+
+        switch (event.getCurrentItem().getType()) {
 
             case BLACK_SHULKER_BOX:
-                playerStatistics.createNewPlayer(player, (byte) 6);
+                playerInfoDB.setField(player, "classID", 6);
+                player.closeInventory();
+                break;
 
             case WHITE_SHULKER_BOX:
-                playerStatistics.createNewPlayer(player, (byte) 8);
+                playerInfoDB.setField(player, "classID", 8);
+                player.closeInventory();
+                break;
 
             case RED_SHULKER_BOX:
-                playerStatistics.createNewPlayer(player, (byte) 2);
+                playerInfoDB.setField(player, "classID", 2);
+                player.closeInventory();
+                break;
 
             case YELLOW_SHULKER_BOX:
-                playerStatistics.createNewPlayer(player, (byte) 7);
+                playerInfoDB.setField(player, "classID", 7);
+                player.closeInventory();
+                break;
 
             case BLUE_SHULKER_BOX:
-                playerStatistics.createNewPlayer(player, (byte) 12);
-
+                playerInfoDB.setField(player, "classID", 12);
+                player.closeInventory();
+                break;
         }
     }
 }

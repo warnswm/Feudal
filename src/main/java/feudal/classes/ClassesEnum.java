@@ -16,29 +16,28 @@ public enum ClassesEnum {
     ANGLER((byte) 2, Angler.class),
     ARCHER((byte) 3, Archer.class),
     BLACKSMITH((byte) 4, Blacksmith.class),
-    BUILDER((byte) 5, Builder.class),
-    FARMER((byte) 6, Farmer.class),
-    HUNTER((byte) 7, Hunter.class),
-    MINER((byte) 8, Miner.class),
-    SWORDSMAN((byte) 9, Swordsman.class),
-    ARCHER_RIDER((byte) 10, ArcherRider.class),
-    SWORDSMAN_RIDER((byte) 11, SwordsmanRider.class),
-    WOODCUTTER((byte) 12, Woodcutter.class);
+    FARMER((byte) 0, Farmer.class),
+    HUNTER((byte) 6, Hunter.class),
+    MINER((byte) 7, Miner.class),
+    SWORDSMAN((byte) 8, Swordsman.class),
+    ARCHER_RIDER((byte) 9, ArcherRider.class),
+    SWORDSMAN_RIDER((byte) 10, SwordsmanRider.class),
+    WOODCUTTER((byte) 11, Woodcutter.class);
 
     byte id;
     Class aClass;
 
     public static ClassesEnum getByID(long id) {
-        for (ClassesEnum packets : values())
-            if (packets.getId() == id)
-                return packets;
+        for (ClassesEnum classesEnum : values())
+            if (classesEnum.getId() == id)
+                return classesEnum;
         return null;
     }
 
     public static ClassesEnum getByClass(Class clas) {
-        for (ClassesEnum packets : values())
-            if (packets.getAClass().equals(clas))
-                return packets;
+        for (ClassesEnum classesEnum : values())
+            if (classesEnum.getAClass().equals(clas))
+                return classesEnum;
         return null;
     }
 }

@@ -1,6 +1,6 @@
 package feudal.commands.adminCommands;
 
-import feudal.statistics.KingdomStatistics;
+import feudal.info.KingdomInfoDB;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,10 +12,10 @@ public class ResetAllClanMembers implements CommandExecutor {
 
         if (!(sender instanceof Player) && !sender.hasPermission("feudal.ls")) return false;
 
-        KingdomStatistics kingdomStatistics = new KingdomStatistics("1", "1", "1");
+        KingdomInfoDB kingdomInfoDB = new KingdomInfoDB("1", "1", "1");
 
         if (command.getName().equalsIgnoreCase("ResetAllClanMembers"))
-            kingdomStatistics.resetAllClanMembers(args[0]);
+            kingdomInfoDB.resetAllClanMembers(args[0]);
 
         return false;
     }

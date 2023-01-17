@@ -1,4 +1,4 @@
-package feudal.statistics;
+package feudal.info;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoCommandException;
@@ -12,19 +12,19 @@ import org.bson.conversions.Bson;
 import org.bukkit.entity.Player;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PlayerStatistics {
+public class PlayerInfoDB {
     MongoClient mongoClient;
     MongoCollection<Document> collection;
 
-    public PlayerStatistics(String mongoClientName, String databaseName, String collectionName) {
+    public PlayerInfoDB(String mongoClientName, String databaseName, String collectionName) {
         
-        this.mongoClient = MongoClients.create(mongoClientName);
+        this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
         this.collection = database.getCollection(collectionName);
         
     }
     
-    public void createNewPlayer(Player player, byte classID) {
+    public void createNewPlayer(Player player) {
 
         if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
                 .iterator()
@@ -37,10 +37,13 @@ public class PlayerStatistics {
             session.startTransaction();
 
             collection.insertOne(new Document("_id", player.getUniqueId().toString())
-                    .append("classID", classID)
-                    .append("balance", "0")
-                    .append("deaths", "0")
-                    .append("kills", "0")
+                    .append("classID", 0)
+                    .append("balance", 0)
+                    .append("deaths", 0)
+                    .append("kills", 0)
+                    .append("lvl", 0)
+                    .append("gain", 0.0)
+                    .append("experience", 0)
                     .append("kingdomName", "notInTheKingdom"));
 
             session.commitTransaction();
@@ -50,6 +53,13 @@ public class PlayerStatistics {
         } finally {
             session.close();
         }
+
+    }
+    public boolean hasPlayer(Player player) {
+
+        return collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                .iterator()
+                .hasNext();
 
     }
     public Object getField(Player player, String fieldName) {

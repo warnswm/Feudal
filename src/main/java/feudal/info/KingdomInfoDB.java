@@ -1,4 +1,4 @@
-package feudal.statistics;
+package feudal.info;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoCommandException;
@@ -17,11 +17,11 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class KingdomStatistics {
+public class KingdomInfoDB {
     MongoClient mongoClient;
     MongoCollection<Document> collection;
 
-    public KingdomStatistics(String mongoClientName, String databaseName, String collectionName) {
+    public KingdomInfoDB(String mongoClientName, String databaseName, String collectionName) {
 
         this.mongoClient = MongoClients.create(mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
@@ -57,6 +57,7 @@ public class KingdomStatistics {
 
         return "Королевство создано успешно";
     }
+
     public Object getField(String kingdomName, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
@@ -82,6 +83,7 @@ public class KingdomStatistics {
 
         return null;
     }
+
     public void setField(String kingdomName, String fieldName, Object value) {
 
         ClientSession session = mongoClient.startSession();
@@ -103,6 +105,7 @@ public class KingdomStatistics {
             session.close();
         }
     }
+
     public void resetTheKingdom(String kingdomName) {
 
         if (!collection.find(new BasicDBObject("_id", kingdomName))
@@ -126,6 +129,7 @@ public class KingdomStatistics {
         }
 
     }
+
     public void resetAllClanMembers(String kingdomName) {
 
         ClientSession session = mongoClient.startSession();
@@ -142,10 +146,10 @@ public class KingdomStatistics {
             if (document.get("members") == null)
                 return;
 
-            PlayerStatistics playerStatistics = new PlayerStatistics(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+            PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
             Player[] members = (Player[]) document.get("members");
 
-            Arrays.asList(members).forEach(playerStatistics::resetAPlayer);
+            Arrays.asList(members).forEach(playerInfoDB::resetAPlayer);
 
             session.commitTransaction();
 

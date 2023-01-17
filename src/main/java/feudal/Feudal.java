@@ -2,7 +2,9 @@ package feudal;
 
 import feudal.commands.adminCommands.*;
 import feudal.commands.staffCommands.SpyCommand;
-import feudal.listeners.PlayerMoveListener;
+import feudal.listeners.ClassListeners;
+import feudal.listeners.PlayerJoinAndQuit;
+import feudal.listeners.inventoryListeners.InteractInventoryListener;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -22,7 +24,9 @@ public final class Feudal extends JavaPlugin {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
-        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ClassListeners(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractInventoryListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
 
         getCommand("givekingdomstats").setExecutor(new GiveKingdomStats());
         getCommand("giveplayerstats").setExecutor(new GivePlayerStats());

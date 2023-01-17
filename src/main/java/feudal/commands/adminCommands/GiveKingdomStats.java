@@ -1,6 +1,6 @@
 package feudal.commands.adminCommands;
 
-import feudal.statistics.KingdomStatistics;
+import feudal.info.KingdomInfoDB;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,10 +15,10 @@ public class GiveKingdomStats implements CommandExecutor {
         if (!(sender instanceof Player) && !sender.hasPermission("feudal.ls")) return false;
 
         FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-        KingdomStatistics kingdomStatistics = new KingdomStatistics(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+        KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
         if (command.getName().equalsIgnoreCase("giveKingdomStats"))
-            kingdomStatistics.setField(args[0], args[1], kingdomStatistics.getField(args[0], args[1]) + args[2]);
+            kingdomInfoDB.setField(args[0], args[1], kingdomInfoDB.getField(args[0], args[1]) + args[2]);
 
         return false;
     }

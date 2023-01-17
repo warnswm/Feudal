@@ -1,6 +1,6 @@
 package feudal.commands.adminCommands;
 
-import feudal.view.ClassSelection;
+import feudal.view.ClassSelectionMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,10 +15,10 @@ public class OpenClassSelection implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        ClassSelection classSelection = new ClassSelection(player);
+        ClassSelectionMenu classSelectionMenu = new ClassSelectionMenu(player);
 
         if (command.getName().equalsIgnoreCase("openClassSelection"))
-            classSelection.openClassSelection();
+            classSelectionMenu.openClassSelection();
 
         return false;
     }

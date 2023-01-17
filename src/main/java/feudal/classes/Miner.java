@@ -7,18 +7,21 @@ import org.bukkit.entity.Player;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Miner extends AbstractClasses {
-    byte lvl = 1;
-    final byte maxlvl = 40;
-    float gain = 0.8F;
-    final Player player;
+public class Miner extends PlayerClass {
 
+    Player player;
     public Miner(Player player) {
         this.player = player;
     }
 
+    long lvl = PlayerClass.getPlayerInfo().get(player).getLvl();
+    double gain = PlayerClass.getPlayerInfo().get(player).getGain();
+    long experience = PlayerClass.getPlayerInfo().get(player).getExperience();
+
     @Override
     public void addLvl() {
+
+        if (lvl == 40) return;
 
         lvl++;
         gain += 0.8F;

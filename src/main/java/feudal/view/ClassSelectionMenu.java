@@ -10,11 +10,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ClassSelection {
+public class ClassSelectionMenu {
 
     Player player;
 
-    public ClassSelection(Player player) {
+    public ClassSelectionMenu(Player player) {
         this.player = player;
     }
 

@@ -1,6 +1,6 @@
 package feudal.commands.adminCommands;
 
-import feudal.statistics.PlayerStatistics;
+import feudal.info.PlayerInfoDB;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,10 +13,10 @@ public class ResetAPlayer implements CommandExecutor {
 
         if (!(sender instanceof Player) && !sender.hasPermission("feudal.ls")) return false;
 
-        PlayerStatistics playerStatistics = new PlayerStatistics("1", "1", "1");
+        PlayerInfoDB playerInfoDB = new PlayerInfoDB("1", "1", "1");
 
         if (command.getName().equalsIgnoreCase("ResetPlayer"))
-            playerStatistics.resetAPlayer(Bukkit.getPlayer(args[0]));
+            playerInfoDB.resetAPlayer(Bukkit.getPlayer(args[0]));
 
         return false;
     }

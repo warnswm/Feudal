@@ -1,6 +1,6 @@
 package feudal.possessions;
 
-import feudal.statistics.KingdomStatistics;
+import feudal.info.KingdomInfoDB;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,40 +23,40 @@ public class Kingdom {
     List<Player> barons;
 
     final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    final KingdomStatistics kingdomStatistics = new KingdomStatistics(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     public void addTerritory(Chunk chunk) {
 
         territory.add(chunk);
 
-        kingdomStatistics.setField(kingdomName, "territory", territory);
+        kingdomInfoDB.setField(kingdomName, "territory", territory);
     }
     public void addMembers(Player player) {
 
         members.add(player);
 
-        kingdomStatistics.setField(kingdomName, "members", members);
+        kingdomInfoDB.setField(kingdomName, "members", members);
 
     }
     public void addBarons(Player player) {
 
         barons.add(player);
 
-        kingdomStatistics.setField(kingdomName, "barons", barons);
+        kingdomInfoDB.setField(kingdomName, "barons", barons);
 
     }
     public void changeTheKing(Player player) {
 
         king = player;
 
-        kingdomStatistics.setField(kingdomName, "king", king);
+        kingdomInfoDB.setField(kingdomName, "king", king);
 
     }
     public void renameKingdom(String name) {
 
         kingdomName = name;
 
-        kingdomStatistics.setField(kingdomName, "_id", kingdomName);
+        kingdomInfoDB.setField(kingdomName, "_id", kingdomName);
 
     }
 }
