@@ -9,13 +9,17 @@ import org.bukkit.entity.Player;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PlayerInfo {
     Player player;
-    int lvl;
-    double gain;
     int aClassID;
     int experience;
     int balance;
     int deaths;
     int kills;
+    int strengthLvl;
+    int survivabilityLvl;
+    int speedLvl;
+    int staminaLvl;
+    int luckLvl;
+
 
     public void addExperience(int value) {
 
@@ -27,23 +31,37 @@ public class PlayerInfo {
 
     private void experienceCalc() {
 
-        if (experience >= Math.pow(lvl + 1, 3))
-            lvl++;
 
+
+    }
+
+    public PlayerInfo setStrengthLvl(int strengthLvl) {
+        this.strengthLvl = strengthLvl;
+        return this;
+    }
+
+    public PlayerInfo setSurvivabilityLvl(int survivabilityLvl) {
+        this.survivabilityLvl = survivabilityLvl;
+        return this;
+    }
+
+    public PlayerInfo setSpeedLvl(int speedLvl) {
+        this.speedLvl = speedLvl;
+        return this;
+    }
+
+    public PlayerInfo setStaminaLvl(int staminaLvl) {
+        this.staminaLvl = staminaLvl;
+        return this;
+    }
+
+    public PlayerInfo setLuckLvl(int luckLvl) {
+        this.luckLvl = luckLvl;
+        return this;
     }
 
     public PlayerInfo setPlayer(Player player) {
         this.player = player;
-        return this;
-    }
-
-    public PlayerInfo setLvl(int lvl) {
-        this.lvl = lvl;
-        return this;
-    }
-
-    public PlayerInfo setGain(double gain) {
-        this.gain = gain;
         return this;
     }
 

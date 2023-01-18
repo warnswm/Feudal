@@ -29,13 +29,16 @@ public class PlayerJoinAndQuit implements Listener {
 
         PlayerInfo playerInfo = new PlayerInfo()
                 .setPlayer(player)
-                .setLvl((Integer) playerInfoDB.getField(player, "lvl"))
-                .setGain((Double) playerInfoDB.getField(player, "gain"))
                 .setaClassID((Integer) playerInfoDB.getField(player, "classID"))
                 .setExperience((Integer) playerInfoDB.getField(player, "experience"))
                 .setBalance((Integer) playerInfoDB.getField(player, "balance"))
                 .setDeaths((Integer) playerInfoDB.getField(player, "deaths"))
-                .setKills((Integer) playerInfoDB.getField(player, "kills"));
+                .setKills((Integer) playerInfoDB.getField(player, "kills"))
+                .setLuckLvl((Integer) playerInfoDB.getField(player, "luckLvl"))
+                .setSpeedLvl((Integer) playerInfoDB.getField(player, "speedLvl"))
+                .setStaminaLvl((Integer) playerInfoDB.getField(player, "staminaLvl"))
+                .setStrengthLvl((Integer) playerInfoDB.getField(player, "strengthLvl"))
+                .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"));
 
         PlayerGameClass.getPlayerInfo().put(player, playerInfo);
 
@@ -48,13 +51,16 @@ public class PlayerJoinAndQuit implements Listener {
 
         Player player = event.getPlayer();
 
-        playerInfoDB.setField(player, "lvl", PlayerGameClass.getPlayerInfo().get(player).getLvl());
-        playerInfoDB.setField(player, "gain", PlayerGameClass.getPlayerInfo().get(player).getGain());
         playerInfoDB.setField(player, "classID", PlayerGameClass.getPlayerInfo().get(player).getAClassID());
         playerInfoDB.setField(player, "experience", PlayerGameClass.getPlayerInfo().get(player).getExperience());
         playerInfoDB.setField(player, "balance", PlayerGameClass.getPlayerInfo().get(player).getBalance());
         playerInfoDB.setField(player, "deaths", PlayerGameClass.getPlayerInfo().get(player).getDeaths());
         playerInfoDB.setField(player, "kills", PlayerGameClass.getPlayerInfo().get(player).getKills());
+        playerInfoDB.setField(player, "luckLvl", PlayerGameClass.getPlayerInfo().get(player).getLuckLvl());
+        playerInfoDB.setField(player, "speedLvl", PlayerGameClass.getPlayerInfo().get(player).getSpeedLvl());
+        playerInfoDB.setField(player, "staminaLvl", PlayerGameClass.getPlayerInfo().get(player).getStaminaLvl());
+        playerInfoDB.setField(player, "strengthLvl", PlayerGameClass.getPlayerInfo().get(player).getStrengthLvl());
+        playerInfoDB.setField(player, "survivabilityLvl", PlayerGameClass.getPlayerInfo().get(player).getSurvivabilityLvl());
 
         PlayerGameClass.getPlayerInfo().remove(player);
 

@@ -15,5 +15,10 @@ public abstract class PlayerGameClass {
         return playerInfo;
     }
 
-    public abstract void addLvl();
+    public void addStrengthLvl() {}
+    public void addSurvivabilityLvl() {}
+    public void addSpeedLvl() {}
+    public void addStaminaLvl() {}
+    public void addLuckLvl() {}
+
 }
