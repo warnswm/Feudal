@@ -21,9 +21,9 @@ public class Trader extends PlayerGameClass {
     }
 
     @Override
-    public void addSurvivabilityLvl() {
+    public void addStaminaLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setSurvivabilityLvl(PlayerGameClass.getPlayerInfo().get(player).getSurvivabilityLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setStaminaLvl(PlayerGameClass.getPlayerInfo().get(player).getStaminaLvl() + 1);
 
     }
 }

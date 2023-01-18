@@ -20,9 +20,9 @@ public class Shepherd extends PlayerGameClass {
     }
 
     @Override
-    public void addStrengthLvl() {
+    public void addStaminaLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setStrengthLvl(PlayerGameClass.getPlayerInfo().get(player).getStrengthLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setStaminaLvl(PlayerGameClass.getPlayerInfo().get(player).getStaminaLvl() + 1);
 
     }
 }

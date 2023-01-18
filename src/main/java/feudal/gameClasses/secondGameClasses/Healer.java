@@ -13,9 +13,9 @@ public class Healer extends PlayerGameClass {
     Player player;
 
     @Override
-    public void addSurvivabilityLvl() {
+    public void addLuckLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setSurvivabilityLvl(PlayerGameClass.getPlayerInfo().get(player).getSurvivabilityLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setLuckLvl(PlayerGameClass.getPlayerInfo().get(player).getLuckLvl() + 1);
 
     }
 

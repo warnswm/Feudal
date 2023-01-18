@@ -1,4 +1,4 @@
-package feudal.gameClasses.secondGameClasses;
+package feudal.gameClasses.firstGameClasses;
 
 import feudal.gameClasses.PlayerGameClass;
 import lombok.AccessLevel;
@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Blacksmith extends PlayerGameClass {
+public class Hunter extends PlayerGameClass {
 
     Player player;
 
@@ -20,9 +20,9 @@ public class Blacksmith extends PlayerGameClass {
     }
 
     @Override
-    public void addStrengthLvl() {
+    public void addSpeedLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setStrengthLvl(PlayerGameClass.getPlayerInfo().get(player).getStrengthLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setSpeedLvl(PlayerGameClass.getPlayerInfo().get(player).getSpeedLvl() + 1);
 
     }
 }

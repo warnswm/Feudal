@@ -21,9 +21,9 @@ public class Farmer extends PlayerGameClass {
     }
 
     @Override
-    public void addLuckLvl() {
+    public void addStrengthLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setLuckLvl(PlayerGameClass.getPlayerInfo().get(player).getLuckLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setStrengthLvl(PlayerGameClass.getPlayerInfo().get(player).getStrengthLvl() + 1);
 
     }
 }

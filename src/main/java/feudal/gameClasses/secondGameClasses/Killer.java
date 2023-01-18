@@ -13,9 +13,9 @@ public class Killer extends PlayerGameClass {
     Player player;
 
     @Override
-    public void addStrengthLvl() {
+    public void addSpeedLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setStrengthLvl(PlayerGameClass.getPlayerInfo().get(player).getStrengthLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setSpeedLvl(PlayerGameClass.getPlayerInfo().get(player).getSpeedLvl() + 1);
 
     }
 

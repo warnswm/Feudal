@@ -13,9 +13,9 @@ public class Clerk extends PlayerGameClass {
     Player player;
 
     @Override
-    public void addStaminaLvl() {
+    public void addSurvivabilityLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setStaminaLvl(PlayerGameClass.getPlayerInfo().get(player).getStaminaLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setSurvivabilityLvl(PlayerGameClass.getPlayerInfo().get(player).getSurvivabilityLvl() + 1);
 
     }
 

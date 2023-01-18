@@ -13,9 +13,9 @@ public class Alchemist extends PlayerGameClass {
     Player player;
 
     @Override
-    public void addSurvivabilityLvl() {
+    public void addSpeedLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setSurvivabilityLvl(PlayerGameClass.getPlayerInfo().get(player).getSurvivabilityLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setSpeedLvl(PlayerGameClass.getPlayerInfo().get(player).getSpeedLvl() + 1);
 
     }
 

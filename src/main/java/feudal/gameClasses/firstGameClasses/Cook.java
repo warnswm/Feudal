@@ -20,9 +20,9 @@ public class Cook extends PlayerGameClass {
     }
 
     @Override
-    public void addStrengthLvl() {
+    public void addLuckLvl() {
 
-        PlayerGameClass.getPlayerInfo().get(player).setStrengthLvl(PlayerGameClass.getPlayerInfo().get(player).getStrengthLvl() + 1);
+        PlayerGameClass.getPlayerInfo().get(player).setLuckLvl(PlayerGameClass.getPlayerInfo().get(player).getLuckLvl() + 1);
 
     }
 }
