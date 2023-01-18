@@ -1,4 +1,4 @@
-package feudal.gameClasses.secondGameClasses;
+package feudal.gameClasses.firstGameClasses;
 
 import feudal.gameClasses.PlayerGameClass;
 import lombok.AccessLevel;
