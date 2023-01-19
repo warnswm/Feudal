@@ -4,7 +4,8 @@ import feudal.commands.adminCommands.*;
 import feudal.commands.staffCommands.SpyCommand;
 import feudal.listeners.ClassListeners;
 import feudal.listeners.PlayerJoinAndQuit;
-import feudal.listeners.inventoryListeners.InteractInventoryListener;
+import feudal.listeners.inventoryListeners.InteractAttributesUpMenuListener;
+import feudal.listeners.inventoryListeners.InteractGameClassChangeMenuListener;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -25,7 +26,8 @@ public final class Feudal extends JavaPlugin {
         saveDefaultConfig();
 
         Bukkit.getPluginManager().registerEvents(new ClassListeners(), this);
-        Bukkit.getPluginManager().registerEvents(new InteractInventoryListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractGameClassChangeMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractAttributesUpMenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
 
         getCommand("givekingdomstats").setExecutor(new GiveKingdomStats());
@@ -37,6 +39,8 @@ public final class Feudal extends JavaPlugin {
         getCommand("addls").setExecutor(new AddLS());
         getCommand("getarmy").setExecutor(new GetArmy());
         getCommand("openclassselection").setExecutor(new OpenClassSelection());
+        getCommand("openupgradegameclass").setExecutor(new OpenUpgradeGameClass());
+        getCommand("changegameclass").setExecutor(new ChangeGameClass());
     }
     public static Plugin getPlugin() {
 

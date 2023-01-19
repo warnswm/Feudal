@@ -11,3 +11,5 @@ commands:
   openclassselection:
   getarmy:
   addls:
+  openupgradegameclass:
+  changegameclass:

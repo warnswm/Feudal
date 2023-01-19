@@ -3,6 +3,7 @@ package feudal.listeners;
 import feudal.info.PlayerInfo;
 import feudal.info.PlayerInfoDB;
 import feudal.utils.PlayerGameClass;
+import feudal.view.menu.GameClassSelectionMenu;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -24,8 +25,13 @@ public class PlayerJoinAndQuit implements Listener {
 
         Player player = event.getPlayer();
 
-        if (!playerInfoDB.hasPlayer(player))
+        if (!playerInfoDB.hasPlayer(player)){
+
             playerInfoDB.createNewPlayer(player);
+
+            GameClassSelectionMenu gameClassSelectionMenu = new GameClassSelectionMenu(player);
+            gameClassSelectionMenu.openClassSelection();
+        }
 
         PlayerInfo playerInfo = new PlayerInfo()
                 .setPlayer(player)
