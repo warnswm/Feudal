@@ -35,6 +35,46 @@ public class PlayerInfo {
 
     }
 
+    public void addBalance(int value) {
+
+        balance += value;
+
+    }
+    public void addDeaths(int value) {
+
+        deaths += value;
+
+    }
+    public void addKills(int value) {
+
+        kills += value;
+
+    }
+    public void addStrengthLvl(int value) {
+
+        strengthLvl += value;
+
+    }
+    public void addSurvivabilityLvl(int value) {
+
+        survivabilityLvl += value;
+
+    }
+    public void addSpeedLvl(int value) {
+
+        speedLvl += value;
+
+    }
+    public void addStaminaLvl(int value) {
+
+        staminaLvl += value;
+
+    }
+    public void addLuckLvl(int value) {
+
+        luckLvl += value;
+
+    }
     public PlayerInfo setStrengthLvl(int strengthLvl) {
         this.strengthLvl = strengthLvl;
         return this;

@@ -1,8 +1,8 @@
 package feudal.listeners;
 
-import feudal.gameClasses.PlayerGameClass;
 import feudal.info.PlayerInfo;
 import feudal.info.PlayerInfoDB;
+import feudal.utils.PlayerGameClass;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;

@@ -1,7 +1,7 @@
 package feudal.listeners.inventoryListeners;
 
-import feudal.gameClasses.PlayerGameClass;
 import feudal.info.PlayerInfoDB;
+import feudal.utils.PlayerGameClass;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
