@@ -34,7 +34,6 @@ public class ClassListeners implements Listener {
             case EMERALD_ORE:
                 playerInfo.addExperience(25);
                 break;
-
         }
 
     }

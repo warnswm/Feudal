@@ -25,14 +25,6 @@ public class PlayerInfo {
 
         experience += value;
 
-        experienceCalc();
-
-    }
-
-    private void experienceCalc() {
-
-
-
     }
 
     public void addBalance(int value) {

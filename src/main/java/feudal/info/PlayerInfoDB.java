@@ -39,12 +39,15 @@ public class PlayerInfoDB {
 
             collection.insertOne(new Document("_id", player.getUniqueId().toString())
                     .append("classID", 0)
+                    .append("experience", 0)
                     .append("balance", 0)
                     .append("deaths", 0)
                     .append("kills", 0)
-                    .append("lvl", 0)
-                    .append("gain", 0.0)
-                    .append("experience", 0)
+                    .append("luckLvl", 0)
+                    .append("speedLvl", 0)
+                    .append("staminaLvl", 0)
+                    .append("strengthLvl", 0)
+                    .append("survivabilityLvl", 0)
                     .append("kingdomName", "notInTheKingdom"));
 
             session.commitTransaction();
