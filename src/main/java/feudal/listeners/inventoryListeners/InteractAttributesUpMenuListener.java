@@ -12,7 +12,7 @@ public class InteractAttributesUpMenuListener implements Listener {
     @EventHandler
     public void interactInventory(InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Прокачка атрибутов") || event.getCurrentItem().getType() == null) return;
+        if (!event.getView().getTitle().equals("Прокачка атрибутов")) return;
 
         event.setCancelled(true);
 
@@ -20,11 +20,13 @@ public class InteractAttributesUpMenuListener implements Listener {
 
         PlayerInfo playerInfo = PlayerGameClass.getPlayerInfo().get(player);
 
-        if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень силы " + playerInfo.getStrengthLvl() + 1)){
+        if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень")){
 
             playerInfo.addStrengthLvl(1);
 
             playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getStrengthLvl()) * 100));
+
+            player.closeInventory();
         }
     }
 }

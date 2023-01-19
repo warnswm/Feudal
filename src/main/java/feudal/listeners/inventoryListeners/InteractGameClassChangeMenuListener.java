@@ -12,7 +12,7 @@ public class InteractGameClassChangeMenuListener implements Listener {
     @EventHandler
     public void interactInventory(InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Выберите класс") || event.getCurrentItem().getType() == null) return;
+        if (!event.getView().getTitle().equals("Выберите класс")) return;
 
         event.setCancelled(true);
 
