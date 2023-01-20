@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class KingdomInfo {
+public class KingdomInfoCache {
     String kingdomName;
     Player king;
     Player[] members;

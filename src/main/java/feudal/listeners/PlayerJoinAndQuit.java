@@ -1,6 +1,6 @@
 package feudal.listeners;
 
-import feudal.info.PlayerInfo;
+import feudal.info.PlayerInfoCache;
 import feudal.info.PlayerInfoDB;
 import feudal.utils.PlayerGameClass;
 import lombok.AccessLevel;
@@ -28,7 +28,7 @@ public class PlayerJoinAndQuit implements Listener {
             playerInfoDB.createNewPlayer(player);
 
 
-        PlayerInfo playerInfo = new PlayerInfo()
+        PlayerInfoCache playerInfoCache = new PlayerInfoCache()
                 .setPlayer(player)
                 .setaClassID((Integer) playerInfoDB.getField(player, "classID"))
                 .setExperience((Integer) playerInfoDB.getField(player, "experience"))
@@ -41,7 +41,7 @@ public class PlayerJoinAndQuit implements Listener {
                 .setStrengthLvl((Integer) playerInfoDB.getField(player, "strengthLvl"))
                 .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"));
 
-        PlayerGameClass.getPlayerInfo().put(player, playerInfo);
+        PlayerGameClass.getPlayerInfo().put(player, playerInfoCache);
 
     }
 

@@ -1,5 +1,6 @@
 package feudal.listeners.inventoryListeners;
 
+import feudal.info.PlayerInfoCache;
 import feudal.utils.PlayerGameClass;
 import feudal.view.menu.AttributesUpMenu;
 import org.bukkit.entity.Player;
@@ -21,11 +22,31 @@ public class InteractGameClassUpMenuListener implements Listener {
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
+        AttributesUpMenu attributesUpMenu;
+        PlayerInfoCache playerInfoCache = PlayerGameClass.getPlayerInfo().get(player);
+
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Сила":
-                AttributesUpMenu attributesUpMenu = new AttributesUpMenu(player, PlayerGameClass.getPlayerInfo().get(player).getStrengthLvl());
+                attributesUpMenu = new AttributesUpMenu(player, playerInfoCache.getStrengthLvl(), "силы");
                 attributesUpMenu.attributesUpMenu();
+                break;
+            case "Выносливость":
+                attributesUpMenu = new AttributesUpMenu(player, playerInfoCache.getStaminaLvl(), "выносливости");
+                attributesUpMenu.attributesUpMenu();
+                break;
+            case "Удача":
+                attributesUpMenu = new AttributesUpMenu(player, playerInfoCache.getLuckLvl(), "удачи");
+                attributesUpMenu.attributesUpMenu();
+                break;
+            case "Живучесть":
+                attributesUpMenu = new AttributesUpMenu(player, playerInfoCache.getSurvivabilityLvl(), "живучести");
+                attributesUpMenu.attributesUpMenu();
+                break;
+            case "Скорость":
+                attributesUpMenu = new AttributesUpMenu(player, playerInfoCache.getSpeedLvl(), "скорости");
+                attributesUpMenu.attributesUpMenu();
+                break;
         }
     }
 }

@@ -1,6 +1,6 @@
 package feudal.listeners.inventoryListeners;
 
-import feudal.info.PlayerInfo;
+import feudal.info.PlayerInfoCache;
 import feudal.utils.PlayerGameClass;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,18 +18,46 @@ public class InteractAttributesUpMenuListener implements Listener {
 
         Player player = (Player) event.getView().getPlayer();
 
-        PlayerInfo playerInfo = PlayerGameClass.getPlayerInfo().get(player);
+        PlayerInfoCache playerInfoCache = PlayerGameClass.getPlayerInfo().get(player);
 
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
-        if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень")){
+        if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень силы")) {
 
-            playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getStrengthLvl()) * 100));
-
-            playerInfo.addStrengthLvl(1);
+            playerInfoCache.setExperience((int) (playerInfoCache.getExperience() - Math.pow(1 + 0.05, playerInfoCache.getStrengthLvl()) * 100));
+            playerInfoCache.addStrengthLvl(1);
 
             player.closeInventory();
+
+        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень выносливости")) {
+
+            playerInfoCache.setExperience((int) (playerInfoCache.getExperience() - Math.pow(1 + 0.05, playerInfoCache.getStaminaLvl()) * 100));
+            playerInfoCache.addStaminaLvl(1);
+
+            player.closeInventory();
+
+        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень удачи")) {
+
+            playerInfoCache.setExperience((int) (playerInfoCache.getExperience() - Math.pow(1 + 0.05, playerInfoCache.getLuckLvl()) * 100));
+            playerInfoCache.addLuckLvl(1);
+
+            player.closeInventory();
+
+        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень живучести")) {
+
+            playerInfoCache.setExperience((int) (playerInfoCache.getExperience() - Math.pow(1 + 0.05, playerInfoCache.getSurvivabilityLvl()) * 100));
+            playerInfoCache.addSurvivabilityLvl(1);
+
+            player.closeInventory();
+
+        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень скорости")) {
+
+            playerInfoCache.setExperience((int) (playerInfoCache.getExperience() - Math.pow(1 + 0.05, playerInfoCache.getSpeedLvl()) * 100));
+            playerInfoCache.addSpeedLvl(1);
+
+            player.closeInventory();
+
         }
     }
 }

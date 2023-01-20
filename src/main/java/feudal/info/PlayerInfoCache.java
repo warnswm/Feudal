@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class PlayerInfo {
+public class PlayerInfoCache {
     Player player;
     int aClassID;
     int experience;
@@ -67,60 +67,60 @@ public class PlayerInfo {
         luckLvl += value;
 
     }
-    public PlayerInfo setStrengthLvl(int strengthLvl) {
+    public PlayerInfoCache setStrengthLvl(int strengthLvl) {
         this.strengthLvl = strengthLvl;
         return this;
     }
 
-    public PlayerInfo setSurvivabilityLvl(int survivabilityLvl) {
+    public PlayerInfoCache setSurvivabilityLvl(int survivabilityLvl) {
         this.survivabilityLvl = survivabilityLvl;
         return this;
     }
 
-    public PlayerInfo setSpeedLvl(int speedLvl) {
+    public PlayerInfoCache setSpeedLvl(int speedLvl) {
         this.speedLvl = speedLvl;
         return this;
     }
 
-    public PlayerInfo setStaminaLvl(int staminaLvl) {
+    public PlayerInfoCache setStaminaLvl(int staminaLvl) {
         this.staminaLvl = staminaLvl;
         return this;
     }
 
-    public PlayerInfo setLuckLvl(int luckLvl) {
+    public PlayerInfoCache setLuckLvl(int luckLvl) {
         this.luckLvl = luckLvl;
         return this;
     }
 
-    public PlayerInfo setPlayer(Player player) {
+    public PlayerInfoCache setPlayer(Player player) {
         this.player = player;
         return this;
     }
 
-    public PlayerInfo setaClassID(int aClassID) {
+    public PlayerInfoCache setaClassID(int aClassID) {
         this.aClassID = aClassID;
         return this;
     }
 
-    public PlayerInfo setExperience(int experience) {
+    public PlayerInfoCache setExperience(int experience) {
         this.experience = experience;
         return this;
     }
-    public PlayerInfo setBalance(int balance) {
+    public PlayerInfoCache setBalance(int balance) {
         this.balance = balance;
         return this;
     }
 
-    public PlayerInfo setDeaths(int deaths) {
+    public PlayerInfoCache setDeaths(int deaths) {
         this.deaths = deaths;
         return this;
     }
 
-    public PlayerInfo setKills(int kills) {
+    public PlayerInfoCache setKills(int kills) {
         this.kills = kills;
         return this;
     }
-    public PlayerInfo build() {
+    public PlayerInfoCache build() {
         return this;
     }
 }

@@ -3,7 +3,7 @@ package feudal;
 import feudal.commands.adminCommands.*;
 import feudal.commands.staffCommands.SpyCommand;
 import feudal.info.PlayerInfoDB;
-import feudal.listeners.ClassListeners;
+import feudal.listeners.GameClassesListeners;
 import feudal.listeners.PlayerJoinAndQuit;
 import feudal.listeners.inventoryListeners.InteractAttributesUpMenuListener;
 import feudal.listeners.inventoryListeners.InteractGameClassChangeMenuListener;
@@ -29,7 +29,7 @@ public final class Feudal extends JavaPlugin {
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
-        Bukkit.getPluginManager().registerEvents(new ClassListeners(), this);
+        Bukkit.getPluginManager().registerEvents(new GameClassesListeners(), this);
         Bukkit.getPluginManager().registerEvents(new InteractGameClassChangeMenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractAttributesUpMenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractGameClassUpMenuListener(), this);
