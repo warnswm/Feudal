@@ -106,7 +106,6 @@ public class PlayerInfo {
         this.experience = experience;
         return this;
     }
-
     public PlayerInfo setBalance(int balance) {
         this.balance = balance;
         return this;

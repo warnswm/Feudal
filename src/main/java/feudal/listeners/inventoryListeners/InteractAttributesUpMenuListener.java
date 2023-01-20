@@ -25,9 +25,9 @@ public class InteractAttributesUpMenuListener implements Listener {
 
         if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень")){
 
-            playerInfo.addStrengthLvl(1);
-
             playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getStrengthLvl()) * 100));
+
+            playerInfo.addStrengthLvl(1);
 
             player.closeInventory();
         }
