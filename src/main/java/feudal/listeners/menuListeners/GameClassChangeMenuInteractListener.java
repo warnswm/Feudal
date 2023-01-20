@@ -1,13 +1,13 @@
-package feudal.listeners.inventoryListeners;
+package feudal.listeners.menuListeners;
 
-import feudal.info.PlayerInfoCache;
-import feudal.utils.PlayerGameClass;
+import feudal.info.CachePlayerInfo;
+import feudal.utils.CachePlayersHashMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-public class InteractGameClassChangeMenuListener implements Listener {
+public class GameClassChangeMenuInteractListener implements Listener {
 
     @EventHandler
     public void interactInventory(InventoryClickEvent event) {
@@ -18,7 +18,7 @@ public class InteractGameClassChangeMenuListener implements Listener {
 
         Player player = (Player) event.getView().getPlayer();
 
-        PlayerInfoCache playerInfoCache = PlayerGameClass.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
 
         if (event.getCurrentItem().getItemMeta() == null)
             return;
@@ -26,39 +26,39 @@ public class InteractGameClassChangeMenuListener implements Listener {
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Строитель":
-                playerInfoCache.setaClassID(1);
+                cachePlayerInfo.setaClassID(1);
                 player.closeInventory();
                 break;
             case "Повар":
-                playerInfoCache.setaClassID(2);
+                cachePlayerInfo.setaClassID(2);
                 player.closeInventory();
                 break;
             case "Фермер":
-                playerInfoCache.setaClassID(3);
+                cachePlayerInfo.setaClassID(3);
                 player.closeInventory();
                 break;
             case "Рыболов":
-                playerInfoCache.setaClassID(4);
+                cachePlayerInfo.setaClassID(4);
                 player.closeInventory();
                 break;
             case "Охотник":
-                playerInfoCache.setaClassID(5);
+                cachePlayerInfo.setaClassID(5);
                 player.closeInventory();
                 break;
             case "Шахтёр":
-                playerInfoCache.setaClassID(6);
+                cachePlayerInfo.setaClassID(6);
                 player.closeInventory();
                 break;
             case "Пастух":
-                playerInfoCache.setaClassID(7);
+                cachePlayerInfo.setaClassID(7);
                 player.closeInventory();
                 break;
             case "Торговец":
-                playerInfoCache.setaClassID(8);
+                cachePlayerInfo.setaClassID(8);
                 player.closeInventory();
                 break;
             case "Дровосек":
-                playerInfoCache.setaClassID(9);
+                cachePlayerInfo.setaClassID(9);
                 player.closeInventory();
                 break;
         }

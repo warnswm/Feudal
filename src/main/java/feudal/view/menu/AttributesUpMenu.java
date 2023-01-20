@@ -1,8 +1,8 @@
 package feudal.view.menu;
 
-import feudal.info.PlayerInfoCache;
+import feudal.info.CachePlayerInfo;
+import feudal.utils.CachePlayersHashMap;
 import feudal.utils.CreateItemUtil;
-import feudal.utils.PlayerGameClass;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,12 +23,12 @@ public class AttributesUpMenu {
 
         Inventory strengthPumpingMenuInv = Bukkit.createInventory(player, 9, "Прокачка атрибутов");
 
-        PlayerInfoCache playerInfoCache = PlayerGameClass.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
 
-        if (playerInfoCache.getExperience() >= Math.pow(1 + 0.05, attributeLvl) * 100)
+        if (cachePlayerInfo.getExperience() >= Math.pow(1 + 0.05, attributeLvl) * 100)
             strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GREEN_SHULKER_BOX, 1, "Прокачать уровень " + attributeName));
         else
-            strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GRAY_SHULKER_BOX, 1, "Не достаточно опыта, нужно ещё " + (Math.pow(1 + 0.05, attributeLvl) * 100 - playerInfoCache.getExperience())));
+            strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GRAY_SHULKER_BOX, 1, "Не достаточно опыта, нужно ещё " + (Math.pow(1 + 0.05, attributeLvl) * 100 - cachePlayerInfo.getExperience())));
 
 
         player.openInventory(strengthPumpingMenuInv);

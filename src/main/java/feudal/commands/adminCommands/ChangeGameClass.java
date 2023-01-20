@@ -1,7 +1,7 @@
 package feudal.commands.adminCommands;
 
-import feudal.info.PlayerInfoCache;
-import feudal.utils.PlayerGameClass;
+import feudal.info.CachePlayerInfo;
+import feudal.utils.CachePlayersHashMap;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,10 +16,10 @@ public class ChangeGameClass implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        PlayerInfoCache playerInfoCache = PlayerGameClass.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
 
         if (command.getName().equalsIgnoreCase("changeGameClass"))
-            playerInfoCache.setaClassID(Integer.parseInt(args[0]));
+            cachePlayerInfo.setaClassID(Integer.parseInt(args[0]));
 
         return false;
     }
