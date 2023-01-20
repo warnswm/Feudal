@@ -32,41 +32,49 @@ public class CachePlayerInfo {
         balance += value;
 
     }
+
     public void addDeaths(int value) {
 
         deaths += value;
 
     }
+
     public void addKills(int value) {
 
         kills += value;
 
     }
+
     public void addStrengthLvl(int value) {
 
         strengthLvl += value;
 
     }
+
     public void addSurvivabilityLvl(int value) {
 
         survivabilityLvl += value;
 
     }
+
     public void addSpeedLvl(int value) {
 
         speedLvl += value;
 
     }
+
     public void addStaminaLvl(int value) {
 
         staminaLvl += value;
 
     }
+
     public void addLuckLvl(int value) {
 
         luckLvl += value;
 
     }
+
     public CachePlayerInfo setStrengthLvl(int strengthLvl) {
         this.strengthLvl = strengthLvl;
         return this;
@@ -106,6 +114,7 @@ public class CachePlayerInfo {
         this.experience = experience;
         return this;
     }
+
     public CachePlayerInfo setBalance(int balance) {
         this.balance = balance;
         return this;
@@ -120,6 +129,7 @@ public class CachePlayerInfo {
         this.kills = kills;
         return this;
     }
+
     public CachePlayerInfo build() {
         return this;
     }

@@ -18,7 +18,7 @@ public class ScoreBoards {
     int deaths;
     int kills;
 
-    HashMap<Player, ScoreBoards> playerScoreBoard = new HashMap<>();
+    final HashMap<Player, ScoreBoards> playerScoreBoard = new HashMap<>();
 
     public ScoreBoards setPlayer(Player player) {
         this.player = player;

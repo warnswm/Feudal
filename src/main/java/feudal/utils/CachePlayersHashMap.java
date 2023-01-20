@@ -10,6 +10,7 @@ import java.util.HashMap;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CachePlayersHashMap {
     static HashMap<Player, CachePlayerInfo> playerInfoHashMap = new HashMap<>();
+
     public static HashMap<Player, CachePlayerInfo> getPlayerInfo() {
         return playerInfoHashMap;
     }
