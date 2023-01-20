@@ -18,6 +18,9 @@ public class InteractGameClassUpMenuListener implements Listener {
 
         Player player = (Player) event.getView().getPlayer();
 
+        if (event.getCurrentItem().getItemMeta() == null)
+            return;
+
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Сила":

@@ -20,6 +20,9 @@ public class InteractAttributesUpMenuListener implements Listener {
 
         PlayerInfo playerInfo = PlayerGameClass.getPlayerInfo().get(player);
 
+        if (event.getCurrentItem().getItemMeta() == null)
+            return;
+
         if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень")){
 
             playerInfo.addStrengthLvl(1);

@@ -20,6 +20,9 @@ public class InteractGameClassChangeMenuListener implements Listener {
 
         PlayerInfo playerInfo = PlayerGameClass.getPlayerInfo().get(player);
 
+        if (event.getCurrentItem().getItemMeta() == null)
+            return;
+
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Строитель":
