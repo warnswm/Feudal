@@ -2,9 +2,12 @@ package feudal.listeners;
 
 import feudal.info.CachePlayerInfo;
 import feudal.utils.CachePlayersHashMap;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class GameClassesListeners implements Listener {
 
@@ -35,6 +38,28 @@ public class GameClassesListeners implements Listener {
                 cachePlayerInfo.addExperience(25);
                 break;
         }
+
+    }
+    @EventHandler
+    public void damageEvent(EntityDamageByEntityEvent event) {
+
+        if (!(event.getDamager() instanceof Player)) return;
+
+        Player player = (Player) event.getDamager();
+
+        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+
+        event.setDamage(event.getDamage() + cachePlayerInfo.getStrengthLvl());
+
+    }
+    @EventHandler
+    public void moveEvent(PlayerMoveEvent event) {
+
+        Player player = event.getPlayer();
+
+        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+
+        player.setWalkSpeed(player.getWalkSpeed() + cachePlayerInfo.getSpeedLvl());
 
     }
 }
