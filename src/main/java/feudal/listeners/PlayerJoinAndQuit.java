@@ -44,10 +44,9 @@ public class PlayerJoinAndQuit implements Listener {
 
         CachePlayersHashMap.getPlayerInfo().put(player, cachePlayerInfo);
 
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(cachePlayerInfo.getSurvivabilityLvl()); //
-        player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(cachePlayerInfo.getStrengthLvl()); //
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(cachePlayerInfo.getSurvivabilityLvl()); //
-        player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(cachePlayerInfo.getSpeedLvl()); //
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue((cachePlayerInfo.getSurvivabilityLvl()/100 + 1) * player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+        player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue((cachePlayerInfo.getStrengthLvl()/100 + 1) * player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue());
+        player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue((cachePlayerInfo.getSpeedLvl()/100 + 1) * player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue());
     }
 
     @EventHandler
