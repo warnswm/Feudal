@@ -1,19 +1,32 @@
 package feudal.listeners;
 
+import feudal.Feudal;
 import feudal.info.CachePlayerInfo;
 import feudal.utils.CachePlayersHashMap;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 
 public class GameClassesListeners implements Listener {
 
     @EventHandler
+    public void blockPlaced(BlockPlaceEvent event) {
+
+        Block block = event.getBlock();
+
+        block.setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
+    }
+    @EventHandler
     public void blockBreak(BlockBreakEvent event) {
+
+        if (event.getBlock().getMetadata("PLACED") != null) return;
 
         CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(event.getPlayer());
 
@@ -41,6 +54,8 @@ public class GameClassesListeners implements Listener {
         }
 
     }
+
+    
     @EventHandler
     public void regenerationEvent(EntityRegainHealthEvent event) {
 
@@ -52,8 +67,6 @@ public class GameClassesListeners implements Listener {
         float tmpp = CachePlayersHashMap.getPlayerInfo().get(player).getSurvivabilityLvl();
 
         event.setAmount(1 * (tmp / 200 + tmpp / 500) + 1);
-
-        System.out.println(1 * (tmp / 200 + tmpp / 500) + 1);
 
     }
     @EventHandler

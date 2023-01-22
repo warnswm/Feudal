@@ -1,11 +1,13 @@
 package feudal;
 
 import feudal.commands.adminCommands.*;
+import feudal.commands.playerCommands.FCommands;
 import feudal.commands.staffCommands.SpyCommand;
 import feudal.info.PlayerInfoDB;
 import feudal.listeners.GameClassesListeners;
 import feudal.listeners.PlayerJoinAndQuit;
 import feudal.listeners.menuListeners.AttributesUpMenuInteractListener;
+import feudal.listeners.menuListeners.CreateKingdomMenuInteractListener;
 import feudal.listeners.menuListeners.GameClassChangeMenuInteractListener;
 import feudal.listeners.menuListeners.GameClassUpMenuInteractListener;
 import feudal.utils.CachePlayersHashMap;
@@ -33,6 +35,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new GameClassChangeMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new AttributesUpMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new GameClassUpMenuInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new CreateKingdomMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
 
         getCommand("givekingdomstats").setExecutor(new GiveKingdomStats());
@@ -46,6 +49,7 @@ public final class Feudal extends JavaPlugin {
         getCommand("openclassselection").setExecutor(new OpenClassSelection());
         getCommand("openupgradegameclass").setExecutor(new OpenUpgradeGameClass());
         getCommand("changegameclass").setExecutor(new ChangeGameClass());
+        getCommand("f").setExecutor(new FCommands());
     }
     public static Plugin getPlugin() {
 
