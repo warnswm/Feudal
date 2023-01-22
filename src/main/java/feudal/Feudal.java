@@ -63,7 +63,7 @@ public final class Feudal extends JavaPlugin {
         final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
         final PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
-        Bukkit.getOnlinePlayers().forEach(player -> {
+        Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
 
             playerInfoDB.setField(player, "classID", CachePlayersHashMap.getPlayerInfo().get(player).getAClassID());
             playerInfoDB.setField(player, "experience", CachePlayersHashMap.getPlayerInfo().get(player).getExperience());
@@ -78,6 +78,6 @@ public final class Feudal extends JavaPlugin {
 
             CachePlayersHashMap.getPlayerInfo().remove(player);
 
-        });
+        }).start());
     }
 }
