@@ -6,8 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 public class GameClassesListeners implements Listener {
 
@@ -41,25 +40,17 @@ public class GameClassesListeners implements Listener {
 
     }
     @EventHandler
-    public void damageEvent(EntityDamageByEntityEvent event) {
+    public void regenerationEvent(EntityRegainHealthEvent event) {
 
-        if (!(event.getDamager() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
 
-        Player player = (Player) event.getDamager();
-
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
-
-        event.setDamage(event.getDamage() + cachePlayerInfo.getStrengthLvl());
-
-    }
-    @EventHandler
-    public void moveEvent(PlayerMoveEvent event) {
-
-        Player player = event.getPlayer();
+        Player player = (Player) event.getEntity();
 
         CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
 
         player.setWalkSpeed(player.getWalkSpeed() + cachePlayerInfo.getSpeedLvl());
+
+        event.setAmount(event.getAmount() + cachePlayerInfo.getStaminaLvl() + cachePlayerInfo.getSurvivabilityLvl()); //
 
     }
 }
