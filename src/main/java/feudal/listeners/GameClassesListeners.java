@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 public class GameClassesListeners implements Listener {
 
@@ -46,11 +48,33 @@ public class GameClassesListeners implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+        float tmp = CachePlayersHashMap.getPlayerInfo().get(player).getStaminaLvl();
+        float tmpp = CachePlayersHashMap.getPlayerInfo().get(player).getSurvivabilityLvl();
 
-        player.setWalkSpeed(player.getWalkSpeed() + cachePlayerInfo.getSpeedLvl());
+        event.setAmount(1 * (tmp / 200 + tmpp / 500) + 1);
 
-        event.setAmount(event.getAmount() + cachePlayerInfo.getStaminaLvl() + cachePlayerInfo.getSurvivabilityLvl()); //
+        System.out.println(1 * (tmp / 200 + tmpp / 500) + 1);
 
+    }
+    @EventHandler
+    public void playerMove(PlayerMoveEvent event) {
+
+        Player player = event.getPlayer();
+
+        float tmp = CachePlayersHashMap.getPlayerInfo().get(player).getSpeedLvl();
+
+        player.setWalkSpeed(0.2f * (tmp / 100) + 0.2f);
+
+    }
+    @EventHandler
+    public void playerAttack(EntityDamageByEntityEvent event) {
+
+        if (!(event.getDamager() instanceof Player)) return;
+
+        Player player = (Player) event.getDamager();
+
+        float tmp = CachePlayersHashMap.getPlayerInfo().get(player).getStrengthLvl();
+
+        event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
     }
 }

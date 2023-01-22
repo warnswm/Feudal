@@ -6,7 +6,6 @@ import feudal.utils.CachePlayersHashMap;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,9 +43,9 @@ public class PlayerJoinAndQuit implements Listener {
 
         CachePlayersHashMap.getPlayerInfo().put(player, cachePlayerInfo);
 
-        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue((cachePlayerInfo.getSurvivabilityLvl()/100 + 1) * player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
-        player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue((cachePlayerInfo.getStrengthLvl()/100 + 1) * player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).getBaseValue());
-        player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue((cachePlayerInfo.getSpeedLvl()/100 + 1) * player.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue());
+        float tmp = cachePlayerInfo.getSpeedLvl();
+
+        player.setMaxHealth(20 * (tmp / 100) + 20);
     }
 
     @EventHandler
