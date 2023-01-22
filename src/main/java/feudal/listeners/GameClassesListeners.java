@@ -14,6 +14,8 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import static org.bukkit.Material.LOG;
+
 public class GameClassesListeners implements Listener {
 
     @EventHandler
@@ -26,36 +28,44 @@ public class GameClassesListeners implements Listener {
     @EventHandler
     public void blockBreak(BlockBreakEvent event) {
 
-        if (event.getBlock().getMetadata("PLACED") != null) return;
+        if (event.getBlock().hasMetadata("PLACED")) return;
 
         CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(event.getPlayer());
 
         if (cachePlayerInfo.getLuckLvl() == 100 ||
-                cachePlayerInfo.getStrengthLvl() == 100 ||
-                cachePlayerInfo.getAClassID() != 6) return;
+                cachePlayerInfo.getStrengthLvl() == 100) return;
 
-        switch (event.getBlock().getType()) {
 
-            case COAL_ORE:
-                cachePlayerInfo.addExperience(3);
-                break;
-            case IRON_ORE:
-                cachePlayerInfo.addExperience(5);
-                break;
-            case GOLD_ORE:
-                cachePlayerInfo.addExperience(8);
-                break;
-            case DIAMOND_ORE:
-                cachePlayerInfo.addExperience(15);
-                break;
-            case EMERALD_ORE:
-                cachePlayerInfo.addExperience(25);
-                break;
+        if (cachePlayerInfo.getAClassID() == 6) {
+
+            switch (event.getBlock().getType()) {
+
+                case COAL_ORE:
+                    cachePlayerInfo.addExperience(3);
+                    break;
+                case IRON_ORE:
+                    cachePlayerInfo.addExperience(5);
+                    break;
+                case GOLD_ORE:
+                    cachePlayerInfo.addExperience(8);
+                    break;
+                case DIAMOND_ORE:
+                    cachePlayerInfo.addExperience(15);
+                    break;
+                case EMERALD_ORE:
+                    cachePlayerInfo.addExperience(25);
+                    break;
+            }
+
+        } else if (cachePlayerInfo.getAClassID() == 9) {
+
+            if (event.getBlock().getType().equals(LOG))
+                cachePlayerInfo.addExperience(1);
+
         }
-
     }
 
-    
+
     @EventHandler
     public void regenerationEvent(EntityRegainHealthEvent event) {
 
