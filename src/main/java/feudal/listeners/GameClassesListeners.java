@@ -127,6 +127,8 @@ public class GameClassesListeners implements Listener {
     public void playerHunted(EntityDeathEvent event) {
 
         Player player = event.getEntity().getKiller();
+        if (player == null) return;
+
         CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
 
         if (cachePlayerInfo.getAClassID() != 5) return;
