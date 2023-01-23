@@ -23,7 +23,6 @@ public class PlayerJoinAndQuit implements Listener{
 
     FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 

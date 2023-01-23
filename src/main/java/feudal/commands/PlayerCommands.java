@@ -30,9 +30,9 @@ public class PlayerCommands implements CommandExecutor {
                         "/f m - меню королевства\n" +
                         "/f map - карта местности\n" +
                         "/f shield - ХУЙ ЕГО ЗНАЕТ, ШЕПАРД НЕ НАПИСАЛ\n" +
+                        "/f location - указать локацию королевства\n" +
                         "/ah - открыть аукцион\n");
 
-//                ScoreBoardInfo.createScoreBoardInfo(player);
                 break;
             case "create":
 
@@ -67,6 +67,8 @@ public class PlayerCommands implements CommandExecutor {
                 gameClassSelectionMenu.openClassSelection();
 
                 break;
+            case "location":
+
         }
 
         return false;

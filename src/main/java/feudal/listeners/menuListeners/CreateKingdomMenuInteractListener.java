@@ -23,7 +23,9 @@ public class CreateKingdomMenuInteractListener implements Listener {
             player.closeInventory();
         else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Поддтвердить создание королевства")){
 
-            //create kingdom
+
+
+
             player.closeInventory();
         }
     }
