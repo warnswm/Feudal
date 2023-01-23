@@ -2,8 +2,7 @@ package feudal;
 
 import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
-import feudal.commands.adminCommands.*;
-import feudal.commands.playerCommands.FCommands;
+import feudal.commands.PlayerCommands;
 import feudal.commands.staffCommands.SpyCommand;
 import feudal.info.PlayerInfoDB;
 import feudal.listeners.GameClassesListeners;
@@ -40,18 +39,10 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CreateKingdomMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
 
-        getCommand("givekingdomstats").setExecutor(new GiveKingdomStats());
-        getCommand("giveplayerstats").setExecutor(new GivePlayerStats());
-        getCommand("resetallclanmembers").setExecutor(new ResetAllClanMembers());
-        getCommand("resetaplayer").setExecutor(new ResetAPlayer());
-        getCommand("resetthekingdom").setExecutor(new ResetTheKingomdom());
         getCommand("spy").setExecutor(new SpyCommand());
         getCommand("admin").setExecutor(new AdminCommands());
-        getCommand("getarmy").setExecutor(new GetArmy());
-        getCommand("openclassselection").setExecutor(new OpenClassSelection());
-        getCommand("openupgradegameclass").setExecutor(new OpenUpgradeGameClass());
         getCommand("ls").setExecutor(new LocalStaffCommands());
-        getCommand("f").setExecutor(new FCommands());
+        getCommand("f").setExecutor(new PlayerCommands());
     }
     public static Plugin getPlugin() {
 

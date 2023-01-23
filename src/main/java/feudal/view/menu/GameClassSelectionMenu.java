@@ -17,17 +17,17 @@ public class GameClassSelectionMenu {
 
     public void openClassSelection() {
 
-        Inventory inventory = Bukkit.createInventory(player, 9, "Выберите класс");
+        Inventory inventory = Bukkit.createInventory(player, 54, "Выберите класс");
 
-        inventory.setItem(0, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Строитель"));
-        inventory.setItem(1, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Повар"));
-        inventory.setItem(2, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Фермер"));
-        inventory.setItem(3, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Рыболов"));
-        inventory.setItem(4, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Охотник"));
-        inventory.setItem(5, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Шахтёр"));
-        inventory.setItem(6, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Пастух"));
-        inventory.setItem(7, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Торговец"));
-        inventory.setItem(8, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Дровосек"));
+        inventory.setItem(10, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Строитель"));
+        inventory.setItem(12, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Повар"));
+        inventory.setItem(14, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Фермер"));
+        inventory.setItem(16, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Рыболов"));
+        inventory.setItem(28, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Охотник"));
+        inventory.setItem(30, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Шахтёр"));
+        inventory.setItem(32, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Пастух"));
+        inventory.setItem(34, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Торговец"));
+        inventory.setItem(49, CreateItemUtil.createItem(Material.CLAY_BALL, 1, "Дровосек"));
 
         player.openInventory(inventory);
 

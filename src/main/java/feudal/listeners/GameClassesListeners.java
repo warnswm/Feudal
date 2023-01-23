@@ -3,6 +3,9 @@ package feudal.listeners;
 import feudal.Feudal;
 import feudal.info.CachePlayerInfo;
 import feudal.utils.CachePlayers;
+import feudal.utils.gameClassesEnums.AnimalsForHunted;
+import feudal.utils.gameClassesEnums.AnimalsForShepherd;
+import feudal.utils.gameClassesEnums.BlocksForMiner;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,31 +40,17 @@ public class GameClassesListeners implements Listener {
 
         if (cachePlayerInfo.getAClassID() == 6) {
 
-            switch (event.getBlock().getType()) {
+            cachePlayerInfo.addExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()));
+            cachePlayerInfo.addGameClassExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()) * 4);
 
-                case COAL_ORE:
-                    cachePlayerInfo.addExperience(3);
-                    break;
-                case IRON_ORE:
-                    cachePlayerInfo.addExperience(5);
-                    break;
-                case GOLD_ORE:
-                    cachePlayerInfo.addExperience(8);
-                    break;
-                case DIAMOND_ORE:
-                    cachePlayerInfo.addExperience(15);
-                    break;
-                case EMERALD_ORE:
-                    cachePlayerInfo.addExperience(25);
-                    break;
+        }
+        else if (cachePlayerInfo.getAClassID() == 9)
+            if (event.getBlock().getType().equals(LOG)) {
+                cachePlayerInfo.addExperience(1);
+                cachePlayerInfo.addGameClassExperience(4);
             }
 
-        } else if (cachePlayerInfo.getAClassID() == 9) {
-
-            if (event.getBlock().getType().equals(LOG))
-                cachePlayerInfo.addExperience(1);
-
-        } else if (cachePlayerInfo.getAClassID() == 3) {
+        else if (cachePlayerInfo.getAClassID() == 3) {
 
             //Farmer logics
 
@@ -71,13 +60,16 @@ public class GameClassesListeners implements Listener {
     public void playerFishing(PlayerFishEvent event) {
 
         Player player = event.getPlayer();
-
         CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
         if (cachePlayerInfo.getAClassID() != 4) return;
 
-        if (event.getCaught() != null)
+        if (event.getCaught() != null) {
+
             cachePlayerInfo.addExperience(30);
+            cachePlayerInfo.addGameClassExperience(120);
+
+        }
 
     }
     @EventHandler
@@ -86,35 +78,13 @@ public class GameClassesListeners implements Listener {
         if (!(event.getBreeder() instanceof Player)) return;
 
         Player player = (Player) event.getBreeder();
-
         CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
         if (cachePlayerInfo.getAClassID() != 7) return;
 
-        switch (event.getEntityType()) {
+        cachePlayerInfo.addExperience(AnimalsForShepherd.getByEntity(event.getEntityType()));
+        cachePlayerInfo.addGameClassExperience(AnimalsForShepherd.getByEntity(event.getEntityType()) * 4);
 
-            case SHEEP:
-            case COW:
-            case MUSHROOM_COW:
-            case OCELOT:
-            case RABBIT:
-                cachePlayerInfo.addExperience(5);
-                break;
-            case PIG:
-                cachePlayerInfo.addExperience(6);
-                break;
-            case HORSE:
-            case DONKEY:
-                cachePlayerInfo.addExperience(35);
-                break;
-            case CHICKEN:
-                cachePlayerInfo.addExperience(3);
-                break;
-            case WOLF:
-            case LLAMA:
-                cachePlayerInfo.addExperience(12);
-                break;
-        }
     }
 
     @EventHandler
@@ -127,30 +97,8 @@ public class GameClassesListeners implements Listener {
 
         if (cachePlayerInfo.getAClassID() != 5) return;
 
-        switch (event.getEntityType()) {
-
-            case SHEEP:
-            case COW:
-            case MUSHROOM_COW:
-            case OCELOT:
-            case RABBIT:
-                cachePlayerInfo.addExperience(5);
-                break;
-            case PIG:
-                cachePlayerInfo.addExperience(6);
-                break;
-            case HORSE:
-            case DONKEY:
-                cachePlayerInfo.addExperience(15);
-                break;
-            case CHICKEN:
-                cachePlayerInfo.addExperience(3);
-                break;
-            case WOLF:
-            case LLAMA:
-                cachePlayerInfo.addExperience(12);
-                break;
-        }
+        cachePlayerInfo.addExperience(AnimalsForHunted.getByEntity(event.getEntityType()));
+        cachePlayerInfo.addGameClassExperience(AnimalsForHunted.getByEntity(event.getEntityType()) * 4);
 
     }
 

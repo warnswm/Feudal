@@ -19,11 +19,18 @@ public class CachePlayerInfo {
     int speedLvl;
     int staminaLvl;
     int luckLvl;
+    int gameClassExperience;
+    String kingdomName;
 
 
     public void addExperience(int value) {
 
         experience += value;
+
+    }
+    public void addGameClassExperience(int value) {
+
+        gameClassExperience += value;
 
     }
 
@@ -129,8 +136,12 @@ public class CachePlayerInfo {
         this.kills = kills;
         return this;
     }
-
-    public CachePlayerInfo build() {
+    public CachePlayerInfo setGameClassExperience(int gameClassExperience) {
+        this.gameClassExperience = gameClassExperience;
+        return this;
+    }
+    public CachePlayerInfo setKingdomName(String  kingdomName) {
+        this.kingdomName = kingdomName;
         return this;
     }
 }

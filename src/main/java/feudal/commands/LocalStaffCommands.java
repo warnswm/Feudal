@@ -28,7 +28,10 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "changegameclass":
                 cachePlayerInfo.setaClassID(Integer.parseInt(args[2]));
-
+                break;
+            case "givekingdomstats":
+                kingdomInfoDB.setField(args[1], args[2], kingdomInfoDB.getField(args[1], args[2]) + args[3]);
+                break;
         }
 
         if (command.getName().equalsIgnoreCase("changeGameClass"))

@@ -40,6 +40,7 @@ public class PlayerInfoDB {
             collection.insertOne(new Document("_id", player.getUniqueId().toString())
                     .append("classID", 0)
                     .append("experience", 0)
+                    .append("gameClassExperience", 0)
                     .append("balance", 0)
                     .append("deaths", 0)
                     .append("kills", 0)

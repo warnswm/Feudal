@@ -1,10 +1,13 @@
 package feudal.listeners;
 
+import feudal.Feudal;
 import feudal.info.CachePlayerInfo;
 import feudal.info.PlayerInfoDB;
 import feudal.utils.CachePlayers;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -12,6 +15,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener{
@@ -20,7 +25,7 @@ public class PlayerJoinAndQuit implements Listener{
     PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     @EventHandler
-    public void playerJoin(PlayerJoinEvent event) {
+    public void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
 
@@ -32,6 +37,7 @@ public class PlayerJoinAndQuit implements Listener{
                 .setPlayer(player)
                 .setaClassID((Integer) playerInfoDB.getField(player, "classID"))
                 .setExperience((Integer) playerInfoDB.getField(player, "experience"))
+                .setGameClassExperience((Integer) playerInfoDB.getField(player, "gameClassExperience"))
                 .setBalance((Integer) playerInfoDB.getField(player, "balance"))
                 .setDeaths((Integer) playerInfoDB.getField(player, "deaths"))
                 .setKills((Integer) playerInfoDB.getField(player, "kills"))
@@ -39,18 +45,20 @@ public class PlayerJoinAndQuit implements Listener{
                 .setSpeedLvl((Integer) playerInfoDB.getField(player, "speedLvl"))
                 .setStaminaLvl((Integer) playerInfoDB.getField(player, "staminaLvl"))
                 .setStrengthLvl((Integer) playerInfoDB.getField(player, "strengthLvl"))
-                .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"))
-                .build();
+                .setKingdomName((String) playerInfoDB.getField(player, "kingdomName"))
+                .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"));
 
         CachePlayers.getPlayerInfo().put(player, cachePlayerInfo);
 
         float tmp = cachePlayerInfo.getSpeedLvl();
 
         player.setMaxHealth(20 * (tmp / 100) + 20);
+
+        showActionBar(player);
     }
 
     @EventHandler
-    public void playerQuit(PlayerQuitEvent event) {
+    public void playerQuit(@NotNull PlayerQuitEvent event) {
 
         if (CachePlayers.getPlayerInfo().get(event.getPlayer()) == null) return;
 
@@ -60,6 +68,7 @@ public class PlayerJoinAndQuit implements Listener{
 
             playerInfoDB.setField(player, "classID", CachePlayers.getPlayerInfo().get(player).getAClassID());
             playerInfoDB.setField(player, "experience", CachePlayers.getPlayerInfo().get(player).getExperience());
+            playerInfoDB.setField(player, "gameClassExperience", CachePlayers.getPlayerInfo().get(player).getGameClassExperience());
             playerInfoDB.setField(player, "balance", CachePlayers.getPlayerInfo().get(player).getBalance());
             playerInfoDB.setField(player, "deaths", CachePlayers.getPlayerInfo().get(player).getDeaths());
             playerInfoDB.setField(player, "kills", CachePlayers.getPlayerInfo().get(player).getKills());
@@ -68,10 +77,30 @@ public class PlayerJoinAndQuit implements Listener{
             playerInfoDB.setField(player, "staminaLvl", CachePlayers.getPlayerInfo().get(player).getStaminaLvl());
             playerInfoDB.setField(player, "strengthLvl", CachePlayers.getPlayerInfo().get(player).getStrengthLvl());
             playerInfoDB.setField(player, "survivabilityLvl", CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl());
+            playerInfoDB.setField(player, "kingdomName", CachePlayers.getPlayerInfo().get(player).getKingdomName());
 
             CachePlayers.getPlayerInfo().remove(player);
 
         }).start();
+
+    }
+
+    // этот метод сделан на очень короткий срок, и существует только для удобства демонстрации
+    // я знаю, что он плохо оптимизирован из-за постоянных запросов в кэш и т.д., я обязательно это перепишу
+    private void showActionBar(Player player) {
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+
+                if (!player.isOnline()) return;
+
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§c§lБаланс: " + CachePlayers.getPlayerInfo().get(player).getBalance()  + " Опыта атрибутов: " + CachePlayers.getPlayerInfo().get(player).getExperience() + " Опыта класса: " + CachePlayers.getPlayerInfo().get(player).getGameClassExperience()));
+
+            }
+
+        }.runTaskTimer(Feudal.getPlugin(), 0, 20);
 
     }
 }
