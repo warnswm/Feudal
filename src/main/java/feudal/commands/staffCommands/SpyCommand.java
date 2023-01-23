@@ -11,7 +11,9 @@ public class SpyCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player) && !command.getName().equalsIgnoreCase("spy") && !sender.hasPermission("feudal.staff"))
+        if (!(sender instanceof Player) &&
+                !command.getName().equalsIgnoreCase("spy") &&
+                !sender.hasPermission("feudal.staff"))
             return false;
 
         assert sender instanceof Player;

@@ -39,7 +39,8 @@ public class PlayerJoinAndQuit implements Listener{
                 .setSpeedLvl((Integer) playerInfoDB.getField(player, "speedLvl"))
                 .setStaminaLvl((Integer) playerInfoDB.getField(player, "staminaLvl"))
                 .setStrengthLvl((Integer) playerInfoDB.getField(player, "strengthLvl"))
-                .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"));
+                .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"))
+                .build();
 
         CachePlayers.getPlayerInfo().put(player, cachePlayerInfo);
 

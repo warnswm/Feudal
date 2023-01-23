@@ -9,7 +9,9 @@ public class AdminCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player) && !sender.hasPermission("feudal.admin") && !args[0].equals("admin")) return false;
+        if (!(sender instanceof Player) &&
+                !sender.hasPermission("feudal.admin") &&
+                !args[0].equals("admin")) return false;
 
         assert sender instanceof Player;
         Player player = (Player) sender;
