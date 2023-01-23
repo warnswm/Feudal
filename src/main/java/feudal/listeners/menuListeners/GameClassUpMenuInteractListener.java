@@ -1,7 +1,7 @@
 package feudal.listeners.menuListeners;
 
 import feudal.info.CachePlayerInfo;
-import feudal.utils.CachePlayersHashMap;
+import feudal.utils.CachePlayers;
 import feudal.view.menu.AttributesUpMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +23,7 @@ public class GameClassUpMenuInteractListener implements Listener {
             return;
 
         AttributesUpMenu attributesUpMenu;
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 

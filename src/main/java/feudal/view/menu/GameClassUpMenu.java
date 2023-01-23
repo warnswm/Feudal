@@ -1,7 +1,7 @@
 package feudal.view.menu;
 
 import feudal.info.CachePlayerInfo;
-import feudal.utils.CachePlayersHashMap;
+import feudal.utils.CachePlayers;
 import feudal.utils.CreateItemUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class GameClassUpMenu {
 
         Inventory upgradeGameClassInv = Bukkit.createInventory(player, 9, "Прокачка класса");
 
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
         switch (cachePlayerInfo.getAClassID()) {
 

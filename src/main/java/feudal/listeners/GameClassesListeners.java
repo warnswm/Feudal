@@ -2,7 +2,7 @@ package feudal.listeners;
 
 import feudal.Feudal;
 import feudal.info.CachePlayerInfo;
-import feudal.utils.CachePlayersHashMap;
+import feudal.utils.CachePlayers;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +17,6 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import static org.bukkit.Material.CROPS;
 import static org.bukkit.Material.LOG;
 
 public class GameClassesListeners implements Listener {
@@ -34,11 +33,7 @@ public class GameClassesListeners implements Listener {
 
         if (event.getBlock().hasMetadata("PLACED")) return;
 
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(event.getPlayer());
-
-        if (cachePlayerInfo.getLuckLvl() == 100 ||
-                cachePlayerInfo.getStrengthLvl() == 100) return;
-
+        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
 
         if (cachePlayerInfo.getAClassID() == 6) {
 
@@ -68,8 +63,7 @@ public class GameClassesListeners implements Listener {
 
         } else if (cachePlayerInfo.getAClassID() == 3) {
 
-            if (event.getBlock().getType().equals(CROPS) && event.getBlock().getMetadata("data").equals(7))
-                cachePlayerInfo.addExperience(1);
+            //Farmer logics
 
         }
     }
@@ -78,7 +72,7 @@ public class GameClassesListeners implements Listener {
 
         Player player = event.getPlayer();
 
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
         if (cachePlayerInfo.getAClassID() != 4) return;
 
@@ -93,7 +87,7 @@ public class GameClassesListeners implements Listener {
 
         Player player = (Player) event.getBreeder();
 
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
         if (cachePlayerInfo.getAClassID() != 7) return;
 
@@ -129,7 +123,7 @@ public class GameClassesListeners implements Listener {
         Player player = event.getEntity().getKiller();
         if (player == null) return;
 
-        CachePlayerInfo cachePlayerInfo = CachePlayersHashMap.getPlayerInfo().get(player);
+        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
         if (cachePlayerInfo.getAClassID() != 5) return;
 
@@ -168,8 +162,8 @@ public class GameClassesListeners implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        float tmp = CachePlayersHashMap.getPlayerInfo().get(player).getStaminaLvl();
-        float tmpp = CachePlayersHashMap.getPlayerInfo().get(player).getSurvivabilityLvl();
+        float tmp = CachePlayers.getPlayerInfo().get(player).getStaminaLvl();
+        float tmpp = CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl();
 
         event.setAmount(1 * (tmp / 200 + tmpp / 500) + 1);
 
@@ -179,7 +173,7 @@ public class GameClassesListeners implements Listener {
 
         Player player = event.getPlayer();
 
-        float tmp = CachePlayersHashMap.getPlayerInfo().get(player).getSpeedLvl();
+        float tmp = CachePlayers.getPlayerInfo().get(player).getSpeedLvl();
 
         player.setWalkSpeed(0.2f * (tmp / 100) + 0.2f);
 
@@ -191,7 +185,7 @@ public class GameClassesListeners implements Listener {
 
         Player player = (Player) event.getDamager();
 
-        float tmp = CachePlayersHashMap.getPlayerInfo().get(player).getStrengthLvl();
+        float tmp = CachePlayers.getPlayerInfo().get(player).getStrengthLvl();
 
         event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
     }

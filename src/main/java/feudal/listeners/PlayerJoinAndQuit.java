@@ -2,7 +2,7 @@ package feudal.listeners;
 
 import feudal.info.CachePlayerInfo;
 import feudal.info.PlayerInfoDB;
-import feudal.utils.CachePlayersHashMap;
+import feudal.utils.CachePlayers;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -41,7 +41,7 @@ public class PlayerJoinAndQuit implements Listener{
                 .setStrengthLvl((Integer) playerInfoDB.getField(player, "strengthLvl"))
                 .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"));
 
-        CachePlayersHashMap.getPlayerInfo().put(player, cachePlayerInfo);
+        CachePlayers.getPlayerInfo().put(player, cachePlayerInfo);
 
         float tmp = cachePlayerInfo.getSpeedLvl();
 
@@ -51,24 +51,24 @@ public class PlayerJoinAndQuit implements Listener{
     @EventHandler
     public void playerQuit(PlayerQuitEvent event) {
 
-        if (CachePlayersHashMap.getPlayerInfo().get(event.getPlayer()) == null) return;
+        if (CachePlayers.getPlayerInfo().get(event.getPlayer()) == null) return;
 
         Player player = event.getPlayer();
 
         new Thread(() -> {
 
-            playerInfoDB.setField(player, "classID", CachePlayersHashMap.getPlayerInfo().get(player).getAClassID());
-            playerInfoDB.setField(player, "experience", CachePlayersHashMap.getPlayerInfo().get(player).getExperience());
-            playerInfoDB.setField(player, "balance", CachePlayersHashMap.getPlayerInfo().get(player).getBalance());
-            playerInfoDB.setField(player, "deaths", CachePlayersHashMap.getPlayerInfo().get(player).getDeaths());
-            playerInfoDB.setField(player, "kills", CachePlayersHashMap.getPlayerInfo().get(player).getKills());
-            playerInfoDB.setField(player, "luckLvl", CachePlayersHashMap.getPlayerInfo().get(player).getLuckLvl());
-            playerInfoDB.setField(player, "speedLvl", CachePlayersHashMap.getPlayerInfo().get(player).getSpeedLvl());
-            playerInfoDB.setField(player, "staminaLvl", CachePlayersHashMap.getPlayerInfo().get(player).getStaminaLvl());
-            playerInfoDB.setField(player, "strengthLvl", CachePlayersHashMap.getPlayerInfo().get(player).getStrengthLvl());
-            playerInfoDB.setField(player, "survivabilityLvl", CachePlayersHashMap.getPlayerInfo().get(player).getSurvivabilityLvl());
+            playerInfoDB.setField(player, "classID", CachePlayers.getPlayerInfo().get(player).getAClassID());
+            playerInfoDB.setField(player, "experience", CachePlayers.getPlayerInfo().get(player).getExperience());
+            playerInfoDB.setField(player, "balance", CachePlayers.getPlayerInfo().get(player).getBalance());
+            playerInfoDB.setField(player, "deaths", CachePlayers.getPlayerInfo().get(player).getDeaths());
+            playerInfoDB.setField(player, "kills", CachePlayers.getPlayerInfo().get(player).getKills());
+            playerInfoDB.setField(player, "luckLvl", CachePlayers.getPlayerInfo().get(player).getLuckLvl());
+            playerInfoDB.setField(player, "speedLvl", CachePlayers.getPlayerInfo().get(player).getSpeedLvl());
+            playerInfoDB.setField(player, "staminaLvl", CachePlayers.getPlayerInfo().get(player).getStaminaLvl());
+            playerInfoDB.setField(player, "strengthLvl", CachePlayers.getPlayerInfo().get(player).getStrengthLvl());
+            playerInfoDB.setField(player, "survivabilityLvl", CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl());
 
-            CachePlayersHashMap.getPlayerInfo().remove(player);
+            CachePlayers.getPlayerInfo().remove(player);
 
         }).start();
 

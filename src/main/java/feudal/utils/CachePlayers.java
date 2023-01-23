@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CachePlayersHashMap {
+public class CachePlayers {
     static HashMap<Player, CachePlayerInfo> playerInfoHashMap = new HashMap<>();
 
     public static HashMap<Player, CachePlayerInfo> getPlayerInfo() {
