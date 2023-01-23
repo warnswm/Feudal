@@ -1,5 +1,7 @@
 package feudal;
 
+import feudal.commands.AdminCommands;
+import feudal.commands.LocalStaffCommands;
 import feudal.commands.adminCommands.*;
 import feudal.commands.playerCommands.FCommands;
 import feudal.commands.staffCommands.SpyCommand;
@@ -44,11 +46,11 @@ public final class Feudal extends JavaPlugin {
         getCommand("resetaplayer").setExecutor(new ResetAPlayer());
         getCommand("resetthekingdom").setExecutor(new ResetTheKingomdom());
         getCommand("spy").setExecutor(new SpyCommand());
-        getCommand("addls").setExecutor(new AddLS());
+        getCommand("admin").setExecutor(new AdminCommands());
         getCommand("getarmy").setExecutor(new GetArmy());
         getCommand("openclassselection").setExecutor(new OpenClassSelection());
         getCommand("openupgradegameclass").setExecutor(new OpenUpgradeGameClass());
-        getCommand("changegameclass").setExecutor(new ChangeGameClass());
+        getCommand("ls").setExecutor(new LocalStaffCommands());
         getCommand("f").setExecutor(new FCommands());
     }
     public static Plugin getPlugin() {
