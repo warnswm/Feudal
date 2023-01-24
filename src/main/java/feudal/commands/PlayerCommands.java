@@ -81,8 +81,30 @@ public class PlayerCommands implements CommandExecutor {
                 CacheKingdoms.getKingdomInfo().put(kingdomInfoDB.getPlayerKingdom(player), cacheKingdomInfoBuilder);
 
                 break;
-            case "location":
+            case "invite":
 
+                if (CacheKingdoms.getKingdomInfo().get(player) == null) {
+
+                    player.sendMessage("Вы не находитесь в королевстве");
+
+                    break;
+                } else if (!CacheKingdoms.getKingdomInfo().get(player).getKing().equals(player.getUniqueId().toString())) {
+
+                    player.sendMessage("Вы не король королевства");
+
+                    break;
+                } else if (Bukkit.getPlayer(args[1]) == null) {
+
+                    player.sendMessage("Такой игрок не найден");
+
+                    break;
+                }
+
+//                CacheKingdoms.getKingdomInfo().get(player).getMembers().add(Bukkit.getPlayer(args[1]).getUniqueId().toString());
+
+//                player.sendMessage("Игрок доб");
+
+                break;
 
         }
 
