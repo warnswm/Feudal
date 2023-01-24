@@ -1,7 +1,7 @@
 package feudal.listeners;
 
 import feudal.Feudal;
-import feudal.info.CachePlayerInfo;
+import feudal.info.CachePlayerInfoBuilder;
 import feudal.utils.CachePlayers;
 import feudal.utils.gameClassesEnums.AnimalsForHunted;
 import feudal.utils.gameClassesEnums.AnimalsForShepherd;
@@ -36,21 +36,21 @@ public class GameClassesListeners implements Listener {
 
         if (event.getBlock().hasMetadata("PLACED")) return;
 
-        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(event.getPlayer());
 
-        if (cachePlayerInfo.getAClassID() == 6) {
+        if (cachePlayerInfoBuilder.getAClassID() == 6) {
 
-            cachePlayerInfo.addExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()));
-            cachePlayerInfo.addGameClassExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()) * 4);
+            cachePlayerInfoBuilder.addExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()));
+            cachePlayerInfoBuilder.addGameClassExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()) * 4);
 
         }
-        else if (cachePlayerInfo.getAClassID() == 9)
+        else if (cachePlayerInfoBuilder.getAClassID() == 9)
             if (event.getBlock().getType().equals(LOG)) {
-                cachePlayerInfo.addExperience(1);
-                cachePlayerInfo.addGameClassExperience(4);
+                cachePlayerInfoBuilder.addExperience(1);
+                cachePlayerInfoBuilder.addGameClassExperience(4);
             }
 
-        else if (cachePlayerInfo.getAClassID() == 3) {
+        else if (cachePlayerInfoBuilder.getAClassID() == 3) {
 
             //Farmer logics
 
@@ -60,14 +60,14 @@ public class GameClassesListeners implements Listener {
     public void playerFishing(PlayerFishEvent event) {
 
         Player player = event.getPlayer();
-        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
 
-        if (cachePlayerInfo.getAClassID() != 4) return;
+        if (cachePlayerInfoBuilder.getAClassID() != 4) return;
 
         if (event.getCaught() != null) {
 
-            cachePlayerInfo.addExperience(30);
-            cachePlayerInfo.addGameClassExperience(120);
+            cachePlayerInfoBuilder.addExperience(30);
+            cachePlayerInfoBuilder.addGameClassExperience(120);
 
         }
 
@@ -78,12 +78,12 @@ public class GameClassesListeners implements Listener {
         if (!(event.getBreeder() instanceof Player)) return;
 
         Player player = (Player) event.getBreeder();
-        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
 
-        if (cachePlayerInfo.getAClassID() != 7) return;
+        if (cachePlayerInfoBuilder.getAClassID() != 7) return;
 
-        cachePlayerInfo.addExperience(AnimalsForShepherd.getByEntity(event.getEntityType()));
-        cachePlayerInfo.addGameClassExperience(AnimalsForShepherd.getByEntity(event.getEntityType()) * 4);
+        cachePlayerInfoBuilder.addExperience(AnimalsForShepherd.getByEntity(event.getEntityType()));
+        cachePlayerInfoBuilder.addGameClassExperience(AnimalsForShepherd.getByEntity(event.getEntityType()) * 4);
 
     }
 
@@ -93,12 +93,12 @@ public class GameClassesListeners implements Listener {
         Player player = event.getEntity().getKiller();
         if (player == null) return;
 
-        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
 
-        if (cachePlayerInfo.getAClassID() != 5) return;
+        if (cachePlayerInfoBuilder.getAClassID() != 5) return;
 
-        cachePlayerInfo.addExperience(AnimalsForHunted.getByEntity(event.getEntityType()));
-        cachePlayerInfo.addGameClassExperience(AnimalsForHunted.getByEntity(event.getEntityType()) * 4);
+        cachePlayerInfoBuilder.addExperience(AnimalsForHunted.getByEntity(event.getEntityType()));
+        cachePlayerInfoBuilder.addGameClassExperience(AnimalsForHunted.getByEntity(event.getEntityType()) * 4);
 
     }
 

@@ -6,49 +6,49 @@ import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CacheKingdomInfo {
+public class CacheKingdomInfoBuilder {
     String kingdomName;
-    Player king;
-    List<Player> members;
+    UUID king;
+    List<UUID> members;
     List<Chunk> territory;
-    List<Player> barons;
+    List<UUID> barons;
     ItemStack banner;
     final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionNameKingdom").toString());
 
-    public CacheKingdomInfo setKingdomName(String kingdomName) {
+    public CacheKingdomInfoBuilder setKingdomName(String kingdomName) {
         this.kingdomName = kingdomName;
         return this;
     }
 
-    public CacheKingdomInfo setKing(Player king) {
+    public CacheKingdomInfoBuilder setKing(UUID king) {
         this.king = king;
         return this;
     }
 
-    public CacheKingdomInfo setMembers(List<Player> members) {
+    public CacheKingdomInfoBuilder setMembers(List<UUID> members) {
         this.members = members;
         return this;
     }
 
-    public CacheKingdomInfo setTerritory(List<Chunk> territory) {
+    public CacheKingdomInfoBuilder setTerritory(List<Chunk> territory) {
         this.territory = territory;
         return this;
     }
 
-    public CacheKingdomInfo setBarons(List<Player> barons) {
+    public CacheKingdomInfoBuilder setBarons(List<UUID> barons) {
         this.barons = barons;
         return this;
     }
 
-    public CacheKingdomInfo setBanner(ItemStack banner) {
+    public CacheKingdomInfoBuilder setBanner(ItemStack banner) {
         this.banner = banner;
         return this;
     }

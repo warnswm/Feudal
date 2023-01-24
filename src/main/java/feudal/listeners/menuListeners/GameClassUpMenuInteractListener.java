@@ -1,6 +1,6 @@
 package feudal.listeners.menuListeners;
 
-import feudal.info.CachePlayerInfo;
+import feudal.info.CachePlayerInfoBuilder;
 import feudal.utils.CachePlayers;
 import feudal.view.menu.AttributesUpMenu;
 import org.bukkit.entity.Player;
@@ -23,28 +23,28 @@ public class GameClassUpMenuInteractListener implements Listener {
             return;
 
         AttributesUpMenu attributesUpMenu;
-        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
 
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Сила":
-                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfo.getStrengthLvl(), "силы");
+                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfoBuilder.getStrengthLvl(), "силы");
                 attributesUpMenu.attributesUpMenu();
                 break;
             case "Выносливость":
-                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfo.getStaminaLvl(), "выносливости");
+                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfoBuilder.getStaminaLvl(), "выносливости");
                 attributesUpMenu.attributesUpMenu();
                 break;
             case "Удача":
-                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfo.getLuckLvl(), "удачи");
+                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfoBuilder.getLuckLvl(), "удачи");
                 attributesUpMenu.attributesUpMenu();
                 break;
             case "Живучесть":
-                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfo.getSurvivabilityLvl(), "живучести");
+                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfoBuilder.getSurvivabilityLvl(), "живучести");
                 attributesUpMenu.attributesUpMenu();
                 break;
             case "Скорость":
-                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfo.getSpeedLvl(), "скорости");
+                attributesUpMenu = new AttributesUpMenu(player, cachePlayerInfoBuilder.getSpeedLvl(), "скорости");
                 attributesUpMenu.attributesUpMenu();
                 break;
         }

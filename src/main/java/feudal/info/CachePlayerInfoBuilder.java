@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CachePlayerInfo {
+public class CachePlayerInfoBuilder {
     Player player;
     int aClassID;
     int experience;
@@ -82,65 +82,65 @@ public class CachePlayerInfo {
 
     }
 
-    public CachePlayerInfo setStrengthLvl(int strengthLvl) {
+    public CachePlayerInfoBuilder setStrengthLvl(int strengthLvl) {
         this.strengthLvl = strengthLvl;
         return this;
     }
 
-    public CachePlayerInfo setSurvivabilityLvl(int survivabilityLvl) {
+    public CachePlayerInfoBuilder setSurvivabilityLvl(int survivabilityLvl) {
         this.survivabilityLvl = survivabilityLvl;
         return this;
     }
 
-    public CachePlayerInfo setSpeedLvl(int speedLvl) {
+    public CachePlayerInfoBuilder setSpeedLvl(int speedLvl) {
         this.speedLvl = speedLvl;
         return this;
     }
 
-    public CachePlayerInfo setStaminaLvl(int staminaLvl) {
+    public CachePlayerInfoBuilder setStaminaLvl(int staminaLvl) {
         this.staminaLvl = staminaLvl;
         return this;
     }
 
-    public CachePlayerInfo setLuckLvl(int luckLvl) {
+    public CachePlayerInfoBuilder setLuckLvl(int luckLvl) {
         this.luckLvl = luckLvl;
         return this;
     }
 
-    public CachePlayerInfo setPlayer(Player player) {
+    public CachePlayerInfoBuilder setPlayer(Player player) {
         this.player = player;
         return this;
     }
 
-    public CachePlayerInfo setaClassID(int aClassID) {
+    public CachePlayerInfoBuilder setaClassID(int aClassID) {
         this.aClassID = aClassID;
         return this;
     }
 
-    public CachePlayerInfo setExperience(int experience) {
+    public CachePlayerInfoBuilder setExperience(int experience) {
         this.experience = experience;
         return this;
     }
 
-    public CachePlayerInfo setBalance(int balance) {
+    public CachePlayerInfoBuilder setBalance(int balance) {
         this.balance = balance;
         return this;
     }
 
-    public CachePlayerInfo setDeaths(int deaths) {
+    public CachePlayerInfoBuilder setDeaths(int deaths) {
         this.deaths = deaths;
         return this;
     }
 
-    public CachePlayerInfo setKills(int kills) {
+    public CachePlayerInfoBuilder setKills(int kills) {
         this.kills = kills;
         return this;
     }
-    public CachePlayerInfo setGameClassExperience(int gameClassExperience) {
+    public CachePlayerInfoBuilder setGameClassExperience(int gameClassExperience) {
         this.gameClassExperience = gameClassExperience;
         return this;
     }
-    public CachePlayerInfo setKingdomName(String  kingdomName) {
+    public CachePlayerInfoBuilder setKingdomName(String  kingdomName) {
         this.kingdomName = kingdomName;
         return this;
     }

@@ -1,6 +1,6 @@
 package feudal.commands;
 
-import feudal.info.CachePlayerInfo;
+import feudal.info.CachePlayerInfoBuilder;
 import feudal.info.KingdomInfoDB;
 import feudal.utils.CachePlayers;
 import org.bukkit.Bukkit;
@@ -19,7 +19,7 @@ public class LocalStaffCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
         FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
         KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
@@ -27,7 +27,7 @@ public class LocalStaffCommands implements CommandExecutor {
         switch (args[1].toLowerCase()) {
 
             case "changegameclass":
-                cachePlayerInfo.setaClassID(Integer.parseInt(args[2]));
+                cachePlayerInfoBuilder.setaClassID(Integer.parseInt(args[2]));
                 break;
             case "givekingdomstats":
                 kingdomInfoDB.setField(args[1], args[2], kingdomInfoDB.getField(args[1], args[2]) + args[3]);
@@ -35,7 +35,7 @@ public class LocalStaffCommands implements CommandExecutor {
         }
 
         if (command.getName().equalsIgnoreCase("changeGameClass"))
-            cachePlayerInfo.setaClassID(Integer.parseInt(args[0]));
+            cachePlayerInfoBuilder.setaClassID(Integer.parseInt(args[0]));
 
         return false;
     }

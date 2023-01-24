@@ -1,6 +1,6 @@
 package feudal.listeners.menuListeners;
 
-import feudal.info.CachePlayerInfo;
+import feudal.info.CachePlayerInfoBuilder;
 import feudal.utils.CachePlayers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,43 +18,43 @@ public class AttributesUpMenuInteractListener implements Listener {
 
         Player player = (Player) event.getView().getPlayer();
 
-        CachePlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
 
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
         if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень силы")) {
 
-            cachePlayerInfo.setExperience((int) (cachePlayerInfo.getExperience() - Math.pow(1 + 0.05, cachePlayerInfo.getStrengthLvl()) * 100));
-            cachePlayerInfo.addStrengthLvl(1);
+            cachePlayerInfoBuilder.setExperience((int) (cachePlayerInfoBuilder.getExperience() - Math.pow(1 + 0.05, cachePlayerInfoBuilder.getStrengthLvl()) * 100));
+            cachePlayerInfoBuilder.addStrengthLvl(1);
 
             player.closeInventory();
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень выносливости")) {
 
-            cachePlayerInfo.setExperience((int) (cachePlayerInfo.getExperience() - Math.pow(1 + 0.05, cachePlayerInfo.getStaminaLvl()) * 100));
-            cachePlayerInfo.addStaminaLvl(1);
+            cachePlayerInfoBuilder.setExperience((int) (cachePlayerInfoBuilder.getExperience() - Math.pow(1 + 0.05, cachePlayerInfoBuilder.getStaminaLvl()) * 100));
+            cachePlayerInfoBuilder.addStaminaLvl(1);
 
             player.closeInventory();
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень удачи")) {
 
-            cachePlayerInfo.setExperience((int) (cachePlayerInfo.getExperience() - Math.pow(1 + 0.05, cachePlayerInfo.getLuckLvl()) * 100));
-            cachePlayerInfo.addLuckLvl(1);
+            cachePlayerInfoBuilder.setExperience((int) (cachePlayerInfoBuilder.getExperience() - Math.pow(1 + 0.05, cachePlayerInfoBuilder.getLuckLvl()) * 100));
+            cachePlayerInfoBuilder.addLuckLvl(1);
 
             player.closeInventory();
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень живучести")) {
 
-            cachePlayerInfo.setExperience((int) (cachePlayerInfo.getExperience() - Math.pow(1 + 0.05, cachePlayerInfo.getSurvivabilityLvl()) * 100));
-            cachePlayerInfo.addSurvivabilityLvl(1);
+            cachePlayerInfoBuilder.setExperience((int) (cachePlayerInfoBuilder.getExperience() - Math.pow(1 + 0.05, cachePlayerInfoBuilder.getSurvivabilityLvl()) * 100));
+            cachePlayerInfoBuilder.addSurvivabilityLvl(1);
 
             player.closeInventory();
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень скорости")) {
 
-            cachePlayerInfo.setExperience((int) (cachePlayerInfo.getExperience() - Math.pow(1 + 0.05, cachePlayerInfo.getSpeedLvl()) * 100));
-            cachePlayerInfo.addSpeedLvl(1);
+            cachePlayerInfoBuilder.setExperience((int) (cachePlayerInfoBuilder.getExperience() - Math.pow(1 + 0.05, cachePlayerInfoBuilder.getSpeedLvl()) * 100));
+            cachePlayerInfoBuilder.addSpeedLvl(1);
 
             player.closeInventory();
 

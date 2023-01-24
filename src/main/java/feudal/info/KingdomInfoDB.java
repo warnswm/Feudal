@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomInfoDB {
@@ -32,7 +33,7 @@ public class KingdomInfoDB {
 
     }
 
-    public void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> territory, List<Player> barons, ItemStack banner) {
+    public void createNewKingdom(@NotNull String kingdomName, UUID king, List<UUID> members, List<Chunk> territory, List<UUID> barons, ItemStack banner) {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
                 .iterator()
@@ -184,7 +185,7 @@ public class KingdomInfoDB {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("members", player))
+            if (collection.find(new BasicDBObject("members", player.getUniqueId()))
                     .iterator()
                     .hasNext()) return true;
 
@@ -206,9 +207,9 @@ public class KingdomInfoDB {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("members", player))
+            if (collection.find(new BasicDBObject("members", player.getUniqueId()))
                     .iterator()
-                    .hasNext()) return collection.find(new BasicDBObject("members", player)).iterator().next().get("_id").toString();
+                    .hasNext()) return collection.find(new BasicDBObject("members", player.getUniqueId().toString())).iterator().next().get("_id").toString();
 
             session.commitTransaction();
 
