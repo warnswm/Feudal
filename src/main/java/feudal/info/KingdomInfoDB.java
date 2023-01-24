@@ -14,6 +14,7 @@ import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +32,7 @@ public class KingdomInfoDB {
 
     }
 
-    public void createNewKingdom(String kingdomName, Player king, List<Player> members, List<Chunk> chunks, List<Player> barons, ItemStack banner) {
+    public void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> chunks, List<Player> barons, ItemStack banner) {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
                 .iterator()
