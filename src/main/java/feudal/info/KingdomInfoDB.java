@@ -160,7 +160,6 @@ public class KingdomInfoDB {
                     .next();
 
 
-
             if (document.get("members") == null) return;
 
             PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
@@ -177,6 +176,7 @@ public class KingdomInfoDB {
         }
 
     }
+
     public boolean playerInKingdom(Player player) {
 
         ClientSession session = mongoClient.startSession();
@@ -199,6 +199,7 @@ public class KingdomInfoDB {
 
         return false;
     }
+
     public String getPlayerKingdom(Player player) {
 
         ClientSession session = mongoClient.startSession();
@@ -209,7 +210,8 @@ public class KingdomInfoDB {
 
             if (collection.find(new BasicDBObject("members", player.getUniqueId().toString()))
                     .iterator()
-                    .hasNext()) return collection.find(new BasicDBObject("members", player.getUniqueId().toString())).iterator().next().get("_id").toString();
+                    .hasNext())
+                return collection.find(new BasicDBObject("members", player.getUniqueId().toString())).iterator().next().get("_id").toString();
 
             session.commitTransaction();
 

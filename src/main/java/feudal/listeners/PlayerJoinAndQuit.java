@@ -21,11 +21,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PlayerJoinAndQuit implements Listener{
+public class PlayerJoinAndQuit implements Listener {
 
     FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
     KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 
@@ -97,14 +98,14 @@ public class PlayerJoinAndQuit implements Listener{
             CachePlayers.getPlayerInfo().remove(player);
 
 
-            String kingdomName = kingdomInfoDB.getPlayerKingdom(player);
+            if (kingdomInfoDB.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
 
-            if (kingdomName.equalsIgnoreCase("notInTheKingdom")) return;
+            String kingdomName = kingdomInfoDB.getPlayerKingdom(player);
 
             CacheKingdomInfoBuilder cacheKingdomInfoBuilder = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
             kingdomInfoDB.setField(kingdomName, "king", cacheKingdomInfoBuilder.getKing());
-            kingdomInfoDB.setField(kingdomName, "banner", cacheKingdomInfoBuilder.getBanner().toString());
+            kingdomInfoDB.setField(kingdomName, "banner", cacheKingdomInfoBuilder.getBanner());
             kingdomInfoDB.setField(kingdomName, "members", cacheKingdomInfoBuilder.getMembers());
             kingdomInfoDB.setField(kingdomName, "barons", cacheKingdomInfoBuilder.getBarons());
             kingdomInfoDB.setField(kingdomName, "territory", cacheKingdomInfoBuilder.getTerritory());

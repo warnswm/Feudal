@@ -3,12 +3,16 @@ package feudal;
 import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
+import feudal.info.CacheKingdomInfoBuilder;
+import feudal.info.CachePlayerInfoBuilder;
+import feudal.info.KingdomInfoDB;
 import feudal.info.PlayerInfoDB;
 import feudal.listeners.GameClassesListeners;
 import feudal.listeners.PlayerJoinAndQuit;
 import feudal.listeners.menuListeners.AttributesUpMenuInteractListener;
 import feudal.listeners.menuListeners.GameClassChangeMenuInteractListener;
 import feudal.listeners.menuListeners.GameClassUpMenuInteractListener;
+import feudal.utils.CacheKingdoms;
 import feudal.utils.CachePlayers;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -51,22 +55,46 @@ public final class Feudal extends JavaPlugin {
 
         final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
         final PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+        final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
-        Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
+        Bukkit.getOnlinePlayers().forEach(player -> {
 
-            playerInfoDB.setField(player, "classID", CachePlayers.getPlayerInfo().get(player).getAClassID());
-            playerInfoDB.setField(player, "experience", CachePlayers.getPlayerInfo().get(player).getExperience());
-            playerInfoDB.setField(player, "balance", CachePlayers.getPlayerInfo().get(player).getBalance());
-            playerInfoDB.setField(player, "deaths", CachePlayers.getPlayerInfo().get(player).getDeaths());
-            playerInfoDB.setField(player, "kills", CachePlayers.getPlayerInfo().get(player).getKills());
-            playerInfoDB.setField(player, "luckLvl", CachePlayers.getPlayerInfo().get(player).getLuckLvl());
-            playerInfoDB.setField(player, "speedLvl", CachePlayers.getPlayerInfo().get(player).getSpeedLvl());
-            playerInfoDB.setField(player, "staminaLvl", CachePlayers.getPlayerInfo().get(player).getStaminaLvl());
-            playerInfoDB.setField(player, "strengthLvl", CachePlayers.getPlayerInfo().get(player).getStrengthLvl());
-            playerInfoDB.setField(player, "survivabilityLvl", CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl());
+            CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
 
-            CachePlayers.getPlayerInfo().remove(player);
+            new Thread(() -> {
 
-        }).start());
+                playerInfoDB.setField(player, "classID", cachePlayerInfoBuilder.getAClassID());
+                playerInfoDB.setField(player, "experience", cachePlayerInfoBuilder.getExperience());
+                playerInfoDB.setField(player, "gameClassExperience", cachePlayerInfoBuilder.getGameClassExperience());
+                playerInfoDB.setField(player, "balance", cachePlayerInfoBuilder.getBalance());
+                playerInfoDB.setField(player, "deaths", cachePlayerInfoBuilder.getDeaths());
+                playerInfoDB.setField(player, "kills", cachePlayerInfoBuilder.getKills());
+                playerInfoDB.setField(player, "luckLvl", cachePlayerInfoBuilder.getLuckLvl());
+                playerInfoDB.setField(player, "speedLvl", cachePlayerInfoBuilder.getSpeedLvl());
+                playerInfoDB.setField(player, "staminaLvl", cachePlayerInfoBuilder.getStaminaLvl());
+                playerInfoDB.setField(player, "strengthLvl", cachePlayerInfoBuilder.getStrengthLvl());
+                playerInfoDB.setField(player, "survivabilityLvl", cachePlayerInfoBuilder.getSurvivabilityLvl());
+                playerInfoDB.setField(player, "kingdomName", cachePlayerInfoBuilder.getKingdomName());
+
+                CachePlayers.getPlayerInfo().remove(player);
+
+
+                if (kingdomInfoDB.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
+
+                String kingdomName = kingdomInfoDB.getPlayerKingdom(player);
+
+                CacheKingdomInfoBuilder cacheKingdomInfoBuilder = CacheKingdoms.getKingdomInfo().get(kingdomName);
+
+                kingdomInfoDB.setField(kingdomName, "king", cacheKingdomInfoBuilder.getKing());
+                kingdomInfoDB.setField(kingdomName, "banner", cacheKingdomInfoBuilder.getBanner().toString());
+                kingdomInfoDB.setField(kingdomName, "members", cacheKingdomInfoBuilder.getMembers());
+                kingdomInfoDB.setField(kingdomName, "barons", cacheKingdomInfoBuilder.getBarons());
+                kingdomInfoDB.setField(kingdomName, "territory", cacheKingdomInfoBuilder.getTerritory());
+
+                CacheKingdoms.getKingdomInfo().remove(kingdomName);
+
+
+            }).start();
+        });
     }
 }

@@ -31,6 +31,7 @@ public class GameClassesListeners implements Listener {
 
         block.setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
     }
+
     @EventHandler
     public void blockBreak(BlockBreakEvent event) {
 
@@ -56,6 +57,7 @@ public class GameClassesListeners implements Listener {
 
         }
     }
+
     @EventHandler
     public void playerFishing(PlayerFishEvent event) {
 
@@ -72,6 +74,7 @@ public class GameClassesListeners implements Listener {
         }
 
     }
+
     @EventHandler
     public void entityBreed(EntityBreedEvent event) {
 
@@ -102,7 +105,6 @@ public class GameClassesListeners implements Listener {
 
     }
 
-
     @EventHandler
     public void regenerationEvent(EntityRegainHealthEvent event) {
 
@@ -116,6 +118,7 @@ public class GameClassesListeners implements Listener {
         event.setAmount(1 * (tmp / 200 + tmpp / 500) + 1);
 
     }
+
     @EventHandler
     public void playerMove(PlayerMoveEvent event) {
 
@@ -126,6 +129,7 @@ public class GameClassesListeners implements Listener {
         player.setWalkSpeed(0.2f * (tmp / 100) + 0.2f);
 
     }
+
     @EventHandler
     public void playerAttack(EntityDamageByEntityEvent event) {
 

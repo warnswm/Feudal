@@ -55,7 +55,7 @@ public class PlayerCommands implements CommandExecutor {
                 members.add(player.getUniqueId().toString());
                 ItemStack banner;
 
-                if (player.getItemInHand().getType().equals(Material.BANNER)){
+                if (player.getItemInHand().getType().equals(Material.BANNER)) {
 
                     ItemStack itemStack = player.getItemInHand();
                     ItemMeta itemMeta = player.getItemInHand().getItemMeta();
@@ -64,8 +64,7 @@ public class PlayerCommands implements CommandExecutor {
 
                     banner = itemStack;
 
-                }
-                else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + args[1] + "'");
+                } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + args[1] + "'");
 
 
                 kingdomInfoDB.createNewKingdom(args[1], player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
@@ -83,7 +82,6 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
             case "location":
-
 
 
         }

@@ -16,7 +16,7 @@ public class AdminCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        if (args[1].toLowerCase().equals("addls")) {
+        if (args[1].equalsIgnoreCase("addls")) {
             //add ls permission
         }
 

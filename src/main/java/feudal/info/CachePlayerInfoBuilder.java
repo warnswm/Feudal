@@ -28,6 +28,7 @@ public class CachePlayerInfoBuilder {
         experience += value;
 
     }
+
     public void addGameClassExperience(int value) {
 
         gameClassExperience += value;
@@ -136,11 +137,13 @@ public class CachePlayerInfoBuilder {
         this.kills = kills;
         return this;
     }
+
     public CachePlayerInfoBuilder setGameClassExperience(int gameClassExperience) {
         this.gameClassExperience = gameClassExperience;
         return this;
     }
-    public CachePlayerInfoBuilder setKingdomName(String  kingdomName) {
+
+    public CachePlayerInfoBuilder setKingdomName(String kingdomName) {
         this.kingdomName = kingdomName;
         return this;
     }

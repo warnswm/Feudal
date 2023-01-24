@@ -70,7 +70,8 @@ public class PlayerInfoDB {
 
             if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
                     .iterator()
-                    .hasNext()) return collection.find(new BasicDBObject("_id", player.getUniqueId().toString())).iterator().hasNext();
+                    .hasNext())
+                return collection.find(new BasicDBObject("_id", player.getUniqueId().toString())).iterator().hasNext();
 
             session.commitTransaction();
 
