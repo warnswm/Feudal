@@ -32,7 +32,7 @@ public class KingdomInfoDB {
 
     }
 
-    public void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> chunks, List<Player> barons, ItemStack banner) {
+    public void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> territory, List<Player> barons, ItemStack banner) {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
                 .iterator()
@@ -47,7 +47,7 @@ public class KingdomInfoDB {
             collection.insertOne(new Document("_id", kingdomName)
                     .append("king", king)
                     .append("members", members)
-                    .append("territory", chunks)
+                    .append("territory", territory)
                     .append("banner", banner)
                     .append("barons", barons));
 

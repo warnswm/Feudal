@@ -1,4 +1,4 @@
 MongoClientName: 'localhost:27017'
 MongoDataBaseName: 'local'
 MongoCollectionName: 'startup_log'
-MongoCollectionNameKingdom: 'startup'
+MongoCollectionNameKingdom: 'startup_log'

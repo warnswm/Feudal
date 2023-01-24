@@ -1,24 +1,32 @@
 package feudal.listeners;
 
+import feudal.info.CacheKingdomInfo;
 import feudal.info.CachePlayerInfo;
+import feudal.info.KingdomInfoDB;
 import feudal.info.PlayerInfoDB;
+import feudal.utils.CacheKingdoms;
 import feudal.utils.CachePlayers;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener{
 
     FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionNameKingdom").toString());
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 
@@ -46,8 +54,21 @@ public class PlayerJoinAndQuit implements Listener{
         CachePlayers.getPlayerInfo().put(player, cachePlayerInfo);
 
         float tmp = cachePlayerInfo.getSpeedLvl();
-
         player.setMaxHealth(20 * (tmp / 100) + 20);
+
+
+        if (kingdomInfoDB.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
+
+        CacheKingdomInfo cacheKingdomInfo = new CacheKingdomInfo()
+                .setKingdomName(kingdomInfoDB.getPlayerKingdom(player))
+                .setKing((Player) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "king"))
+                .setBanner((ItemStack) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "banner"))
+                .setMembers((List<Player>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "members"))
+                .setBarons((List<Player>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "barons"))
+                .setTerritory((List<Chunk>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "territory"));
+
+
+        CacheKingdoms.getKingdomInfo().put(kingdomInfoDB.getPlayerKingdom(player), cacheKingdomInfo);
     }
 
     @EventHandler
