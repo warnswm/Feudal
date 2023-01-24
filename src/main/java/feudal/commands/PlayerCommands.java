@@ -4,10 +4,12 @@ import feudal.info.CacheKingdomInfoBuilder;
 import feudal.info.KingdomInfoDB;
 import feudal.utils.CacheKingdoms;
 import feudal.utils.CreateItemUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,7 +17,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 public class PlayerCommands implements CommandExecutor {
     @Override
@@ -23,7 +24,8 @@ public class PlayerCommands implements CommandExecutor {
 
         if (!(sender instanceof Player)) return false;
 
-        final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB("mongodb://localhost:27017", "local", "startup_log");
+        final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
+        final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
         Player player = (Player) sender;
 
         switch (args[0]) {
@@ -49,8 +51,8 @@ public class PlayerCommands implements CommandExecutor {
                     break;
                 }
 
-                List<UUID> members = new ArrayList<>();
-                members.add(player.getUniqueId());
+                List<String> members = new ArrayList<>();
+                members.add(player.getUniqueId().toString());
                 ItemStack banner;
 
                 if (player.getItemInHand().getType().equals(Material.BANNER)){
@@ -66,7 +68,7 @@ public class PlayerCommands implements CommandExecutor {
                 else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + args[1] + "'");
 
 
-                kingdomInfoDB.createNewKingdom(args[1], player.getUniqueId(), members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
+                kingdomInfoDB.createNewKingdom(args[1], player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
 
                 CacheKingdomInfoBuilder cacheKingdomInfoBuilder = new CacheKingdomInfoBuilder()
                         .setKingdomName(args[1])

@@ -27,7 +27,7 @@ public class PlayerJoinAndQuit implements Listener{
 
     FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-    KingdomInfoDB kingdomInfoDB = new KingdomInfoDB("mongodb://localhost:27017", "local", "startup_log");
+    KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 
@@ -64,8 +64,8 @@ public class PlayerJoinAndQuit implements Listener{
                 .setKingdomName(kingdomInfoDB.getPlayerKingdom(player))
                 .setKing((UUID) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "king"))
                 .setBanner((ItemStack) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "banner"))
-                .setMembers((List<UUID>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "members"))
-                .setBarons((List<UUID>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "barons"))
+                .setMembers((List<String>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "members"))
+                .setBarons((List<String>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "barons"))
                 .setTerritory((List<Chunk>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "territory"));
 
 

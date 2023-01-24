@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomInfoDB {
@@ -27,13 +26,13 @@ public class KingdomInfoDB {
 
     public KingdomInfoDB(String mongoClientName, String databaseName, String collectionName) {
 
-        this.mongoClient = MongoClients.create(mongoClientName);
+        this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
         this.collection = database.getCollection(collectionName);
 
     }
 
-    public void createNewKingdom(@NotNull String kingdomName, UUID king, List<UUID> members, List<Chunk> territory, List<UUID> barons, ItemStack banner) {
+    public void createNewKingdom(@NotNull String kingdomName, Player king, List<String> members, List<Chunk> territory, List<String> barons, ItemStack banner) {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
                 .iterator()
@@ -45,11 +44,15 @@ public class KingdomInfoDB {
 
             session.startTransaction();
 
+            if (collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return;
+
             collection.insertOne(new Document("_id", kingdomName)
-                    .append("king", king)
+                    .append("king", king.getUniqueId().toString())
                     .append("members", members)
                     .append("territory", territory)
-                    .append("banner", banner)
+                    .append("banner", banner.toString())
                     .append("barons", barons));
 
             session.commitTransaction();
@@ -207,7 +210,7 @@ public class KingdomInfoDB {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("members", player.getUniqueId()))
+            if (collection.find(new BasicDBObject("members", player.getUniqueId().toString()))
                     .iterator()
                     .hasNext()) return collection.find(new BasicDBObject("members", player.getUniqueId().toString())).iterator().next().get("_id").toString();
 

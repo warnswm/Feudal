@@ -16,9 +16,9 @@ import java.util.UUID;
 public class CacheKingdomInfoBuilder {
     String kingdomName;
     UUID king;
-    List<UUID> members;
+    List<String> members;
     List<Chunk> territory;
-    List<UUID> barons;
+    List<String> barons;
     ItemStack banner;
     final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionNameKingdom").toString());
@@ -33,7 +33,7 @@ public class CacheKingdomInfoBuilder {
         return this;
     }
 
-    public CacheKingdomInfoBuilder setMembers(List<UUID> members) {
+    public CacheKingdomInfoBuilder setMembers(List<String> members) {
         this.members = members;
         return this;
     }
@@ -43,7 +43,7 @@ public class CacheKingdomInfoBuilder {
         return this;
     }
 
-    public CacheKingdomInfoBuilder setBarons(List<UUID> barons) {
+    public CacheKingdomInfoBuilder setBarons(List<String> barons) {
         this.barons = barons;
         return this;
     }
