@@ -72,8 +72,8 @@ public class PlayerCommands implements CommandExecutor {
 
                 CacheKingdomInfoBuilder cacheKingdomInfoBuilder = new CacheKingdomInfoBuilder()
                         .setKingdomName(args[1])
-                        .setKing(player.getUniqueId())
-                        .setBanner(banner)
+                        .setKing(player.getUniqueId().toString())
+                        .setBanner(banner.toString())
                         .setMembers(members)
                         .setBarons(Collections.EMPTY_LIST)
                         .setTerritory(Collections.EMPTY_LIST);

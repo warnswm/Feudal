@@ -34,17 +34,14 @@ public class KingdomInfoDB {
 
     public void createNewKingdom(@NotNull String kingdomName, Player king, List<String> members, List<Chunk> territory, List<String> barons, ItemStack banner) {
 
-        if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
-                .iterator()
-                .hasNext()) return;
-
         ClientSession session = mongoClient.startSession();
 
         try {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("_id", kingdomName))
+
+            if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
                     .iterator()
                     .hasNext()) return;
 
@@ -188,7 +185,7 @@ public class KingdomInfoDB {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("members", player.getUniqueId()))
+            if (collection.find(new BasicDBObject("members", player.getUniqueId().toString()))
                     .iterator()
                     .hasNext()) return true;
 

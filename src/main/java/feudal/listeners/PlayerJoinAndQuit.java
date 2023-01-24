@@ -16,11 +16,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.UUID;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener{
@@ -62,8 +60,8 @@ public class PlayerJoinAndQuit implements Listener{
 
         CacheKingdomInfoBuilder cacheKingdomInfoBuilder = new CacheKingdomInfoBuilder()
                 .setKingdomName(kingdomInfoDB.getPlayerKingdom(player))
-                .setKing((UUID) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "king"))
-                .setBanner((ItemStack) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "banner"))
+                .setKing((String) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "king"))
+                .setBanner((String) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "banner"))
                 .setMembers((List<String>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "members"))
                 .setBarons((List<String>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "barons"))
                 .setTerritory((List<Chunk>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "territory"));
@@ -99,8 +97,6 @@ public class PlayerJoinAndQuit implements Listener{
             CachePlayers.getPlayerInfo().remove(player);
 
 
-            if (!kingdomInfoDB.playerInKingdom(player)) return;
-
             String kingdomName = kingdomInfoDB.getPlayerKingdom(player);
 
             if (kingdomName.equalsIgnoreCase("notInTheKingdom")) return;
@@ -108,7 +104,7 @@ public class PlayerJoinAndQuit implements Listener{
             CacheKingdomInfoBuilder cacheKingdomInfoBuilder = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
             kingdomInfoDB.setField(kingdomName, "king", cacheKingdomInfoBuilder.getKing());
-            kingdomInfoDB.setField(kingdomName, "banner", cacheKingdomInfoBuilder.getBanner());
+            kingdomInfoDB.setField(kingdomName, "banner", cacheKingdomInfoBuilder.getBanner().toString());
             kingdomInfoDB.setField(kingdomName, "members", cacheKingdomInfoBuilder.getMembers());
             kingdomInfoDB.setField(kingdomName, "barons", cacheKingdomInfoBuilder.getBarons());
             kingdomInfoDB.setField(kingdomName, "territory", cacheKingdomInfoBuilder.getTerritory());
