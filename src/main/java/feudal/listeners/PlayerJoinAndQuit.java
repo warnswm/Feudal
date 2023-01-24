@@ -1,13 +1,10 @@
 package feudal.listeners;
 
-import feudal.Feudal;
 import feudal.info.CachePlayerInfo;
 import feudal.info.PlayerInfoDB;
 import feudal.utils.CachePlayers;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -52,8 +48,6 @@ public class PlayerJoinAndQuit implements Listener{
         float tmp = cachePlayerInfo.getSpeedLvl();
 
         player.setMaxHealth(20 * (tmp / 100) + 20);
-
-        showActionBar(player);
     }
 
     @EventHandler
@@ -81,25 +75,6 @@ public class PlayerJoinAndQuit implements Listener{
             CachePlayers.getPlayerInfo().remove(player);
 
         }).start();
-
-    }
-
-    // этот метод сделан на очень короткий срок, и существует только для удобства демонстрации
-    // я знаю, что он плохо оптимизирован из-за постоянных запросов в кэш и т.д., я обязательно это перепишу
-    private void showActionBar(Player player) {
-
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-
-                if (!player.isOnline()) return;
-
-                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§c§lБаланс: " + CachePlayers.getPlayerInfo().get(player).getBalance()  + " Опыта атрибутов: " + CachePlayers.getPlayerInfo().get(player).getExperience() + " Опыта класса: " + CachePlayers.getPlayerInfo().get(player).getGameClassExperience()));
-
-            }
-
-        }.runTaskTimer(Feudal.getPlugin(), 0, 20);
 
     }
 }

@@ -9,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -27,15 +26,15 @@ public class PlayerInfoDB {
 
     public void createNewPlayer(Player player) {
 
-        if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
-                .iterator()
-                .hasNext()) return;
-
         ClientSession session = mongoClient.startSession();
 
         try {
 
             session.startTransaction();
+
+            if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                    .iterator()
+                    .hasNext()) return;
 
             collection.insertOne(new Document("_id", player.getUniqueId().toString())
                     .append("classID", 0)
@@ -63,10 +62,24 @@ public class PlayerInfoDB {
 
     public boolean hasPlayer(Player player) {
 
-        return collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
-                .iterator()
-                .hasNext();
+        ClientSession session = mongoClient.startSession();
 
+        try {
+
+            session.startTransaction();
+
+            if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                    .iterator()
+                    .hasNext()) return collection.find(new BasicDBObject("_id", player.getUniqueId().toString())).iterator().hasNext();
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+        return false;
     }
 
     public Object getField(Player player, String fieldName) {
@@ -76,6 +89,10 @@ public class PlayerInfoDB {
         try {
 
             session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                    .iterator()
+                    .hasNext()) return null;
 
             Document document = collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
                     .iterator()
@@ -103,6 +120,10 @@ public class PlayerInfoDB {
 
             session.startTransaction();
 
+            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                    .iterator()
+                    .hasNext()) return;
+
             Bson filter = Filters.eq("_id", player.getUniqueId().toString());
             Bson updates = Updates.set(fieldName, value);
 
@@ -119,19 +140,18 @@ public class PlayerInfoDB {
 
     public void resetAPlayer(Player player) {
 
-        if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
-                .iterator()
-                .hasNext()) return;
-
         ClientSession session = mongoClient.startSession();
 
         try {
 
             session.startTransaction();
 
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "clear " + player.getName());
 
-            collection.drop();
+            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                    .iterator()
+                    .hasNext()) return;
+
+//            collection.drop();
 
             session.commitTransaction();
 

@@ -13,8 +13,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomInfoDB {
@@ -29,7 +31,7 @@ public class KingdomInfoDB {
 
     }
 
-    public void createNewKingdom(String kingdomName, Player king, Player[] members, Chunk[] chunks, Player[] barons) {
+    public void createNewKingdom(String kingdomName, Player king, List<Player> members, List<Chunk> chunks, List<Player> barons, ItemStack banner) {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
                 .iterator()
@@ -45,6 +47,7 @@ public class KingdomInfoDB {
                     .append("king", king)
                     .append("members", members)
                     .append("territory", chunks)
+                    .append("banner", banner)
                     .append("barons", barons));
 
             session.commitTransaction();
@@ -63,6 +66,10 @@ public class KingdomInfoDB {
         try {
 
             session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return null;
 
             Document document = collection.find(new BasicDBObject("_id", kingdomName))
                     .iterator()
@@ -90,6 +97,10 @@ public class KingdomInfoDB {
 
             session.startTransaction();
 
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return;
+
             Bson filter = Filters.eq("_id", kingdomName);
             Bson updates = Updates.set(fieldName, value);
 
@@ -106,17 +117,17 @@ public class KingdomInfoDB {
 
     public void resetTheKingdom(String kingdomName) {
 
-        if (!collection.find(new BasicDBObject("_id", kingdomName))
-                .iterator()
-                .hasNext()) return;
-
         ClientSession session = mongoClient.startSession();
 
         try {
 
             session.startTransaction();
 
-            collection.drop();
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return;
+
+//            collection.drop();
 
             session.commitTransaction();
 
@@ -137,12 +148,18 @@ public class KingdomInfoDB {
 
             session.startTransaction();
 
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return;
+
+
             Document document = collection.find(new BasicDBObject("_id", kingdomName))
                     .iterator()
                     .next();
 
-            if (document.get("members") == null)
-                return;
+
+
+            if (document.get("members") == null) return;
 
             PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
             Player[] members = (Player[]) document.get("members");
@@ -157,5 +174,49 @@ public class KingdomInfoDB {
             session.close();
         }
 
+    }
+    public boolean playerInKingdom(Player player) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (collection.find(new BasicDBObject("members", player))
+                    .iterator()
+                    .hasNext()) return true;
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+        return false;
+    }
+    public String getPlayerKingdom(Player player) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (collection.find(new BasicDBObject("members", player))
+                    .iterator()
+                    .hasNext()) return collection.find(new BasicDBObject("members", player)).iterator().next().get("_id").toString();
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+        return "notInTheKingdom";
     }
 }
