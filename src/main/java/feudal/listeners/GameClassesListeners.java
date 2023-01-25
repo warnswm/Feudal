@@ -1,11 +1,11 @@
 package feudal.listeners;
 
 import feudal.Feudal;
-import feudal.info.CachePlayerInfoBuilder;
-import feudal.utils.CachePlayers;
-import feudal.utils.gameClassesEnums.AnimalsForHunted;
-import feudal.utils.gameClassesEnums.AnimalsForShepherd;
-import feudal.utils.gameClassesEnums.BlocksForMiner;
+import feudal.info.CachePlayers;
+import feudal.info.PlayerInfo;
+import feudal.utils.gameClassesEnums.AnimalsForHuntedEnum;
+import feudal.utils.gameClassesEnums.AnimalsForShepherdEnum;
+import feudal.utils.gameClassesEnums.BlocksForMinerEnum;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,13 +19,14 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.jetbrains.annotations.NotNull;
 
 import static org.bukkit.Material.LOG;
 
 public class GameClassesListeners implements Listener {
 
     @EventHandler
-    public void blockPlaced(BlockPlaceEvent event) {
+    public void blockPlaced(@NotNull BlockPlaceEvent event) {
 
         Block block = event.getBlock();
 
@@ -33,25 +34,25 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void blockBreak(BlockBreakEvent event) {
+    public void blockBreak(@NotNull BlockBreakEvent event) {
 
         if (event.getBlock().hasMetadata("PLACED")) return;
 
-        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
 
-        if (cachePlayerInfoBuilder.getAClassID() == 6) {
+        if (playerInfo.getAClassID() == 6) {
 
-            cachePlayerInfoBuilder.addExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()));
-            cachePlayerInfoBuilder.addGameClassExperience(BlocksForMiner.getByMaterial(event.getBlock().getType()) * 4);
+            playerInfo.addExperience(BlocksForMinerEnum.getByMaterial(event.getBlock().getType()));
+            playerInfo.addGameClassExperience(BlocksForMinerEnum.getByMaterial(event.getBlock().getType()) * 4);
 
         }
-        else if (cachePlayerInfoBuilder.getAClassID() == 9)
+        else if (playerInfo.getAClassID() == 9)
             if (event.getBlock().getType().equals(LOG)) {
-                cachePlayerInfoBuilder.addExperience(1);
-                cachePlayerInfoBuilder.addGameClassExperience(4);
+                playerInfo.addExperience(1);
+                playerInfo.addGameClassExperience(4);
             }
 
-        else if (cachePlayerInfoBuilder.getAClassID() == 3) {
+        else if (playerInfo.getAClassID() == 3) {
 
             //Farmer logics
 
@@ -59,34 +60,34 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void playerFishing(PlayerFishEvent event) {
+    public void playerFishing(@NotNull PlayerFishEvent event) {
 
         Player player = event.getPlayer();
-        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        if (cachePlayerInfoBuilder.getAClassID() != 4) return;
+        if (playerInfo.getAClassID() != 4) return;
 
         if (event.getCaught() != null) {
 
-            cachePlayerInfoBuilder.addExperience(30);
-            cachePlayerInfoBuilder.addGameClassExperience(120);
+            playerInfo.addExperience(30);
+            playerInfo.addGameClassExperience(120);
 
         }
 
     }
 
     @EventHandler
-    public void entityBreed(EntityBreedEvent event) {
+    public void entityBreed(@NotNull EntityBreedEvent event) {
 
         if (!(event.getBreeder() instanceof Player)) return;
 
         Player player = (Player) event.getBreeder();
-        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        if (cachePlayerInfoBuilder.getAClassID() != 7) return;
+        if (playerInfo.getAClassID() != 7) return;
 
-        cachePlayerInfoBuilder.addExperience(AnimalsForShepherd.getByEntity(event.getEntityType()));
-        cachePlayerInfoBuilder.addGameClassExperience(AnimalsForShepherd.getByEntity(event.getEntityType()) * 4);
+        playerInfo.addExperience(AnimalsForShepherdEnum.getByEntity(event.getEntityType()));
+        playerInfo.addGameClassExperience(AnimalsForShepherdEnum.getByEntity(event.getEntityType()) * 4);
 
     }
 
@@ -96,12 +97,12 @@ public class GameClassesListeners implements Listener {
         Player player = event.getEntity().getKiller();
         if (player == null) return;
 
-        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        if (cachePlayerInfoBuilder.getAClassID() != 5) return;
+        if (playerInfo.getAClassID() != 5) return;
 
-        cachePlayerInfoBuilder.addExperience(AnimalsForHunted.getByEntity(event.getEntityType()));
-        cachePlayerInfoBuilder.addGameClassExperience(AnimalsForHunted.getByEntity(event.getEntityType()) * 4);
+        playerInfo.addExperience(AnimalsForHuntedEnum.getByEntity(event.getEntityType()));
+        playerInfo.addGameClassExperience(AnimalsForHuntedEnum.getByEntity(event.getEntityType()) * 4);
 
     }
 
@@ -120,7 +121,7 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void playerMove(PlayerMoveEvent event) {
+    public void playerMove(@NotNull PlayerMoveEvent event) {
 
         Player player = event.getPlayer();
 
@@ -131,7 +132,7 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void playerAttack(EntityDamageByEntityEvent event) {
+    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (!(event.getDamager() instanceof Player)) return;
 

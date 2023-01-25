@@ -6,6 +6,7 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -19,12 +20,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.List;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class KingdomInfoDB {
+@Getter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class KingdomInfo {
     MongoClient mongoClient;
     MongoCollection<Document> collection;
+    String kingdomName;
+    String king;
+    List<String> members;
+    List<Chunk> territory;
+    List<String> barons;
+    String banner;
 
-    public KingdomInfoDB(String mongoClientName, String databaseName, String collectionName) {
+    public KingdomInfo(String mongoClientName, String databaseName, String collectionName) {
 
         this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
@@ -162,10 +170,10 @@ public class KingdomInfoDB {
 
             if (document.get("members") == null) return;
 
-            PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+            PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
             Player[] members = (Player[]) document.get("members");
 
-            Arrays.asList(members).forEach(playerInfoDB::resetAPlayer);
+            Arrays.asList(members).forEach(playerInfo::resetAPlayer);
 
             session.commitTransaction();
 
@@ -177,7 +185,7 @@ public class KingdomInfoDB {
 
     }
 
-    public boolean playerInKingdom(Player player) {
+    public boolean playerInKingdom(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -200,7 +208,7 @@ public class KingdomInfoDB {
         return false;
     }
 
-    public String getPlayerKingdom(Player player) {
+    public String getPlayerKingdom(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -222,5 +230,34 @@ public class KingdomInfoDB {
         }
 
         return "notInTheKingdom";
+    }
+
+    public KingdomInfo setKingdomName(String kingdomName) {
+        this.kingdomName = kingdomName;
+        return this;
+    }
+
+    public KingdomInfo setKing(String king) {
+        this.king = king;
+        return this;
+    }
+
+    public KingdomInfo setMembers(List<String> members) {
+        this.members = members;
+        return this;
+    }
+
+    public KingdomInfo setTerritory(List<Chunk> territory) {
+        this.territory = territory;
+        return this;
+    }
+
+    public KingdomInfo setBarons(List<String> barons) {
+        this.barons = barons;
+        return this;
+    }
+    public KingdomInfo setBanner(String banner) {
+        this.banner = banner;
+        return this;
     }
 }

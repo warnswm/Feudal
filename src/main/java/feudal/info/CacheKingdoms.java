@@ -1,6 +1,5 @@
-package feudal.utils;
+package feudal.info;
 
-import feudal.info.CacheKingdomInfoBuilder;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 
@@ -9,9 +8,9 @@ import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CacheKingdoms {
-    static Map<String, CacheKingdomInfoBuilder> kingdomInfoHashMap = new HashMap<>();
+    static Map<String, KingdomInfo> kingdomInfoHashMap = new HashMap<>();
 
-    public static Map<String, CacheKingdomInfoBuilder> getKingdomInfo() {
+    public static Map<String, KingdomInfo> getKingdomInfo() {
         return kingdomInfoHashMap;
     }
 

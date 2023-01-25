@@ -1,7 +1,6 @@
 package feudal.listeners.menuListeners;
 
-import feudal.info.CachePlayerInfoBuilder;
-import feudal.utils.CachePlayers;
+import feudal.info.CachePlayers;
 import feudal.view.menu.AttributesUpMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

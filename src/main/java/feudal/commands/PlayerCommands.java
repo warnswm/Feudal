@@ -1,8 +1,7 @@
 package feudal.commands;
 
-import feudal.info.CacheKingdomInfoBuilder;
-import feudal.info.KingdomInfoDB;
-import feudal.utils.CacheKingdoms;
+import feudal.info.CacheKingdoms;
+import feudal.info.KingdomInfo;
 import feudal.utils.CreateItemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -25,7 +24,7 @@ public class PlayerCommands implements CommandExecutor {
         if (!(sender instanceof Player)) return false;
 
         final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-        final KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+        final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
         Player player = (Player) sender;
 
         switch (args[0]) {
@@ -67,10 +66,9 @@ public class PlayerCommands implements CommandExecutor {
                 } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + args[1] + "'");
 
 
-                kingdomInfoDB.createNewKingdom(args[1], player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
+                kingdomInfo.createNewKingdom(args[1], player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
 
-                CacheKingdomInfoBuilder cacheKingdomInfoBuilder = new CacheKingdomInfoBuilder()
-                        .setKingdomName(args[1])
+                kingdomInfo.setKingdomName(args[1])
                         .setKing(player.getUniqueId().toString())
                         .setBanner(banner.toString())
                         .setMembers(members)
@@ -78,7 +76,7 @@ public class PlayerCommands implements CommandExecutor {
                         .setTerritory(Collections.EMPTY_LIST);
 
 
-                CacheKingdoms.getKingdomInfo().put(kingdomInfoDB.getPlayerKingdom(player), cacheKingdomInfoBuilder);
+                CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
 
                 break;
             case "invite":

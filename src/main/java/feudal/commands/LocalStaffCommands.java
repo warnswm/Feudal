@@ -1,8 +1,8 @@
 package feudal.commands;
 
-import feudal.info.CachePlayerInfoBuilder;
-import feudal.info.KingdomInfoDB;
-import feudal.utils.CachePlayers;
+import feudal.info.CachePlayers;
+import feudal.info.KingdomInfo;
+import feudal.info.PlayerInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,23 +19,23 @@ public class LocalStaffCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
         FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-        KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+        KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
 
         switch (args[1].toLowerCase()) {
 
             case "changegameclass":
-                cachePlayerInfoBuilder.setaClassID(Integer.parseInt(args[2]));
+                playerInfo.setaClassID(Integer.parseInt(args[2]));
                 break;
             case "givekingdomstats":
-                kingdomInfoDB.setField(args[1], args[2], kingdomInfoDB.getField(args[1], args[2]) + args[3]);
+                kingdomInfo.setField(args[1], args[2], kingdomInfo.getField(args[1], args[2]) + args[3]);
                 break;
         }
 
         if (command.getName().equalsIgnoreCase("changeGameClass"))
-            cachePlayerInfoBuilder.setaClassID(Integer.parseInt(args[0]));
+            playerInfo.setaClassID(Integer.parseInt(args[0]));
 
         return false;
     }

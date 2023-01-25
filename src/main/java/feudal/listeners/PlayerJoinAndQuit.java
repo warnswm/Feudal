@@ -1,11 +1,9 @@
 package feudal.listeners;
 
-import feudal.info.CacheKingdomInfoBuilder;
-import feudal.info.CachePlayerInfoBuilder;
-import feudal.info.KingdomInfoDB;
-import feudal.info.PlayerInfoDB;
-import feudal.utils.CacheKingdoms;
-import feudal.utils.CachePlayers;
+import feudal.info.CacheKingdoms;
+import feudal.info.CachePlayers;
+import feudal.info.KingdomInfo;
+import feudal.info.PlayerInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -24,51 +22,49 @@ import java.util.List;
 public class PlayerJoinAndQuit implements Listener {
 
     FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    PlayerInfoDB playerInfoDB = new PlayerInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-    KingdomInfoDB kingdomInfoDB = new KingdomInfoDB(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
 
-        if (!playerInfoDB.hasPlayer(player))
-            playerInfoDB.createNewPlayer(player);
+        if (!playerInfo.hasPlayer(player))
+            playerInfo.createNewPlayer(player);
 
 
-        CachePlayerInfoBuilder cachePlayerInfoBuilder = new CachePlayerInfoBuilder()
-                .setPlayer(player)
-                .setaClassID((Integer) playerInfoDB.getField(player, "classID"))
-                .setExperience((Integer) playerInfoDB.getField(player, "experience"))
-                .setGameClassExperience((Integer) playerInfoDB.getField(player, "gameClassExperience"))
-                .setBalance((Integer) playerInfoDB.getField(player, "balance"))
-                .setDeaths((Integer) playerInfoDB.getField(player, "deaths"))
-                .setKills((Integer) playerInfoDB.getField(player, "kills"))
-                .setLuckLvl((Integer) playerInfoDB.getField(player, "luckLvl"))
-                .setSpeedLvl((Integer) playerInfoDB.getField(player, "speedLvl"))
-                .setStaminaLvl((Integer) playerInfoDB.getField(player, "staminaLvl"))
-                .setStrengthLvl((Integer) playerInfoDB.getField(player, "strengthLvl"))
-                .setKingdomName((String) playerInfoDB.getField(player, "kingdomName"))
-                .setSurvivabilityLvl((Integer) playerInfoDB.getField(player, "survivabilityLvl"));
+        playerInfo.setPlayer(player)
+                .setaClassID((Integer) playerInfo.getField(player, "classID"))
+                .setExperience((Integer) playerInfo.getField(player, "experience"))
+                .setGameClassExperience((Integer) playerInfo.getField(player, "gameClassExperience"))
+                .setBalance((Integer) playerInfo.getField(player, "balance"))
+                .setDeaths((Integer) playerInfo.getField(player, "deaths"))
+                .setKills((Integer) playerInfo.getField(player, "kills"))
+                .setLuckLvl((Integer) playerInfo.getField(player, "luckLvl"))
+                .setSpeedLvl((Integer) playerInfo.getField(player, "speedLvl"))
+                .setStaminaLvl((Integer) playerInfo.getField(player, "staminaLvl"))
+                .setStrengthLvl((Integer) playerInfo.getField(player, "strengthLvl"))
+                .setKingdomName((String) playerInfo.getField(player, "kingdomName"))
+                .setSurvivabilityLvl((Integer) playerInfo.getField(player, "survivabilityLvl"));
 
-        CachePlayers.getPlayerInfo().put(player, cachePlayerInfoBuilder);
+        CachePlayers.getPlayerInfo().put(player, playerInfo);
 
-        float tmp = cachePlayerInfoBuilder.getSpeedLvl();
+        float tmp = playerInfo.getSpeedLvl();
         player.setMaxHealth(20 * (tmp / 100) + 20);
 
 
-        if (!kingdomInfoDB.playerInKingdom(player)) return;
+        if (!kingdomInfo.playerInKingdom(player)) return;
 
-        CacheKingdomInfoBuilder cacheKingdomInfoBuilder = new CacheKingdomInfoBuilder()
-                .setKingdomName(kingdomInfoDB.getPlayerKingdom(player))
-                .setKing((String) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "king"))
-                .setBanner((String) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "banner"))
-                .setMembers((List<String>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "members"))
-                .setBarons((List<String>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "barons"))
-                .setTerritory((List<Chunk>) kingdomInfoDB.getField(kingdomInfoDB.getPlayerKingdom(player), "territory"));
+        kingdomInfo.setKingdomName(kingdomInfo.getPlayerKingdom(player))
+                .setKing((String) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "king"))
+                .setBanner((String) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "banner"))
+                .setMembers((List<String>) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "members"))
+                .setBarons((List<String>) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "barons"))
+                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "territory"));
 
 
-        CacheKingdoms.getKingdomInfo().put(kingdomInfoDB.getPlayerKingdom(player), cacheKingdomInfoBuilder);
+        CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
     }
 
     @EventHandler
@@ -80,35 +76,35 @@ public class PlayerJoinAndQuit implements Listener {
 
         new Thread(() -> {
 
-            CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
+            PlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
-            playerInfoDB.setField(player, "classID", cachePlayerInfoBuilder.getAClassID());
-            playerInfoDB.setField(player, "experience", cachePlayerInfoBuilder.getExperience());
-            playerInfoDB.setField(player, "gameClassExperience", cachePlayerInfoBuilder.getGameClassExperience());
-            playerInfoDB.setField(player, "balance", cachePlayerInfoBuilder.getBalance());
-            playerInfoDB.setField(player, "deaths", cachePlayerInfoBuilder.getDeaths());
-            playerInfoDB.setField(player, "kills", cachePlayerInfoBuilder.getKills());
-            playerInfoDB.setField(player, "luckLvl", cachePlayerInfoBuilder.getLuckLvl());
-            playerInfoDB.setField(player, "speedLvl", cachePlayerInfoBuilder.getSpeedLvl());
-            playerInfoDB.setField(player, "staminaLvl", cachePlayerInfoBuilder.getStaminaLvl());
-            playerInfoDB.setField(player, "strengthLvl", cachePlayerInfoBuilder.getStrengthLvl());
-            playerInfoDB.setField(player, "survivabilityLvl", cachePlayerInfoBuilder.getSurvivabilityLvl());
-            playerInfoDB.setField(player, "kingdomName", cachePlayerInfoBuilder.getKingdomName());
+            playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
+            playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
+            playerInfo.setField(player, "gameClassExperience", cachePlayerInfo.getGameClassExperience());
+            playerInfo.setField(player, "balance", cachePlayerInfo.getBalance());
+            playerInfo.setField(player, "deaths", cachePlayerInfo.getDeaths());
+            playerInfo.setField(player, "kills", cachePlayerInfo.getKills());
+            playerInfo.setField(player, "luckLvl", cachePlayerInfo.getLuckLvl());
+            playerInfo.setField(player, "speedLvl", cachePlayerInfo.getSpeedLvl());
+            playerInfo.setField(player, "staminaLvl", cachePlayerInfo.getStaminaLvl());
+            playerInfo.setField(player, "strengthLvl", cachePlayerInfo.getStrengthLvl());
+            playerInfo.setField(player, "survivabilityLvl", cachePlayerInfo.getSurvivabilityLvl());
+            playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
 
             CachePlayers.getPlayerInfo().remove(player);
 
 
-            if (kingdomInfoDB.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
+            if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
 
-            String kingdomName = kingdomInfoDB.getPlayerKingdom(player);
+            String kingdomName = kingdomInfo.getPlayerKingdom(player);
 
-            CacheKingdomInfoBuilder cacheKingdomInfoBuilder = CacheKingdoms.getKingdomInfo().get(kingdomName);
+            KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
-            kingdomInfoDB.setField(kingdomName, "king", cacheKingdomInfoBuilder.getKing());
-            kingdomInfoDB.setField(kingdomName, "banner", cacheKingdomInfoBuilder.getBanner());
-            kingdomInfoDB.setField(kingdomName, "members", cacheKingdomInfoBuilder.getMembers());
-            kingdomInfoDB.setField(kingdomName, "barons", cacheKingdomInfoBuilder.getBarons());
-            kingdomInfoDB.setField(kingdomName, "territory", cacheKingdomInfoBuilder.getTerritory());
+            kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
+            kingdomInfo.setField(kingdomName, "banner", cacheKingdomInfo.getBanner());
+            kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
+            kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
+            kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
 
             CacheKingdoms.getKingdomInfo().remove(kingdomName);
 

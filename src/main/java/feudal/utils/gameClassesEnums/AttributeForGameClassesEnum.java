@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public enum AttributeForGameClasses {
+public enum AttributeForGameClassesEnum {
     STRENGTH_AND_STAMINA(1, 3, "Сила", "Выносливость"),
     STAMINA_AND_LUCK(2, 8, "Выносливость", "Удача"),
     SURVIVABILITY_AND_LUCK(4, "Живучесть", "Удача"),
@@ -22,24 +22,24 @@ public enum AttributeForGameClasses {
     final String oneAttributeName;
     final String secondAttributeName;
 
-    AttributeForGameClasses(int oneClassID, String oneAttributeName, String secondAttributeName) {
+    AttributeForGameClassesEnum(int oneClassID, String oneAttributeName, String secondAttributeName) {
         this.oneClassID = oneClassID;
         this.oneAttributeName = oneAttributeName;
         this.secondAttributeName = secondAttributeName;
     }
 
     public static String getOneAttributeNameByID(int id) {
-        for (AttributeForGameClasses attributeForGameClasses : values())
-            if (attributeForGameClasses.getOneClassID() == id ||
-                    attributeForGameClasses.getSecondClassID() == id)
-                return attributeForGameClasses.getOneAttributeName();
+        for (AttributeForGameClassesEnum attributeForGameClassesEnum : values())
+            if (attributeForGameClassesEnum.getOneClassID() == id ||
+                    attributeForGameClassesEnum.getSecondClassID() == id)
+                return attributeForGameClassesEnum.getOneAttributeName();
         return "";
     }
     public static String getSecondAttributeNameByID(int id) {
-        for (AttributeForGameClasses attributeForGameClasses : values())
-            if (attributeForGameClasses.getOneClassID() == id ||
-                    attributeForGameClasses.getSecondClassID() == id)
-                return attributeForGameClasses.getSecondAttributeName();
+        for (AttributeForGameClassesEnum attributeForGameClassesEnum : values())
+            if (attributeForGameClassesEnum.getOneClassID() == id ||
+                    attributeForGameClassesEnum.getSecondClassID() == id)
+                return attributeForGameClassesEnum.getSecondAttributeName();
         return "";
     }
 }

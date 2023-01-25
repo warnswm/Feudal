@@ -1,9 +1,8 @@
 package feudal.view.menu;
 
-import feudal.info.CachePlayerInfoBuilder;
-import feudal.utils.CachePlayers;
+import feudal.info.CachePlayers;
 import feudal.utils.CreateItemUtil;
-import feudal.utils.gameClassesEnums.AttributeForGameClasses;
+import feudal.utils.gameClassesEnums.AttributeForGameClassesEnum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,8 +22,8 @@ public class GameClassUpMenu {
         Inventory upgradeGameClassInv = Bukkit.createInventory(player, 9, "Прокачка класса");
         CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
 
-        upgradeGameClassInv.setItem(2, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClasses.getOneAttributeNameByID(cachePlayerInfoBuilder.getAClassID())));
-        upgradeGameClassInv.setItem(6, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClasses.getSecondAttributeNameByID(cachePlayerInfoBuilder.getAClassID())));
+        upgradeGameClassInv.setItem(2, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getOneAttributeNameByID(cachePlayerInfoBuilder.getAClassID())));
+        upgradeGameClassInv.setItem(6, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getSecondAttributeNameByID(cachePlayerInfoBuilder.getAClassID())));
 
         player.openInventory(upgradeGameClassInv);
     }

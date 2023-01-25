@@ -1,7 +1,6 @@
 package feudal.view.menu;
 
-import feudal.info.CachePlayerInfoBuilder;
-import feudal.utils.CachePlayers;
+import feudal.info.CachePlayers;
 import feudal.utils.CreateItemUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
