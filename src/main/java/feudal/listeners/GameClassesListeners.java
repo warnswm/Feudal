@@ -45,8 +45,7 @@ public class GameClassesListeners implements Listener {
             playerInfo.addExperience(BlocksForMinerEnum.getByMaterial(event.getBlock().getType()));
             playerInfo.addGameClassExperience(BlocksForMinerEnum.getByMaterial(event.getBlock().getType()) * 4);
 
-        }
-        else if (playerInfo.getAClassID() == 9)
+        } else if (playerInfo.getAClassID() == 9)
             if (event.getBlock().getType().equals(LOG)) {
                 playerInfo.addExperience(1);
                 playerInfo.addGameClassExperience(4);
@@ -92,7 +91,7 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void playerHunted(EntityDeathEvent event) {
+    public void playerHunted(@NotNull EntityDeathEvent event) {
 
         Player player = event.getEntity().getKiller();
         if (player == null) return;
@@ -107,7 +106,7 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void regenerationEvent(EntityRegainHealthEvent event) {
+    public void regenerationEvent(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
 
