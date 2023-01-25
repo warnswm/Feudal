@@ -18,13 +18,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class PlayerCommands implements CommandExecutor {
+
+    final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
+    final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) return false;
 
-        final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-        final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
         Player player = (Player) sender;
 
         switch (args[0]) {
@@ -43,9 +44,9 @@ public class PlayerCommands implements CommandExecutor {
                 break;
             case "create":
 
-                if (args[1].length() > 16 || args[1].equalsIgnoreCase("notInTheKingdom")) {
+                if (!checkKingdomName(args[1])) {
 
-                    player.sendMessage("Слишком длинное или недопустимое название");
+                    player.sendMessage("Невозможно создать королевство с таким именем");
 
                     break;
                 }
@@ -65,23 +66,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + args[1] + "'");
 
-
-                kingdomInfo.createNewKingdom(args[1], player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
-
-                kingdomInfo.setKingdomName(args[1])
-                        .setKing(player.getUniqueId().toString())
-                        .setBanner(banner.toString())
-                        .setMembers(members)
-                        .setBarons(Collections.EMPTY_LIST)
-                        .setTerritory(Collections.EMPTY_LIST);
-
-
-                CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
+                createKingdom(args[1], player, banner, members);
 
                 break;
             case "invite":
 
-                if (CacheKingdoms.getKingdomInfo().get(player) == null) {
+                if (CacheKingdoms.playerInKingdom(player)) {
 
                     player.sendMessage("Вы не находитесь в королевстве");
 
@@ -107,5 +97,21 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         return false;
+    }
+    private boolean checkKingdomName(String kingdomName) {
+        //занято ли имя
+        return kingdomName.length() <= 16 && kingdomName.length() > 3 && !kingdomName.equalsIgnoreCase("notInTheKingdom");
+    }
+    private void createKingdom(String kingdomName, Player player, ItemStack banner, List<String> members) {
+
+        kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
+        kingdomInfo.setKingdomName(kingdomName)
+                .setKing(player.getUniqueId().toString())
+                .setBanner(banner.toString())
+                .setMembers(members)
+                .setBarons(Collections.EMPTY_LIST)
+                .setTerritory(Collections.EMPTY_LIST);
+
+        CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
     }
 }

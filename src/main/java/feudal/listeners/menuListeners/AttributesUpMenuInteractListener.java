@@ -60,4 +60,21 @@ public class AttributesUpMenuInteractListener implements Listener {
 
         }
     }
+//    private void upStrength(Player player, String methodName) {
+//
+//        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+//
+//        Method method;
+//        try {
+//            method = Class.forName(PlayerInfo.class.getName()).getDeclaredMethod(methodName);
+//        } catch (NoSuchMethodException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        method.invoke(PlayerInfo)
+//
+//        playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getStaminaLvl()) * 100));
+//        playerInfo.addStaminaLvl(1);
+//
+//        player.closeInventory();
+//    }
 }
