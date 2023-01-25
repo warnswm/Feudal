@@ -1,5 +1,6 @@
 package feudal;
 
+import com.comphenix.protocol.ProtocolManager;
 import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
@@ -23,9 +24,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Feudal extends JavaPlugin {
 
     static Plugin plugin;
+    ProtocolManager protocolManager;
 
     @Override
     public void onEnable() {
+
+        if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
+            Bukkit.getPluginManager().disablePlugin(this);
 
         plugin = this;
 
@@ -57,22 +62,22 @@ public final class Feudal extends JavaPlugin {
 
         Bukkit.getOnlinePlayers().forEach(player -> {
 
-            CachePlayerInfoBuilder cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
+            PlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
             new Thread(() -> {
 
-                playerInfo.setField(player, "classID", cachePlayerInfoBuilder.getAClassID());
-                playerInfo.setField(player, "experience", cachePlayerInfoBuilder.getExperience());
-                playerInfo.setField(player, "gameClassExperience", cachePlayerInfoBuilder.getGameClassExperience());
-                playerInfo.setField(player, "balance", cachePlayerInfoBuilder.getBalance());
-                playerInfo.setField(player, "deaths", cachePlayerInfoBuilder.getDeaths());
-                playerInfo.setField(player, "kills", cachePlayerInfoBuilder.getKills());
-                playerInfo.setField(player, "luckLvl", cachePlayerInfoBuilder.getLuckLvl());
-                playerInfo.setField(player, "speedLvl", cachePlayerInfoBuilder.getSpeedLvl());
-                playerInfo.setField(player, "staminaLvl", cachePlayerInfoBuilder.getStaminaLvl());
-                playerInfo.setField(player, "strengthLvl", cachePlayerInfoBuilder.getStrengthLvl());
-                playerInfo.setField(player, "survivabilityLvl", cachePlayerInfoBuilder.getSurvivabilityLvl());
-                playerInfo.setField(player, "kingdomName", cachePlayerInfoBuilder.getKingdomName());
+                playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
+                playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
+                playerInfo.setField(player, "gameClassExperience", cachePlayerInfo.getGameClassExperience());
+                playerInfo.setField(player, "balance", cachePlayerInfo.getBalance());
+                playerInfo.setField(player, "deaths", cachePlayerInfo.getDeaths());
+                playerInfo.setField(player, "kills", cachePlayerInfo.getKills());
+                playerInfo.setField(player, "luckLvl", cachePlayerInfo.getLuckLvl());
+                playerInfo.setField(player, "speedLvl", cachePlayerInfo.getSpeedLvl());
+                playerInfo.setField(player, "staminaLvl", cachePlayerInfo.getStaminaLvl());
+                playerInfo.setField(player, "strengthLvl", cachePlayerInfo.getStrengthLvl());
+                playerInfo.setField(player, "survivabilityLvl", cachePlayerInfo.getSurvivabilityLvl());
+                playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
 
                 CachePlayers.getPlayerInfo().remove(player);
 
@@ -81,13 +86,13 @@ public final class Feudal extends JavaPlugin {
 
                 String kingdomName = kingdomInfo.getPlayerKingdom(player);
 
-                KingdomInfo cacheKingdomInfoBuilder = CacheKingdoms.getKingdomInfo().get(kingdomName);
+                KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
-                kingdomInfo.setField(kingdomName, "king", cacheKingdomInfoBuilder.getKing());
-                kingdomInfo.setField(kingdomName, "banner", cacheKingdomInfoBuilder.getBanner().toString());
-                kingdomInfo.setField(kingdomName, "members", cacheKingdomInfoBuilder.getMembers());
-                kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfoBuilder.getBarons());
-                kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfoBuilder.getTerritory());
+                kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
+                kingdomInfo.setField(kingdomName, "banner", cacheKingdomInfo.getBanner().toString());
+                kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
+                kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
+                kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
 
                 CacheKingdoms.getKingdomInfo().remove(kingdomName);
 
