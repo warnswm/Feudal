@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +29,7 @@ public class PlayerGeneralListener implements Listener {
         Block block = event.getBlock();
 
         if (block.getType() == null && block.getType() != Material.REDSTONE_BLOCK &&
-                block.getType() != Material.REDSTONE &&
+                block.getType() != Material.REDSTONE_WIRE &&
                 block.getType() != Material.REDSTONE_COMPARATOR &&
                 block.getType() != Material.REDSTONE_TORCH_OFF &&
                 block.getType() != Material.REDSTONE_TORCH_ON &&
@@ -49,9 +49,15 @@ public class PlayerGeneralListener implements Listener {
                 block.getType() != Material.POWERED_RAIL &&
                 block.getType() != Material.DETECTOR_RAIL &&
                 block.getType() != Material.TRIPWIRE_HOOK &&
-                block.getType() != Material.TRAPPED_CHEST) return;
+                block.getType() != Material.TRAPPED_CHEST &&
+                block.getType() != Material.OBSERVER &&
+                block.getType() != Material.DROPPER &&
+                block.getType() != Material.DISPENSER &&
+                block.getType() != Material.TNT) return;
 
         Chunk chunk = event.getBlock().getChunk();
+
+        Block chunkBlock;
 
         int count = 0;
 
@@ -61,10 +67,13 @@ public class PlayerGeneralListener implements Listener {
 
                 for (int y = 0; y < 256; y++) {
 
-                    Block chunkBlock = chunk.getBlock(x, y, z);
+                    chunkBlock = chunk.getBlock(x, y, z);
+
+                    if (chunkBlock.getType() == Material.TNT)
+                        count += 5;
 
                     if (chunkBlock.getType() != null && chunkBlock.getType() == Material.REDSTONE_BLOCK ||
-                            chunkBlock.getType() == Material.REDSTONE ||
+                            chunkBlock.getType() == Material.REDSTONE_WIRE ||
                             chunkBlock.getType() == Material.REDSTONE_COMPARATOR ||
                             chunkBlock.getType() == Material.REDSTONE_TORCH_OFF ||
                             chunkBlock.getType() == Material.REDSTONE_TORCH_ON ||
@@ -84,7 +93,10 @@ public class PlayerGeneralListener implements Listener {
                             chunkBlock.getType() == Material.POWERED_RAIL ||
                             chunkBlock.getType() == Material.DETECTOR_RAIL ||
                             chunkBlock.getType() == Material.TRIPWIRE_HOOK ||
-                            chunkBlock.getType() == Material.TRAPPED_CHEST)
+                            chunkBlock.getType() == Material.TRAPPED_CHEST ||
+                            chunkBlock.getType() == Material.OBSERVER ||
+                            chunkBlock.getType() == Material.DROPPER ||
+                            chunkBlock.getType() == Material.DISPENSER)
                         count++;
 
                     if (count > 50) {
@@ -92,19 +104,22 @@ public class PlayerGeneralListener implements Listener {
                         event.getPlayer().sendMessage("Слишком много редстоун блоков!");
                         return;
                     }
+
                 }
+
             }
+
         }
+
     }
 
     @EventHandler
-    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
+    public void entityDeath(@NotNull EntityDeathEvent event) {
 
-        if (!(event.getDamager() instanceof Player)) return;
-
-        Player player = (Player) event.getDamager();
+        Player player = event.getEntity().getKiller();
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
         playerInfo.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
+
     }
 }
