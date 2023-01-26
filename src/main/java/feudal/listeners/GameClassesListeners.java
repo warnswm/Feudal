@@ -12,10 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityBreedEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -112,10 +109,9 @@ public class GameClassesListeners implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        float tmp = CachePlayers.getPlayerInfo().get(player).getStaminaLvl();
-        float tmpp = CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl();
+        float tmp = CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl();
 
-        event.setAmount(1 * (tmp / 200 + tmpp / 500) + 1);
+        event.setAmount(1 * (tmp / 200) + 1);
 
     }
 
@@ -140,5 +136,16 @@ public class GameClassesListeners implements Listener {
         float tmp = CachePlayers.getPlayerInfo().get(player).getStrengthLvl();
 
         event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
+    }
+    @EventHandler
+    public void onFoodChange(FoodLevelChangeEvent event) {
+
+        if (!(event.getEntity() instanceof Player)) return;
+
+        Player player = (Player) event.getEntity();
+
+        float tmp = CachePlayers.getPlayerInfo().get(player).getStaminaLvl();
+
+        event.setFoodLevel((int) (player.getFoodLevel() * (tmp / 300) + player.getFoodLevel()));
     }
 }
