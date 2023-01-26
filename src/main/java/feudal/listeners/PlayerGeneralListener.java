@@ -101,9 +101,37 @@ public class PlayerGeneralListener implements Listener {
                         count++;
 
                     if (count > 50) {
-                        event.setCancelled(true);
-                        event.getPlayer().sendMessage("Слишком много редстоун блоков!");
-                        return;
+
+                        if (chunkBlock.getType() == Material.REDSTONE_BLOCK ||
+                                chunkBlock.getType() == Material.REDSTONE_WIRE ||
+                                chunkBlock.getType() == Material.REDSTONE_COMPARATOR ||
+                                chunkBlock.getType() == Material.REDSTONE_TORCH_OFF ||
+                                chunkBlock.getType() == Material.REDSTONE_TORCH_ON ||
+                                chunkBlock.getType() == Material.PISTON_BASE ||
+                                chunkBlock.getType() == Material.PISTON_MOVING_PIECE ||
+                                chunkBlock.getType() == Material.PISTON_EXTENSION ||
+                                chunkBlock.getType() == Material.PISTON_STICKY_BASE ||
+                                chunkBlock.getType() == Material.LEVER ||
+                                chunkBlock.getType() == Material.STONE_BUTTON ||
+                                chunkBlock.getType() == Material.WOOD_BUTTON ||
+                                chunkBlock.getType() == Material.WOOD_PLATE ||
+                                chunkBlock.getType() == Material.GOLD_PLATE ||
+                                chunkBlock.getType() == Material.STONE_PLATE ||
+                                chunkBlock.getType() == Material.IRON_PLATE ||
+                                chunkBlock.getType() == Material.RAILS ||
+                                chunkBlock.getType() == Material.ACTIVATOR_RAIL ||
+                                chunkBlock.getType() == Material.POWERED_RAIL ||
+                                chunkBlock.getType() == Material.DETECTOR_RAIL ||
+                                chunkBlock.getType() == Material.TRIPWIRE_HOOK ||
+                                chunkBlock.getType() == Material.TRAPPED_CHEST ||
+                                chunkBlock.getType() == Material.OBSERVER ||
+                                chunkBlock.getType() == Material.DROPPER ||
+                                chunkBlock.getType() == Material.DISPENSER) {
+                            event.setCancelled(true);
+                            event.getPlayer().sendMessage("Слишком много редстоун блоков!");
+                            return;
+                        }
+
                     }
 
                 }
@@ -116,6 +144,8 @@ public class PlayerGeneralListener implements Listener {
 
     @EventHandler
     public void entityDeath(@NotNull EntityDeathEvent event) {
+
+        if (event.getEntity().getKiller() == null) return;
 
         Player player = event.getEntity().getKiller();
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
