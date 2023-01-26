@@ -34,37 +34,30 @@ public class PlayerGeneralListener implements Listener {
 
         Chunk chunk = event.getBlock().getChunk();
 
-        Block chunkBlock;
-
         int count = 0;
 
-        for (int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
+        for(int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
 
-            for (int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
+            for(int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
 
-                for (int y = 0; y < 256; y++) {
+                for(int y = 0; y < 256; y++) {
 
-                    chunkBlock = chunk.getBlock(x, y, z);
+                    Block blockChunk = chunk.getBlock(x, y, z);
 
-                    if (chunkBlock.getType() == Material.TNT)
+                    if (blockChunk.getType().equals(Material.TNT))
                         count += 5;
 
-                    if (chunkBlock.getType() != null && RedtoneMaterialEnum.getByMaterial(block.getType()))
+                    if (RedtoneMaterialEnum.getByMaterial(blockChunk.getType()))
                         count++;
-
-                    if (count > 50)
-                        if (RedtoneMaterialEnum.getByMaterial(block.getType())) {
-                            event.setCancelled(true);
-                            event.getPlayer().sendMessage("Слишком много редстоун блоков!");
-                            return;
-                        }
-
-
-
                 }
 
             }
 
+        }
+
+        if (count > 50) {
+            event.setCancelled(true);
+            event.getPlayer().sendMessage("Слишком много редстоун блоков!");
         }
 
     }
