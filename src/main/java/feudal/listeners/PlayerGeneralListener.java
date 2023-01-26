@@ -1,12 +1,18 @@
 package feudal.listeners;
 
+import feudal.info.CachePlayers;
+import feudal.info.PlayerInfo;
+import feudal.utils.gameClassesEnums.MoneyForMobsEnum;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class PlayerGeneralListener implements Listener {
 
@@ -89,5 +95,16 @@ public class PlayerGeneralListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
+
+        if (!(event.getDamager() instanceof Player)) return;
+
+        Player player = (Player) event.getDamager();
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+
+        playerInfo.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
     }
 }
