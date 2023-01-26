@@ -6,6 +6,7 @@ import feudal.utils.gameClassesEnums.MoneyForMobsEnum;
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -119,7 +120,18 @@ public class PlayerGeneralListener implements Listener {
         Player player = event.getEntity().getKiller();
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        playerInfo.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
+        if (event.getEntityType() == EntityType.PLAYER) {
+
+            PlayerInfo playerDeathInfo = CachePlayers.getPlayerInfo().get((Player) event.getEntity());
+
+            int temp = (int) (playerDeathInfo.getBalance() / 100 * (3 + Math.random() * 5));
+
+            playerInfo.addBalance(temp);
+
+            playerDeathInfo.takeBalance((int) (temp + (1 + Math.random() * 3)));
+        }
+        else
+            playerInfo.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
 
     }
 }

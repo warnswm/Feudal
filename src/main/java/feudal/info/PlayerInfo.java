@@ -190,6 +190,9 @@ public class PlayerInfo {
     public void addBalance(int value) {
         balance += value;
     }
+    public void takeBalance(int value) {
+        balance -= value;
+    }
 
     public void addDeaths(int value) {
         deaths += value;
