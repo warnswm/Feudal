@@ -63,17 +63,13 @@ public class GameClassesListeners implements Listener {
 
         if (playerInfo.getAClassID() != 4) return;
 
-        if (event.getCaught() != null) {
-
+        if (event.getState() == PlayerFishEvent.State.CAUGHT_FISH)
             playerInfo.addExperience(30);
-            playerInfo.addGameClassExperience(120);
-
-        }
 
     }
 
     @EventHandler
-    public void entityBreed(@NotNull EntityBreedEvent event) {
+    public void playerBreed(@NotNull EntityBreedEvent event) {
 
         if (!(event.getBreeder() instanceof Player)) return;
 
@@ -103,7 +99,7 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void regenerationEvent(@NotNull EntityRegainHealthEvent event) {
+    public void playerRegenerationEvent(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
 
@@ -137,8 +133,9 @@ public class GameClassesListeners implements Listener {
 
         event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
     }
+
     @EventHandler
-    public void onFoodChange(FoodLevelChangeEvent event) {
+    public void playerOnFoodChange(@NotNull FoodLevelChangeEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
 
