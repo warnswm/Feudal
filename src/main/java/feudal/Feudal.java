@@ -36,20 +36,10 @@ public final class Feudal extends JavaPlugin {
 
         plugin = this;
 
-        getConfig().options().copyDefaults();
-        saveDefaultConfig();
+        registerCommands();
+        registerEvents();
+        loadConfig();
 
-        Bukkit.getPluginManager().registerEvents(new GameClassesListeners(), this);
-        Bukkit.getPluginManager().registerEvents(new GameClassChangeMenuInteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new AttributesUpMenuInteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new GameClassUpMenuInteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
-        Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerGeneralListener(), this);
-
-        getCommand("admin").setExecutor(new AdminCommands());
-        getCommand("ls").setExecutor(new LocalStaffCommands());
-        getCommand("f").setExecutor(new PlayerCommands());
     }
     public static Plugin getPlugin() {
 
@@ -60,48 +50,86 @@ public final class Feudal extends JavaPlugin {
     @Override
     public void onDisable() {
 
+        savePlayers();
+        saveKingdoms();
+
+    }
+
+    private void registerCommands() {
+
+        getCommand("admin").setExecutor(new AdminCommands());
+        getCommand("ls").setExecutor(new LocalStaffCommands());
+        getCommand("f").setExecutor(new PlayerCommands());
+
+    }
+
+    private void registerEvents() {
+
+        Bukkit.getPluginManager().registerEvents(new GameClassesListeners(), this);
+        Bukkit.getPluginManager().registerEvents(new GameClassChangeMenuInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new AttributesUpMenuInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GameClassUpMenuInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
+        Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerGeneralListener(), this);
+
+    }
+
+    private void loadConfig() {
+
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+
+    }
+
+    private void savePlayers() {
+
         final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
         final PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-        final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
-        Bukkit.getOnlinePlayers().forEach(player -> {
+        Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
 
             PlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
 
-            new Thread(() -> {
+            playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
+            playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
+            playerInfo.setField(player, "gameClassExperience", cachePlayerInfo.getGameClassExperience());
+            playerInfo.setField(player, "balance", cachePlayerInfo.getBalance());
+            playerInfo.setField(player, "deaths", cachePlayerInfo.getDeaths());
+            playerInfo.setField(player, "kills", cachePlayerInfo.getKills());
+            playerInfo.setField(player, "luckLvl", cachePlayerInfo.getLuckLvl());
+            playerInfo.setField(player, "speedLvl", cachePlayerInfo.getSpeedLvl());
+            playerInfo.setField(player, "staminaLvl", cachePlayerInfo.getStaminaLvl());
+            playerInfo.setField(player, "strengthLvl", cachePlayerInfo.getStrengthLvl());
+            playerInfo.setField(player, "survivabilityLvl", cachePlayerInfo.getSurvivabilityLvl());
+            playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
 
-                playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
-                playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
-                playerInfo.setField(player, "gameClassExperience", cachePlayerInfo.getGameClassExperience());
-                playerInfo.setField(player, "balance", cachePlayerInfo.getBalance());
-                playerInfo.setField(player, "deaths", cachePlayerInfo.getDeaths());
-                playerInfo.setField(player, "kills", cachePlayerInfo.getKills());
-                playerInfo.setField(player, "luckLvl", cachePlayerInfo.getLuckLvl());
-                playerInfo.setField(player, "speedLvl", cachePlayerInfo.getSpeedLvl());
-                playerInfo.setField(player, "staminaLvl", cachePlayerInfo.getStaminaLvl());
-                playerInfo.setField(player, "strengthLvl", cachePlayerInfo.getStrengthLvl());
-                playerInfo.setField(player, "survivabilityLvl", cachePlayerInfo.getSurvivabilityLvl());
-                playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
+            CachePlayers.getPlayerInfo().remove(player);
+        }).start());
 
-                CachePlayers.getPlayerInfo().remove(player);
+    }
 
+    private void saveKingdoms() {
 
-                if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
+        final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
+        final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
-                String kingdomName = kingdomInfo.getPlayerKingdom(player);
+        Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
 
-                KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
+            if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
 
-                kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
-                kingdomInfo.setField(kingdomName, "banner", cacheKingdomInfo.getBanner().toString());
-                kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
-                kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
-                kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
+            String kingdomName = kingdomInfo.getPlayerKingdom(player);
 
-                CacheKingdoms.getKingdomInfo().remove(kingdomName);
+            KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
+            kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
+            kingdomInfo.setField(kingdomName, "banner", cacheKingdomInfo.getBanner().toString());
+            kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
+            kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
+            kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
 
-            }).start();
-        });
+            CacheKingdoms.getKingdomInfo().remove(kingdomName);
+        }).start());
+
     }
 }
