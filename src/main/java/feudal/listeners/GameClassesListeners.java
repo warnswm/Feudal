@@ -6,6 +6,7 @@ import feudal.info.PlayerInfo;
 import feudal.utils.gameClassesEnums.AnimalsForHuntedEnum;
 import feudal.utils.gameClassesEnums.AnimalsForShepherdEnum;
 import feudal.utils.gameClassesEnums.BlocksForMinerEnum;
+import feudal.utils.gameClassesEnums.ClassesIDEnum;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -40,18 +41,18 @@ public class GameClassesListeners implements Listener {
 
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
 
-        if (playerInfo.getAClassID() == 6) {
+        if (playerInfo.getAClassID() == ClassesIDEnum.MINER.getId()) {
 
             playerInfo.addExperience(BlocksForMinerEnum.getByMaterial(event.getBlock().getType()));
             playerInfo.addGameClassExperience(BlocksForMinerEnum.getByMaterial(event.getBlock().getType()) * 4);
 
-        } else if (playerInfo.getAClassID() == 9)
+        } else if (playerInfo.getAClassID() == ClassesIDEnum.WOODCUTTER.getId())
             if (event.getBlock().getType().equals(LOG)) {
                 playerInfo.addExperience(1);
                 playerInfo.addGameClassExperience(4);
             }
 
-        else if (playerInfo.getAClassID() == 3) {
+        else if (playerInfo.getAClassID() == ClassesIDEnum.FARMER.getId()) {
 
             //Farmer logics
 
@@ -63,7 +64,7 @@ public class GameClassesListeners implements Listener {
 
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
 
-        if (playerInfo.getAClassID() != 4 || event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
+        if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 
         playerInfo.addExperience(30);
 
@@ -104,7 +105,7 @@ public class GameClassesListeners implements Listener {
         Player player = (Player) event.getBreeder();
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        if (playerInfo.getAClassID() != 7) return;
+        if (playerInfo.getAClassID() != ClassesIDEnum.SHEPHERD.getId()) return;
 
         playerInfo.addExperience(AnimalsForShepherdEnum.getByEntity(event.getEntityType()));
         playerInfo.addGameClassExperience(AnimalsForShepherdEnum.getByEntity(event.getEntityType()) * 4);
@@ -119,7 +120,7 @@ public class GameClassesListeners implements Listener {
 
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        if (playerInfo.getAClassID() != 5) return;
+        if (playerInfo.getAClassID() != ClassesIDEnum.HUNTER.getId()) return;
 
         playerInfo.addExperience(AnimalsForHuntedEnum.getByEntity(event.getEntityType()));
         playerInfo.addGameClassExperience(AnimalsForHuntedEnum.getByEntity(event.getEntityType()) * 4);
