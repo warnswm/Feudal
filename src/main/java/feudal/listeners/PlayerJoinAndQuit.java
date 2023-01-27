@@ -30,9 +30,47 @@ public class PlayerJoinAndQuit implements Listener {
 
         Player player = event.getPlayer();
 
-        if (!playerInfo.hasPlayer(player))
-            playerInfo.createNewPlayer(player);
+        if (!playerInfo.hasPlayer(player)) {
 
+            loadPlayer(player);
+
+            return;
+        }
+
+        loadPlayer(player);
+        setPlayerAttribute(player);
+        loadKingdom(player);
+
+    }
+
+    @EventHandler
+    public void playerQuit(@NotNull PlayerQuitEvent event) {
+
+        Player player = event.getPlayer();
+
+        if (CachePlayers.getPlayerInfo().get(event.getPlayer()) == null) return;
+
+
+        if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom"))
+            savePlayer(player);
+        else {
+            savePlayer(player);
+            saveKingdom(player);
+        }
+
+    }
+    private void loadPlayer(Player player) {
+
+        if (!playerInfo.hasPlayer(player)) {
+
+            playerInfo.createNewPlayer(player);
+            playerInfo.setPlayer(player).setaClassID(0).setExperience(0).setGameClassExperience(0)
+                    .setBalance(0).setDeaths(0).setKills(0)
+                    .setLuckLvl(0).setSpeedLvl(0).setStaminaLvl(0)
+                    .setStrengthLvl(0).setKingdomName("notInTheKingdom").setSurvivabilityLvl(0);
+
+            return;
+        }
 
         playerInfo.setPlayer(player)
                 .setaClassID((Integer) playerInfo.getField(player, "classID"))
@@ -50,36 +88,38 @@ public class PlayerJoinAndQuit implements Listener {
 
         CachePlayers.getPlayerInfo().put(player, playerInfo);
 
-        float tmpHealth = playerInfo.getSurvivabilityLvl();
-        float tmpSpeed = playerInfo.getSpeedLvl();
+    }
+    private void loadKingdom(Player player) {
+
+        if (!kingdomInfo.playerInKingdom(player)) return;
+
+        String kingdomName = kingdomInfo.getPlayerKingdom(player);
+
+        kingdomInfo.setKingdomName(kingdomName)
+                .setKing((String) kingdomInfo.getField(kingdomName, "king"))
+                .setBanner((String) kingdomInfo.getField(kingdomName, "banner"))
+                .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
+                .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
+                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"));
+
+        CacheKingdoms.getKingdomInfo().put(kingdomName, kingdomInfo);
+
+    }
+    private void setPlayerAttribute(Player player) {
+
+        float tmpHealth = playerInfo.getSurvivabilityLvl(), tmpSpeed = playerInfo.getSpeedLvl();
+
         player.setMaxHealth(20 * (tmpHealth / 100) + 20);
         player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
+
 
         if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom"))
             player.setDisplayName(player.getDisplayName() + " [Не в королевстве]");
         else
             player.setDisplayName(player.getDisplayName() + " [" + kingdomInfo.getPlayerKingdom(player) + "]");
 
-
-        if (!kingdomInfo.playerInKingdom(player)) return;
-
-        kingdomInfo.setKingdomName(kingdomInfo.getPlayerKingdom(player))
-                .setKing((String) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "king"))
-                .setBanner((String) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "banner"))
-                .setMembers((List<String>) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "members"))
-                .setBarons((List<String>) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "barons"))
-                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomInfo.getPlayerKingdom(player), "territory"));
-
-
-        CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
     }
-
-    @EventHandler
-    public void playerQuit(@NotNull PlayerQuitEvent event) {
-
-        if (CachePlayers.getPlayerInfo().get(event.getPlayer()) == null) return;
-
-        Player player = event.getPlayer();
+    private void savePlayer(Player player) {
 
         new Thread(() -> {
 
@@ -100,11 +140,13 @@ public class PlayerJoinAndQuit implements Listener {
 
             CachePlayers.getPlayerInfo().remove(player);
 
+        }).start();
+    }
+    private void saveKingdom(Player player) {
 
-            if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
+        new Thread(() -> {
 
             String kingdomName = kingdomInfo.getPlayerKingdom(player);
-
             KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
             kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
@@ -116,6 +158,5 @@ public class PlayerJoinAndQuit implements Listener {
             CacheKingdoms.getKingdomInfo().remove(kingdomName);
 
         }).start();
-
     }
 }
