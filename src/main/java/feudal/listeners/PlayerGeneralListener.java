@@ -16,6 +16,8 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class PlayerGeneralListener implements Listener {
 
     @EventHandler
@@ -34,31 +36,34 @@ public class PlayerGeneralListener implements Listener {
 
         Chunk chunk = event.getBlock().getChunk();
 
-        int count = 0;
+        new Thread(() -> {
 
-        for (int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
+            AtomicInteger count = new AtomicInteger();
 
-            for (int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
+            for (int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
 
-                for (int y = 0; y < 256; y++) {
+                for (int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
 
-                    Block blockChunk = chunk.getBlock(x, y, z);
+                    for (int y = 0; y < 256; y++) {
 
-                    if (blockChunk.getType().equals(Material.TNT))
-                        count += 5;
+                        Block blockChunk = chunk.getBlock(x, y, z);
 
-                    if (RedtoneMaterialEnum.getByMaterial(blockChunk.getType()))
-                        count++;
+                        if (blockChunk.getType().equals(Material.TNT))
+                            count.addAndGet(5);
+
+                        if (RedtoneMaterialEnum.getByMaterial(blockChunk.getType()))
+                            count.getAndIncrement();
+                    }
+
                 }
 
             }
 
-        }
-
-        if (count > 50) {
-            event.setCancelled(true);
-            event.getPlayer().sendMessage("Слишком много редстоун блоков!");
-        }
+            if (count.get() > 50) {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage("Слишком много редстоун блоков!");
+            }
+        }).start();
 
     }
 

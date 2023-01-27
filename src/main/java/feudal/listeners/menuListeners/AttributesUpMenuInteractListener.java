@@ -49,12 +49,18 @@ public class AttributesUpMenuInteractListener implements Listener {
             playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getSurvivabilityLvl()) * 100));
             playerInfo.addSurvivabilityLvl(1);
 
+            float tmpHealth = playerInfo.getSurvivabilityLvl();
+            player.setMaxHealth(20 * (tmpHealth / 100) + 20);
+
             player.closeInventory();
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень скорости")) {
 
             playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getSpeedLvl()) * 100));
             playerInfo.addSpeedLvl(1);
+
+            float tmpSpeed = playerInfo.getSpeedLvl();
+            player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
 
             player.closeInventory();
 

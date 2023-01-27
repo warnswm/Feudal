@@ -17,7 +17,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
@@ -137,17 +136,6 @@ public class GameClassesListeners implements Listener {
         float tmp = CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl();
 
         event.setAmount(1 * (tmp / 200) + 1);
-
-    }
-
-    @EventHandler
-    public void playerMove(@NotNull PlayerMoveEvent event) {
-
-        Player player = event.getPlayer();
-
-        float tmp = CachePlayers.getPlayerInfo().get(player).getSpeedLvl();
-
-        player.setWalkSpeed(0.2f * (tmp / 100) + 0.2f);
 
     }
 

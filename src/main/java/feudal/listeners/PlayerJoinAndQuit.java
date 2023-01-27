@@ -50,8 +50,10 @@ public class PlayerJoinAndQuit implements Listener {
 
         CachePlayers.getPlayerInfo().put(player, playerInfo);
 
-        float tmp = playerInfo.getSpeedLvl();
-        player.setMaxHealth(20 * (tmp / 100) + 20);
+        float tmpHealth = playerInfo.getSurvivabilityLvl();
+        float tmpSpeed = playerInfo.getSpeedLvl();
+        player.setMaxHealth(20 * (tmpHealth / 100) + 20);
+        player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
 
         if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom"))
             player.setDisplayName(player.getDisplayName() + " [Не в королевстве]");
