@@ -34,7 +34,9 @@ public enum RedtoneMaterialEnum {
     OBSERVER(Material.OBSERVER),
     DROPPER(Material.DROPPER),
     DISPENSER(Material.DISPENSER),
-    WOOD_BUTTON(Material.WOOD_BUTTON);
+    WOOD_BUTTON(Material.WOOD_BUTTON),
+    HOOPER(Material.HOPPER),
+    HOOPER_MINECART(Material.HOPPER_MINECART);
 
     Material material;
 
