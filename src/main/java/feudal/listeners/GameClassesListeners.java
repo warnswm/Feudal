@@ -132,6 +132,7 @@ public class GameClassesListeners implements Listener {
         float tmp = CachePlayers.getPlayerInfo().get(player).getStrengthLvl();
 
         event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
+        event.setDamage(event.getDamage() / 100 * (CachePlayers.getPlayerInfo().get(event.getEntity()).getStaminaLvl() * 0.2));
     }
 
     @EventHandler
