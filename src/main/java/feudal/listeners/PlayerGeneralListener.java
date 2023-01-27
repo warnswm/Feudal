@@ -36,11 +36,11 @@ public class PlayerGeneralListener implements Listener {
 
         int count = 0;
 
-        for(int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
+        for (int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
 
-            for(int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
+            for (int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
 
-                for(int y = 0; y < 256; y++) {
+                for (int y = 0; y < 256; y++) {
 
                     Block blockChunk = chunk.getBlock(x, y, z);
 
