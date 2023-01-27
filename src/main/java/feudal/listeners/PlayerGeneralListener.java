@@ -30,7 +30,7 @@ public class PlayerGeneralListener implements Listener {
 
         Block block = event.getBlock();
 
-        if (block.getType() == null && !RedtoneMaterialEnum.getByMaterial(block.getType())) return;
+        if (block.getType() == null || !RedtoneMaterialEnum.getByMaterial(block.getType())) return;
 
         Chunk chunk = event.getBlock().getChunk();
 

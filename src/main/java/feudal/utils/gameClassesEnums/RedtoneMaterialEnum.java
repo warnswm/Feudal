@@ -36,11 +36,15 @@ public enum RedtoneMaterialEnum {
     DISPENSER(Material.DISPENSER),
     WOOD_BUTTON(Material.WOOD_BUTTON),
     HOOPER(Material.HOPPER),
-    HOOPER_MINECART(Material.HOPPER_MINECART);
+    HOOPER_MINECART(Material.HOPPER_MINECART),
+    DIODE(Material.DIODE),
+    DIODE_BLOCK_OFF(Material.DIODE_BLOCK_OFF),
+    DIODE_BLOCK_ON(Material.DIODE_BLOCK_ON);
 
     Material material;
 
     public static boolean getByMaterial(Material material) {
+
         for (RedtoneMaterialEnum redtoneMaterialEnum : values())
             if (redtoneMaterialEnum.getMaterial() == material)
                 return true;
