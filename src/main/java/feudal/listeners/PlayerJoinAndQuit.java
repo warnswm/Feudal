@@ -75,6 +75,7 @@ public class PlayerJoinAndQuit implements Listener {
         playerInfo.setPlayer(player)
                 .setaClassID((Integer) playerInfo.getField(player, "classID"))
                 .setExperience((Integer) playerInfo.getField(player, "experience"))
+                .setExperience((Integer) playerInfo.getField(player, "gameClassLvl"))
                 .setGameClassExperience((Integer) playerInfo.getField(player, "gameClassExperience"))
                 .setBalance((Integer) playerInfo.getField(player, "balance"))
                 .setDeaths((Integer) playerInfo.getField(player, "deaths"))
@@ -127,6 +128,7 @@ public class PlayerJoinAndQuit implements Listener {
 
             playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
             playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
+            playerInfo.setField(player, "gameClassLvl", cachePlayerInfo.getGameClassLvl());
             playerInfo.setField(player, "gameClassExperience", cachePlayerInfo.getGameClassExperience());
             playerInfo.setField(player, "balance", cachePlayerInfo.getBalance());
             playerInfo.setField(player, "deaths", cachePlayerInfo.getDeaths());

@@ -28,6 +28,7 @@ public class PlayerInfo {
     int speedLvl;
     int staminaLvl;
     int luckLvl;
+    int gameClassLvl;
     int gameClassExperience;
     String kingdomName;
 
@@ -55,6 +56,7 @@ public class PlayerInfo {
             collection.insertOne(new Document("_id", player.getUniqueId().toString())
                     .append("classID", 0)
                     .append("experience", 0)
+                    .append("gameClassLvl", 0)
                     .append("gameClassExperience", 0)
                     .append("balance", 0)
                     .append("deaths", 0)

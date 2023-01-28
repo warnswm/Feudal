@@ -2,6 +2,7 @@ package feudal.listeners;
 
 import feudal.info.CachePlayers;
 import feudal.info.PlayerInfo;
+import feudal.utils.gameClassesEnums.ClassesIDEnum;
 import feudal.utils.gameClassesEnums.MoneyForMobsEnum;
 import feudal.utils.gameClassesEnums.RedtoneMaterialEnum;
 import org.bukkit.Chunk;
@@ -11,9 +12,11 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -87,6 +90,23 @@ public class PlayerGeneralListener implements Listener {
         }
         else
             playerInfo.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
+
+    }
+
+    @EventHandler
+    public void playerBreakBlock(@NotNull BlockBreakEvent event) {
+
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        Block block = event.getBlock();
+
+        if (playerInfo.getAClassID() != ClassesIDEnum.MINER.getId() ||
+                playerInfo.getGameClassLvl() < 25 ||
+                !block.getType().equals(Material.COAL_ORE) ||
+                !block.getType().equals(Material.IRON_ORE)) return;
+
+        if (block.getType().equals(Material.COAL_ORE))
+            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.COAL));
+        else block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.IRON_INGOT));
 
     }
 }
