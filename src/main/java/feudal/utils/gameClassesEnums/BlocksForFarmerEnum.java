@@ -9,7 +9,7 @@ import org.bukkit.Material;
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public enum BlockForFarmerEnum {
+public enum BlocksForFarmerEnum {
     COAL_ORE(Material.COAL_ORE, 3), IRON_ORE(Material.IRON_ORE, 5), GOLD_ORE(Material.GOLD_ORE, 8),
     DIAMOND_ORE(Material.DIAMOND_ORE, 15), EMERALD_ORE(Material.EMERALD_ORE, 25);
 
@@ -17,9 +17,9 @@ public enum BlockForFarmerEnum {
     int attributeExp;
 
     public static int getByMaterial(Material material) {
-        for (BlockForFarmerEnum blockForFarmerEnum : values())
-            if (blockForFarmerEnum.getMaterial() == material)
-                return blockForFarmerEnum.attributeExp;
+        for (BlocksForFarmerEnum blocksForFarmerEnum : values())
+            if (blocksForFarmerEnum.getMaterial() == material)
+                return blocksForFarmerEnum.attributeExp;
         return 0;
     }
 }

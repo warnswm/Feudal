@@ -2,10 +2,12 @@ package feudal.listeners;
 
 import feudal.info.CachePlayers;
 import feudal.info.PlayerInfo;
-import feudal.utils.gameClassesEnums.ClassesIDEnum;
+import feudal.utils.CreateItemUtil;
+import feudal.utils.gameClassesEnums.GameClassesIDEnum;
 import feudal.utils.gameClassesEnums.MoneyForMobsEnum;
 import feudal.utils.gameClassesEnums.RedtoneMaterialEnum;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -19,6 +21,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PlayerGeneralListener implements Listener {
@@ -99,15 +102,49 @@ public class PlayerGeneralListener implements Listener {
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
         Block block = event.getBlock();
 
-        if (playerInfo.getAClassID() != ClassesIDEnum.MINER.getId() ||
-                playerInfo.getGameClassLvl() < 25 ||
+        if (block.hasMetadata("PLACED")) return;
+
+        if (playerInfo.getAClassID() == GameClassesIDEnum.MINER.getId() &&
                 !block.getType().equals(Material.GOLD_ORE) &&
-                        !block.getType().equals(Material.IRON_ORE)) return;
+                !block.getType().equals(Material.IRON_ORE))
+            block.getWorld().dropItemNaturally(block.getLocation(), block.getType().equals(Material.GOLD_ORE) ? playerInfo.getGameClassLvl() >= 25 ? CreateItemUtil.createItem(Material.GOLD_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.GOLD_INGOT) : playerInfo.getGameClassLvl() >= 25 ? CreateItemUtil.createItem(Material.IRON_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.IRON_INGOT));
+        else if (playerInfo.getAClassID() == GameClassesIDEnum.WOODCUTTER.getId()) {
+            System.out.println(1);
+            cutDownTree(block.getLocation(), event.getPlayer().getItemInHand());
+        }
 
-        if (block.getType().equals(Material.GOLD_ORE))
-            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GOLD_INGOT));
-        else
-            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.IRON_INGOT));
 
+    }
+    private void cutDownTree(Location location, ItemStack handStack) {
+
+        LinkedList<Block> blocks = new LinkedList<>();
+
+        for (int i = location.getBlockY(); i < location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ());) {
+
+            Location l = location.add(0.0D, 1.0D, 0.0D);
+            Block block = l.getBlock();
+
+            if (block.getType().equals(Material.LOG) || block.getType().equals(Material.LEAVES)) {
+
+                blocks.add(l.getBlock());
+
+                i++;
+                continue;
+            }
+            break;
+        }
+
+        for (Block block : blocks) {
+
+            if (!block.breakNaturally(handStack)) return;
+
+            handStack.setDurability((short)(handStack.getDurability() + 1));
+
+            if (handStack.getType().getMaxDurability() == handStack.getDurability()) {
+                handStack.setType(Material.AIR);
+                return;
+            }
+
+        }
     }
 }
