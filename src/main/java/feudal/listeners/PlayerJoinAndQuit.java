@@ -115,9 +115,7 @@ public class PlayerJoinAndQuit implements Listener {
         player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
 
 
-        if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom"))
-            player.setDisplayName(player.getDisplayName() + " [Не в королевстве]");
-        else
+        if (!kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom"))
             player.setDisplayName(player.getDisplayName() + " [" + kingdomInfo.getPlayerKingdom(player) + "]");
 
     }
