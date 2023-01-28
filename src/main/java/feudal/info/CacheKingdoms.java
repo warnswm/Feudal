@@ -16,7 +16,7 @@ public class CacheKingdoms {
     }
 
     public static boolean playerInKingdom(Player player) {
-        return getKingdomInfo().get(player) == null;
+        return getKingdomInfo().get(player.getUniqueId().toString()) == null;
     }
 
 }

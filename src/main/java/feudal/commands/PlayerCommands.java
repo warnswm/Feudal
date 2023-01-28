@@ -76,7 +76,7 @@ public class PlayerCommands implements CommandExecutor {
                     player.sendMessage("Вы не находитесь в королевстве");
 
                     break;
-                } else if (!CacheKingdoms.getKingdomInfo().get(player).getKing().equals(player.getUniqueId().toString())) {
+                } else if (!CacheKingdoms.getKingdomInfo().get(player.getUniqueId().toString()).getKing().equals(player.getUniqueId().toString())) {
 
                     player.sendMessage("Вы не король королевства");
 
