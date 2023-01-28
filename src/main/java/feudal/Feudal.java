@@ -77,7 +77,7 @@ public final class Feudal extends JavaPlugin {
 
     private void loadConfig() {
 
-        getConfig().options().copyDefaults();
+        getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
     }
