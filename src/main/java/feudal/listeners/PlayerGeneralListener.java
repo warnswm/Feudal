@@ -105,23 +105,22 @@ public class PlayerGeneralListener implements Listener {
         if (block.hasMetadata("PLACED")) return;
 
         if (playerInfo.getAClassID() == GameClassesIDEnum.MINER.getId() &&
-                !block.getType().equals(Material.GOLD_ORE) &&
-                !block.getType().equals(Material.IRON_ORE))
+                block.getType().equals(Material.GOLD_ORE) ||
+                block.getType().equals(Material.IRON_ORE))
             block.getWorld().dropItemNaturally(block.getLocation(), block.getType().equals(Material.GOLD_ORE) ? playerInfo.getGameClassLvl() >= 25 ? CreateItemUtil.createItem(Material.GOLD_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.GOLD_INGOT) : playerInfo.getGameClassLvl() >= 25 ? CreateItemUtil.createItem(Material.IRON_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.IRON_INGOT));
-        else if (playerInfo.getAClassID() == GameClassesIDEnum.WOODCUTTER.getId()) {
-            System.out.println(1);
-            cutDownTree(block.getLocation(), event.getPlayer().getItemInHand());
-        }
 
+        else if (playerInfo.getAClassID() == GameClassesIDEnum.WOODCUTTER.getId())
+            cutDownTree(block.getLocation(), event.getPlayer().getItemInHand());
 
     }
-    private void cutDownTree(Location location, ItemStack handStack) {
+    private void cutDownTree(@NotNull Location location, ItemStack handStack) {
 
         LinkedList<Block> blocks = new LinkedList<>();
 
+
         for (int i = location.getBlockY(); i < location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ());) {
 
-            Location l = location.add(0.0D, 1.0D, 0.0D);
+            Location l = location.add(0, 1, 0);
             Block block = l.getBlock();
 
             if (block.getType().equals(Material.LOG) || block.getType().equals(Material.LEAVES)) {
