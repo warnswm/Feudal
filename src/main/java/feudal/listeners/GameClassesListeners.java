@@ -7,10 +7,7 @@ import feudal.utils.gameClassesEnums.AnimalsForHuntedEnum;
 import feudal.utils.gameClassesEnums.AnimalsForShepherdEnum;
 import feudal.utils.gameClassesEnums.BlocksForMinerEnum;
 import feudal.utils.gameClassesEnums.ClassesIDEnum;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +15,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerFishEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +31,7 @@ public class GameClassesListeners implements Listener {
     }
 
     @EventHandler
-    public void blockBreak(@NotNull BlockBreakEvent event) {
+    public void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         if (event.getBlock().hasMetadata("PLACED")) return;
 
@@ -67,34 +63,6 @@ public class GameClassesListeners implements Listener {
         if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 
         playerInfo.addExperience(30);
-
-        if (!(event.getCaught() instanceof Item) || (int) (Math.random() * 5) != 1) return;
-
-        Item stack = (Item) event.getCaught();
-        int item = (int) (Math.random() * 5);
-
-        switch (item) {
-            case 1:
-                stack.setItemStack(new ItemStack(Material.BOW));
-                break;
-            case 2:
-                ItemStack book = new ItemStack(Material.ENCHANTED_BOOK);
-                book.getItemMeta().addEnchant(Enchantment.getById((int) (Math.random() * 71)), 1, true);
-
-                stack.setItemStack(book);
-                break;
-            case 3:
-                stack.setItemStack(new ItemStack(Material.FISHING_ROD));
-                break;
-            case 4:
-                stack.setItemStack(new ItemStack(Material.NAME_TAG));
-                break;
-            case 5:
-                stack.setItemStack(new ItemStack(Material.SADDLE));
-                break;
-        }
-
-
     }
 
     @EventHandler

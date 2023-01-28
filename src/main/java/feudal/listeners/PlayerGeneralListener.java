@@ -3,6 +3,7 @@ package feudal.listeners;
 import feudal.info.CachePlayers;
 import feudal.info.PlayerInfo;
 import feudal.utils.CreateItemUtil;
+import feudal.utils.gameClassesEnums.ClassesIDEnum;
 import feudal.utils.gameClassesEnums.GameClassesIDEnum;
 import feudal.utils.gameClassesEnums.MoneyForMobsEnum;
 import feudal.utils.gameClassesEnums.RedtoneMaterialEnum;
@@ -10,6 +11,7 @@ import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -145,5 +148,39 @@ public class PlayerGeneralListener implements Listener {
             }
 
         }
+    }
+    @EventHandler
+    public void playerFishing(@NotNull PlayerFishEvent event) {
+
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+
+        if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() ||
+                playerInfo.getGameClassLvl() < 25 ||
+                event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
+
+        int item = (int) (Math.random() * 5), random = (int) (1 + Math.random() * 3);
+
+        if (random != 1 && random != 2) return;
+
+
+        switch (item) {
+            case 1:
+                event.getPlayer().getInventory().addItem((new ItemStack(Material.BOW)));
+                break;
+            case 2:
+                event.getPlayer().getInventory().addItem(CreateItemUtil.createItem(Material.ENCHANTED_BOOK, Enchantment.getById((int) (1 + Math.random() * 70)), 1, 1));
+                break;
+            case 3:
+                event.getPlayer().getInventory().addItem((new ItemStack(Material.FISHING_ROD)));
+                break;
+            case 4:
+                event.getPlayer().getInventory().addItem((new ItemStack(Material.NAME_TAG)));
+                break;
+            case 5:
+                event.getPlayer().getInventory().addItem((new ItemStack(Material.SADDLE)));
+                break;
+        }
+
+
     }
 }
