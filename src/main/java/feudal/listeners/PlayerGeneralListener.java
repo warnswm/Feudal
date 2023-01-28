@@ -101,12 +101,13 @@ public class PlayerGeneralListener implements Listener {
 
         if (playerInfo.getAClassID() != ClassesIDEnum.MINER.getId() ||
                 playerInfo.getGameClassLvl() < 25 ||
-                !block.getType().equals(Material.COAL_ORE) ||
-                !block.getType().equals(Material.IRON_ORE)) return;
+                !block.getType().equals(Material.GOLD_ORE) &&
+                        !block.getType().equals(Material.IRON_ORE)) return;
 
-        if (block.getType().equals(Material.COAL_ORE))
-            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.COAL));
-        else block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.IRON_INGOT));
+        if (block.getType().equals(Material.GOLD_ORE))
+            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GOLD_INGOT));
+        else
+            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.IRON_INGOT));
 
     }
 }

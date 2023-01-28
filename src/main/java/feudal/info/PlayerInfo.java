@@ -288,4 +288,9 @@ public class PlayerInfo {
         this.kingdomName = kingdomName;
         return this;
     }
+
+    public PlayerInfo setGameClassLvl(int gameClassLvl) {
+        this.gameClassLvl = gameClassLvl;
+        return this;
+    }
 }

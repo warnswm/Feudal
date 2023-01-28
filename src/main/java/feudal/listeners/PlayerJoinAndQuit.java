@@ -67,7 +67,8 @@ public class PlayerJoinAndQuit implements Listener {
             playerInfo.setPlayer(player).setaClassID(0).setExperience(0).setGameClassExperience(0)
                     .setBalance(0).setDeaths(0).setKills(0)
                     .setLuckLvl(0).setSpeedLvl(0).setStaminaLvl(0)
-                    .setStrengthLvl(0).setKingdomName("notInTheKingdom").setSurvivabilityLvl(0);
+                    .setStrengthLvl(0).setKingdomName("notInTheKingdom").setSurvivabilityLvl(0)
+                    .setGameClassLvl(0);
 
             return;
         }
@@ -75,7 +76,7 @@ public class PlayerJoinAndQuit implements Listener {
         playerInfo.setPlayer(player)
                 .setaClassID((Integer) playerInfo.getField(player, "classID"))
                 .setExperience((Integer) playerInfo.getField(player, "experience"))
-                .setExperience((Integer) playerInfo.getField(player, "gameClassLvl"))
+                .setGameClassLvl((Integer) playerInfo.getField(player, "gameClassLvl"))
                 .setGameClassExperience((Integer) playerInfo.getField(player, "gameClassExperience"))
                 .setBalance((Integer) playerInfo.getField(player, "balance"))
                 .setDeaths((Integer) playerInfo.getField(player, "deaths"))
