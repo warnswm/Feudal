@@ -10,15 +10,9 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum GameClassesIDEnum {
 
-    BUILDER(1, "Строитель"),
-    COOK(2, "Повар"),
-    FARMER(3, "Фермер"),
-    FISHERMAN(4, "Рыболов"),
-    HUNTER(5, "Охотник"),
-    MINER(6, "Шахтёр"),
-    SHEPHERD(7, "Пастух"),
-    TRADER(8, "Торговец"),
-    WOODCUTTER(9, "Дровосек");
+    BUILDER(1, "Строитель"), COOK(2, "Повар"), FARMER(3, "Фермер"),
+    FISHERMAN(4, "Рыболов"), HUNTER(5, "Охотник"), MINER(6, "Шахтёр"),
+    SHEPHERD(7, "Пастух"), TRADER(8, "Торговец"), WOODCUTTER(9, "Дровосек");
 
     int id;
     String gameClassName;
