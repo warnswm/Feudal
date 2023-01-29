@@ -1,6 +1,7 @@
 name: Feudal
 version: 1.0
 main: feudal.Feudal
+depend: [ProtocolLib]
 commands:
   spy:
   admin:

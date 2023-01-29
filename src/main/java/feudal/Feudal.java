@@ -1,6 +1,5 @@
 package feudal;
 
-import com.comphenix.protocol.ProtocolManager;
 import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
@@ -26,8 +25,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Feudal extends JavaPlugin {
 
     static Plugin plugin;
-    ProtocolManager protocolManager;
-
     @Override
     public void onEnable() {
 
