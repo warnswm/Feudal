@@ -2,7 +2,7 @@ package feudal.listeners.menuListeners;
 
 import feudal.info.CachePlayers;
 import feudal.info.PlayerInfo;
-import feudal.utils.gameClassesEnums.GameClassesIDEnum;
+import feudal.utils.enums.GameClassesIDEnum;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
