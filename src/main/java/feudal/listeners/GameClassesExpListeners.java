@@ -46,8 +46,14 @@ public class GameClassesExpListeners implements Listener {
 
         } else if (playerInfo.getAClassID() == ClassesIDEnum.WOODCUTTER.getId())
             if (event.getBlock().getType().equals(LOG)) {
-                playerInfo.addExperience(3);
-                playerInfo.addGameClassExperience(12);
+
+                int colum = 0;
+
+                for (int i = event.getBlock().getY(); i < event.getBlock().getWorld().getHighestBlockYAt(event.getBlock().getX(), event.getBlock().getZ());)
+                    colum++;
+
+                playerInfo.addExperience(colum);
+                playerInfo.addGameClassExperience(colum * 4);
             }
 
         else if (playerInfo.getAClassID() == ClassesIDEnum.FARMER.getId()) {

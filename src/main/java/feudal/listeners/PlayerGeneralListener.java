@@ -129,7 +129,7 @@ public class PlayerGeneralListener implements Listener {
             Location l = location.add(0, 1, 0);
             Block block = l.getBlock();
 
-            if (block.getType().equals(Material.LOG) || block.getType().equals(Material.LEAVES)) {
+            if (block.getType().equals(Material.LOG)) {
 
                 blocks.add(l.getBlock());
 
