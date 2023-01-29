@@ -6,11 +6,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.jetbrains.annotations.NotNull;
 
 public class AttributesUpMenuInteractListener implements Listener {
 
     @EventHandler
-    public void interactInventory(InventoryClickEvent event) {
+    public void interactInventory(@NotNull InventoryClickEvent event) {
 
         if (!event.getView().getTitle().equals("Прокачка атрибутов")) return;
 
