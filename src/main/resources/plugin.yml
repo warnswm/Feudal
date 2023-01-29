@@ -1,5 +1,6 @@
 name: Feudal
 version: 1.0
+author: Alterrutm
 main: feudal.Feudal
 depend: [ProtocolLib]
 commands:

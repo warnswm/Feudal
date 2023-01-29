@@ -1,5 +1,6 @@
 package feudal.commands;
 
+import feudal.auction.AuctionMenu;
 import feudal.databaseAndCache.CacheKingdoms;
 import feudal.databaseAndCache.KingdomInfo;
 import feudal.utils.CreateItemUtil;
@@ -65,6 +66,8 @@ public class PlayerCommands implements CommandExecutor {
 
     private void ahCommand(@NotNull Player player) {
 
+        AuctionMenu auctionMenu = new AuctionMenu(player);
+        auctionMenu.openAuctionMenu(1);
 
     }
 

@@ -1,4 +1,4 @@
-package feudal.view.menu;
+package feudal.view.generalMenu;
 
 import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.PlayerInfo;

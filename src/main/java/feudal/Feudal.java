@@ -14,6 +14,7 @@ import feudal.listeners.generalListeners.craftItems.CraftItemsListener;
 import feudal.listeners.interactListeners.menuListeners.AttributesUpMenuInteractListener;
 import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
 import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractListener;
+import feudal.optimizationPatches.redstone.PlaceRedstoneListener;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -69,6 +70,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
         Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerGeneralListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlaceRedstoneListener(), this);
 
     }
 

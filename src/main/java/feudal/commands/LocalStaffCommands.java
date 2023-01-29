@@ -19,7 +19,7 @@ public class LocalStaffCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
-        KingdomInfo kingdomInfo = CacheKingdoms.getKingdomInfo().get(player.getUniqueId().toString());
+        KingdomInfo kingdomInfo = CacheKingdoms.getKingdomInfo().get(CacheKingdoms.playerInKingdom(player));
 
 
         switch (args[1].toLowerCase()) {
