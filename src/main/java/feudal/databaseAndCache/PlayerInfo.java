@@ -188,6 +188,9 @@ public class PlayerInfo {
     public void addGameClassExperience(int value) {
         gameClassExperience += value;
     }
+    public void addGameClassLvl(int value) {
+        gameClassLvl += value;
+    }
 
     public void addBalance(int value) {
         balance += value;

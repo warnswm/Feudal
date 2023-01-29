@@ -4,6 +4,7 @@ import feudal.databaseAndCache.CacheKingdoms;
 import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.KingdomInfo;
 import feudal.databaseAndCache.PlayerInfo;
+import feudal.view.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -113,6 +114,7 @@ public class PlayerJoinAndQuit implements Listener {
 
         player.setMaxHealth(20 * (tmpHealth / 100) + 20);
         player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
+        ScoreBoardInfo.createScoreBoardInfo(player);
 
 
         if (!kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom"))
