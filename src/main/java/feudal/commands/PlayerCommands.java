@@ -4,6 +4,7 @@ import feudal.auction.AuctionMenu;
 import feudal.databaseAndCache.CacheKingdoms;
 import feudal.databaseAndCache.KingdomInfo;
 import feudal.utils.CreateItemUtil;
+import feudal.view.generalMenu.GameClassUpMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -33,6 +34,10 @@ public class PlayerCommands implements CommandExecutor {
             case "help": helpCommand(player); break;
             case "create": createKingdomCommand(player, args[1]); break;
             case "ah": ahCommand(player); break;
+            case "gameclassupmenu":
+                GameClassUpMenu gameClassUpMenu = new GameClassUpMenu(player);
+                gameClassUpMenu.upgradeGameClass();
+                break;
         }
 
         return false;

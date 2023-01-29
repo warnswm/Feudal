@@ -2,6 +2,7 @@ package feudal.listeners.interactListeners.menuListeners;
 
 import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.PlayerInfo;
+import feudal.view.ScoreBoardInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,6 +31,7 @@ public class AttributesUpMenuInteractListener implements Listener {
             playerInfo.addStrengthLvl(1);
 
             player.closeInventory();
+            ScoreBoardInfo.createScoreBoardInfo(player);
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень выносливости")) {
 
@@ -37,6 +39,7 @@ public class AttributesUpMenuInteractListener implements Listener {
             playerInfo.addStaminaLvl(1);
 
             player.closeInventory();
+            ScoreBoardInfo.createScoreBoardInfo(player);
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень удачи")) {
 
@@ -44,6 +47,7 @@ public class AttributesUpMenuInteractListener implements Listener {
             playerInfo.addLuckLvl(1);
 
             player.closeInventory();
+            ScoreBoardInfo.createScoreBoardInfo(player);
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень живучести")) {
 
@@ -54,6 +58,7 @@ public class AttributesUpMenuInteractListener implements Listener {
             player.setMaxHealth(20 * (tmpHealth / 100) + 20);
 
             player.closeInventory();
+            ScoreBoardInfo.createScoreBoardInfo(player);
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень скорости")) {
 
@@ -64,6 +69,7 @@ public class AttributesUpMenuInteractListener implements Listener {
             player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
 
             player.closeInventory();
+            ScoreBoardInfo.createScoreBoardInfo(player);
 
         }
     }

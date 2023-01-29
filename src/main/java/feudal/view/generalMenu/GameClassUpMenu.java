@@ -21,10 +21,10 @@ public class GameClassUpMenu {
     public void upgradeGameClass() {
 
         Inventory upgradeGameClassInv = Bukkit.createInventory(player, 9, "Прокачка класса");
-        PlayerInfo cachePlayerInfoBuilder = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        upgradeGameClassInv.setItem(2, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getOneAttributeNameByID(cachePlayerInfoBuilder.getAClassID())));
-        upgradeGameClassInv.setItem(6, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getSecondAttributeNameByID(cachePlayerInfoBuilder.getAClassID())));
+        upgradeGameClassInv.setItem(2, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getOneAttributeNameByID(playerInfo.getAClassID())));
+        upgradeGameClassInv.setItem(6, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getSecondAttributeNameByID(playerInfo.getAClassID())));
 
         player.openInventory(upgradeGameClassInv);
     }
