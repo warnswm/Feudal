@@ -1,7 +1,7 @@
 package feudal.commands;
 
-import feudal.info.CacheKingdoms;
-import feudal.info.KingdomInfo;
+import feudal.databaseAndCache.CacheKingdoms;
+import feudal.databaseAndCache.KingdomInfo;
 import feudal.utils.CreateItemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,79 +29,43 @@ public class PlayerCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         switch (args[0]) {
-            case "help":
-                player.sendMessage("/f claim - захватить чанк\n" +
-                        "/f create - создать королевство\n" +
-                        "/f help - меню коамнд\n" +
-                        "/f invite - добавить игрока в королевство\n" +
-                        "/f kick - удалить игрока из королевства\n" +
-                        "/f m - меню королевства\n" +
-                        "/f map - карта местности\n" +
-                        "/f shield - ХУЙ ЕГО ЗНАЕТ, ШЕПАРД НЕ НАПИСАЛ\n" +
-                        "/f location - указать локацию королевства\n" +
-                        "/ah - открыть аукцион\n");
-
-                break;
-            case "create":
-
-                if (!checkKingdomName(args[1])) {
-
-                    player.sendMessage("Невозможно создать королевство с таким именем");
-
-                    break;
-                }
-
-                List<String> members = new ArrayList<>();
-                members.add(player.getUniqueId().toString());
-                ItemStack banner;
-
-                if (player.getItemInHand().getType().equals(Material.BANNER)) {
-
-                    ItemStack itemStack = player.getItemInHand();
-                    ItemMeta itemMeta = player.getItemInHand().getItemMeta();
-                    itemMeta.setDisplayName("Флаг королевства '" + args[1] + "'");
-                    itemStack.setItemMeta(itemMeta);
-
-                    banner = itemStack;
-
-                } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + args[1] + "'");
-
-                createKingdom(args[1], player, banner, members);
-
-                break;
-            case "invite":
-
-                if (CacheKingdoms.playerInKingdom(player)) {
-
-                    player.sendMessage("Вы не находитесь в королевстве");
-
-                    break;
-                } else if (!CacheKingdoms.getKingdomInfo().get(player.getUniqueId().toString()).getKing().equals(player.getUniqueId().toString())) {
-
-                    player.sendMessage("Вы не король королевства");
-
-                    break;
-                } else if (Bukkit.getPlayer(args[1]) == null) {
-
-                    player.sendMessage("Такой игрок не найден");
-
-                    break;
-                }
-
-//                CacheKingdoms.getKingdomInfo().get(player).getMembers().add(Bukkit.getPlayer(args[1]).getUniqueId().toString());
-
-//                player.sendMessage("Игрок доб");
-
-                break;
-
+            case "help": helpCommand(player); break;
+            case "create": createKingdomCommand(player, args[1]); break;
         }
 
         return false;
     }
-    private boolean checkKingdomName(String kingdomName) {
-        //занято ли имя
+    private void helpCommand(@NotNull Player player) {
+        player.sendMessage("/f claim - захватить чанк\n" + "/f create - создать королевство\n" + "/f help - меню коамнд\n" + "/f invite - добавить игрока в королевство\n" + "/f kick - удалить игрока из королевства\n" + "/f m - меню королевства\n" + "/f map - soon\n" + "/f shield - soon\n" + "/f location - указать локацию королевства\n" + "/f ah - открыть аукцион\n");
+    }
+
+    private void createKingdomCommand(@NotNull Player player, String kingdomName) {
+
+        if (!checkKingdomName(kingdomName))
+            player.sendMessage("Невозможно создать королевство с таким именем");
+
+        List<String> members = new ArrayList<>();
+        members.add(player.getUniqueId().toString());
+        ItemStack banner;
+
+
+        if (player.getInventory().getItemInMainHand().getType().equals(Material.BANNER)) {
+
+            ItemStack itemStack = player.getInventory().getItemInMainHand();
+            itemStack.getItemMeta().setDisplayName("Флаг королевства '" + kingdomName + "'");
+
+            banner = itemStack;
+
+        } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + kingdomName + "'");
+
+        createKingdom(kingdomName, player, banner, members);
+
+    }
+
+    private boolean checkKingdomName(@NotNull String kingdomName) {
         return kingdomName.length() <= 16 && kingdomName.length() > 3 && !kingdomName.equalsIgnoreCase("notInTheKingdom");
     }
+
     private void createKingdom(String kingdomName, Player player, ItemStack banner, List<String> members) {
 
         kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);

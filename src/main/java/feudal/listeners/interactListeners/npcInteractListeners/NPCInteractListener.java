@@ -1,4 +1,4 @@
-package feudal.listeners.npcInteractListeners;
+package feudal.listeners.interactListeners.npcInteractListeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

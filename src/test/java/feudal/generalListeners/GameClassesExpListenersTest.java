@@ -1,4 +1,4 @@
-package feudal.listeners;
+package feudal.generalListeners;
 
 import feudal.Feudal;
 import org.bukkit.block.Block;

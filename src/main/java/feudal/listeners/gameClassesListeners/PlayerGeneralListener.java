@@ -1,7 +1,7 @@
-package feudal.listeners;
+package feudal.listeners.gameClassesListeners;
 
-import feudal.info.CachePlayers;
-import feudal.info.PlayerInfo;
+import feudal.databaseAndCache.CachePlayers;
+import feudal.databaseAndCache.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import feudal.utils.enums.ClassesIDEnum;
 import feudal.utils.enums.GameClassesIDEnum;

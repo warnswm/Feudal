@@ -1,4 +1,4 @@
-package feudal.info;
+package feudal.databaseAndCache;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoCommandException;

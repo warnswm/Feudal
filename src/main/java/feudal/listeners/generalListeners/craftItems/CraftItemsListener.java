@@ -1,4 +1,4 @@
-package feudal.listeners.craftItems;
+package feudal.listeners.generalListeners.craftItems;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;

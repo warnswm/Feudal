@@ -1,4 +1,4 @@
-package feudal.info;
+package feudal.databaseAndCache;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

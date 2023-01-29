@@ -1,7 +1,7 @@
-package feudal.listeners.menuListeners;
+package feudal.listeners.interactListeners.menuListeners;
 
-import feudal.info.CachePlayers;
-import feudal.info.PlayerInfo;
+import feudal.databaseAndCache.CachePlayers;
+import feudal.databaseAndCache.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
