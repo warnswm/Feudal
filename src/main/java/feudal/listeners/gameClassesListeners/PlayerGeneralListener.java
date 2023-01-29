@@ -66,6 +66,11 @@ public class PlayerGeneralListener implements Listener {
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
         Block block = event.getBlock();
 
+        if (playerInfo.getAClassID() == GameClassesIDEnum.BUILDER.getId() &&
+                block.getType().equals(Material.MOB_SPAWNER))
+            System.out.println(block.getState());
+//            block.getWorld().dropItemNaturally(block.getLocation(), block)
+
         if (block.hasMetadata("PLACED")) return;
 
         if (playerInfo.getAClassID() == GameClassesIDEnum.MINER.getId() &&
@@ -75,6 +80,7 @@ public class PlayerGeneralListener implements Listener {
 
         else if (playerInfo.getAClassID() == GameClassesIDEnum.WOODCUTTER.getId())
             cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
+
 
     }
     private void cutDownTree(@NotNull Location location, ItemStack handStack) {
