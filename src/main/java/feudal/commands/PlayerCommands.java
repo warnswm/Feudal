@@ -31,6 +31,7 @@ public class PlayerCommands implements CommandExecutor {
         switch (args[0]) {
             case "help": helpCommand(player); break;
             case "create": createKingdomCommand(player, args[1]); break;
+            case "ah": ahCommand(player); break;
         }
 
         return false;
@@ -59,6 +60,11 @@ public class PlayerCommands implements CommandExecutor {
         } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + kingdomName + "'");
 
         createKingdom(kingdomName, player, banner, members);
+
+    }
+
+    private void ahCommand(@NotNull Player player) {
+
 
     }
 
