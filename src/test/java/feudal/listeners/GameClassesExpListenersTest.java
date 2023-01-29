@@ -7,7 +7,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GameClassesListenersTest {
+class GameClassesExpListenersTest {
 
     @org.junit.jupiter.api.Test
     void blockPlaced(BlockPlaceEvent event) {

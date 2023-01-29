@@ -7,12 +7,14 @@ import feudal.utils.enums.AnimalsForHuntedEnum;
 import feudal.utils.enums.AnimalsForShepherdEnum;
 import feudal.utils.enums.BlocksForMinerEnum;
 import feudal.utils.enums.ClassesIDEnum;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -20,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static org.bukkit.Material.LOG;
 
-public class GameClassesListeners implements Listener {
+public class GameClassesExpListeners implements Listener {
 
     @EventHandler
     public void blockPlaced(@NotNull BlockPlaceEvent event) {
@@ -44,8 +46,8 @@ public class GameClassesListeners implements Listener {
 
         } else if (playerInfo.getAClassID() == ClassesIDEnum.WOODCUTTER.getId())
             if (event.getBlock().getType().equals(LOG)) {
-                playerInfo.addExperience(1);
-                playerInfo.addGameClassExperience(4);
+                playerInfo.addExperience(3);
+                playerInfo.addGameClassExperience(12);
             }
 
         else if (playerInfo.getAClassID() == ClassesIDEnum.FARMER.getId()) {
@@ -63,6 +65,33 @@ public class GameClassesListeners implements Listener {
         if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 
         playerInfo.addExperience(30);
+        playerInfo.addGameClassExperience(120);
+    }
+
+    @EventHandler
+    public void playerItemEnchant(@NotNull EnchantItemEvent event) {
+
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getEnchanter());
+
+        if (event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != ClassesIDEnum.CLERK.getId())
+            event.setCancelled(true);
+
+        if (event.getExpLevelCost() > 2) {
+
+            playerInfo.addExperience(5);
+            playerInfo.addGameClassExperience(20);
+
+        } else if (event.getExpLevelCost() > 10) {
+
+            playerInfo.addExperience(10);
+            playerInfo.addGameClassExperience(40);
+
+        } else if (event.getExpLevelCost() > 20) {
+
+            playerInfo.addExperience(17);
+            playerInfo.addGameClassExperience(68);
+
+        }
     }
 
     @EventHandler
