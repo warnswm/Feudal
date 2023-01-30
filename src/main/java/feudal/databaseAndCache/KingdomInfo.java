@@ -30,6 +30,8 @@ public class KingdomInfo {
     List<String> members;
     List<Chunk> territory;
     List<String> barons;
+    int balance;
+    int reputation;
     String banner;
 
     public KingdomInfo(String mongoClientName, String databaseName, String collectionName) {
@@ -251,6 +253,14 @@ public class KingdomInfo {
         this.territory = territory;
         return this;
     }
+    public KingdomInfo takeTerritory(Chunk territory) {
+        this.territory.remove(territory);
+        return this;
+    }
+    public KingdomInfo addTerritory(Chunk territory) {
+        this.territory.add(territory);
+        return this;
+    }
 
     public KingdomInfo setBarons(List<String> barons) {
         this.barons = barons;
@@ -258,6 +268,30 @@ public class KingdomInfo {
     }
     public KingdomInfo setBanner(String banner) {
         this.banner = banner;
+        return this;
+    }
+    public KingdomInfo setBalance(int balance) {
+        this.balance = balance;
+        return this;
+    }
+    public KingdomInfo takeBalance(int balance) {
+        this.balance -= balance;
+        return this;
+    }
+    public KingdomInfo addBalance(int balance) {
+        this.balance += balance;
+        return this;
+    }
+    public KingdomInfo setReputation(int reputation) {
+        this.reputation = reputation;
+        return this;
+    }
+    public KingdomInfo takeReputation(int reputation) {
+        this.reputation -= reputation;
+        return this;
+    }
+    public KingdomInfo addReputation(int reputation) {
+        this.reputation += reputation;
         return this;
     }
 }

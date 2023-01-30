@@ -22,6 +22,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Map;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class Feudal extends JavaPlugin {
 
@@ -38,7 +40,7 @@ public final class Feudal extends JavaPlugin {
         registerEvents();
         loadConfig();
 
-        restartTimer();
+        timer();
 
     }
     public static Plugin getPlugin() {
@@ -142,20 +144,47 @@ public final class Feudal extends JavaPlugin {
         }).start());
 
     }
-    private void restartTimer() {
+    private void timer() {
 
 //        scheduleRepeatAtTime(this, () -> Bukkit.getScheduler().runTaskLater(plugin, () -> Bukkit.spigot().restart(), 0L));
-        scheduleRepeatAtTimeSec(this, () -> Bukkit.getScheduler().runTaskLater(plugin, () -> Bukkit.broadcastMessage("ТЫ ДОДИК"), 0L));
+
+        scheduleRepeatAtTime(this, () -> Bukkit.getScheduler().runTaskLater(plugin, () -> {
+
+            for (Map.Entry<String, KingdomInfo> e : CacheKingdoms.getKingdomInfo().entrySet()) {
+
+                e.getValue().takeBalance(e.getValue().getBalance() / 100 * 3);
+
+                e.getValue().getTerritory().forEach(chunk -> {
+
+                    if (e.getValue().getBalance() < 1500) {
+
+                        e.getValue().takeTerritory(chunk);
+                        return;
+                    }
+
+                    e.getValue().takeBalance(1500);
+                });
+
+                e.getValue().getMembers().forEach(member -> {
+
+                    if (e.getValue().getBalance() < 300) {
+
+                        e.getValue().takeReputation(30);
+                        return;
+                    }
+
+                    e.getValue().takeBalance(300);
+
+                });
+
+            }
+
+        }, 0L), 420L);
 
     }
-    public static void scheduleRepeatAtTime(Plugin plugin, Runnable task) {
+    public static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 0L, 432000L);
-
-    }
-    public static void scheduleRepeatAtTimeSec(Plugin plugin, Runnable task) {
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 0L, 240L);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 0L, period);
 
     }
 }

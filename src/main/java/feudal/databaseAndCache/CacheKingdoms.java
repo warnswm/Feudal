@@ -3,6 +3,7 @@ package feudal.databaseAndCache;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class CacheKingdoms {
         return kingdomInfoHashMap;
     }
 
-    public static boolean playerInKingdom(Player player) {
+    public static boolean playerInKingdom(@NotNull Player player) {
         return getKingdomInfo().get(player.getUniqueId().toString()) == null;
     }
 
