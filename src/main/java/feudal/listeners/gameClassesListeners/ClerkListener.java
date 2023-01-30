@@ -18,7 +18,7 @@ public class ClerkListener implements Listener {
 
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getEnchanter());
 
-        if (event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != ClassesIDEnum.CLERK.getId()) {
+        if (!event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != ClassesIDEnum.CLERK.getId()) {
 
             event.setCancelled(true);
             return;
