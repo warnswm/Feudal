@@ -21,8 +21,6 @@ public class BuilderListener implements Listener {
         if (playerInfo.getAClassID() != GameClassesIDEnum.BUILDER.getId() &&
                 !block.getType().equals(Material.MOB_SPAWNER)) return;
 
-
-        System.out.println(block.getState());
 //      block.getWorld().dropItemNaturally(block.getLocation(), block)
 
     }

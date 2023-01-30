@@ -9,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class PlaceRedstoneListener implements Listener {
     @EventHandler
     public void playerPlaceBlock(@NotNull BlockPlaceEvent event) {
@@ -21,34 +19,31 @@ public class PlaceRedstoneListener implements Listener {
 
         Chunk chunk = event.getBlock().getChunk();
 
-        new Thread(() -> {
+        int count = 0;
+        Block blockChunk;
 
-            AtomicInteger count = new AtomicInteger();
+        for (int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
 
-            for (int x = chunk.getX() * 16; x < chunk.getX() * 16 + 16; x++) {
+            for (int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
 
-                for (int z = chunk.getZ() * 16; z < chunk.getZ() * 16 + 16; z++) {
+                for (int y = 0; y < 256; y++) {
 
-                    for (int y = 0; y < 256; y++) {
+                    blockChunk = chunk.getBlock(x, y, z);
 
-                        Block blockChunk = chunk.getBlock(x, y, z);
+                    if (blockChunk.getType().equals(Material.TNT))
+                        count += 4;
 
-                        if (blockChunk.getType().equals(Material.TNT))
-                            count.addAndGet(5);
-
-                        if (RedtoneMaterialEnum.getByMaterial(blockChunk.getType()))
-                            count.getAndIncrement();
-                    }
-
+                    if (RedtoneMaterialEnum.getByMaterial(blockChunk.getType()))
+                        count++;
                 }
 
             }
 
-            if (count.get() > 50) {
-                event.setCancelled(true);
-                event.getPlayer().sendMessage("Слишком много редстоун блоков!");
-            }
-        }).start();
+        }
 
+        if (count > 50) {
+            event.setCancelled(true);
+            event.getPlayer().sendMessage("Слишком много редстоун блоков!");
+        }
     }
 }
