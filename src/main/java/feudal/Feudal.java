@@ -22,6 +22,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Calendar;
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class Feudal extends JavaPlugin {
 
@@ -37,6 +39,8 @@ public final class Feudal extends JavaPlugin {
         registerCommands();
         registerEvents();
         loadConfig();
+
+        restartTimer();
 
     }
     public static Plugin getPlugin() {
@@ -131,5 +135,28 @@ public final class Feudal extends JavaPlugin {
             CacheKingdoms.getKingdomInfo().remove(kingdomName);
         }).start());
 
+    }
+    private void restartTimer() {
+
+        scheduleRepeatAtTime(this, () -> Bukkit.getScheduler().runTaskLater(plugin, () -> Bukkit.spigot().restart(), 20L), 6);
+
+    }
+    public static void scheduleRepeatAtTime(Plugin plugin, Runnable task, int hour) {
+
+        Calendar cal = Calendar.getInstance();
+        long now = cal.getTimeInMillis();
+
+        if (cal.get(Calendar.HOUR_OF_DAY) >= hour)
+            cal.add(Calendar.DATE, 1);
+
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        long offset = cal.getTimeInMillis() - now;
+        long ticks = offset / 50L;
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, ticks, 432000L);
     }
 }
