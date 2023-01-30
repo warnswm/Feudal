@@ -7,8 +7,7 @@ import feudal.databaseAndCache.CacheKingdoms;
 import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.KingdomInfo;
 import feudal.databaseAndCache.PlayerInfo;
-import feudal.listeners.gameClassesListeners.GameClassesExpListeners;
-import feudal.listeners.gameClassesListeners.PlayerGeneralListener;
+import feudal.listeners.gameClassesListeners.*;
 import feudal.listeners.generalListeners.PlayerJoinAndQuit;
 import feudal.listeners.generalListeners.craftItems.CraftItemsListener;
 import feudal.listeners.interactListeners.menuListeners.AttributesUpMenuInteractListener;
@@ -75,6 +74,11 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerGeneralListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlaceRedstoneListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BuilderListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ClerkListener(), this);
+        Bukkit.getPluginManager().registerEvents(new FishermanListener(), this);
+        Bukkit.getPluginManager().registerEvents(new MinerListener(), this);
+        Bukkit.getPluginManager().registerEvents(new WoodcutterListener(), this);
 
     }
 
