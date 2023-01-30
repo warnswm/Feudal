@@ -1,6 +1,5 @@
 package feudal.commands;
 
-import feudal.auction.AuctionMenu;
 import feudal.databaseAndCache.CacheKingdoms;
 import feudal.databaseAndCache.KingdomInfo;
 import feudal.utils.CreateItemUtil;
@@ -33,7 +32,6 @@ public class PlayerCommands implements CommandExecutor {
         switch (args[0]) {
             case "help": helpCommand(player); break;
             case "create": createKingdomCommand(player, args[1]); break;
-            case "ah": ahCommand(player); break;
             case "gameclassupmenu":
                 GameClassUpMenu gameClassUpMenu = new GameClassUpMenu(player);
                 gameClassUpMenu.upgradeGameClass();
@@ -66,13 +64,6 @@ public class PlayerCommands implements CommandExecutor {
         } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + kingdomName + "'");
 
         createKingdom(kingdomName, player, banner, members);
-
-    }
-
-    private void ahCommand(@NotNull Player player) {
-
-        AuctionMenu auctionMenu = new AuctionMenu(player);
-        auctionMenu.openAuctionMenu(1);
 
     }
 
