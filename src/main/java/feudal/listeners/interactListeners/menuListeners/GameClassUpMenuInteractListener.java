@@ -10,11 +10,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 public class GameClassUpMenuInteractListener implements Listener {
 
     @EventHandler
-    public void interactInventory(InventoryClickEvent event) {
+    public void interactInventory(@NotNull InventoryClickEvent event) {
 
         if (!event.getView().getTitle().equals("Прокачка класса")) return;
 
@@ -52,7 +53,7 @@ public class GameClassUpMenuInteractListener implements Listener {
 
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
-        if (playerInfo.getExperience() >= Math.pow(1 + (percent/100), attributeLvl) * 100)
+        if (playerInfo.getExperience() >= Math.pow(1 + (percent / 100), attributeLvl) * 100)
             strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GREEN_SHULKER_BOX, 1, "Прокачать уровень " + attributeName));
         else
             strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GRAY_SHULKER_BOX, 1, "Не достаточно опыта, нужно ещё " + (Math.pow(1 + 0.05, attributeLvl) * 100 - playerInfo.getExperience())));
