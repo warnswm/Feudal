@@ -108,7 +108,7 @@ public class PlayerJoinAndQuit implements Listener {
         CacheKingdoms.getKingdomInfo().put(kingdomName, kingdomInfo);
 
     }
-    private void setPlayerAttribute(Player player) {
+    private void setPlayerAttribute(@NotNull Player player) {
 
         float tmpHealth = playerInfo.getSurvivabilityLvl(), tmpSpeed = playerInfo.getSpeedLvl();
 
