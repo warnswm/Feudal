@@ -114,7 +114,7 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         kingdomCache.takeBalance(colum);
-        CachePlayers.getPlayerInfo().get(player).addBalance(colum);
+        CachePlayers.getPlayerInfo().get(player).addBalance(colum - colum / 100 * 5);
 
     }
 }
