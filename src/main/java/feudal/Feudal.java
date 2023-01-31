@@ -146,34 +146,37 @@ public final class Feudal extends JavaPlugin {
     }
     private void timer() {
 
-//        scheduleRepeatAtTime(this, () -> Bukkit.getScheduler().runTaskLater(plugin, () -> Bukkit.spigot().restart(), 0L));
-
         scheduleRepeatAtTime(this, () -> Bukkit.getScheduler().runTaskLater(plugin, () -> {
 
-            for (Map.Entry<String, KingdomInfo> e : CacheKingdoms.getKingdomInfo().entrySet()) {
+            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
 
-                e.getValue().takeBalance(e.getValue().getBalance() / 100 * 3);
+                if (kingdom.getValue().getReputation() <= 0)
+                    kingdom.getValue().takeAllTerritory();
 
-                e.getValue().getTerritory().forEach(chunk -> {
+                float taxIncrease = kingdom.getValue().getReputation() == 1000 ? 1 : (1000 - kingdom.getValue().getReputation()) / 1000;
 
-                    if (e.getValue().getBalance() < 1500) {
+                kingdom.getValue().takeBalance(kingdom.getValue().getBalance() / 100 * 3);
 
-                        e.getValue().takeTerritory(chunk);
+                kingdom.getValue().getTerritory().forEach(chunk -> {
+
+                    if (kingdom.getValue().getBalance() < (int) (1500 * taxIncrease + 1500)) {
+
+                        kingdom.getValue().takeTerritory(chunk);
                         return;
                     }
 
-                    e.getValue().takeBalance(1500);
+                    kingdom.getValue().takeBalance((int) (1500 * taxIncrease + 1500));
                 });
 
-                e.getValue().getMembers().forEach(member -> {
+                kingdom.getValue().getMembers().forEach(member -> {
 
-                    if (e.getValue().getBalance() < 300) {
+                    if (kingdom.getValue().getBalance() < (int) (1500 * taxIncrease + 1500)) {
 
-                        e.getValue().takeReputation(30);
+                        kingdom.getValue().takeReputation(30);
                         return;
                     }
 
-                    e.getValue().takeBalance(300);
+                    kingdom.getValue().takeBalance((int) (1500 * taxIncrease + 1500));
 
                 });
 

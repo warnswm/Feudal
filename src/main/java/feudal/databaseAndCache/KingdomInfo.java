@@ -257,6 +257,10 @@ public class KingdomInfo {
         this.territory.remove(territory);
         return this;
     }
+    public KingdomInfo takeAllTerritory() {
+        this.territory.clear();
+        return this;
+    }
     public KingdomInfo addTerritory(Chunk territory) {
         this.territory.add(territory);
         return this;
