@@ -29,13 +29,33 @@ public class PlayerCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         switch (args[0]) {
-            case "help": helpCommand(player); break;
-            case "create": createKingdomCommand(player, args[1]); break;
-            case "withdraw": withdrawMoneyFromTheTreasury(kingdomInfo.getPlayerKingdom(player), player, Integer.parseInt(args[1])); break;
+            case "help":
+
+                helpCommand(player);
+                break;
+
+            case "create":
+
+                createKingdomCommand(player, args[1]);
+                break;
+
+            case "withdraw":
+
+                if (args[1].length() > 10) {
+
+                    player.sendMessage("Слишком большая сумма для снятия");
+                    break;
+
+                }
+
+                withdrawMoneyFromTheTreasury(kingdomInfo.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
+                break;
             case "gameclassupmenu":
+
                 GameClassUpMenu gameClassUpMenu = new GameClassUpMenu(player);
                 gameClassUpMenu.upgradeGameClass();
                 break;
+
         }
 
         return false;
