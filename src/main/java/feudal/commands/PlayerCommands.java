@@ -5,6 +5,7 @@ import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.KingdomInfo;
 import feudal.view.generalMenu.GameClassUpMenu;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -62,6 +63,12 @@ public class PlayerCommands implements CommandExecutor {
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<String> members) {
 
         kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+
+        kingdomInfo.setKingdomName(kingdomName)
+                .setKing((String) kingdomInfo.getField(kingdomName, "king"))
+                .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
+                .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
+                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"));
 
         CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
 
