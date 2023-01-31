@@ -166,8 +166,8 @@ public final class Feudal extends JavaPlugin {
                     kingdomInfo.takeAllTerritory();
 
 
-                int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
-                int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
+                final int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
+                final int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
 
 
                 kingdomInfo.takeBalance(balance / 100 * 3);
