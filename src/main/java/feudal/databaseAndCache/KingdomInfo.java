@@ -23,8 +23,8 @@ import java.util.List;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KingdomInfo {
-    MongoClient mongoClient;
-    MongoCollection<Document> collection;
+    final MongoClient mongoClient;
+    final MongoCollection<Document> collection;
     String kingdomName;
     String king;
     List<String> members;
@@ -32,7 +32,6 @@ public class KingdomInfo {
     List<String> barons;
     int balance;
     int reputation;
-    String banner;
 
     public KingdomInfo(String mongoClientName, String databaseName, String collectionName) {
 
@@ -59,7 +58,8 @@ public class KingdomInfo {
                     .append("king", king.getUniqueId().toString())
                     .append("members", members)
                     .append("territory", territory)
-                    .append("banner", banner.toString())
+                    .append("reputation", 1000)
+                    .append("balance", 10000)
                     .append("barons", barons));
 
             session.commitTransaction();
@@ -268,10 +268,6 @@ public class KingdomInfo {
 
     public KingdomInfo setBarons(List<String> barons) {
         this.barons = barons;
-        return this;
-    }
-    public KingdomInfo setBanner(String banner) {
-        this.banner = banner;
         return this;
     }
     public KingdomInfo setBalance(int balance) {

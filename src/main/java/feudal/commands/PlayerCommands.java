@@ -74,12 +74,6 @@ public class PlayerCommands implements CommandExecutor {
     private void createKingdom(String kingdomName, Player player, ItemStack banner, List<String> members) {
 
         kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
-        kingdomInfo.setKingdomName(kingdomName)
-                .setKing(player.getUniqueId().toString())
-                .setBanner(banner.toString())
-                .setMembers(members)
-                .setBarons(Collections.EMPTY_LIST)
-                .setTerritory(Collections.EMPTY_LIST);
 
         CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
     }

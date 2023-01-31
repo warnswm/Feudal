@@ -100,7 +100,6 @@ public class PlayerJoinAndQuit implements Listener {
 
         kingdomInfo.setKingdomName(kingdomName)
                 .setKing((String) kingdomInfo.getField(kingdomName, "king"))
-                .setBanner((String) kingdomInfo.getField(kingdomName, "banner"))
                 .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
                 .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
                 .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"));
@@ -156,7 +155,6 @@ public class PlayerJoinAndQuit implements Listener {
             KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
             kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
-            kingdomInfo.setField(kingdomName, "banner", cacheKingdomInfo.getBanner());
             kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
             kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
             kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
