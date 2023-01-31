@@ -84,6 +84,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MinerListener(), this);
         Bukkit.getPluginManager().registerEvents(new WoodcutterListener(), this);
         Bukkit.getPluginManager().registerEvents(new HunterListener(), this);
+        Bukkit.getPluginManager().registerEvents(new FarmerListener(), this);
 
     }
 
@@ -157,7 +158,7 @@ public final class Feudal extends JavaPlugin {
 
             for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
 
-                val kingdomInfo = kingdom.getValue();
+                KingdomInfo kingdomInfo = kingdom.getValue();
                 val reputation = kingdom.getValue().getReputation();
 
                 if (reputation <= 0)
