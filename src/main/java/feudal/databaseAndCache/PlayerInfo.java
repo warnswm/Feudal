@@ -157,30 +157,30 @@ public class PlayerInfo {
         }
     }
 
-    public void resetAPlayer(Player player) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            session.startTransaction();
-
-
-            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
-                    .iterator()
-                    .hasNext()) return;
-
-//            collection.drop();
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-            session.abortTransaction();
-        } finally {
-            session.close();
-        }
-
-    }
+//    public void resetAPlayer(@NotNull Player player) {
+//
+//        ClientSession session = mongoClient.startSession();
+//
+//        try {
+//
+//            session.startTransaction();
+//
+//
+//            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+//                    .iterator()
+//                    .hasNext()) return;
+//
+////            collection.drop();
+//
+//            session.commitTransaction();
+//
+//        } catch (MongoCommandException e) {
+//            session.abortTransaction();
+//        } finally {
+//            session.close();
+//        }
+//
+//    }
     public void addExperience(int value) {
         experience += value;
     }

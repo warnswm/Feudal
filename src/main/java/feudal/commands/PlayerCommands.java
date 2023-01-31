@@ -66,6 +66,8 @@ public class PlayerCommands implements CommandExecutor {
 
         kingdomInfo.setKingdomName(kingdomName)
                 .setKing((String) kingdomInfo.getField(kingdomName, "king"))
+                .setBalance(10000)
+                .setReputation(1000)
                 .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
                 .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
                 .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"));
@@ -82,22 +84,17 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        KingdomInfo kingdom = CacheKingdoms.getKingdomInfo().get(kingdomName);
+        KingdomInfo kingdomCache = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
-        if (kingdom.getBalance() < colum) {
+        if (kingdomCache.getBalance() < colum) {
 
             player.sendMessage("В казне недостаточно средств");
             return;
 
         }
 
-        System.out.println(kingdom.getBalance());
-
-        kingdom.takeBalance(colum);
-
+        kingdomCache.takeBalance(colum);
         CachePlayers.getPlayerInfo().get(player).addBalance(colum);
-
-        System.out.println(kingdom.getBalance());
 
     }
 }
