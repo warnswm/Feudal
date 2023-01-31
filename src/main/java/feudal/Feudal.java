@@ -18,10 +18,12 @@ import feudal.optimizationPatches.redstone.PlaceRedstoneListener;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -118,6 +120,8 @@ public final class Feudal extends JavaPlugin {
             CachePlayers.getPlayerInfo().remove(player);
         }).start());
 
+        System.gc();
+
     }
 
     private void saveKingdoms() {
@@ -143,6 +147,8 @@ public final class Feudal extends JavaPlugin {
 
         }).start());
 
+        System.gc();
+
     }
     private void timer() {
 
@@ -150,39 +156,50 @@ public final class Feudal extends JavaPlugin {
 
             for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
 
-                if (kingdom.getValue().getReputation() <= 0)
-                    kingdom.getValue().takeAllTerritory();
+                final KingdomInfo kingdomInfo = kingdom.getValue();
+                final int reputation = kingdom.getValue().getReputation();
+                final int balance = kingdom.getValue().getBalance();
+                final List<Chunk> territory = kingdom.getValue().getTerritory();
+                final List<String> members = kingdom.getValue().getMembers();
 
-                float taxIncrease = kingdom.getValue().getReputation() == 1000 ? 1 : (1000 - kingdom.getValue().getReputation()) / 1000;
+                if (reputation <= 0)
+                    kingdomInfo.takeAllTerritory();
 
-                kingdom.getValue().takeBalance(kingdom.getValue().getBalance() / 100 * 3);
 
-                kingdom.getValue().getTerritory().forEach(chunk -> {
+                int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
+                int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
 
-                    if (kingdom.getValue().getBalance() < (int) (1500 * taxIncrease + 1500)) {
 
-                        kingdom.getValue().takeTerritory(chunk);
-                        return;
+                kingdomInfo.takeBalance(balance / 100 * 3);
+
+                for (Chunk chunk : territory) {
+
+                    if (balance < landTax) {
+
+                        kingdomInfo.takeTerritory(chunk);
+                        continue;
                     }
 
-                    kingdom.getValue().takeBalance((int) (1500 * taxIncrease + 1500));
-                });
+                    kingdomInfo.takeBalance(landTax);
+                }
 
-                kingdom.getValue().getMembers().forEach(member -> {
+                for (String ignored : members) {
 
-                    if (kingdom.getValue().getBalance() < (int) (1500 * taxIncrease + 1500)) {
+                    if (balance < taxOnResidents) {
 
-                        kingdom.getValue().takeReputation(30);
-                        return;
+                        kingdomInfo.takeReputation(30);
+                        continue;
                     }
 
-                    kingdom.getValue().takeBalance((int) (1500 * taxIncrease + 1500));
+                    kingdomInfo.takeBalance(taxOnResidents);
 
-                });
+                }
 
             }
 
         }, 0L), 420L);
+
+        System.gc();
 
     }
     public static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {

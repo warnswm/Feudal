@@ -144,6 +144,9 @@ public class PlayerJoinAndQuit implements Listener {
             CachePlayers.getPlayerInfo().remove(player);
 
         }).start();
+
+        System.gc();
+
     }
     private void saveKingdom(Player player) {
 
@@ -161,5 +164,8 @@ public class PlayerJoinAndQuit implements Listener {
             CacheKingdoms.getKingdomInfo().remove(kingdomName);
 
         }).start();
+
+        System.gc();
+
     }
 }
