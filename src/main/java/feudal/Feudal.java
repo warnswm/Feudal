@@ -141,6 +141,8 @@ public final class Feudal extends JavaPlugin {
             kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
             kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
             kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
+            kingdomInfo.setField(kingdomName, "balance", cacheKingdomInfo.getBalance());
+            kingdomInfo.setField(kingdomName, "reputation", cacheKingdomInfo.getReputation());
 
             CacheKingdoms.getKingdomInfo().remove(kingdomName);
 

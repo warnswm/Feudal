@@ -1,6 +1,7 @@
 package feudal.commands;
 
 import feudal.databaseAndCache.CacheKingdoms;
+import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.KingdomInfo;
 import feudal.utils.CreateItemUtil;
 import feudal.view.generalMenu.GameClassUpMenu;
@@ -83,7 +84,7 @@ public class PlayerCommands implements CommandExecutor {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom")) {
 
-            player.sendMessage("Такого королевства не существует");
+            player.sendMessage("Вы не состоите в королевстве");
             return;
 
         }
@@ -97,7 +98,13 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
+        System.out.println(kingdom.getBalance());
+
         kingdom.takeBalance(colum);
+
+        CachePlayers.getPlayerInfo().get(player).addBalance(colum);
+
+        System.out.println(kingdom.getBalance());
 
     }
 }
