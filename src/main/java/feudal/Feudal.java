@@ -76,7 +76,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new GameClassUpMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
         Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerGeneralListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GeneralListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlaceRedstoneListener(), this);
         Bukkit.getPluginManager().registerEvents(new BuilderListener(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkListener(), this);

@@ -96,6 +96,7 @@ public class PlayerJoinAndQuit implements Listener {
         CachePlayers.getPlayerInfo().put(player, playerInfo);
 
     }
+
     private void loadKingdom(Player player) {
 
         if (!kingdomInfo.playerInKingdom(player)) return;
@@ -113,6 +114,7 @@ public class PlayerJoinAndQuit implements Listener {
         CacheKingdoms.getKingdomInfo().put(kingdomName, kingdomInfo);
 
     }
+
     private void setPlayerAttribute(@NotNull Player player) {
 
         float tmpHealth = playerInfo.getSurvivabilityLvl(), tmpSpeed = playerInfo.getSpeedLvl();
@@ -126,6 +128,7 @@ public class PlayerJoinAndQuit implements Listener {
             player.setDisplayName(player.getDisplayName() + " [" + kingdomInfo.getPlayerKingdom(player) + "]");
 
     }
+
     private void savePlayer(Player player) {
 
         new Thread(() -> {
@@ -153,6 +156,7 @@ public class PlayerJoinAndQuit implements Listener {
         System.gc();
 
     }
+
     private void saveKingdom(Player player) {
 
         new Thread(() -> {

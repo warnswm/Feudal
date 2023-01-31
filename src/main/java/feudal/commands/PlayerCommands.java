@@ -66,8 +66,12 @@ public class PlayerCommands implements CommandExecutor {
 
     private void createKingdomCommand(@NotNull Player player, String kingdomName) {
 
-        if (!checkKingdomName(kingdomName))
+        if (!checkKingdomName(kingdomName)) {
+
             player.sendMessage("Невозможно создать королевство с таким именем");
+            return;
+
+        }
 
         List<String> members = new ArrayList<>();
         members.add(player.getUniqueId().toString());

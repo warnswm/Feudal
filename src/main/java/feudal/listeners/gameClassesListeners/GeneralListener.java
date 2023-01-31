@@ -9,12 +9,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import static feudal.utils.MathUtils.getRandInt;
 
-public class PlayerGeneralListener implements Listener {
+public class GeneralListener implements Listener {
 
     @EventHandler
     public void playerTeleport(@NotNull PlayerTeleportEvent event) {
@@ -46,5 +49,13 @@ public class PlayerGeneralListener implements Listener {
         playerInfo.addBalance(temp);
 
         playerDeathInfo.takeBalance(temp + getRandInt(1, 3));
+    }
+
+    @EventHandler
+    public void playerResting(@NotNull PlayerBedEnterEvent event) {
+
+        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400,  0, true, false));
+        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240,  1, true, false));
+
     }
 }
