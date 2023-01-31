@@ -197,7 +197,7 @@ public final class Feudal extends JavaPlugin {
 
             }
 
-        }, 0L), 420L);
+        }, 0L), 432000L);
 
         System.gc();
 

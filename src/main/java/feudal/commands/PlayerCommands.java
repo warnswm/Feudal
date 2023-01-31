@@ -32,6 +32,7 @@ public class PlayerCommands implements CommandExecutor {
         switch (args[0]) {
             case "help": helpCommand(player); break;
             case "create": createKingdomCommand(player, args[1]); break;
+            case "withdraw": withdrawMoneyFromTheTreasury(kingdomInfo.getPlayerKingdom(player), player, Integer.parseInt(args[1])); break;
             case "gameclassupmenu":
                 GameClassUpMenu gameClassUpMenu = new GameClassUpMenu(player);
                 gameClassUpMenu.upgradeGameClass();
@@ -71,10 +72,32 @@ public class PlayerCommands implements CommandExecutor {
         return kingdomName.length() <= 16 && kingdomName.length() > 3 && !kingdomName.equalsIgnoreCase("notInTheKingdom");
     }
 
-    private void createKingdom(String kingdomName, Player player, ItemStack banner, List<String> members) {
+    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, ItemStack banner, List<String> members) {
 
         kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
 
         CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
+
+    }
+    private void withdrawMoneyFromTheTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
+
+        if (kingdomName.equalsIgnoreCase("notInTheKingdom")) {
+
+            player.sendMessage("Такого королевства не существует");
+            return;
+
+        }
+
+        KingdomInfo kingdom = CacheKingdoms.getKingdomInfo().get(kingdomName);
+
+        if (kingdom.getBalance() < colum) {
+
+            player.sendMessage("В казне недостаточно средств");
+            return;
+
+        }
+
+        kingdom.takeBalance(colum);
+
     }
 }
