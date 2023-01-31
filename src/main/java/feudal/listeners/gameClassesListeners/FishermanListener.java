@@ -4,6 +4,7 @@ import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import feudal.utils.enums.ClassesIDEnum;
+import lombok.val;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,22 +30,24 @@ public class FishermanListener implements Listener {
 
         if (random != 1 && random != 2) return;
 
+        val inv = event.getPlayer().getInventory();
+
 
         switch (item) {
             case 1:
-                event.getPlayer().getInventory().addItem((new ItemStack(Material.BOW)));
+                inv.addItem((new ItemStack(Material.BOW)));
                 break;
             case 2:
-                event.getPlayer().getInventory().addItem(CreateItemUtil.createItem(Material.ENCHANTED_BOOK, getRandomEnc(), 1, 1));
+                inv.addItem(CreateItemUtil.createItem(Material.ENCHANTED_BOOK, getRandomEnc(), 1, 1));
                 break;
             case 3:
-                event.getPlayer().getInventory().addItem((new ItemStack(Material.FISHING_ROD)));
+                inv.addItem((new ItemStack(Material.FISHING_ROD)));
                 break;
             case 4:
-                event.getPlayer().getInventory().addItem((new ItemStack(Material.NAME_TAG)));
+                inv.addItem((new ItemStack(Material.NAME_TAG)));
                 break;
             case 5:
-                event.getPlayer().getInventory().addItem((new ItemStack(Material.SADDLE)));
+                inv.addItem((new ItemStack(Material.SADDLE)));
                 break;
         }
 

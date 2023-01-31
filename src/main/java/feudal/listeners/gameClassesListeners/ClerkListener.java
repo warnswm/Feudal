@@ -3,6 +3,7 @@ package feudal.listeners.gameClassesListeners;
 import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.PlayerInfo;
 import feudal.utils.enums.ClassesIDEnum;
+import lombok.val;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,18 +19,20 @@ public class ClerkListener implements Listener {
 
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getEnchanter());
 
-        if (!event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != ClassesIDEnum.CLERK.getId()) {
+        if (event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != ClassesIDEnum.CLERK.getId()) {
 
             event.setCancelled(true);
             return;
 
         }
 
-        if (playerInfo.getGameClassLvl() < 75) return;
+        val classLvl = playerInfo.getGameClassLvl();
+
+        if (classLvl < 75) return;
 
         event.setExpLevelCost((int) (event.getExpLevelCost() - event.getExpLevelCost() * 0.3));
 
-        if (playerInfo.getGameClassLvl() != 100) return;
+        if (classLvl != 100) return;
 
         event.getItem().addUnsafeEnchantment(getRandomEnc(), 1);
     }
