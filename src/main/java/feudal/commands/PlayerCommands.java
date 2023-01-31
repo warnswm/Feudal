@@ -3,16 +3,13 @@ package feudal.commands;
 import feudal.databaseAndCache.CacheKingdoms;
 import feudal.databaseAndCache.CachePlayers;
 import feudal.databaseAndCache.KingdomInfo;
-import feudal.utils.CreateItemUtil;
 import feudal.view.generalMenu.GameClassUpMenu;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -53,19 +50,8 @@ public class PlayerCommands implements CommandExecutor {
 
         List<String> members = new ArrayList<>();
         members.add(player.getUniqueId().toString());
-        ItemStack banner;
 
-
-        if (player.getInventory().getItemInMainHand().getType().equals(Material.BANNER)) {
-
-            ItemStack itemStack = player.getInventory().getItemInMainHand();
-            itemStack.getItemMeta().setDisplayName("Флаг королевства '" + kingdomName + "'");
-
-            banner = itemStack;
-
-        } else banner = CreateItemUtil.createItem(Material.BANNER, 1, "Флаг королевства '" + kingdomName + "'");
-
-        createKingdom(kingdomName, player, banner, members);
+        createKingdom(kingdomName, player, members);
 
     }
 
@@ -73,9 +59,9 @@ public class PlayerCommands implements CommandExecutor {
         return kingdomName.length() <= 16 && kingdomName.length() > 3 && !kingdomName.equalsIgnoreCase("notInTheKingdom");
     }
 
-    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, ItemStack banner, List<String> members) {
+    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<String> members) {
 
-        kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, banner);
+        kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
 
         CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
 

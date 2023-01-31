@@ -14,7 +14,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -41,7 +40,7 @@ public class KingdomInfo {
 
     }
 
-    public void createNewKingdom(@NotNull String kingdomName, Player king, List<String> members, List<Chunk> territory, List<String> barons, ItemStack banner) {
+    public void createNewKingdom(@NotNull String kingdomName, Player king, List<String> members, List<Chunk> territory, List<String> barons) {
 
         ClientSession session = mongoClient.startSession();
 

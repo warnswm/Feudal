@@ -129,24 +129,24 @@ public final class Feudal extends JavaPlugin {
         final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
         final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
-        Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
+        new Thread(() -> {
 
-            if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) return;
+            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
 
-            String kingdomName = kingdomInfo.getPlayerKingdom(player);
+                val cacheKingdomInfo = kingdom.getValue();
+                val kingdomName = cacheKingdomInfo.getKingdomName();
 
-            KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
+                kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
+                kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
+                kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
+                kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
+                kingdomInfo.setField(kingdomName, "balance", cacheKingdomInfo.getBalance());
+                kingdomInfo.setField(kingdomName, "reputation", cacheKingdomInfo.getReputation());
 
-            kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
-            kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
-            kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
-            kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
-            kingdomInfo.setField(kingdomName, "balance", cacheKingdomInfo.getBalance());
-            kingdomInfo.setField(kingdomName, "reputation", cacheKingdomInfo.getReputation());
+                CacheKingdoms.getKingdomInfo().remove(kingdomName);
 
-            CacheKingdoms.getKingdomInfo().remove(kingdomName);
-
-        }).start());
+            }
+        }).start();
 
         System.gc();
 
