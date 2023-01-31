@@ -167,8 +167,6 @@ public class PlayerJoinAndQuit implements Listener {
             kingdomInfo.setField(kingdomName, "reputation", cacheKingdomInfo.getReputation());
             kingdomInfo.setField(kingdomName, "balance", cacheKingdomInfo.getBalance());
 
-            CacheKingdoms.getKingdomInfo().remove(kingdomName);
-
         }).start();
 
         System.gc();
