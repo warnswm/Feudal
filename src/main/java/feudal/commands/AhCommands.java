@@ -1,8 +1,8 @@
 package feudal.commands;
 
 import feudal.auction.AuctionMenu;
-import feudal.databaseAndCache.CachePlayers;
-import feudal.databaseAndCache.PlayerInfo;
+import feudal.data.cache.CachePlayers;
+import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.GameClassesIDEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

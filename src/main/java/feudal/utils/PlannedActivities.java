@@ -1,8 +1,8 @@
 package feudal.utils;
 
 import feudal.Feudal;
-import feudal.databaseAndCache.CacheKingdoms;
-import feudal.databaseAndCache.KingdomInfo;
+import feudal.data.cache.CacheKingdoms;
+import feudal.data.database.KingdomInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.plugin.Plugin;

@@ -1,9 +1,9 @@
 package feudal.listeners.generalListeners;
 
-import feudal.databaseAndCache.CacheKingdoms;
-import feudal.databaseAndCache.CachePlayers;
-import feudal.databaseAndCache.KingdomInfo;
-import feudal.databaseAndCache.PlayerInfo;
+import feudal.data.cache.CacheKingdoms;
+import feudal.data.cache.CachePlayers;
+import feudal.data.database.KingdomInfo;
+import feudal.data.database.PlayerInfo;
 import feudal.view.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;

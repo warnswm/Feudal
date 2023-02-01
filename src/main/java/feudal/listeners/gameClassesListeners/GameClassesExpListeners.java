@@ -1,8 +1,8 @@
 package feudal.listeners.gameClassesListeners;
 
 import feudal.Feudal;
-import feudal.databaseAndCache.CachePlayers;
-import feudal.databaseAndCache.PlayerInfo;
+import feudal.data.cache.CachePlayers;
+import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.AnimalsForHuntedEnum;
 import feudal.utils.enums.AnimalsForShepherdEnum;
 import feudal.utils.enums.BlocksForMinerEnum;

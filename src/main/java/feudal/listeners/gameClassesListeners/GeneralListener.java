@@ -1,7 +1,7 @@
 package feudal.listeners.gameClassesListeners;
 
-import feudal.databaseAndCache.CachePlayers;
-import feudal.databaseAndCache.PlayerInfo;
+import feudal.data.cache.CachePlayers;
+import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.MoneyForMobsEnum;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;

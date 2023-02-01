@@ -1,5 +1,6 @@
-package feudal.databaseAndCache;
+package feudal.data.cache;
 
+import feudal.data.database.PlayerInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;

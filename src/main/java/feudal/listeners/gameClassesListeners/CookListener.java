@@ -1,6 +1,6 @@
 package feudal.listeners.gameClassesListeners;
 
-import feudal.databaseAndCache.CachePlayers;
+import feudal.data.cache.CachePlayers;
 import feudal.utils.enums.GameClassesIDEnum;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;

@@ -1,8 +1,8 @@
 package feudal.commands;
 
-import feudal.databaseAndCache.CacheKingdoms;
-import feudal.databaseAndCache.CachePlayers;
-import feudal.databaseAndCache.KingdomInfo;
+import feudal.data.cache.CacheKingdoms;
+import feudal.data.cache.CachePlayers;
+import feudal.data.database.KingdomInfo;
 import feudal.view.generalMenu.GameClassUpMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;

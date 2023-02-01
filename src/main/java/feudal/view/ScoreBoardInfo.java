@@ -1,7 +1,7 @@
 package feudal.view;
 
-import feudal.databaseAndCache.CachePlayers;
-import feudal.databaseAndCache.PlayerInfo;
+import feudal.data.cache.CachePlayers;
+import feudal.data.database.PlayerInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
