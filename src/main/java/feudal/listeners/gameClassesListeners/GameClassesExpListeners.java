@@ -8,7 +8,6 @@ import feudal.utils.enums.AnimalsForShepherdEnum;
 import feudal.utils.enums.BlocksForMinerEnum;
 import feudal.utils.enums.ClassesIDEnum;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,9 +26,8 @@ public class GameClassesExpListeners implements Listener {
     @EventHandler
     public void blockPlaced(@NotNull BlockPlaceEvent event) {
 
-        Block block = event.getBlock();
+        event.getBlock().setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
 
-        block.setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
     }
 
     @EventHandler
