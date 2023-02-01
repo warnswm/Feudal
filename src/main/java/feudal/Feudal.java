@@ -15,15 +15,14 @@ import feudal.listeners.interactListeners.menuListeners.AttributesUpMenuInteract
 import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
 import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractListener;
 import feudal.optimizationPatches.redstone.PlaceRedstoneListener;
+import feudal.utils.PlannedActivities;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
 import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -42,7 +41,8 @@ public final class Feudal extends JavaPlugin {
         registerEvents();
         loadConfig();
 
-        timer();
+        PlannedActivities.taxCollection();
+        PlannedActivities.restart();
 
     }
     public static Plugin getPlugin() {
@@ -150,64 +150,6 @@ public final class Feudal extends JavaPlugin {
         }).start();
 
         System.gc();
-
-    }
-    private void timer() {
-
-        scheduleRepeatAtTime(this, () -> Bukkit.getScheduler().runTaskLater(plugin, () -> {
-
-            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
-
-                KingdomInfo kingdomInfo = kingdom.getValue();
-                int reputation = kingdom.getValue().getReputation();
-
-                if (reputation <= 0)
-                    kingdomInfo.takeAllTerritory();
-
-
-                int balance = kingdom.getValue().getBalance();
-                List<Chunk> territory = kingdom.getValue().getTerritory();
-                List<String> members = kingdom.getValue().getMembers();
-
-                int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
-                int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
-
-
-                kingdomInfo.takeBalance(balance / 100 * 3);
-
-                for (Chunk chunk : territory) {
-
-                    if (balance < landTax) {
-
-                        kingdomInfo.takeTerritory(chunk);
-                        continue;
-                    }
-
-                    kingdomInfo.takeBalance(landTax);
-                }
-
-                for (String ignored : members) {
-
-                    if (balance < taxOnResidents) {
-
-                        kingdomInfo.takeReputation(30);
-                        continue;
-                    }
-
-                    kingdomInfo.takeBalance(taxOnResidents);
-
-                }
-
-            }
-
-        }, 0L), 432000L);
-
-        System.gc();
-
-    }
-    public static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 0L, period);
 
     }
 }
