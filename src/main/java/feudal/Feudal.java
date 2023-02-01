@@ -85,6 +85,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WoodcutterListener(), this);
         Bukkit.getPluginManager().registerEvents(new HunterListener(), this);
         Bukkit.getPluginManager().registerEvents(new FarmerListener(), this);
+        Bukkit.getPluginManager().registerEvents(new CookListener(), this);
 
     }
 

@@ -71,7 +71,9 @@ public class PlannedActivities {
     }
     public static void restart() {
 
-        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> Bukkit.spigot().restart(), 0L), 434400L);
+        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
+            //restart
+        }, 0L), 434400L);
 
     }
     private static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {
