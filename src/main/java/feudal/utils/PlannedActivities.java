@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.plugin.Plugin;
 
-import java.util.List;
 import java.util.Map;
 
 public class PlannedActivities {
@@ -30,10 +29,7 @@ public class PlannedActivities {
 
                 }
 
-
                 int balance = kingdom.getValue().getBalance();
-                List<Chunk> territory = kingdom.getValue().getTerritory();
-                List<String> members = kingdom.getValue().getMembers();
 
                 int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
                 int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
@@ -41,23 +37,25 @@ public class PlannedActivities {
 
                 kingdomInfo.takeBalance(balance / 100 * 3);
 
-                for (Chunk chunk : territory) {
+                for (Chunk chunk : kingdom.getValue().getTerritory()) {
 
                     if (balance < landTax) {
 
                         kingdomInfo.takeTerritory(chunk);
                         continue;
+
                     }
 
                     kingdomInfo.takeBalance(landTax);
                 }
 
-                for (String ignored : members) {
+                for (String ignored : kingdom.getValue().getMembers()) {
 
                     if (balance < taxOnResidents) {
 
                         kingdomInfo.takeReputation(30);
                         continue;
+
                     }
 
                     kingdomInfo.takeBalance(taxOnResidents);
