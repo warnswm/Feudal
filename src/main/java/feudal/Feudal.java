@@ -17,13 +17,13 @@ import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractL
 import feudal.optimizationPatches.redstone.PlaceRedstoneListener;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.List;
 import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -134,8 +134,8 @@ public final class Feudal extends JavaPlugin {
 
             for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
 
-                val cacheKingdomInfo = kingdom.getValue();
-                val kingdomName = cacheKingdomInfo.getKingdomName();
+                KingdomInfo cacheKingdomInfo = kingdom.getValue();
+                String kingdomName = cacheKingdomInfo.getKingdomName();
 
                 kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
                 kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
@@ -159,18 +159,18 @@ public final class Feudal extends JavaPlugin {
             for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
 
                 KingdomInfo kingdomInfo = kingdom.getValue();
-                val reputation = kingdom.getValue().getReputation();
+                int reputation = kingdom.getValue().getReputation();
 
                 if (reputation <= 0)
                     kingdomInfo.takeAllTerritory();
 
 
-                val balance = kingdom.getValue().getBalance();
-                val territory = kingdom.getValue().getTerritory();
-                val members = kingdom.getValue().getMembers();
+                int balance = kingdom.getValue().getBalance();
+                List<Chunk> territory = kingdom.getValue().getTerritory();
+                List<String> members = kingdom.getValue().getMembers();
 
-                val landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
-                val taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
+                int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
+                int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
 
 
                 kingdomInfo.takeBalance(balance / 100 * 3);

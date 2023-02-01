@@ -7,7 +7,6 @@ import feudal.databaseAndCache.PlayerInfo;
 import feudal.view.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -161,8 +160,8 @@ public class PlayerJoinAndQuit implements Listener {
 
         new Thread(() -> {
 
-            val kingdomName = kingdomInfo.getPlayerKingdom(player);
-            val cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
+            String kingdomName = kingdomInfo.getPlayerKingdom(player);
+            KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
 
             kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
             kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
