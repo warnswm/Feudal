@@ -58,17 +58,27 @@ public class GeneralListener implements Listener {
     @EventHandler
     public void playerResting(@NotNull PlayerBedEnterEvent event) {
 
-        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400,  0, true, false));
-        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240,  1, true, false));
+        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400,  0, true, true));
+        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240,  1, true, true));
 
     }
 
     @EventHandler
-    public void playerEats(PlayerItemConsumeEvent event) {
+    public void playerEats(@NotNull PlayerItemConsumeEvent event) {
 
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef"))
+        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef")) return;
+
+        Player player = event.getPlayer();
+
+        if (CraftItemStack.asNMSCopy(event.getItem()).getTag().getByte("chefLvl") == 100) {
+
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600,  1, true, true));
             return;
 
+        }
+
+        if (CraftItemStack.asNMSCopy(event.getItem()).getTag().getByte("chefLvl") >= 25)
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600,  0, true, true));
 
     }
 }

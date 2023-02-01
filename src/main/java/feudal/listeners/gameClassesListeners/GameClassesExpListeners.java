@@ -166,6 +166,6 @@ public class GameClassesExpListeners implements Listener {
 
         float tmp = CachePlayers.getPlayerInfo().get(player).getStaminaLvl();
 
-        event.setFoodLevel((int) (player.getFoodLevel() * (tmp / 300) + player.getFoodLevel()));
+//        event.setFoodLevel((int) (player.getFoodLevel() * (tmp / 300) + player.getFoodLevel()));
     }
 }
