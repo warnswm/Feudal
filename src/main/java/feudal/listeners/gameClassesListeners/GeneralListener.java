@@ -66,19 +66,19 @@ public class GeneralListener implements Listener {
     @EventHandler
     public void playerEats(@NotNull PlayerItemConsumeEvent event) {
 
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef")) return;
+        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef") ||
+                Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25) return;
 
         Player player = event.getPlayer();
 
-        if (CraftItemStack.asNMSCopy(event.getItem()).getTag().getByte("chefLvl") == 100) {
+        if (Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") == 100) {
 
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600,  1, true, true));
             return;
 
         }
 
-        if (CraftItemStack.asNMSCopy(event.getItem()).getTag().getByte("chefLvl") >= 25)
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600,  0, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600,  0, true, true));
 
     }
 }
