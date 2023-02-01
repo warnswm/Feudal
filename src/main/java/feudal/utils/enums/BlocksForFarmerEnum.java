@@ -10,8 +10,13 @@ import org.bukkit.Material;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum BlocksForFarmerEnum {
-    COAL_ORE(Material.COAL_ORE, 3), IRON_ORE(Material.IRON_ORE, 5), GOLD_ORE(Material.GOLD_ORE, 8),
-    DIAMOND_ORE(Material.DIAMOND_ORE, 15), EMERALD_ORE(Material.EMERALD_ORE, 25);
+    CROPS(Material.CROPS, 3),
+    POTATO(Material.POTATO, 5),
+    BEETROOT_BLOCK(Material.BEETROOT_BLOCK, 8),
+    CARROT(Material.CARROT, 15),
+    PUMPKIN_STEM(Material.PUMPKIN_STEM, 25),
+    COCOA(Material.COCOA, 25),
+    MELON_STEM(Material.MELON_STEM, 25);
 
     Material material;
     int attributeExp;
@@ -21,5 +26,11 @@ public enum BlocksForFarmerEnum {
             if (blocksForFarmerEnum.getMaterial() == material)
                 return blocksForFarmerEnum.attributeExp;
         return 0;
+    }
+    public static boolean getPlant(Material material) {
+        for (BlocksForFarmerEnum blocksForFarmerEnum : values())
+            if (blocksForFarmerEnum.getMaterial() == material)
+                return true;
+        return false;
     }
 }
