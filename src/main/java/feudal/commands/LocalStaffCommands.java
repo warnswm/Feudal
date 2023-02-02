@@ -4,6 +4,8 @@ import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
+import feudal.utils.ChunkWrapper;
+import feudal.utils.GsonUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,7 +33,7 @@ public class LocalStaffCommands implements CommandExecutor {
                 kingdomInfo.setField(args[1], args[2], kingdomInfo.getField(args[1], args[2]) + args[3]);
                 break;
             case "addchunk":
-                kingdomInfo.addTerritory(player.getLocation().getChunk().toString());
+                kingdomInfo.addTerritory(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(player.getLocation().getChunk())));
                 break;
         }
 
