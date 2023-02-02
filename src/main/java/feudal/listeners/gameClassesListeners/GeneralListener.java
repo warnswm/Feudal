@@ -37,8 +37,7 @@ public class GeneralListener implements Listener {
 
         if (event.getEntity().getKiller() == null) return;
 
-        Player player = event.getEntity().getKiller();
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getEntity().getKiller());
 
         if (event.getEntityType() != EntityType.PLAYER) {
 

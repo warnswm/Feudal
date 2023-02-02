@@ -3,7 +3,6 @@ package feudal.listeners.gameClassesListeners;
 import feudal.data.cache.CachePlayers;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.ClassesIDEnum;
-import lombok.val;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,7 +25,7 @@ public class ClerkListener implements Listener {
 
         }
 
-        val classLvl = playerInfo.getGameClassLvl();
+        int classLvl = playerInfo.getGameClassLvl();
 
         if (classLvl < 75) return;
 
@@ -35,6 +34,7 @@ public class ClerkListener implements Listener {
         if (classLvl != 100) return;
 
         event.getItem().addUnsafeEnchantment(getRandomEnc(), 1);
+
     }
 //    @EventHandler
 //    public void playerInteract(@NotNull PlayerInteractEvent event) {

@@ -34,8 +34,8 @@ public class PlayerJoinAndQuit implements Listener {
         if (!playerInfo.hasPlayer(player)) {
 
             loadPlayer(player);
-
             return;
+
         }
 
         loadPlayer(player);
@@ -47,15 +47,15 @@ public class PlayerJoinAndQuit implements Listener {
     @EventHandler
     public void playerQuit(@NotNull PlayerQuitEvent event) {
 
-        Player player = event.getPlayer();
-
         if (CachePlayers.getPlayerInfo().get(event.getPlayer()) == null) return;
 
+        Player player = event.getPlayer();
 
         if (kingdomInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) {
 
             savePlayer(player);
             return;
+
         }
 
         savePlayer(player);

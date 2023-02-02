@@ -46,12 +46,12 @@ public class GameClassesExpListeners implements Listener {
             if (event.getBlock().getType().equals(LOG)) {
 
                 int colum = 0;
-
                 for (int i = event.getBlock().getY(); i < event.getBlock().getWorld().getHighestBlockYAt(event.getBlock().getX(), event.getBlock().getZ());)
                     colum++;
 
                 playerInfo.addExperience(colum);
                 playerInfo.addGameClassExperience(colum * 4);
+
             }
 
         else if (playerInfo.getAClassID() == ClassesIDEnum.FARMER.getId()) {
@@ -116,9 +116,9 @@ public class GameClassesExpListeners implements Listener {
     @EventHandler
     public void playerHunted(@NotNull EntityDeathEvent event) {
 
-        Player player = event.getEntity().getKiller();
-        if (player == null) return;
+        if (event.getEntity().getKiller() == null) return;
 
+        Player player = event.getEntity().getKiller();
         PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
 
         if (playerInfo.getAClassID() != ClassesIDEnum.HUNTER.getId()) return;
@@ -134,7 +134,6 @@ public class GameClassesExpListeners implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-
         float tmp = CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl();
 
         event.setAmount(1 * (tmp / 200) + 1);
@@ -147,7 +146,6 @@ public class GameClassesExpListeners implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
-
         float tmp = CachePlayers.getPlayerInfo().get(player).getStrengthLvl();
 
         event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());

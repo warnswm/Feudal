@@ -3,7 +3,6 @@ package feudal.listeners.gameClassesListeners;
 import feudal.data.cache.CachePlayers;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.ClassesIDEnum;
-import lombok.val;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 
 public class HunterListener implements Listener {
@@ -27,7 +28,7 @@ public class HunterListener implements Listener {
         if (playerInfo.getAClassID() != ClassesIDEnum.HUNTER.getId() ||
                 playerInfo.getGameClassLvl() < 25) return;
 
-        val drops = event.getDrops();
+        List<ItemStack> drops = event.getDrops();
 
         if (drops.contains(new ItemStack(Material.RAW_CHICKEN))) {
 
