@@ -24,16 +24,15 @@ public class FarmerListener implements Listener {
                 !BlocksForFarmerEnum.getPlant(block.getType()) ||
                 block.getData() == CropState.RIPE.getData()) return;
 
+        mainHand.setAmount(mainHand.getAmount() - 1);
+
         if (block.getType().equals(Material.BEETROOT_BLOCK)) {
 
             block.setData((byte) 3);
-            mainHand.setAmount(mainHand.getAmount() - 1);
             return;
 
         }
 
         block.setData(CropState.RIPE.getData());
-        mainHand.setAmount(mainHand.getAmount() - 1);
-
     }
 }

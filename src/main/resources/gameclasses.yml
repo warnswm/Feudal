@@ -1,3 +1,9 @@
 Builder:
 Clerk:
   discount: 0.3
+Cook:
+  firstGain: 0
+  timeFirstGain: 600
+  secondGain: 1
+  timeSecondGain: 600
+

@@ -11,6 +11,7 @@ import feudal.data.database.PlayerInfo;
 import feudal.listeners.gameClassesListeners.*;
 import feudal.listeners.generalListeners.MobListener;
 import feudal.listeners.generalListeners.PlayerJoinAndQuit;
+import feudal.listeners.generalListeners.PlayerListener;
 import feudal.listeners.generalListeners.craftItems.CraftItemsListener;
 import feudal.listeners.interactListeners.menuListeners.AttributesUpMenuInteractListener;
 import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
@@ -79,7 +80,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new GameClassUpMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
         Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
-        Bukkit.getPluginManager().registerEvents(new GeneralListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlaceRedstoneListener(), this);
         Bukkit.getPluginManager().registerEvents(new BuilderListener(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkListener(), this);

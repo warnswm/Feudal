@@ -1,4 +1,4 @@
-package feudal.listeners.gameClassesListeners;
+package feudal.listeners.generalListeners;
 
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
@@ -21,7 +21,7 @@ import java.util.Objects;
 
 import static feudal.utils.MathUtils.getRandInt;
 
-public class GeneralListener implements Listener {
+public class PlayerListener implements Listener {
 
     @EventHandler
     public void playerTeleport(@NotNull PlayerTeleportEvent event) {
