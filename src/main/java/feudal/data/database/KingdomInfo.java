@@ -206,6 +206,29 @@ public class KingdomInfo {
         return false;
     }
 
+    public boolean chunkInKingdom(@NotNull Chunk chunk) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (collection.find(new BasicDBObject("territory", chunk))
+                    .iterator()
+                    .hasNext()) return true;
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+        return false;
+    }
+
     public String getPlayerKingdom(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
