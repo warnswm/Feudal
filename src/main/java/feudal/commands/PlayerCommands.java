@@ -96,7 +96,8 @@ public class PlayerCommands implements CommandExecutor {
                 .setReputation(1000)
                 .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
                 .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
-                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"));
+                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"))
+                .setPrivateTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "privateTerritory"));
 
         CacheKingdomsMap.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
 

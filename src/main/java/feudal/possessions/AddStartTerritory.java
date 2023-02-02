@@ -23,6 +23,7 @@ public class AddStartTerritory {
             KingdomInfo kingdom = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
 
             kingdom.addTerritory(chunk);
+            kingdom.addPrivateTerritory(chunk);
 
         }
 

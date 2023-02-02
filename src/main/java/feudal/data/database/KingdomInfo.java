@@ -25,6 +25,7 @@ public class KingdomInfo {
     String king;
     List<String> members;
     List<Chunk> territory;
+    List<Chunk> privateTerritory;
     List<String> barons;
     int balance;
     int reputation;
@@ -285,6 +286,25 @@ public class KingdomInfo {
 
     public KingdomInfo addTerritory(Chunk territory) {
         this.territory.add(territory);
+        return this;
+    }
+    public KingdomInfo setPrivateTerritory(List<Chunk> privateTerritory) {
+        this.privateTerritory = privateTerritory;
+        return this;
+    }
+
+    public KingdomInfo takePrivateTerritory(Chunk privateTerritory) {
+        this.privateTerritory.remove(privateTerritory);
+        return this;
+    }
+
+    public KingdomInfo takeAllPrivateTerritory() {
+        this.privateTerritory.clear();
+        return this;
+    }
+
+    public KingdomInfo addPrivateTerritory(Chunk privateTerritory) {
+        this.privateTerritory.add(privateTerritory);
         return this;
     }
 

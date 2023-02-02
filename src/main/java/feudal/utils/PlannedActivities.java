@@ -25,6 +25,7 @@ public class PlannedActivities {
                 if (reputation <= 0) {
 
                     kingdomInfo.takeAllTerritory();
+                    kingdomInfo.takeAllPrivateTerritory();
                     return;
 
                 }
@@ -42,6 +43,7 @@ public class PlannedActivities {
                     if (balance < landTax) {
 
                         kingdomInfo.takeTerritory(chunk);
+                        kingdomInfo.takePrivateTerritory(chunk);
                         continue;
 
                     }
