@@ -1,5 +1,6 @@
 package feudal.listeners.generalListeners;
 
+import feudal.Feudal;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.MoneyForMobsEnum;
@@ -9,10 +10,15 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -82,4 +88,52 @@ public class PlayerListener implements Listener {
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 0, true, true));
 
     }
+
+    @EventHandler
+    public void playerOnFoodChange(@NotNull FoodLevelChangeEvent event) {
+
+        if (!(event.getEntity() instanceof Player)) return;
+
+        Player player = (Player) event.getEntity();
+
+        float tmp = CachePlayersMap.getPlayerInfo().get(player).getStaminaLvl();
+        int foodLvl = player.getFoodLevel();
+
+        event.setFoodLevel((int) (foodLvl * (tmp / 300) + foodLvl));
+    }
+
+    @EventHandler
+    public void playerRegenerationEvent(@NotNull EntityRegainHealthEvent event) {
+
+        if (!(event.getEntity() instanceof Player)) return;
+
+        Player player = (Player) event.getEntity();
+        float tmp = CachePlayersMap.getPlayerInfo().get(player).getSurvivabilityLvl();
+
+        event.setAmount(1 * (tmp / 200) + 1);
+
+    }
+
+    @EventHandler
+    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
+
+        if (!(event.getDamager() instanceof Player)) return;
+
+        Player player = (Player) event.getDamager();
+        float tmp = CachePlayersMap.getPlayerInfo().get(player).getStrengthLvl();
+
+        event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
+
+        if (!(event.getEntity() instanceof Player)) return;
+
+        event.setDamage(event.getDamage() - event.getDamage() / 100 * (CachePlayersMap.getPlayerInfo().get(event.getEntity()).getStaminaLvl() * 0.2));
+    }
+
+    @EventHandler
+    public void blockPlaced(@NotNull BlockPlaceEvent event) {
+
+        event.getBlock().setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
+
+    }
+
 }
