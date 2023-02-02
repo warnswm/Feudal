@@ -6,6 +6,7 @@ import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.MoneyForMobsEnum;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -118,13 +119,16 @@ public class PlayerListener implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
+        Entity entity = event.getEntity();
+
         float strengthLvl = CachePlayersMap.getPlayerInfo().get(player).getStrengthLvl();
+        double defaultDamage = event.getDamage();
 
-        event.setDamage(event.getDamage() * (strengthLvl / 200) + event.getDamage());
+        event.setDamage(defaultDamage * (strengthLvl / 200) + defaultDamage);
 
-        if (!(event.getEntity() instanceof Player)) return;
+        if (!(entity instanceof Player)) return;
 
-        event.setDamage(event.getDamage() - event.getDamage() / 100 * (CachePlayersMap.getPlayerInfo().get(event.getEntity()).getStaminaLvl() * 0.2));
+        event.setDamage(defaultDamage - defaultDamage / 100 * (CachePlayersMap.getPlayerInfo().get(entity).getStaminaLvl() * 0.2));
     }
 
     @EventHandler
