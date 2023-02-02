@@ -14,7 +14,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -90,16 +89,15 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerOnFoodChange(@NotNull FoodLevelChangeEvent event) {
+    public void playerOnFoodChange(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
+        float staminaLvl = CachePlayersMap.getPlayerInfo().get(player).getStaminaLvl();
+        double defaultAmount = event.getAmount();
 
-        float tmp = CachePlayersMap.getPlayerInfo().get(player).getStaminaLvl();
-        int foodLvl = player.getFoodLevel();
-
-        event.setFoodLevel((int) (foodLvl * (tmp / 300) + foodLvl));
+        event.setAmount(defaultAmount * (staminaLvl / 100) + defaultAmount);
     }
 
     @EventHandler
@@ -108,9 +106,9 @@ public class PlayerListener implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-        float tmp = CachePlayersMap.getPlayerInfo().get(player).getSurvivabilityLvl();
+        float survivabilityLvl = CachePlayersMap.getPlayerInfo().get(player).getSurvivabilityLvl();
 
-        event.setAmount(1 * (tmp / 200) + 1);
+        event.setAmount(1 * (survivabilityLvl / 200) + 1);
 
     }
 
@@ -120,9 +118,9 @@ public class PlayerListener implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
-        float tmp = CachePlayersMap.getPlayerInfo().get(player).getStrengthLvl();
+        float strengthLvl = CachePlayersMap.getPlayerInfo().get(player).getStrengthLvl();
 
-        event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
+        event.setDamage(event.getDamage() * (strengthLvl / 200) + event.getDamage());
 
         if (!(event.getEntity() instanceof Player)) return;
 
