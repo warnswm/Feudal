@@ -254,6 +254,14 @@ public class KingdomInfo {
         return "notInTheKingdom";
     }
 
+    public boolean chunkInKingdomCache(@NotNull Chunk chunk) {
+
+        if (territory.isEmpty()) return false;
+
+        return territory.contains(chunk);
+
+    }
+
     public KingdomInfo setKingdomName(String kingdomName) {
         this.kingdomName = kingdomName;
         return this;
