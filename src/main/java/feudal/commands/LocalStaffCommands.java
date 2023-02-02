@@ -19,16 +19,19 @@ public class LocalStaffCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
-        KingdomInfo kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(CacheKingdomsMap.playerInKingdom(player));
+        KingdomInfo kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(args[1]);
 
 
-        switch (args[1].toLowerCase()) {
+        switch (args[0].toLowerCase()) {
 
             case "changegameclass":
                 playerInfo.setaClassID(Integer.parseInt(args[2]));
                 break;
             case "givekingdomstats":
                 kingdomInfo.setField(args[1], args[2], kingdomInfo.getField(args[1], args[2]) + args[3]);
+                break;
+            case "addchunk":
+                kingdomInfo.addTerritory(player.getLocation().getChunk().toString());
                 break;
         }
 

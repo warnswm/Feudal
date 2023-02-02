@@ -18,7 +18,6 @@ import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInter
 import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractListener;
 import feudal.optimizationPatches.redstone.PlaceRedstoneListener;
 import feudal.utils.PlannedActivities;
-import feudal.utils.configurations.DataBaseConfig;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -32,8 +31,6 @@ import java.util.Map;
 public final class Feudal extends JavaPlugin {
 
     static Plugin plugin;
-    static Feudal instance;
-    DataBaseConfig dataBaseConfig;
 
     public static Plugin getPlugin() {
 
@@ -55,9 +52,6 @@ public final class Feudal extends JavaPlugin {
 
         PlannedActivities.taxCollection();
         PlannedActivities.restart();
-
-        dataBaseConfig = new DataBaseConfig();
-        dataBaseConfig.create();
 
     }
 
@@ -163,13 +157,5 @@ public final class Feudal extends JavaPlugin {
 
         System.gc();
 
-    }
-
-    public static Feudal getInstance() {
-        return instance;
-    }
-
-    public DataBaseConfig getDataBaseConfig() {
-        return dataBaseConfig;
     }
 }

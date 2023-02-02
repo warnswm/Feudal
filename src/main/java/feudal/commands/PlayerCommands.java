@@ -5,7 +5,6 @@ import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.view.generalMenu.GameClassUpMenu;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -96,8 +95,8 @@ public class PlayerCommands implements CommandExecutor {
                 .setReputation(1000)
                 .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
                 .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
-                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "privateTerritory"));
+                .setTerritory((List<String>) kingdomInfo.getField(kingdomName, "territory"))
+                .setPrivateTerritory((List<String>) kingdomInfo.getField(kingdomName, "privateTerritory"));
 
         CacheKingdomsMap.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
 

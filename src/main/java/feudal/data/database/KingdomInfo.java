@@ -24,8 +24,8 @@ public class KingdomInfo {
     String kingdomName;
     String king;
     List<String> members;
-    List<Chunk> territory;
-    List<Chunk> privateTerritory;
+    List<String> territory;
+    List<String> privateTerritory;
     List<String> barons;
     int balance;
     int reputation;
@@ -207,7 +207,7 @@ public class KingdomInfo {
         return false;
     }
 
-    public boolean chunkInKingdom(@NotNull Chunk chunk) {
+    public boolean chunkInKingdom(@NotNull String chunk) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -254,7 +254,7 @@ public class KingdomInfo {
         return "notInTheKingdom";
     }
 
-    public boolean chunkInKingdomCache(@NotNull Chunk chunk) {
+    public boolean chunkInKingdomCache(@NotNull String chunk) {
 
         if (territory.isEmpty()) return false;
 
@@ -277,12 +277,12 @@ public class KingdomInfo {
         return this;
     }
 
-    public KingdomInfo setTerritory(List<Chunk> territory) {
+    public KingdomInfo setTerritory(List<String> territory) {
         this.territory = territory;
         return this;
     }
 
-    public KingdomInfo takeTerritory(Chunk territory) {
+    public KingdomInfo takeTerritory(String territory) {
         this.territory.remove(territory);
         return this;
     }
@@ -292,16 +292,16 @@ public class KingdomInfo {
         return this;
     }
 
-    public KingdomInfo addTerritory(Chunk territory) {
+    public KingdomInfo addTerritory(String territory) {
         this.territory.add(territory);
         return this;
     }
-    public KingdomInfo setPrivateTerritory(List<Chunk> privateTerritory) {
+    public KingdomInfo setPrivateTerritory(List<String> privateTerritory) {
         this.privateTerritory = privateTerritory;
         return this;
     }
 
-    public KingdomInfo takePrivateTerritory(Chunk privateTerritory) {
+    public KingdomInfo takePrivateTerritory(String privateTerritory) {
         this.privateTerritory.remove(privateTerritory);
         return this;
     }
@@ -311,7 +311,7 @@ public class KingdomInfo {
         return this;
     }
 
-    public KingdomInfo addPrivateTerritory(Chunk privateTerritory) {
+    public KingdomInfo addPrivateTerritory(String privateTerritory) {
         this.privateTerritory.add(privateTerritory);
         return this;
     }

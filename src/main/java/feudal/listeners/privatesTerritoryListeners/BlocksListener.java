@@ -11,7 +11,7 @@ public class BlocksListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        if (CacheKingdomsMap.chunkInKingdomCache(event.getBlock().getChunk()))
+        if (CacheKingdomsMap.chunkInKingdomCache(event.getBlock().getChunk().toString()))
             event.setCancelled(true);
 
     }

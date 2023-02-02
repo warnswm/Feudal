@@ -7,7 +7,8 @@ import feudal.data.database.PlayerInfo;
 import feudal.view.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.bukkit.Chunk;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,8 +21,9 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener {
 
-    PlayerInfo playerInfo = new PlayerInfo(ConfigUtil.getDatabaseAddress(), ConfigUtil.getDatabaseName(), ConfigUtil.getPlayerCollection());
-    KingdomInfo kingdomInfo = new KingdomInfo(ConfigUtil.getDatabaseAddress(), ConfigUtil.getDatabaseName(), ConfigUtil.getKingdomCollection());
+    FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
+    PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
@@ -105,8 +107,8 @@ public class PlayerJoinAndQuit implements Listener {
                 .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
                 .setReputation((Integer) kingdomInfo.getField(kingdomName, "reputation"))
                 .setBalance((Integer) kingdomInfo.getField(kingdomName, "balance"))
-                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "privateTerritory"));
+                .setTerritory((List<String>) kingdomInfo.getField(kingdomName, "territory"))
+                .setPrivateTerritory((List<String>) kingdomInfo.getField(kingdomName, "privateTerritory"));
 
         CacheKingdomsMap.getKingdomInfo().put(kingdomName, kingdomInfo);
 

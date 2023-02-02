@@ -3,7 +3,6 @@ package feudal.data.cache;
 import feudal.data.database.KingdomInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +21,7 @@ public class CacheKingdomsMap {
         return getKingdomInfo().get(player.getUniqueId().toString()) == null;
     }
 
-    public static boolean chunkInKingdomCache(@NotNull Chunk chunk) {
+    public static boolean chunkInKingdomCache(@NotNull String chunk) {
 
         for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
 

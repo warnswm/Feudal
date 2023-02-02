@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,9 +18,9 @@ public class AddStartTerritory {
     static FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     static KingdomInfo kingdomDataBase = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
-    public static boolean createStartTerritory(String kingdomName, @NotNull List<Chunk> startTerritory) {
+    public static boolean createStartTerritory(String kingdomName, @NotNull List<String> startTerritory) {
 
-        for (Chunk chunk : startTerritory) {
+        for (String chunk : startTerritory) {
 
             if (kingdomDataBase.chunkInKingdom(chunk)) return false;
 

@@ -4,7 +4,6 @@ import feudal.Feudal;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.database.KingdomInfo;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
@@ -38,7 +37,7 @@ public class PlannedActivities {
 
                 kingdomInfo.takeBalance(balance / 100 * 3);
 
-                for (Chunk chunk : kingdom.getValue().getTerritory()) {
+                for (String chunk : kingdom.getValue().getTerritory()) {
 
                     if (balance < landTax) {
 
