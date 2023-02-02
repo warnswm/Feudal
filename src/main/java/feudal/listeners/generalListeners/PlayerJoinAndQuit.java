@@ -4,12 +4,11 @@ import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
+import feudal.utils.ConfigUtil;
 import feudal.view.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,9 +21,8 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener {
 
-    FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-    KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    PlayerInfo playerInfo = new PlayerInfo(ConfigUtil.getDatabaseAddress(), ConfigUtil.getDatabaseName(), ConfigUtil.getPlayerCollection());
+    KingdomInfo kingdomInfo = new KingdomInfo(ConfigUtil.getDatabaseAddress(), ConfigUtil.getDatabaseName(), ConfigUtil.getKingdomCollection());
 
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {

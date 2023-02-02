@@ -1,16 +1,32 @@
 package feudal.utils;
 
+import feudal.Feudal;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.experimental.FieldDefaults;
-import org.bukkit.configuration.Configuration;
+import org.bukkit.configuration.file.FileConfiguration;
 
-@Getter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ConfigUtil {
 
-    Configuration config = (Configuration) getConfig().get("config");
-//    PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-//    KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    static FileConfiguration databaseConfig = Feudal.getInstance().getDataBaseConfig().getDatabaseConfiguration();
+    static String databaseAddress = databaseConfig.get("Mongo.address").toString();
+    static String databaseName = databaseConfig.get("Mongo.name").toString();
+    static String playerCollection = databaseConfig.get("Mongo.playerCollection").toString();
+    static String kingdomCollection = databaseConfig.get("Mongo.kingdomCollection").toString();
 
+    public static String getDatabaseAddress() {
+        return databaseAddress;
+    }
+
+    public static String getDatabaseName() {
+        return databaseName;
+    }
+
+    public static String getPlayerCollection() {
+        return playerCollection;
+    }
+
+    public static String getKingdomCollection() {
+        return kingdomCollection;
+    }
 }
