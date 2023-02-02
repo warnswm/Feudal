@@ -1,7 +1,7 @@
 package feudal.utils;
 
 import feudal.Feudal;
-import feudal.data.cache.CacheKingdoms;
+import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.database.KingdomInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -15,9 +15,9 @@ public class PlannedActivities {
 
         scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
 
-            if (CacheKingdoms.getKingdomInfo().isEmpty()) return;
+            if (CacheKingdomsMap.getKingdomInfo().isEmpty()) return;
 
-            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
+            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
 
                 KingdomInfo kingdomInfo = kingdom.getValue();
                 int reputation = kingdom.getValue().getReputation();
@@ -69,6 +69,7 @@ public class PlannedActivities {
         System.gc();
 
     }
+
     public static void restart() {
 
         scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
@@ -76,6 +77,7 @@ public class PlannedActivities {
         }, 0L), 434400L);
 
     }
+
     private static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 0L, period);

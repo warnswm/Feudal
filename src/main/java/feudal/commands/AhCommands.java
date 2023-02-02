@@ -1,7 +1,7 @@
 package feudal.commands;
 
 import feudal.auction.AuctionMenu;
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.GameClassesIDEnum;
 import org.bukkit.command.Command;
@@ -16,7 +16,7 @@ public class AhCommands implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
         if (!args[0].equals("ah") || playerInfo.getAClassID() != GameClassesIDEnum.TRADER.getId()) return false;
 

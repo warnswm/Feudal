@@ -1,7 +1,7 @@
 package feudal.listeners.gameClassesListeners;
 
 import feudal.Feudal;
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.AnimalsForHuntedEnum;
 import feudal.utils.enums.AnimalsForShepherdEnum;
@@ -35,7 +35,7 @@ public class GameClassesExpListeners implements Listener {
 
         if (event.getBlock().hasMetadata("PLACED")) return;
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
 
         if (playerInfo.getAClassID() == ClassesIDEnum.MINER.getId()) {
 
@@ -46,27 +46,26 @@ public class GameClassesExpListeners implements Listener {
             if (event.getBlock().getType().equals(LOG)) {
 
                 int colum = 0;
-                for (int i = event.getBlock().getY(); i < event.getBlock().getWorld().getHighestBlockYAt(event.getBlock().getX(), event.getBlock().getZ());)
+                for (int i = event.getBlock().getY(); i < event.getBlock().getWorld().getHighestBlockYAt(event.getBlock().getX(), event.getBlock().getZ()); )
                     colum++;
 
                 playerInfo.addExperience(colum);
                 playerInfo.addGameClassExperience(colum * 4);
 
+            } else if (playerInfo.getAClassID() == ClassesIDEnum.FARMER.getId()) {
+
+                //Farmer logics
+
             }
-
-        else if (playerInfo.getAClassID() == ClassesIDEnum.FARMER.getId()) {
-
-            //Farmer logics
-
-        }
     }
 
     @EventHandler
     public void playerFishing(@NotNull PlayerFishEvent event) {
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
 
-        if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
+        if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH)
+            return;
 
         playerInfo.addExperience(30);
         playerInfo.addGameClassExperience(120);
@@ -75,7 +74,7 @@ public class GameClassesExpListeners implements Listener {
     @EventHandler
     public void playerItemEnchant(@NotNull EnchantItemEvent event) {
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getEnchanter());
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getEnchanter());
 
         if (event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != ClassesIDEnum.CLERK.getId())
             event.setCancelled(true);
@@ -104,7 +103,7 @@ public class GameClassesExpListeners implements Listener {
         if (!(event.getBreeder() instanceof Player)) return;
 
         Player player = (Player) event.getBreeder();
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
         if (playerInfo.getAClassID() != ClassesIDEnum.SHEPHERD.getId()) return;
 
@@ -119,7 +118,7 @@ public class GameClassesExpListeners implements Listener {
         if (event.getEntity().getKiller() == null) return;
 
         Player player = event.getEntity().getKiller();
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
         if (playerInfo.getAClassID() != ClassesIDEnum.HUNTER.getId()) return;
 
@@ -134,7 +133,7 @@ public class GameClassesExpListeners implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-        float tmp = CachePlayers.getPlayerInfo().get(player).getSurvivabilityLvl();
+        float tmp = CachePlayersMap.getPlayerInfo().get(player).getSurvivabilityLvl();
 
         event.setAmount(1 * (tmp / 200) + 1);
 
@@ -146,13 +145,13 @@ public class GameClassesExpListeners implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
-        float tmp = CachePlayers.getPlayerInfo().get(player).getStrengthLvl();
+        float tmp = CachePlayersMap.getPlayerInfo().get(player).getStrengthLvl();
 
         event.setDamage(event.getDamage() * (tmp / 200) + event.getDamage());
 
         if (!(event.getEntity() instanceof Player)) return;
 
-        event.setDamage(event.getDamage() - event.getDamage() / 100 * (CachePlayers.getPlayerInfo().get(event.getEntity()).getStaminaLvl() * 0.2));
+        event.setDamage(event.getDamage() - event.getDamage() / 100 * (CachePlayersMap.getPlayerInfo().get(event.getEntity()).getStaminaLvl() * 0.2));
     }
 
     @EventHandler
@@ -162,7 +161,7 @@ public class GameClassesExpListeners implements Listener {
 
         Player player = (Player) event.getEntity();
 
-        float tmp = CachePlayers.getPlayerInfo().get(player).getStaminaLvl();
+        float tmp = CachePlayersMap.getPlayerInfo().get(player).getStaminaLvl();
 
 //        event.setFoodLevel((int) (player.getFoodLevel() * (tmp / 300) + player.getFoodLevel()));
     }

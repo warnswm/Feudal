@@ -27,6 +27,7 @@ public enum MoneyForMobsEnum {
 
     EntityType entity;
     int money;
+
     public static int getByEntity(EntityType entity) {
         for (MoneyForMobsEnum moneyForMobsEnum : values())
             if (moneyForMobsEnum.getEntity() == entity)

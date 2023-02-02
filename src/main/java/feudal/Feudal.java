@@ -4,8 +4,8 @@ import feudal.commands.AdminCommands;
 import feudal.commands.AhCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
-import feudal.data.cache.CacheKingdoms;
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
 import feudal.listeners.gameClassesListeners.*;
@@ -30,6 +30,13 @@ import java.util.Map;
 public final class Feudal extends JavaPlugin {
 
     static Plugin plugin;
+
+    public static Plugin getPlugin() {
+
+        return plugin;
+
+    }
+
     @Override
     public void onEnable() {
 
@@ -44,11 +51,6 @@ public final class Feudal extends JavaPlugin {
 
         PlannedActivities.taxCollection();
         PlannedActivities.restart();
-
-    }
-    public static Plugin getPlugin() {
-
-        return plugin;
 
     }
 
@@ -105,7 +107,7 @@ public final class Feudal extends JavaPlugin {
 
         Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
 
-            PlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+            PlayerInfo cachePlayerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
             playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
             playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
@@ -121,7 +123,7 @@ public final class Feudal extends JavaPlugin {
             playerInfo.setField(player, "survivabilityLvl", cachePlayerInfo.getSurvivabilityLvl());
             playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
 
-            CachePlayers.getPlayerInfo().remove(player);
+            CachePlayersMap.getPlayerInfo().remove(player);
         }).start());
 
         System.gc();
@@ -135,7 +137,7 @@ public final class Feudal extends JavaPlugin {
 
         new Thread(() -> {
 
-            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdoms.getKingdomInfo().entrySet()) {
+            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
 
                 KingdomInfo cacheKingdomInfo = kingdom.getValue();
                 String kingdomName = cacheKingdomInfo.getKingdomName();
@@ -147,7 +149,7 @@ public final class Feudal extends JavaPlugin {
                 kingdomInfo.setField(kingdomName, "balance", cacheKingdomInfo.getBalance());
                 kingdomInfo.setField(kingdomName, "reputation", cacheKingdomInfo.getReputation());
 
-                CacheKingdoms.getKingdomInfo().remove(kingdomName);
+                CacheKingdomsMap.getKingdomInfo().remove(kingdomName);
 
             }
         }).start();

@@ -1,7 +1,7 @@
 package feudal.commands;
 
-import feudal.data.cache.CacheKingdoms;
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.view.generalMenu.GameClassUpMenu;
 import org.bukkit.Bukkit;
@@ -21,6 +21,7 @@ public class PlayerCommands implements CommandExecutor {
 
     final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -60,6 +61,7 @@ public class PlayerCommands implements CommandExecutor {
 
         return false;
     }
+
     private void helpCommand(@NotNull Player player) {
         player.sendMessage("/f claim - захватить чанк\n" + "/f create - создать королевство\n" + "/f help - меню коамнд\n" + "/f invite - добавить игрока в королевство\n" + "/f kick - удалить игрока из королевства\n" + "/f m - меню королевства\n" + "/f map - soon\n" + "/f shield - soon\n" + "/f location - указать локацию королевства\n" + "/f ah - открыть аукцион\n");
     }
@@ -96,9 +98,10 @@ public class PlayerCommands implements CommandExecutor {
                 .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
                 .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"));
 
-        CacheKingdoms.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
+        CacheKingdomsMap.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
 
     }
+
     private void withdrawMoneyFromTheTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
 
         if (kingdomName.equalsIgnoreCase("notInTheKingdom")) {
@@ -108,7 +111,7 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        KingdomInfo kingdomCache = CacheKingdoms.getKingdomInfo().get(kingdomName);
+        KingdomInfo kingdomCache = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
 
         if (kingdomCache.getBalance() < colum) {
 
@@ -118,7 +121,7 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         kingdomCache.takeBalance(colum);
-        CachePlayers.getPlayerInfo().get(player).addBalance(colum - colum / 100 * 5);
+        CachePlayersMap.getPlayerInfo().get(player).addBalance(colum - colum / 100 * 5);
 
     }
 }

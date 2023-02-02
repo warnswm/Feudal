@@ -1,6 +1,6 @@
 package feudal.listeners.interactListeners.menuListeners;
 
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import org.bukkit.Bukkit;
@@ -28,7 +28,7 @@ public class AuctionMenuInteractListener implements Listener {
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
         if (event.getView().getTitle().equals("Аукцион")) {
 
@@ -39,6 +39,7 @@ public class AuctionMenuInteractListener implements Listener {
 //            playerInfo.takeBalance();
         }
     }
+
     private void confirmationMenu(Player player, ItemStack itemStack) {
 
         Inventory inventory = Bukkit.createInventory(player, 9, "Подтверждение");

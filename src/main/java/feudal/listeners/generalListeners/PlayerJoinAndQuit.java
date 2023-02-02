@@ -1,7 +1,7 @@
 package feudal.listeners.generalListeners;
 
-import feudal.data.cache.CacheKingdoms;
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
 import feudal.view.ScoreBoardInfo;
@@ -47,7 +47,7 @@ public class PlayerJoinAndQuit implements Listener {
     @EventHandler
     public void playerQuit(@NotNull PlayerQuitEvent event) {
 
-        if (CachePlayers.getPlayerInfo().get(event.getPlayer()) == null) return;
+        if (CachePlayersMap.getPlayerInfo().get(event.getPlayer()) == null) return;
 
         Player player = event.getPlayer();
 
@@ -92,7 +92,7 @@ public class PlayerJoinAndQuit implements Listener {
                 .setKingdomName((String) playerInfo.getField(player, "kingdomName"))
                 .setSurvivabilityLvl((Integer) playerInfo.getField(player, "survivabilityLvl"));
 
-        CachePlayers.getPlayerInfo().put(player, playerInfo);
+        CachePlayersMap.getPlayerInfo().put(player, playerInfo);
 
     }
 
@@ -110,7 +110,7 @@ public class PlayerJoinAndQuit implements Listener {
                 .setBalance((Integer) kingdomInfo.getField(kingdomName, "balance"))
                 .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"));
 
-        CacheKingdoms.getKingdomInfo().put(kingdomName, kingdomInfo);
+        CacheKingdomsMap.getKingdomInfo().put(kingdomName, kingdomInfo);
 
     }
 
@@ -132,7 +132,7 @@ public class PlayerJoinAndQuit implements Listener {
 
         new Thread(() -> {
 
-            PlayerInfo cachePlayerInfo = CachePlayers.getPlayerInfo().get(player);
+            PlayerInfo cachePlayerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
             playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
             playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
@@ -148,7 +148,7 @@ public class PlayerJoinAndQuit implements Listener {
             playerInfo.setField(player, "survivabilityLvl", cachePlayerInfo.getSurvivabilityLvl());
             playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
 
-            CachePlayers.getPlayerInfo().remove(player);
+            CachePlayersMap.getPlayerInfo().remove(player);
 
         }).start();
 
@@ -161,7 +161,7 @@ public class PlayerJoinAndQuit implements Listener {
         new Thread(() -> {
 
             String kingdomName = kingdomInfo.getPlayerKingdom(player);
-            KingdomInfo cacheKingdomInfo = CacheKingdoms.getKingdomInfo().get(kingdomName);
+            KingdomInfo cacheKingdomInfo = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
 
             kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
             kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());

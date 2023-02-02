@@ -1,7 +1,7 @@
 package feudal.commands;
 
-import feudal.data.cache.CacheKingdoms;
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
 import org.bukkit.command.Command;
@@ -18,8 +18,8 @@ public class LocalStaffCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
-        KingdomInfo kingdomInfo = CacheKingdoms.getKingdomInfo().get(CacheKingdoms.playerInKingdom(player));
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
+        KingdomInfo kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(CacheKingdomsMap.playerInKingdom(player));
 
 
         switch (args[1].toLowerCase()) {

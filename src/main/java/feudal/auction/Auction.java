@@ -12,6 +12,7 @@ public class Auction {
 
     static int goodsNumber;
     static List<ItemStack> goods = new ArrayList<>();
+
     public static void addGoodsNumber() {
         goodsNumber++;
     }

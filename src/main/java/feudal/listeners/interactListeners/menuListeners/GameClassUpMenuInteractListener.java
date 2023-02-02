@@ -1,6 +1,6 @@
 package feudal.listeners.interactListeners.menuListeners;
 
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class GameClassUpMenuInteractListener implements Listener {
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
@@ -47,11 +47,12 @@ public class GameClassUpMenuInteractListener implements Listener {
                 break;
         }
     }
+
     public void attributesUpMenu(Player player, int attributeLvl, String attributeName, float percent) {
 
         Inventory strengthPumpingMenuInv = Bukkit.createInventory(player, 9, "Прокачка атрибутов");
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
         if (playerInfo.getExperience() >= Math.pow(1 + (percent / 100), attributeLvl) * 100)
             strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GREEN_SHULKER_BOX, 1, "Прокачать уровень " + attributeName));

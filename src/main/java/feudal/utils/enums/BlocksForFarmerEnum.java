@@ -27,6 +27,7 @@ public enum BlocksForFarmerEnum {
                 return blocksForFarmerEnum.attributeExp;
         return 0;
     }
+
     public static boolean getPlant(Material material) {
         for (BlocksForFarmerEnum blocksForFarmerEnum : values())
             if (blocksForFarmerEnum.getMaterial() == material)

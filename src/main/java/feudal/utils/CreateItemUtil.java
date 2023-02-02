@@ -17,9 +17,11 @@ public class CreateItemUtil {
 
         return item;
     }
+
     public static ItemStack createItem(Material material, int materialAmount) {
         return new ItemStack(material, materialAmount);
     }
+
     public static ItemStack createItem(Material material, Enchantment enchantment, int enchantmentLvl, int materialAmount) {
 
         ItemStack item = new ItemStack(material, materialAmount);

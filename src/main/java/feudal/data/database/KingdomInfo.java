@@ -272,14 +272,17 @@ public class KingdomInfo {
         this.territory = territory;
         return this;
     }
+
     public KingdomInfo takeTerritory(Chunk territory) {
         this.territory.remove(territory);
         return this;
     }
+
     public KingdomInfo takeAllTerritory() {
         this.territory.clear();
         return this;
     }
+
     public KingdomInfo addTerritory(Chunk territory) {
         this.territory.add(territory);
         return this;
@@ -289,26 +292,32 @@ public class KingdomInfo {
         this.barons = barons;
         return this;
     }
+
     public KingdomInfo setBalance(int balance) {
         this.balance = balance;
         return this;
     }
+
     public KingdomInfo takeBalance(int balance) {
         this.balance -= balance;
         return this;
     }
+
     public KingdomInfo addBalance(int balance) {
         this.balance += balance;
         return this;
     }
+
     public KingdomInfo setReputation(int reputation) {
         this.reputation = reputation;
         return this;
     }
+
     public KingdomInfo takeReputation(int reputation) {
         this.reputation -= reputation;
         return this;
     }
+
     public KingdomInfo addReputation(int reputation) {
         this.reputation += reputation;
         return this;

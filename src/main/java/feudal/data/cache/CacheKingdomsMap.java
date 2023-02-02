@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CacheKingdoms {
+public class CacheKingdomsMap {
     static Map<String, KingdomInfo> kingdomInfoHashMap = new HashMap<>();
 
     public static Map<String, KingdomInfo> getKingdomInfo() {

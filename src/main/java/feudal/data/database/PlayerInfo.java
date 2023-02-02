@@ -157,7 +157,7 @@ public class PlayerInfo {
         }
     }
 
-//    public void resetAPlayer(@NotNull Player player) {
+    //    public void resetAPlayer(@NotNull Player player) {
 //
 //        ClientSession session = mongoClient.startSession();
 //
@@ -188,6 +188,7 @@ public class PlayerInfo {
     public void addGameClassExperience(int value) {
         gameClassExperience += value;
     }
+
     public void addGameClassLvl(int value) {
         gameClassLvl += value;
     }
@@ -195,6 +196,7 @@ public class PlayerInfo {
     public void addBalance(int value) {
         balance += value;
     }
+
     public void takeBalance(int value) {
         balance -= value;
     }

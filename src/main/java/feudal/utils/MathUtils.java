@@ -1,7 +1,6 @@
 package feudal.utils;
 
 
-
 import java.util.Random;
 
 public class MathUtils {

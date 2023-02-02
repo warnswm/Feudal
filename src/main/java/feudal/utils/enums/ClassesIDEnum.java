@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum ClassesIDEnum {
-    BUILDER(1), COOK(2),FARMER(3),
+    BUILDER(1), COOK(2), FARMER(3),
     FISHERMAN(4), HUNTER(5), MINER(6),
     SHEPHERD(7), TRADER(8), WOODCUTTER(9),
     ALCHEMIST(10), BLACKSMITH(11), CLERK(12),

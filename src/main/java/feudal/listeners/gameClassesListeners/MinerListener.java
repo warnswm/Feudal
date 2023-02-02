@@ -1,6 +1,6 @@
 package feudal.listeners.gameClassesListeners;
 
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import feudal.utils.enums.GameClassesIDEnum;
@@ -17,13 +17,13 @@ public class MinerListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
         Block block = event.getBlock();
 
         if (block.hasMetadata("PLACED") ||
                 playerInfo.getAClassID() != GameClassesIDEnum.MINER.getId() ||
-                        !block.getType().equals(Material.GOLD_ORE) &&
-                !block.getType().equals(Material.IRON_ORE)) return;
+                !block.getType().equals(Material.GOLD_ORE) &&
+                        !block.getType().equals(Material.IRON_ORE)) return;
 
         block.getWorld().dropItemNaturally(block.getLocation(), block.getType().equals(Material.GOLD_ORE) ? playerInfo.getGameClassLvl() >= 25 ? CreateItemUtil.createItem(Material.GOLD_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.GOLD_INGOT) : playerInfo.getGameClassLvl() >= 25 ? CreateItemUtil.createItem(Material.IRON_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.IRON_INGOT));
 

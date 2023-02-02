@@ -15,9 +15,9 @@ public enum AttributeForGameClassesEnum {
     STRENGTH_AND_SURVIVABILITY(9, "Сила", "Живучесть");
 
     final int oneClassID;
-    int secondClassID;
     final String oneAttributeName;
     final String secondAttributeName;
+    int secondClassID;
 
     AttributeForGameClassesEnum(int oneClassID, String oneAttributeName, String secondAttributeName) {
         this.oneClassID = oneClassID;
@@ -32,6 +32,7 @@ public enum AttributeForGameClassesEnum {
                 return attributeForGameClassesEnum.getOneAttributeName();
         return "";
     }
+
     public static String getSecondAttributeNameByID(int id) {
         for (AttributeForGameClassesEnum attributeForGameClassesEnum : values())
             if (attributeForGameClassesEnum.getOneClassID() == id ||

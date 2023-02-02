@@ -1,6 +1,6 @@
 package feudal.view.generalMenu;
 
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import feudal.utils.enums.AttributeForGameClassesEnum;
@@ -21,7 +21,7 @@ public class GameClassUpMenu {
     public void upgradeGameClass() {
 
         Inventory upgradeGameClassInv = Bukkit.createInventory(player, 9, "Прокачка класса");
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(player);
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
 
         upgradeGameClassInv.setItem(2, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getOneAttributeNameByID(playerInfo.getAClassID())));
         upgradeGameClassInv.setItem(6, CreateItemUtil.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getSecondAttributeNameByID(playerInfo.getAClassID())));

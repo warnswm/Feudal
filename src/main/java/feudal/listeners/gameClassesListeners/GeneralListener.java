@@ -1,6 +1,6 @@
 package feudal.listeners.gameClassesListeners;
 
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.MoneyForMobsEnum;
 import org.bukkit.Material;
@@ -37,7 +37,7 @@ public class GeneralListener implements Listener {
 
         if (event.getEntity().getKiller() == null) return;
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getEntity().getKiller());
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getEntity().getKiller());
 
         if (event.getEntityType() != EntityType.PLAYER) {
 
@@ -46,7 +46,7 @@ public class GeneralListener implements Listener {
 
         }
 
-        PlayerInfo playerDeathInfo = CachePlayers.getPlayerInfo().get((Player) event.getEntity());
+        PlayerInfo playerDeathInfo = CachePlayersMap.getPlayerInfo().get((Player) event.getEntity());
         int temp = playerDeathInfo.getBalance() / 100 * getRandInt(3, 5);
 
         playerInfo.addBalance(temp);
@@ -57,8 +57,8 @@ public class GeneralListener implements Listener {
     @EventHandler
     public void playerResting(@NotNull PlayerBedEnterEvent event) {
 
-        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400,  0, true, true));
-        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240,  1, true, true));
+        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400, 0, true, true));
+        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240, 1, true, true));
 
     }
 
@@ -67,18 +67,19 @@ public class GeneralListener implements Listener {
 
         if (CraftItemStack.asNMSCopy(event.getItem()).getTag() == null ||
                 !Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef") ||
-                Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25) return;
+                Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25)
+            return;
 
         Player player = event.getPlayer();
 
         if (Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") == 100) {
 
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600,  1, true, true));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1, true, true));
             return;
 
         }
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600,  0, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 600, 0, true, true));
 
     }
 }

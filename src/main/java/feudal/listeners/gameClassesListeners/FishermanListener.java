@@ -1,6 +1,6 @@
 package feudal.listeners.gameClassesListeners;
 
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import feudal.utils.enums.ClassesIDEnum;
@@ -20,7 +20,7 @@ public class FishermanListener implements Listener {
     @EventHandler
     public void playerFishing(@NotNull PlayerFishEvent event) {
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
 
         if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() ||
                 playerInfo.getGameClassLvl() < 25 ||

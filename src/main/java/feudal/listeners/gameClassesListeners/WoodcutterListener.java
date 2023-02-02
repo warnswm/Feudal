@@ -1,6 +1,6 @@
 package feudal.listeners.gameClassesListeners;
 
-import feudal.data.cache.CachePlayers;
+import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.GameClassesIDEnum;
 import org.bukkit.Location;
@@ -19,7 +19,7 @@ public class WoodcutterListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        PlayerInfo playerInfo = CachePlayers.getPlayerInfo().get(event.getPlayer());
+        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
         Block block = event.getBlock();
 
         if (block.hasMetadata("PLACED") ||
@@ -33,7 +33,7 @@ public class WoodcutterListener implements Listener {
 
         LinkedList<Block> blocks = new LinkedList<>();
 
-        for (int i = location.getBlockY(); i < location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ());) {
+        for (int i = location.getBlockY(); i < location.getWorld().getHighestBlockYAt(location.getBlockX(), location.getBlockZ()); ) {
 
             Location l = location.add(0, 1, 0);
             Block block = l.getBlock();
@@ -52,7 +52,7 @@ public class WoodcutterListener implements Listener {
 
             if (!block.breakNaturally(handStack)) return;
 
-            handStack.setDurability((short)(handStack.getDurability() + 1));
+            handStack.setDurability((short) (handStack.getDurability() + 1));
 
             if (handStack.getType().getMaxDurability() == handStack.getDurability()) {
                 handStack.setType(Material.AIR);
