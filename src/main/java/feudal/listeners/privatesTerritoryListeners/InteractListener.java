@@ -1,7 +1,10 @@
 package feudal.listeners.privatesTerritoryListeners;
 
+import feudal.data.cache.CacheKingdomsMap;
+import feudal.utils.GsonUtils;
 import feudal.utils.enums.ItemInteractEnum;
 import feudal.utils.enums.PrivateBlocksEnum;
+import feudal.utils.wrappers.ChunkWrapper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -14,7 +17,8 @@ public class InteractListener implements Listener {
 
         if (event.getItem() == null) return;
 
-        if (ItemInteractEnum.getByItemMaterial(event.getItem().getType()))
+        if (ItemInteractEnum.getByItemMaterial(event.getItem().getType()) &&
+                CacheKingdomsMap.chunkInKingdomCache(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk()))))
             event.setCancelled(true);
 
     }
@@ -22,7 +26,10 @@ public class InteractListener implements Listener {
     @EventHandler
     public void playerInteractBlock(@NotNull PlayerInteractEvent event) {
 
-        if (PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()))
+        if (event.getClickedBlock() == null) return;
+
+        if (PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()) &&
+                CacheKingdomsMap.chunkInKingdomCache(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk()))))
             event.setCancelled(true);
 
     }

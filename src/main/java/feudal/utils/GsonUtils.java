@@ -16,7 +16,7 @@ public class GsonUtils {
     public static String bannerToJson(@NotNull BannerWrapper bannerWrapper) {
         return new Gson().toJson(bannerWrapper);
     }
-    public static String itemStackToJson(@NotNull List<ItemStackWrapper> itemStack) {
+    public static String itemStackWrapperToJson(@NotNull List<ItemStackWrapper> itemStack) {
         return new Gson().toJson(itemStack);
     }
 }

@@ -8,7 +8,6 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -25,16 +24,16 @@ public class ItemStackWrapper {
     String name;
     List<String> lore;
     Map<Enchantment, Integer> enchants;
+    long price;
 
-
-    @Contract("_ -> new")
-    public static @NotNull ItemStackWrapper itemStackToItemStackWrapper(@NotNull ItemStack itemStack) {
+    public static @NotNull ItemStackWrapper itemStackToItemStackWrapper(@NotNull ItemStack itemStack, long price) {
         return new ItemStackWrapper(itemStack.getType(),
                 itemStack.getDurability(),
                 itemStack.getAmount(),
                 itemStack.getItemMeta().getDisplayName(),
                 itemStack.getItemMeta().getLore(),
-                itemStack.getItemMeta().getEnchants());
+                itemStack.getItemMeta().getEnchants(),
+                price);
     }
 
     public static @NotNull @Unmodifiable ItemStack itemStackWrapperToItemStack(@NotNull ItemStackWrapper itemStackWrapper) {
