@@ -12,7 +12,7 @@ public class InteractListener implements Listener {
     @EventHandler
     public void playerInteractItem(@NotNull PlayerInteractEvent event) {
 
-        if (event.getItem().getType() == null) return;
+        if (event.getItem() == null) return;
 
         if (ItemInteractEnum.getByItemMaterial(event.getItem().getType()))
             event.setCancelled(true);

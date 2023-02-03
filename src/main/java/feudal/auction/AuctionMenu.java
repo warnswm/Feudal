@@ -1,5 +1,6 @@
 package feudal.auction;
 
+import feudal.utils.wrappers.ItemStackWrapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -22,8 +23,8 @@ public class AuctionMenu {
         int maxIndex = page * 54 + page - 1;
 
         for (int i = minIndex; i < maxIndex; i++)
-            if (Auction.goods.size() > i)
-                openAuctionMenu.addItem(Auction.goods.get(i));
+            if (Auction.products.size() > i)
+                openAuctionMenu.addItem(ItemStackWrapper.itemStackWrapperToItemStack(Auction.products.get(i)));
 
         player.openInventory(openAuctionMenu);
     }
