@@ -1,5 +1,6 @@
 package feudal;
 
+import feudal.auction.Auction;
 import feudal.commands.AdminCommands;
 import feudal.commands.AhCommands;
 import feudal.commands.LocalStaffCommands;
@@ -51,6 +52,7 @@ public final class Feudal extends JavaPlugin {
         registerCommands();
         registerEvents();
         loadConfig();
+        Auction.load();
 
         PlannedActivities.taxCollection();
         PlannedActivities.restart();
@@ -62,7 +64,7 @@ public final class Feudal extends JavaPlugin {
 
         savePlayers();
         saveKingdoms();
-
+        Auction.save();
     }
 
     private void registerCommands() {

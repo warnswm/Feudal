@@ -1,5 +1,6 @@
 package feudal.auction;
 
+import com.google.gson.Gson;
 import feudal.Feudal;
 import feudal.utils.GsonUtils;
 import feudal.utils.wrappers.ItemStackWrapper;
@@ -7,9 +8,7 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,9 +26,23 @@ public class Auction {
 
             out.write(GsonUtils.itemStackWrapperToJson(products));
 
-        } catch (Exception e) {
+        } catch (IOException e) {
 
-            e.printStackTrace();
+            throw new RuntimeException(e);
+
+        }
+
+
+    }
+    public static void load() {
+
+        try {
+
+            products.add(new Gson().fromJson(new FileReader(new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json")), ItemStackWrapper.class));
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
 
         }
 
