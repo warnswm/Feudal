@@ -17,6 +17,7 @@ import feudal.listeners.interactListeners.menuListeners.AttributesUpMenuInteract
 import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
 import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractListener;
 import feudal.listeners.privatesTerritoryListeners.BlocksListener;
+import feudal.listeners.privatesTerritoryListeners.InteractListener;
 import feudal.optimizationPatches.redstone.PlaceRedstoneListener;
 import feudal.utils.PlannedActivities;
 import lombok.AccessLevel;
@@ -93,6 +94,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CookListener(), this);
         Bukkit.getPluginManager().registerEvents(new MobListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlocksListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
 
     }
 

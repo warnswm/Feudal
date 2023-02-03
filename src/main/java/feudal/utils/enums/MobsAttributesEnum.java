@@ -10,7 +10,7 @@ import org.bukkit.entity.EntityType;
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public enum MobsAttributes {
+public enum MobsAttributesEnum {
 
     POLAR_BEAR(EntityType.POLAR_BEAR, 18, 60),
     CAVE_SPIDER(EntityType.CAVE_SPIDER, 6, 24),
@@ -39,16 +39,16 @@ public enum MobsAttributes {
     int hp;
 
     public static int getStrengthByEntity(EntityType entity) {
-        for (MobsAttributes mobsAttributes : values())
-            if (mobsAttributes.getEntity() == entity)
-                return mobsAttributes.getStrength();
+        for (MobsAttributesEnum mobsAttributesEnum : values())
+            if (mobsAttributesEnum.getEntity() == entity)
+                return mobsAttributesEnum.getStrength();
         return 0;
     }
 
     public static int getHPByEntity(EntityType entity) {
-        for (MobsAttributes mobsAttributes : values())
-            if (mobsAttributes.getEntity() == entity)
-                return mobsAttributes.getHp();
+        for (MobsAttributesEnum mobsAttributesEnum : values())
+            if (mobsAttributesEnum.getEntity() == entity)
+                return mobsAttributesEnum.getHp();
         return 0;
     }
 }
