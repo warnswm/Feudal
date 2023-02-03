@@ -20,25 +20,26 @@ public class LocalStaffCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
-        KingdomInfo kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(args[1]);
+        PlayerInfo playerInfo;
+        KingdomInfo kingdomInfo;
 
 
         switch (args[0].toLowerCase()) {
 
             case "changegameclass":
+                playerInfo = CachePlayersMap.getPlayerInfo().get(player);
                 playerInfo.setaClassID(Integer.parseInt(args[2]));
                 break;
             case "givekingdomstats":
+                kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(args[1]);
                 kingdomInfo.setField(args[1], args[2], kingdomInfo.getField(args[1], args[2]) + args[3]);
                 break;
             case "addchunk":
+                kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(args[1]);
                 kingdomInfo.addTerritory(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(player.getLocation().getChunk())));
                 break;
-        }
 
-        if (command.getName().equalsIgnoreCase("changeGameClass"))
-            playerInfo.setaClassID(Integer.parseInt(args[0]));
+        }
 
         return false;
     }
