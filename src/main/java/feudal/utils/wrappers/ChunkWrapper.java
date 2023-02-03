@@ -1,4 +1,4 @@
-package feudal.utils;
+package feudal.utils.wrappers;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -19,10 +19,10 @@ public class BuilderListener implements Listener {
         Block block = event.getBlock();
 
         if (playerInfo.getAClassID() != GameClassesIDEnum.BUILDER.getId() &&
-                !block.getType().equals(Material.MOB_SPAWNER)) {
-        }
+                !block.getType().equals(Material.MOB_SPAWNER)) return;
 
-//      block.getWorld().dropItemNaturally(block.getLocation(), block)
+
+//      block.getWorld().dropItemNaturally(block.getLocation(), block);
 
     }
 }
