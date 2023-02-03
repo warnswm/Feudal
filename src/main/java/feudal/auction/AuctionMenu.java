@@ -19,8 +19,8 @@ public class AuctionMenu {
 
         Inventory openAuctionMenu = Bukkit.createInventory(player, 54, "Аукцион");
 
-        int minIndex = page == 1 ? 1 : page * 54 + page - 55;
-        int maxIndex = page * 54 + page - 1;
+        int minIndex = page == 1 ? 10 : page * 28 + page - 27;
+        int maxIndex = page * 34 + page + 8;
 
         for (int i = minIndex; i < maxIndex; i++)
             if (Auction.products.size() > i)

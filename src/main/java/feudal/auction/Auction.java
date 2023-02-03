@@ -14,6 +14,7 @@ import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Auction {
+
     static List<ItemStackWrapper> products = new ArrayList<>();
 
     public static void addProduct(@NotNull ItemStackWrapper product) {
@@ -24,6 +25,9 @@ public class Auction {
 
         try (PrintWriter out = new PrintWriter(new FileWriter(new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json")))) {
 
+            if (!new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").exists())
+                new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").createNewFile();
+
             out.write(GsonUtils.itemStackWrapperToJson(products));
 
         } catch (IOException e) {
@@ -32,11 +36,13 @@ public class Auction {
 
         }
 
-
     }
     public static void load() {
 
         try {
+
+            if (!new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").exists())
+                new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").createNewFile();
 
             products.add(new Gson().fromJson(new FileReader(new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json")), ItemStackWrapper.class));
 

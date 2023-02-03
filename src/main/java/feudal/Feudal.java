@@ -65,6 +65,7 @@ public final class Feudal extends JavaPlugin {
         savePlayers();
         saveKingdoms();
         Auction.save();
+
     }
 
     private void registerCommands() {
