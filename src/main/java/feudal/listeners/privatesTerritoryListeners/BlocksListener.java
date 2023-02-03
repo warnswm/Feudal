@@ -2,10 +2,15 @@ package feudal.listeners.privatesTerritoryListeners;
 
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.utils.GsonUtils;
+import feudal.utils.enums.PrivateBlocks;
 import feudal.utils.wrappers.ChunkWrapper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.*;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.EntityBlockFormEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class BlocksListener implements Listener {
@@ -27,25 +32,25 @@ public class BlocksListener implements Listener {
     }
 
     @EventHandler
-    public void playerSignChange(@NotNull SignChangeEvent event) {
-
-        if (CacheKingdomsMap.chunkInKingdomCache(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk()))))
-            event.setCancelled(true);
-
-    }
-
-    @EventHandler
-    public void playerNotePlayer(@NotNull NotePlayEvent event) {
-
-        if (CacheKingdomsMap.chunkInKingdomCache(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk()))))
-            event.setCancelled(true);
-
-    }
-
-    @EventHandler
     public void playerBlockDamage(@NotNull BlockDamageEvent event) {
 
         if (CacheKingdomsMap.chunkInKingdomCache(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk()))))
+            event.setCancelled(true);
+
+    }
+
+    @EventHandler
+    public void playerBlockFormEvent(@NotNull EntityBlockFormEvent event) {
+
+        if (CacheKingdomsMap.chunkInKingdomCache(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk()))))
+            event.setCancelled(true);
+
+    }
+
+    @EventHandler
+    public void playerInteractBlock(@NotNull PlayerInteractEvent event) {
+
+        if (PrivateBlocks.getByMaterial(event.getClickedBlock().getType()))
             event.setCancelled(true);
 
     }
