@@ -24,9 +24,9 @@ public class ItemStackWrapper {
     String name;
     List<String> lore;
     Map<Enchantment, Integer> enchants;
-    long price;
+    int price;
 
-    public static @NotNull ItemStackWrapper itemStackToItemStackWrapper(@NotNull ItemStack itemStack, long price) {
+    public static @NotNull ItemStackWrapper itemStackToItemStackWrapper(@NotNull ItemStack itemStack, int price) {
         return new ItemStackWrapper(itemStack.getType(),
                 itemStack.getDurability(),
                 itemStack.getAmount(),

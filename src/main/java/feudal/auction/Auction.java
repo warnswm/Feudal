@@ -15,18 +15,26 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Auction {
 
+    static File file = new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json");
+
     static List<ItemStackWrapper> products = new ArrayList<>();
 
     public static void addProduct(@NotNull ItemStackWrapper product) {
         products.add(product);
+
+        for (ItemStackWrapper item : products)
+            System.out.println(item.toString());
+
     }
 
     public static void save() {
 
-        try (PrintWriter out = new PrintWriter(new FileWriter(new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json")))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
 
-            if (!new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").exists())
-                new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").createNewFile();
+            if (!file.exists())
+                file.createNewFile();
+
+            if (products.isEmpty()) return;
 
             out.write(GsonUtils.itemStackWrapperToJson(products));
 
@@ -41,10 +49,14 @@ public class Auction {
 
         try {
 
-            if (!new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").exists())
-                new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json").createNewFile();
+            if (!file.exists()) {
 
-            products.add(new Gson().fromJson(new FileReader(new File(Feudal.getPlugin().getDataFolder().getPath(), "auction.json")), ItemStackWrapper.class));
+                file.createNewFile();
+                return;
+
+            }
+
+            products.add(new Gson().fromJson(new FileReader(file), ItemStackWrapper.class));
 
         } catch (IOException e) {
 

@@ -41,9 +41,9 @@ public class LocalStaffCommands implements CommandExecutor {
                 kingdomInfo.addTerritory(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(player.getLocation().getChunk())));
                 break;
             case "addah":
-                if (player.getInventory().getItemInMainHand() == null) break;
-                Auction.addProduct(ItemStackWrapper.itemStackToItemStackWrapper(player.getInventory().getItemInMainHand(), Long.parseLong(args[1])));
-                Auction.save();
+                if (player.getInventory().getItemInMainHand() == null ||
+                        Integer.parseInt(args[1]) > 1_000_000_000) break;
+                Auction.addProduct(ItemStackWrapper.itemStackToItemStackWrapper(player.getInventory().getItemInMainHand(), Integer.parseInt(args[1])));
                 break;
 
         }
