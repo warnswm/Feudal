@@ -70,6 +70,19 @@ public class PlannedActivities {
         System.gc();
 
     }
+    public static void eventCall() {
+
+        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
+
+
+
+
+        }, 0L), MathUtils.getRandInt(72000, 360000));
+
+        System.gc();
+
+    }
+
 
     public static void restart() {
 
