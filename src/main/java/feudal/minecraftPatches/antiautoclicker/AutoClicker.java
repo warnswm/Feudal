@@ -39,7 +39,7 @@ public class AutoClicker implements Listener {
 
             }
 
-            if (playerClicks.get(player).size() >= 7)
+            if (playerClicks.get(player).size() >= 5)
                 playerClicks.remove(player);
 
             return;
@@ -60,7 +60,7 @@ public class AutoClicker implements Listener {
 
         }
 
-        if (playerClicks.get(player).size() >= 7)
+        if (playerClicks.get(player).size() >= 5)
             playerClicks.remove(player);
 
     }
