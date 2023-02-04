@@ -1,4 +1,4 @@
-package feudal.utils.enums;
+package feudal.utils.enums.gameClassesEnums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

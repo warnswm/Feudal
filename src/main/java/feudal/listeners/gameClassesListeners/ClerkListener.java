@@ -2,7 +2,7 @@ package feudal.listeners.gameClassesListeners;
 
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
-import feudal.utils.enums.ClassesIDEnum;
+import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +18,7 @@ public class ClerkListener implements Listener {
 
         PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getEnchanter());
 
-        if (event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != ClassesIDEnum.CLERK.getId()) {
+        if (event.getItem().getType().equals(Material.BOOK) && playerInfo.getAClassID() != GameClassesIDEnum.CLERK.getId()) {
 
             event.setCancelled(true);
             return;

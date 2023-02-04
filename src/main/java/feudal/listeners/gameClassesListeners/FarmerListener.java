@@ -1,6 +1,6 @@
 package feudal.listeners.gameClassesListeners;
 
-import feudal.utils.enums.BlocksForFarmerEnum;
+import feudal.utils.enums.gameClassesEnums.BlocksForFarmerEnum;
 import org.bukkit.CropState;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

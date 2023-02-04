@@ -2,7 +2,7 @@ package feudal.listeners.gameClassesListeners;
 
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
-import feudal.utils.enums.GameClassesIDEnum;
+import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

@@ -3,7 +3,7 @@ package feudal.view.generalMenu;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
-import feudal.utils.enums.AttributeForGameClassesEnum;
+import feudal.utils.enums.gameClassesEnums.AttributeForGameClassesEnum;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -3,7 +3,7 @@ package feudal.commands;
 import feudal.auction.AuctionMenu;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
-import feudal.utils.enums.GameClassesIDEnum;
+import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

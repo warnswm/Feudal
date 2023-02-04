@@ -3,7 +3,7 @@ package feudal.listeners.gameClassesListeners;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
-import feudal.utils.enums.ClassesIDEnum;
+import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,7 +22,7 @@ public class FishermanListener implements Listener {
 
         PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
 
-        if (playerInfo.getAClassID() != ClassesIDEnum.FISHERMAN.getId() ||
+        if (playerInfo.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() ||
                 playerInfo.getGameClassLvl() < 25 ||
                 event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 

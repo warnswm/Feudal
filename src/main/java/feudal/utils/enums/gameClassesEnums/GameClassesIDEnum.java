@@ -1,4 +1,4 @@
-package feudal.utils.enums;
+package feudal.utils.enums.gameClassesEnums;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,8 @@ public enum GameClassesIDEnum {
 
     BUILDER(1, "Строитель"), COOK(2, "Повар"), FARMER(3, "Фермер"),
     FISHERMAN(4, "Рыболов"), HUNTER(5, "Охотник"), MINER(6, "Шахтёр"),
-    SHEPHERD(7, "Пастух"), TRADER(8, "Торговец"), WOODCUTTER(9, "Дровосек");
+    SHEPHERD(7, "Пастух"), TRADER(8, "Торговец"), WOODCUTTER(9, "Дровосек"),
+    CLERK(12, "Писарь");
 
     int id;
     String gameClassName;
