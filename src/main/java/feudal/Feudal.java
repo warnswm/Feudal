@@ -10,6 +10,7 @@ import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
 import feudal.listeners.gameClassesListeners.*;
+import feudal.listeners.generalListeners.ArmorListener;
 import feudal.listeners.generalListeners.MobListener;
 import feudal.listeners.generalListeners.PlayerJoinAndQuit;
 import feudal.listeners.generalListeners.PlayerListener;
@@ -96,6 +97,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MobListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlocksListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
 
     }
 
