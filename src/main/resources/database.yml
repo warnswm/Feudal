@@ -1,5 +1,5 @@
 Mongo:
   address: 'localhost:27017'
   name: 'local'
-  playerCollection: 'players'
-  kingdomCollection: 'kingdoms'
+  playersCollection: 'players'
+  kingdomsCollection: 'kingdoms'

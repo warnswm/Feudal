@@ -1,4 +1,4 @@
-package feudal.optimizationPatches.redstone;
+package feudal.minecraftPatches.redstone;
 
 import feudal.utils.enums.RedtoneMaterialEnum;
 import org.bukkit.Chunk;

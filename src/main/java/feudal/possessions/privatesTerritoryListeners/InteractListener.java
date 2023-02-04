@@ -1,4 +1,4 @@
-package feudal.listeners.privatesTerritoryListeners;
+package feudal.possessions.privatesTerritoryListeners;
 
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.utils.GsonUtils;

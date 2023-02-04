@@ -17,9 +17,10 @@ import feudal.listeners.generalListeners.craftItems.CraftItemsListener;
 import feudal.listeners.interactListeners.menuListeners.AttributesUpMenuInteractListener;
 import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
 import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractListener;
-import feudal.listeners.privatesTerritoryListeners.BlocksListener;
-import feudal.listeners.privatesTerritoryListeners.InteractListener;
-import feudal.optimizationPatches.redstone.PlaceRedstoneListener;
+import feudal.minecraftPatches.antiautoclicker.AutoClicker;
+import feudal.minecraftPatches.redstone.PlaceRedstoneListener;
+import feudal.possessions.privatesTerritoryListeners.BlocksListener;
+import feudal.possessions.privatesTerritoryListeners.InteractListener;
 import feudal.utils.PlannedActivities;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -98,6 +99,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MobListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlocksListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new AutoClicker(), this);
 
     }
 
