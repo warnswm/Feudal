@@ -25,7 +25,9 @@ public class WoodcutterListener implements Listener {
         if (block.hasMetadata("PLACED") ||
                 playerInfo.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId()) return;
 
-        cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
+
+        if (playerInfo.getGameClassLvl() <= 75)
+            cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
 
     }
 

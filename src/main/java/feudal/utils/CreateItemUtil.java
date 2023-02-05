@@ -4,10 +4,12 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 public class CreateItemUtil {
 
-    public static ItemStack createItem(Material material, int materialAmount, String displayName) {
+    public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName) {
 
         ItemStack item = new ItemStack(material, materialAmount);
         ItemMeta itemMeta = item.getItemMeta();
@@ -18,11 +20,12 @@ public class CreateItemUtil {
         return item;
     }
 
-    public static ItemStack createItem(Material material, int materialAmount) {
+    @Contract(value = "_, _ -> new", pure = true)
+    public static @NotNull ItemStack createItem(Material material, int materialAmount) {
         return new ItemStack(material, materialAmount);
     }
 
-    public static ItemStack createItem(Material material, Enchantment enchantment, int enchantmentLvl, int materialAmount) {
+    public static @NotNull ItemStack createItem(Material material, Enchantment enchantment, int enchantmentLvl, int materialAmount) {
 
         ItemStack item = new ItemStack(material, materialAmount);
         ItemMeta itemMeta = item.getItemMeta();

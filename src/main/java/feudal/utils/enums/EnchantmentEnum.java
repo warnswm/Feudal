@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.enchantments.Enchantment;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
@@ -27,7 +28,7 @@ public enum EnchantmentEnum {
     Enchantment enchantment;
     int id;
 
-    public static Enchantment getByID(int id) {
+    public static @Nullable Enchantment getByID(int id) {
         for (EnchantmentEnum enchantmentEnum : values())
             if (enchantmentEnum.getId() == id)
                 return enchantmentEnum.enchantment;
