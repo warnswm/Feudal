@@ -145,7 +145,7 @@ public class PlayerListener implements Listener {
 
         if (item.getDurability() == 0 || MathUtils.getRandInt(0, 26) != 25) return;
 
-        item.setDurability((short) (item.getDurability() + getRandInt(0, 11)));
+        item.setDurability((short) (item.getDurability() + getRandInt(6, 11)));
 
     }
 }
