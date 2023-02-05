@@ -10,8 +10,7 @@ import org.bukkit.Material;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum ItemInteractEnum {
-    BOWL(Material.BOWL), FISHING_ROD(Material.FISHING_ROD), BUCKET(Material.BUCKET),
-    LAVA_BUCKET(Material.LAVA_BUCKET), WATER_BUCKET(Material.WATER_BUCKET);
+    BUCKET(Material.BUCKET), LAVA_BUCKET(Material.LAVA_BUCKET), WATER_BUCKET(Material.WATER_BUCKET);
 
     Material item;
 
