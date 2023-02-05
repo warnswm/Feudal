@@ -5,7 +5,11 @@ import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
 import feudal.utils.MathUtils;
 import feudal.utils.enums.MoneyForMobsEnum;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -18,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
+import org.bukkit.event.player.PlayerBedLeaveEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
@@ -26,11 +31,16 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static feudal.utils.MathUtils.getRandInt;
 
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerListener implements Listener {
+
+    List<String> sleepingPlayers = new ArrayList<>();
 
     @EventHandler
     public void playerTeleport(@NotNull PlayerTeleportEvent event) {
@@ -64,11 +74,30 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerResting(@NotNull PlayerBedEnterEvent event) {
+    public void playerBedEnter(@NotNull PlayerBedEnterEvent event) {
 
-        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400, 0, true, true));
-        event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240, 1, true, true));
+        Player player = event.getPlayer();
 
+        player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400, 0, true, true));
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240, 1, true, true));
+
+        if (!sleepingPlayers.contains(player.getUniqueId().toString()))
+            sleepingPlayers.add(player.getUniqueId().toString());
+
+        if (sleepingPlayers.size() / Bukkit.getOnlinePlayers().size() < 2) {
+
+            World world = player.getWorld();
+
+            world.setTime(24000);
+            world.setStorm(false);
+            world.setThundering(false);
+
+        }
+    }
+
+    @EventHandler
+    public void playerBedLeave(@NotNull PlayerBedLeaveEvent event) {
+        sleepingPlayers.remove(event.getPlayer().getUniqueId().toString());
     }
 
     @EventHandler
