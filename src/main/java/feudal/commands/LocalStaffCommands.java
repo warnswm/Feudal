@@ -14,6 +14,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class LocalStaffCommands implements CommandExecutor {
     @Override
@@ -61,12 +63,19 @@ public class LocalStaffCommands implements CommandExecutor {
 
                     player.setGameMode(GameMode.SURVIVAL);
                     TabUtils.showPlayer(player);
+
+                    if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
+                        player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+
                     break;
 
                 }
 
                 player.setGameMode(GameMode.SPECTATOR);
                 TabUtils.hidePlayer(player);
+
+                if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0, true, true));
 
                 break;
 
