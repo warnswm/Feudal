@@ -4,7 +4,6 @@ author: Alterrutm
 main: feudal.Feudal
 depend: [ProtocolLib]
 commands:
-  spy:
   admin:
   f:
   ls:
