@@ -21,10 +21,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.player.PlayerBedEnterEvent;
-import org.bukkit.event.player.PlayerBedLeaveEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
@@ -175,6 +172,16 @@ public class PlayerListener implements Listener {
         if (item.getDurability() == 0 || MathUtils.getRandInt(0, 26) != 25) return;
 
         item.setDurability((short) (item.getDurability() + getRandInt(6, 11)));
+
+    }
+
+    @EventHandler
+    public void playerFishing(@NotNull PlayerFishEvent event) {
+
+        if (event.getState() != PlayerFishEvent.State.CAUGHT_FISH ||
+                getRandInt(0, 36) != 35) return;
+
+        event.getPlayer().getWorld().spawn(event.getPlayer().getLocation(), EntityType.GUARDIAN.getEntityClass());
 
     }
 }
