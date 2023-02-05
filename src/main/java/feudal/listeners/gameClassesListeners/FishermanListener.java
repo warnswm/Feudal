@@ -26,7 +26,7 @@ public class FishermanListener implements Listener {
                 playerInfo.getGameClassLvl() < 25 ||
                 event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 
-        int item = getRandInt(1, 5), random = getRandInt(1, 3);
+        int item = getRandInt(0, 6), random = getRandInt(0, 4);
 
         if (random != 1 && random != 2) return;
 

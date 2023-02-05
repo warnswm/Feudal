@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start" type="JarApplication">
+    <option name="JAR_PATH" value="$USER_HOME$/Documents/LobbyServer/server.jar" />
+    <option name="VM_PARAMETERS" value="-Xmx2G -Dfile.encoding=UTF-8" />
+    <option name="WORKING_DIRECTORY" value="$USER_HOME$/Documents/LobbyServer" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <method v="2">
+      <option name="LaunchBrowser.Before.Run" />
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="Feudal:jar" />
+      </option>
+    </method>
+  </configuration>
+</component>

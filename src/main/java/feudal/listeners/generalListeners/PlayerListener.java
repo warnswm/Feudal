@@ -3,6 +3,7 @@ package feudal.listeners.generalListeners;
 import feudal.Feudal;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.PlayerInfo;
+import feudal.utils.MathUtils;
 import feudal.utils.enums.MoneyForMobsEnum;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
@@ -11,6 +12,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -18,6 +20,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -53,10 +56,10 @@ public class PlayerListener implements Listener {
         }
 
         PlayerInfo playerDeathInfo = CachePlayersMap.getPlayerInfo().get((Player) event.getEntity());
-        int temp = playerDeathInfo.getBalance() / 100 * getRandInt(3, 5);
+        int temp = playerDeathInfo.getBalance() / 100 * getRandInt(2, 6);
 
         playerInfo.addBalance(temp);
-        playerDeathInfo.takeBalance(temp + getRandInt(1, 3));
+        playerDeathInfo.takeBalance(temp + getRandInt(0, 4));
 
     }
 
@@ -120,7 +123,6 @@ public class PlayerListener implements Listener {
 
         Player player = (Player) event.getDamager();
         Entity entity = event.getEntity();
-
         float strengthLvl = CachePlayersMap.getPlayerInfo().get(player).getStrengthLvl();
         double defaultDamage = event.getDamage();
 
@@ -132,10 +134,18 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void blockPlaced(@NotNull BlockPlaceEvent event) {
-
+    public void playerBlockPlaced(@NotNull BlockPlaceEvent event) {
         event.getBlock().setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
-
     }
 
+    @EventHandler
+    public void playerBlockBreak(@NotNull BlockBreakEvent event) {
+
+        ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
+
+        if (item.getDurability() == 0 || MathUtils.getRandInt(0, 26) != 25) return;
+
+        item.setDurability((short) (item.getDurability() + getRandInt(0, 11)));
+
+    }
 }
