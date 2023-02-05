@@ -1,0 +1,8 @@
+tax:
+  land: 1500
+  residents: 300
+  removeReputation: 30
+time:
+  tax: 432000
+  event: 72000, 360000
+  restart: 434400

@@ -65,7 +65,7 @@ public class PlannedActivities {
 
             }
 
-        }, 0L), 432000L);
+        }, 0L), 432000);
 
         System.gc();
 
