@@ -1,11 +1,15 @@
 package feudal.possessions;
 
+import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.database.KingdomInfo;
+import feudal.utils.GsonUtils;
+import feudal.utils.wrappers.ChunkWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,16 +22,16 @@ public class AddStartTerritory {
     static FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
     static KingdomInfo kingdomDataBase = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
-    public static boolean createStartTerritory(String kingdomName, @NotNull List<String> startTerritory) {
+    public static boolean createStartTerritory(String kingdomName, @NotNull List<Chunk> startTerritory) {
 
-        for (String chunk : startTerritory) {
+        for (Chunk chunk : startTerritory) {
 
-            if (kingdomDataBase.chunkInKingdom(chunk)) return false;
+            if (kingdomDataBase.chunkInKingdom(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk)))) return false;
 
-            KingdomInfo kingdom = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
+            FeudalKingdom feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
 
-            kingdom.addTerritory(chunk);
-            kingdom.addPrivateTerritory(chunk);
+            feudalKingdom.addTerritory(chunk);
+            feudalKingdom.addPrivateTerritory(chunk);
 
         }
 

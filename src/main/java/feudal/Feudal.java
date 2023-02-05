@@ -5,9 +5,7 @@ import feudal.commands.AdminCommands;
 import feudal.commands.AhCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
-import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
 import feudal.listeners.gameClassesListeners.*;
 import feudal.listeners.generalListeners.ArmorListener;
@@ -20,6 +18,7 @@ import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInter
 import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractListener;
 import feudal.possessions.privatesTerritoryListeners.BlocksListener;
 import feudal.possessions.privatesTerritoryListeners.InteractListener;
+import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.PlannedActivities;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -27,8 +26,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class Feudal extends JavaPlugin {
@@ -63,7 +60,7 @@ public final class Feudal extends JavaPlugin {
     public void onDisable() {
 
         savePlayers();
-        saveKingdoms();
+        LoadAndSaveDataUtils.saveAllKingdoms();
         Auction.save();
 
     }
@@ -133,34 +130,6 @@ public final class Feudal extends JavaPlugin {
 
             CachePlayersMap.getPlayerInfo().remove(player);
         }).start());
-
-        System.gc();
-
-    }
-
-    private void saveKingdoms() {
-
-        final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-        final KingdomInfo kingdomInfo = new KingdomInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-
-        new Thread(() -> {
-
-            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
-
-                KingdomInfo cacheKingdomInfo = kingdom.getValue();
-                String kingdomName = cacheKingdomInfo.getKingdomName();
-
-                kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
-                kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
-                kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
-                kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
-                kingdomInfo.setField(kingdomName, "balance", cacheKingdomInfo.getBalance());
-                kingdomInfo.setField(kingdomName, "reputation", cacheKingdomInfo.getReputation());
-
-                CacheKingdomsMap.getKingdomInfo().remove(kingdomName);
-
-            }
-        }).start();
 
         System.gc();
 

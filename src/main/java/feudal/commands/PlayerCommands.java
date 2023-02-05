@@ -1,10 +1,12 @@
 package feudal.commands;
 
+import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.view.generalMenu.GameClassUpMenu;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -87,18 +89,20 @@ public class PlayerCommands implements CommandExecutor {
 
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<String> members) {
 
-        kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+        kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
 
-        kingdomInfo.setKingdomName(kingdomName)
-                .setKing((String) kingdomInfo.getField(kingdomName, "king"))
+        FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
+
+        feudalKingdom.setKingdomName(kingdomName)
+                .setKing((Player) kingdomInfo.getField(kingdomName, "king"))
                 .setBalance(10000)
                 .setReputation(1000)
-                .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
-                .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
-                .setTerritory((List<String>) kingdomInfo.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<String>) kingdomInfo.getField(kingdomName, "privateTerritory"));
+                .setMembers((List<Player>) kingdomInfo.getField(kingdomName, "members"))
+                .setBarons((List<Player>) kingdomInfo.getField(kingdomName, "barons"))
+                .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"))
+                .setPrivateTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "privateTerritory"));
 
-        CacheKingdomsMap.getKingdomInfo().put(kingdomInfo.getPlayerKingdom(player), kingdomInfo);
+        CacheKingdomsMap.getKingdomInfo().put(kingdomName, feudalKingdom);
 
     }
 
@@ -111,16 +115,16 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        KingdomInfo kingdomCache = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
+        FeudalKingdom feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
 
-        if (kingdomCache.getBalance() < colum) {
+        if (feudalKingdom.getBalance() < colum) {
 
             player.sendMessage("В казне недостаточно средств");
             return;
 
         }
 
-        kingdomCache.takeBalance(colum);
+        feudalKingdom.takeBalance(colum);
         CachePlayersMap.getPlayerInfo().get(player).addBalance(colum - colum / 100 * 5);
 
     }

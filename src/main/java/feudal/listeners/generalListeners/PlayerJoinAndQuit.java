@@ -1,9 +1,9 @@
 package feudal.listeners.generalListeners;
 
-import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
+import feudal.utils.LoadAndSaveDataUtils;
 import feudal.view.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -15,8 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener {
@@ -39,7 +37,7 @@ public class PlayerJoinAndQuit implements Listener {
 
         loadPlayer(player);
         setPlayerAttribute(player);
-        loadKingdom(player);
+        LoadAndSaveDataUtils.loadKingdom(player);
 
     }
 
@@ -58,7 +56,7 @@ public class PlayerJoinAndQuit implements Listener {
         }
 
         savePlayer(player);
-        saveKingdom(player);
+        LoadAndSaveDataUtils.saveKingdom(player);
 
     }
 
@@ -92,25 +90,6 @@ public class PlayerJoinAndQuit implements Listener {
                 .setSurvivabilityLvl((Integer) playerInfo.getField(player, "survivabilityLvl"));
 
         CachePlayersMap.getPlayerInfo().put(player, playerInfo);
-
-    }
-
-    private void loadKingdom(Player player) {
-
-        if (!kingdomInfo.playerInKingdom(player)) return;
-
-        String kingdomName = kingdomInfo.getPlayerKingdom(player);
-
-        kingdomInfo.setKingdomName(kingdomName)
-                .setKing((String) kingdomInfo.getField(kingdomName, "king"))
-                .setMembers((List<String>) kingdomInfo.getField(kingdomName, "members"))
-                .setBarons((List<String>) kingdomInfo.getField(kingdomName, "barons"))
-                .setReputation((Integer) kingdomInfo.getField(kingdomName, "reputation"))
-                .setBalance((Integer) kingdomInfo.getField(kingdomName, "balance"))
-                .setTerritory((List<String>) kingdomInfo.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<String>) kingdomInfo.getField(kingdomName, "privateTerritory"));
-
-        CacheKingdomsMap.getKingdomInfo().put(kingdomName, kingdomInfo);
 
     }
 
@@ -149,27 +128,6 @@ public class PlayerJoinAndQuit implements Listener {
             playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
 
             CachePlayersMap.getPlayerInfo().remove(player);
-
-        }).start();
-
-        System.gc();
-
-    }
-
-    private void saveKingdom(Player player) {
-
-        new Thread(() -> {
-
-            String kingdomName = kingdomInfo.getPlayerKingdom(player);
-            KingdomInfo cacheKingdomInfo = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
-
-            kingdomInfo.setField(kingdomName, "king", cacheKingdomInfo.getKing());
-            kingdomInfo.setField(kingdomName, "members", cacheKingdomInfo.getMembers());
-            kingdomInfo.setField(kingdomName, "barons", cacheKingdomInfo.getBarons());
-            kingdomInfo.setField(kingdomName, "territory", cacheKingdomInfo.getTerritory());
-            kingdomInfo.setField(kingdomName, "privateTerritory", cacheKingdomInfo.getPrivateTerritory());
-            kingdomInfo.setField(kingdomName, "reputation", cacheKingdomInfo.getReputation());
-            kingdomInfo.setField(kingdomName, "balance", cacheKingdomInfo.getBalance());
 
         }).start();
 

@@ -1,13 +1,11 @@
 package feudal.commands;
 
 import feudal.auction.Auction;
+import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.KingdomInfo;
 import feudal.data.database.PlayerInfo;
-import feudal.utils.GsonUtils;
 import feudal.utils.TabUtils;
-import feudal.utils.wrappers.ChunkWrapper;
 import feudal.utils.wrappers.ItemStackWrapper;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -27,7 +25,7 @@ public class LocalStaffCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         PlayerInfo playerInfo;
-        KingdomInfo kingdomInfo;
+        FeudalKingdom feudalKingdom;
 
 
         switch (args[0].toLowerCase()) {
@@ -37,17 +35,10 @@ public class LocalStaffCommands implements CommandExecutor {
                 playerInfo = CachePlayersMap.getPlayerInfo().get(player);
                 playerInfo.setaClassID(Integer.parseInt(args[2]));
                 break;
-
-            case "givekingdomstats":
-
-                kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(args[1]);
-                kingdomInfo.setField(args[1], args[2], kingdomInfo.getField(args[1], args[2]) + args[3]);
-                break;
-
             case "addchunk":
 
-                kingdomInfo = CacheKingdomsMap.getKingdomInfo().get(args[1]);
-                kingdomInfo.addTerritory(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(player.getLocation().getChunk())));
+                feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(args[1]);
+                feudalKingdom.addTerritory(player.getLocation().getChunk());
                 break;
 
             case "addah":

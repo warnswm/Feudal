@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,14 +20,6 @@ import java.util.List;
 public class KingdomInfo {
     final MongoClient mongoClient;
     final MongoCollection<Document> collection;
-    String kingdomName;
-    String king;
-    List<String> members;
-    List<String> territory;
-    List<String> privateTerritory;
-    List<String> barons;
-    int balance;
-    int reputation;
 
     public KingdomInfo(String mongoClientName, String databaseName, String collectionName) {
 
@@ -38,7 +29,7 @@ public class KingdomInfo {
 
     }
 
-    public void createNewKingdom(@NotNull String kingdomName, Player king, List<String> members, List<Chunk> territory, List<String> barons) {
+    public void createNewKingdom(@NotNull String kingdomName, Player king, List<String> members, List<String> territory, List<String> privateTerritory, List<String> barons) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -55,6 +46,7 @@ public class KingdomInfo {
                     .append("king", king.getUniqueId().toString())
                     .append("members", members)
                     .append("territory", territory)
+                    .append("privateTerritory", privateTerritory)
                     .append("reputation", 1000)
                     .append("balance", 10000)
                     .append("barons", barons));
@@ -252,102 +244,5 @@ public class KingdomInfo {
         }
 
         return "notInTheKingdom";
-    }
-
-    public boolean chunkInKingdomCache(@NotNull String chunk) {
-
-        if (territory.isEmpty()) return false;
-
-        return territory.contains(chunk);
-
-    }
-
-    public KingdomInfo setKingdomName(String kingdomName) {
-        this.kingdomName = kingdomName;
-        return this;
-    }
-
-    public KingdomInfo setKing(String king) {
-        this.king = king;
-        return this;
-    }
-
-    public KingdomInfo setMembers(List<String> members) {
-        this.members = members;
-        return this;
-    }
-
-    public KingdomInfo setTerritory(List<String> territory) {
-        this.territory = territory;
-        return this;
-    }
-
-    public KingdomInfo takeTerritory(String territory) {
-        this.territory.remove(territory);
-        return this;
-    }
-
-    public KingdomInfo takeAllTerritory() {
-        this.territory.clear();
-        return this;
-    }
-
-    public KingdomInfo addTerritory(String territory) {
-        this.territory.add(territory);
-        return this;
-    }
-    public KingdomInfo setPrivateTerritory(List<String> privateTerritory) {
-        this.privateTerritory = privateTerritory;
-        return this;
-    }
-
-    public KingdomInfo takePrivateTerritory(String privateTerritory) {
-        this.privateTerritory.remove(privateTerritory);
-        return this;
-    }
-
-    public KingdomInfo takeAllPrivateTerritory() {
-        this.privateTerritory.clear();
-        return this;
-    }
-
-    public KingdomInfo addPrivateTerritory(String privateTerritory) {
-        this.privateTerritory.add(privateTerritory);
-        return this;
-    }
-
-    public KingdomInfo setBarons(List<String> barons) {
-        this.barons = barons;
-        return this;
-    }
-
-    public KingdomInfo setBalance(int balance) {
-        this.balance = balance;
-        return this;
-    }
-
-    public KingdomInfo takeBalance(int balance) {
-        this.balance -= balance;
-        return this;
-    }
-
-    public KingdomInfo addBalance(int balance) {
-        this.balance += balance;
-        return this;
-    }
-
-    public KingdomInfo setReputation(int reputation) {
-        this.reputation = reputation;
-        return this;
-    }
-
-    public KingdomInfo takeReputation(int reputation) {
-        this.reputation -= reputation;
-        return this;
-    }
-
-    public KingdomInfo addReputation(int reputation) {
-        this.reputation += reputation;
-        return this;
     }
 }

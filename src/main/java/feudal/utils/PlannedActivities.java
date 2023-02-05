@@ -1,9 +1,11 @@
 package feudal.utils;
 
 import feudal.Feudal;
+import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheKingdomsMap;
-import feudal.data.database.KingdomInfo;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
@@ -16,50 +18,50 @@ public class PlannedActivities {
 
             if (CacheKingdomsMap.getKingdomInfo().isEmpty()) return;
 
-            for (Map.Entry<String, KingdomInfo> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
+            for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
 
-                KingdomInfo kingdomInfo = kingdom.getValue();
+                FeudalKingdom cacheFeudalKingdom = kingdom.getValue();
                 int reputation = kingdom.getValue().getReputation();
 
                 if (reputation <= 0) {
 
-                    kingdomInfo.takeAllTerritory();
-                    kingdomInfo.takeAllPrivateTerritory();
+                    cacheFeudalKingdom.takeAllTerritory();
+                    cacheFeudalKingdom.takeAllPrivateTerritory();
                     return;
 
                 }
 
-                int balance = kingdom.getValue().getBalance();
+                long balance = kingdom.getValue().getBalance();
 
                 int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
                 int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;
 
 
-                kingdomInfo.takeBalance(balance / 100 * 3);
+                cacheFeudalKingdom.takeBalance(balance / 100 * 3);
 
-                for (String chunk : kingdom.getValue().getTerritory()) {
+                for (Chunk chunk : kingdom.getValue().getTerritory()) {
 
                     if (balance < landTax) {
 
-                        kingdomInfo.takeTerritory(chunk);
-                        kingdomInfo.takePrivateTerritory(chunk);
+                        cacheFeudalKingdom.takeTerritory(chunk);
+                        cacheFeudalKingdom.takePrivateTerritory(chunk);
                         continue;
 
                     }
 
-                    kingdomInfo.takeBalance(landTax);
+                    cacheFeudalKingdom.takeBalance(landTax);
                 }
 
-                for (String ignored : kingdom.getValue().getMembers()) {
+                for (Player ignored : kingdom.getValue().getMembers()) {
 
                     if (balance < taxOnResidents) {
 
-                        kingdomInfo.takeReputation(30);
+                        cacheFeudalKingdom.takeReputation(30);
                         continue;
 
                     }
 
-                    kingdomInfo.takeBalance(taxOnResidents);
+                    cacheFeudalKingdom.takeBalance(taxOnResidents);
 
                 }
 

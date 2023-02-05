@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -41,7 +42,7 @@ public class PlayerInfo {
 
     }
 
-    public void createNewPlayer(Player player) {
+    public void createNewPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -78,7 +79,7 @@ public class PlayerInfo {
 
     }
 
-    public boolean hasPlayer(Player player) {
+    public boolean hasPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -101,7 +102,7 @@ public class PlayerInfo {
         return false;
     }
 
-    public Object getField(Player player, String fieldName) {
+    public Object getField(@NotNull Player player, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -131,7 +132,7 @@ public class PlayerInfo {
         return null;
     }
 
-    public void setField(Player player, String fieldName, Object value) {
+    public void setField(@NotNull Player player, String fieldName, Object value) {
 
         ClientSession session = mongoClient.startSession();
 
