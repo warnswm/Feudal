@@ -156,19 +156,19 @@ public class PlayerDBInfo {
 
             collection.findOneAndReplace(Filters.eq("_id", uuid),
                     new Document("_id", uuid)
-                    .append("classID", 0)
-                    .append("experience", 0)
-                    .append("gameClassLvl", 0)
-                    .append("gameClassExperience", 0)
-                    .append("balance", 1000)
-                    .append("deaths", 0)
-                    .append("kills", 0)
-                    .append("luckLvl", 0)
-                    .append("speedLvl", 0)
-                    .append("staminaLvl", 0)
-                    .append("strengthLvl", 0)
-                    .append("survivabilityLvl", 0)
-                    .append("kingdomName", "notInTheKingdom"));
+                            .append("classID", 0)
+                            .append("experience", 0)
+                            .append("gameClassLvl", 0)
+                            .append("gameClassExperience", 0)
+                            .append("balance", 1000)
+                            .append("deaths", 0)
+                            .append("kills", 0)
+                            .append("luckLvl", 0)
+                            .append("speedLvl", 0)
+                            .append("staminaLvl", 0)
+                            .append("strengthLvl", 0)
+                            .append("survivabilityLvl", 0)
+                            .append("kingdomName", "notInTheKingdom"));
 
             session.commitTransaction();
 

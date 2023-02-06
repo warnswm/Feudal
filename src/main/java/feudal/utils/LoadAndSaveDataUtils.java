@@ -28,7 +28,6 @@ public class LoadAndSaveDataUtils {
     static KingdomDBInfo kingdomDBInfo = new KingdomDBInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
 
-
     public static void loadKingdom(Player player) {
 
         if (!kingdomDBInfo.playerInKingdom(player)) return;

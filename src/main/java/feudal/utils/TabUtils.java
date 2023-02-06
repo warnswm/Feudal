@@ -19,6 +19,7 @@ public class TabUtils {
 
         });
     }
+
     public static void showPlayer(Player player) {
 
         Bukkit.getServer().getOnlinePlayers().forEach(playerTab -> {

@@ -13,9 +13,11 @@ public class GsonUtils {
     public static String chunkToJson(@NotNull ChunkWrapper chunk) {
         return new Gson().toJson(chunk);
     }
+
     public static String bannerToJson(@NotNull BannerWrapper bannerWrapper) {
         return new Gson().toJson(bannerWrapper);
     }
+
     public static String itemStackWrapperToJson(@NotNull List<ItemStackWrapper> itemStack) {
         return new Gson().toJson(itemStack);
     }

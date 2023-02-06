@@ -26,7 +26,8 @@ public class AddStartTerritory {
 
         for (Chunk chunk : startTerritory) {
 
-            if (kingdomDataBase.chunkInKingdom(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk)))) return false;
+            if (kingdomDataBase.chunkInKingdom(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))))
+                return false;
 
             FeudalKingdom feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
 

@@ -45,6 +45,7 @@ public class Auction {
         }
 
     }
+
     public static void load() {
 
         try {

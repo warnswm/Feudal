@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import static org.bukkit.Material.LOG;
 
 public class GameClassesExpListeners implements Listener {
-    
+
     @EventHandler
     public void playerBlockBreak(@NotNull BlockBreakEvent event) {
 

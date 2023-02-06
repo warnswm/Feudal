@@ -40,6 +40,7 @@ public class ClerkListener implements Listener {
         event.getItem().addUnsafeEnchantment(getRandomEnc(), 1);
 
     }
+
     @EventHandler
     public void playerInteract(@NotNull PlayerInteractEvent event) {
 
