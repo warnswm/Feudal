@@ -2,9 +2,9 @@ package feudal.commands;
 
 import feudal.auction.Auction;
 import feudal.data.builder.FeudalKingdom;
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.utils.TabUtils;
 import feudal.utils.wrappers.ItemStackWrapper;
 import org.bukkit.GameMode;
@@ -24,7 +24,7 @@ public class LocalStaffCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        PlayerInfo playerInfo;
+        FeudalPlayer feudalPlayer;
         FeudalKingdom feudalKingdom;
 
 
@@ -32,8 +32,8 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "changegameclass":
 
-                playerInfo = CachePlayersMap.getPlayerInfo().get(player);
-                playerInfo.setaClassID(Integer.parseInt(args[2]));
+                feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+                feudalPlayer.setaClassID(Integer.parseInt(args[2]));
                 break;
             case "addchunk":
 

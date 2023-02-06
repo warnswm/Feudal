@@ -1,7 +1,7 @@
 package feudal.listeners.gameClassesListeners;
 
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
@@ -20,10 +20,10 @@ public class FishermanListener implements Listener {
     @EventHandler
     public void playerFishing(@NotNull PlayerFishEvent event) {
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
 
-        if (playerInfo.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() ||
-                playerInfo.getGameClassLvl() < 25 ||
+        if (feudalPlayer.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() ||
+                feudalPlayer.getGameClassLvl() < 25 ||
                 event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 
         int item = getRandInt(0, 6), random = getRandInt(0, 4);

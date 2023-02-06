@@ -1,7 +1,7 @@
 package feudal.listeners.gameClassesListeners;
 
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,10 +15,10 @@ public class BuilderListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
         Block block = event.getBlock();
 
-        if (playerInfo.getAClassID() != GameClassesIDEnum.BUILDER.getId() &&
+        if (feudalPlayer.getAClassID() != GameClassesIDEnum.BUILDER.getId() &&
                 !block.getType().equals(Material.MOB_SPAWNER)) return;
 
 

@@ -1,7 +1,7 @@
 package feudal.listeners.gameClassesListeners;
 
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,14 +19,14 @@ public class WoodcutterListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
         Block block = event.getBlock();
 
         if (block.hasMetadata("PLACED") ||
-                playerInfo.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId()) return;
+                feudalPlayer.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId()) return;
 
 
-        if (playerInfo.getGameClassLvl() <= 75)
+        if (feudalPlayer.getGameClassLvl() <= 75)
             cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
 
     }

@@ -1,7 +1,7 @@
 package feudal.listeners.interactListeners.menuListeners;
 
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.view.ScoreBoardInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,41 +20,41 @@ public class AttributesUpMenuInteractListener implements Listener {
 
         Player player = (Player) event.getView().getPlayer();
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
 
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
         if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень силы")) {
 
-            playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getStrengthLvl()) * 100));
-            playerInfo.addStrengthLvl(1);
+            feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getStrengthLvl()) * 100));
+            feudalPlayer.addStrengthLvl(1);
 
             player.closeInventory();
             ScoreBoardInfo.createScoreBoardInfo(player);
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень выносливости")) {
 
-            playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getStaminaLvl()) * 100));
-            playerInfo.addStaminaLvl(1);
+            feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getStaminaLvl()) * 100));
+            feudalPlayer.addStaminaLvl(1);
 
             player.closeInventory();
             ScoreBoardInfo.createScoreBoardInfo(player);
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень удачи")) {
 
-            playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getLuckLvl()) * 100));
-            playerInfo.addLuckLvl(1);
+            feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getLuckLvl()) * 100));
+            feudalPlayer.addLuckLvl(1);
 
             player.closeInventory();
             ScoreBoardInfo.createScoreBoardInfo(player);
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень живучести")) {
 
-            playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getSurvivabilityLvl()) * 100));
-            playerInfo.addSurvivabilityLvl(1);
+            feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getSurvivabilityLvl()) * 100));
+            feudalPlayer.addSurvivabilityLvl(1);
 
-            float tmpHealth = playerInfo.getSurvivabilityLvl();
+            float tmpHealth = feudalPlayer.getSurvivabilityLvl();
             player.setMaxHealth(20 * (tmpHealth / 100) + 20);
 
             player.closeInventory();
@@ -62,10 +62,10 @@ public class AttributesUpMenuInteractListener implements Listener {
 
         } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Прокачать уровень скорости")) {
 
-            playerInfo.setExperience((int) (playerInfo.getExperience() - Math.pow(1 + 0.05, playerInfo.getSpeedLvl()) * 100));
-            playerInfo.addSpeedLvl(1);
+            feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getSpeedLvl()) * 100));
+            feudalPlayer.addSpeedLvl(1);
 
-            float tmpSpeed = playerInfo.getSpeedLvl();
+            float tmpSpeed = feudalPlayer.getSpeedLvl();
             player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
 
             player.closeInventory();

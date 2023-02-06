@@ -1,7 +1,7 @@
 package feudal.listeners.interactListeners.menuListeners;
 
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.utils.CreateItemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -26,24 +26,24 @@ public class GameClassUpMenuInteractListener implements Listener {
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
 
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Сила":
-                attributesUpMenu(player, playerInfo.getStrengthLvl(), "силы", 5);
+                attributesUpMenu(player, feudalPlayer.getStrengthLvl(), "силы", 5);
                 break;
             case "Выносливость":
-                attributesUpMenu(player, playerInfo.getStaminaLvl(), "выносливости", 5);
+                attributesUpMenu(player, feudalPlayer.getStaminaLvl(), "выносливости", 5);
                 break;
             case "Удача":
-                attributesUpMenu(player, playerInfo.getLuckLvl(), "удачи", 7);
+                attributesUpMenu(player, feudalPlayer.getLuckLvl(), "удачи", 7);
                 break;
             case "Живучесть":
-                attributesUpMenu(player, playerInfo.getSurvivabilityLvl(), "живучести", 5);
+                attributesUpMenu(player, feudalPlayer.getSurvivabilityLvl(), "живучести", 5);
                 break;
             case "Скорость":
-                attributesUpMenu(player, playerInfo.getSpeedLvl(), "скорости", 5);
+                attributesUpMenu(player, feudalPlayer.getSpeedLvl(), "скорости", 5);
                 break;
         }
     }
@@ -52,12 +52,12 @@ public class GameClassUpMenuInteractListener implements Listener {
 
         Inventory strengthPumpingMenuInv = Bukkit.createInventory(player, 9, "Прокачка атрибутов");
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
 
-        if (playerInfo.getExperience() >= Math.pow(1 + (percent / 100), attributeLvl) * 100)
+        if (feudalPlayer.getExperience() >= Math.pow(1 + (percent / 100), attributeLvl) * 100)
             strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GREEN_SHULKER_BOX, 1, "Прокачать уровень " + attributeName));
         else
-            strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GRAY_SHULKER_BOX, 1, "Не достаточно опыта, нужно ещё " + (Math.pow(1 + 0.05, attributeLvl) * 100 - playerInfo.getExperience())));
+            strengthPumpingMenuInv.setItem(4, CreateItemUtil.createItem(Material.GRAY_SHULKER_BOX, 1, "Не достаточно опыта, нужно ещё " + (Math.pow(1 + 0.05, attributeLvl) * 100 - feudalPlayer.getExperience())));
 
 
         player.openInventory(strengthPumpingMenuInv);

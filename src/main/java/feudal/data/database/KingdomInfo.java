@@ -16,10 +16,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 @Getter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomInfo {
-    final MongoClient mongoClient;
-    final MongoCollection<Document> collection;
+    MongoClient mongoClient;
+    MongoCollection<Document> collection;
 
     public KingdomInfo(String mongoClientName, String databaseName, String collectionName) {
 

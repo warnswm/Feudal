@@ -5,8 +5,6 @@ import feudal.commands.AdminCommands;
 import feudal.commands.AhCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
-import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.listeners.gameClassesListeners.*;
 import feudal.listeners.generalListeners.ArmorListener;
 import feudal.listeners.generalListeners.MobListener;
@@ -23,7 +21,6 @@ import feudal.utils.PlannedActivities;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -59,7 +56,7 @@ public final class Feudal extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        savePlayers();
+        LoadAndSaveDataUtils.saveAllPlayers();
         LoadAndSaveDataUtils.saveAllKingdoms();
         Auction.save();
 
@@ -102,36 +99,6 @@ public final class Feudal extends JavaPlugin {
 
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-
-    }
-
-    private void savePlayers() {
-
-        final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-        final PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-
-        Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
-
-            PlayerInfo cachePlayerInfo = CachePlayersMap.getPlayerInfo().get(player);
-
-            playerInfo.setField(player, "classID", cachePlayerInfo.getAClassID());
-            playerInfo.setField(player, "experience", cachePlayerInfo.getExperience());
-            playerInfo.setField(player, "gameClassLvl", cachePlayerInfo.getGameClassLvl());
-            playerInfo.setField(player, "gameClassExperience", cachePlayerInfo.getGameClassExperience());
-            playerInfo.setField(player, "balance", cachePlayerInfo.getBalance());
-            playerInfo.setField(player, "deaths", cachePlayerInfo.getDeaths());
-            playerInfo.setField(player, "kills", cachePlayerInfo.getKills());
-            playerInfo.setField(player, "luckLvl", cachePlayerInfo.getLuckLvl());
-            playerInfo.setField(player, "speedLvl", cachePlayerInfo.getSpeedLvl());
-            playerInfo.setField(player, "staminaLvl", cachePlayerInfo.getStaminaLvl());
-            playerInfo.setField(player, "strengthLvl", cachePlayerInfo.getStrengthLvl());
-            playerInfo.setField(player, "survivabilityLvl", cachePlayerInfo.getSurvivabilityLvl());
-            playerInfo.setField(player, "kingdomName", cachePlayerInfo.getKingdomName());
-
-            CachePlayersMap.getPlayerInfo().remove(player);
-        }).start());
-
-        System.gc();
 
     }
 }

@@ -1,7 +1,7 @@
 package feudal.listeners.gameClassesListeners;
 
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -23,10 +23,10 @@ public class HunterListener implements Listener {
         Player player = event.getEntity().getKiller();
         if (player == null) return;
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
 
-        if (playerInfo.getAClassID() != GameClassesIDEnum.HUNTER.getId() ||
-                playerInfo.getGameClassLvl() < 25) return;
+        if (feudalPlayer.getAClassID() != GameClassesIDEnum.HUNTER.getId() ||
+                feudalPlayer.getGameClassLvl() < 25) return;
 
         List<ItemStack> drops = event.getDrops();
 

@@ -1,8 +1,8 @@
 package feudal.listeners.generalListeners;
 
 import feudal.Feudal;
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.PlayerInfo;
 import feudal.utils.MathUtils;
 import feudal.utils.enums.MoneyForMobsEnum;
 import lombok.AccessLevel;
@@ -53,20 +53,20 @@ public class PlayerListener implements Listener {
 
         if (event.getEntity().getKiller() == null) return;
 
-        PlayerInfo playerInfo = CachePlayersMap.getPlayerInfo().get(event.getEntity().getKiller());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getEntity().getKiller());
 
         if (event.getEntityType() != EntityType.PLAYER) {
 
-            playerInfo.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
+            feudalPlayer.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
             return;
 
         }
 
-        PlayerInfo playerDeathInfo = CachePlayersMap.getPlayerInfo().get((Player) event.getEntity());
-        int temp = playerDeathInfo.getBalance() / 100 * getRandInt(2, 6);
+        FeudalPlayer feudalPlayerDeath = CachePlayersMap.getPlayerInfo().get((Player) event.getEntity());
+        int temp = feudalPlayerDeath.getBalance() / 100 * getRandInt(2, 6);
 
-        playerInfo.addBalance(temp);
-        playerDeathInfo.takeBalance(temp + getRandInt(0, 4));
+        feudalPlayer.addBalance(temp);
+        feudalPlayerDeath.takeBalance(temp + getRandInt(0, 4));
 
     }
 
