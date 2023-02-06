@@ -52,7 +52,6 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 if (player.getGameMode().equals(GameMode.SPECTATOR)) {
 
-                    player.setGameMode(GameMode.SURVIVAL);
                     TabUtils.showPlayer(player);
 
                     if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
@@ -62,8 +61,8 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                player.setGameMode(GameMode.SPECTATOR);
                 TabUtils.hidePlayer(player);
+                player.setGameMode(GameMode.SPECTATOR);
 
                 if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0, true, true));
