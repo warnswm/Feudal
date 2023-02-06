@@ -76,8 +76,8 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        List<String> members = new ArrayList<>();
-        members.add(player.getUniqueId().toString());
+        List<Player> members = new ArrayList<>();
+        members.add(player);
 
         createKingdom(kingdomName, player, members);
 
@@ -87,7 +87,7 @@ public class PlayerCommands implements CommandExecutor {
         return kingdomName.length() <= 16 && kingdomName.length() > 3 && !kingdomName.equalsIgnoreCase("notInTheKingdom");
     }
 
-    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<String> members) {
+    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<Player> members) {
 
         kingdomInfo.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
 

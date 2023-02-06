@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +30,7 @@ public class KingdomInfo {
 
     }
 
-    public void createNewKingdom(@NotNull String kingdomName, Player king, List<String> members, List<String> territory, List<String> privateTerritory, List<String> barons) {
+    public void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> territory, List<Chunk> privateTerritory, List<Player> barons) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -37,8 +38,7 @@ public class KingdomInfo {
 
             session.startTransaction();
 
-
-            if (kingdomName.equalsIgnoreCase("notInTheKingdom") || collection.find(new BasicDBObject("_id", kingdomName))
+            if (collection.find(new BasicDBObject("_id", kingdomName))
                     .iterator()
                     .hasNext()) return;
 
