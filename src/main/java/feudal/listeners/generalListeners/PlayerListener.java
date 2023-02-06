@@ -63,7 +63,7 @@ public class PlayerListener implements Listener {
         }
 
         FeudalPlayer feudalPlayerDeath = CachePlayersMap.getPlayerInfo().get((Player) event.getEntity());
-        long temp = feudalPlayerDeath.getBalance() / 100 * getRandInt(2, 6);
+        int temp = feudalPlayerDeath.getBalance() / 100 * getRandInt(2, 6);
 
         feudalPlayer.addBalance(temp);
         feudalPlayerDeath.takeBalance(temp + getRandInt(0, 4));

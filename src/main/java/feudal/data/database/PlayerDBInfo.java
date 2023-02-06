@@ -15,11 +15,11 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PlayerInfo {
+public class PlayerDBInfo {
     MongoClient mongoClient;
     MongoCollection<Document> collection;
 
-    public PlayerInfo(String mongoClientName, String databaseName, String collectionName) {
+    public PlayerDBInfo(String mongoClientName, String databaseName, String collectionName) {
 
         this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
@@ -44,7 +44,7 @@ public class PlayerInfo {
                     .append("experience", 0)
                     .append("gameClassLvl", 0)
                     .append("gameClassExperience", 0)
-                    .append("balance", 0)
+                    .append("balance", 1000)
                     .append("deaths", 0)
                     .append("kills", 0)
                     .append("luckLvl", 0)
@@ -143,28 +143,44 @@ public class PlayerInfo {
         }
     }
 
-    //    public void resetAPlayer(@NotNull Player player) {
-//
-//        ClientSession session = mongoClient.startSession();
-//
-//        try {
-//
-//            session.startTransaction();
-//
-//
-//            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
-//                    .iterator()
-//                    .hasNext()) return;
-//
-////            collection.drop();
-//
-//            session.commitTransaction();
-//
-//        } catch (MongoCommandException e) {
-//            session.abortTransaction();
-//        } finally {
-//            session.close();
-//        }
-//
-//    }
+    public void resetAPlayer(@NotNull Player player) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+
+            String uuid = player.getUniqueId().toString();
+
+            if (!collection.find(new BasicDBObject("_id", uuid))
+                    .iterator()
+                    .hasNext()) return;
+
+            collection.findOneAndReplace(Filters.eq("_id", uuid),
+                    new Document("_id", uuid)
+                    .append("classID", 0)
+                    .append("experience", 0)
+                    .append("gameClassLvl", 0)
+                    .append("gameClassExperience", 0)
+                    .append("balance", 1000)
+                    .append("deaths", 0)
+                    .append("kills", 0)
+                    .append("luckLvl", 0)
+                    .append("speedLvl", 0)
+                    .append("staminaLvl", 0)
+                    .append("strengthLvl", 0)
+                    .append("survivabilityLvl", 0)
+                    .append("kingdomName", "notInTheKingdom"));
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+    }
 }

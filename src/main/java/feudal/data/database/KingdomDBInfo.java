@@ -10,7 +10,9 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,11 +20,11 @@ import java.util.List;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class KingdomInfo {
+public class KingdomDBInfo {
     MongoClient mongoClient;
     MongoCollection<Document> collection;
 
-    public KingdomInfo(String mongoClientName, String databaseName, String collectionName) {
+    public KingdomDBInfo(String mongoClientName, String databaseName, String collectionName) {
 
         this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
@@ -140,41 +142,41 @@ public class KingdomInfo {
 
     }
 
-//    public void resetAllClanMembers(String kingdomName) {
-//
-//        ClientSession session = mongoClient.startSession();
-//        FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-//
-//        try {
-//
-//            session.startTransaction();
-//
-//            if (!collection.find(new BasicDBObject("_id", kingdomName))
-//                    .iterator()
-//                    .hasNext()) return;
-//
-//
-//            Document document = collection.find(new BasicDBObject("_id", kingdomName))
-//                    .iterator()
-//                    .next();
-//
-//
-//            if (document.get("members") == null) return;
-//
-//            PlayerInfo playerInfo = new PlayerInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-//            Player[] members = (Player[]) document.get("members");
-//
-//            Arrays.asList(members).forEach(playerInfo::resetAPlayer);
-//
-//            session.commitTransaction();
-//
-//        } catch (MongoCommandException e) {
-//            session.abortTransaction();
-//        } finally {
-//            session.close();
-//        }
-//
-//    }
+    public void resetAllClanMembers(String kingdomName) {
+
+        ClientSession session = mongoClient.startSession();
+        FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
+
+        try {
+
+            session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return;
+
+
+            Document document = collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .next();
+
+
+            if (document.get("members") == null) return;
+
+            PlayerDBInfo playerDBInfo = new PlayerDBInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+            List<Player> members = (List<Player>) document.get("members");
+
+            members.forEach(playerDBInfo::resetAPlayer);
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+    }
 
     public boolean playerInKingdom(@NotNull Player player) {
 

@@ -11,7 +11,7 @@ public class FeudalPlayer {
     Player player;
     int aClassID;
     int experience;
-    long balance;
+    int balance;
     int deaths;
     int kills;
     int strengthLvl;
@@ -43,7 +43,7 @@ public class FeudalPlayer {
         return this;
     }
 
-    public FeudalPlayer setBalance(long balance) {
+    public FeudalPlayer setBalance(int balance) {
         this.balance = balance;
         return this;
     }
@@ -104,7 +104,7 @@ public class FeudalPlayer {
         return this;
     }
 
-    public FeudalPlayer addBalance(long value) {
+    public FeudalPlayer addBalance(int value) {
         this.balance += value;
         return this;
     }
@@ -160,7 +160,7 @@ public class FeudalPlayer {
         return this;
     }
 
-    public FeudalPlayer takeBalance(long value) {
+    public FeudalPlayer takeBalance(int value) {
         this.balance -= value;
         return this;
     }
