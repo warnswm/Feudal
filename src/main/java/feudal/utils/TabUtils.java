@@ -17,6 +17,9 @@ public class TabUtils {
 
     public static void hidePlayer(Player player) {
 
+        if (!hidePlayers.contains(player))
+            hidePlayers.add(player);
+
         Bukkit.getServer().getOnlinePlayers().forEach(playerTab -> {
 
             if (!playerTab.getName().contains(player.getName()))
@@ -42,6 +45,9 @@ public class TabUtils {
     }
 
     public static void showPlayer(Player player) {
+
+        if (hidePlayers.contains(player))
+            hidePlayers.remove(player);
 
         Bukkit.getServer().getOnlinePlayers().forEach(playerTab -> {
 
