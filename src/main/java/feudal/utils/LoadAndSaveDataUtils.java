@@ -41,7 +41,7 @@ public class LoadAndSaveDataUtils {
                 .setMembers((List<Player>) kingdomInfo.getField(kingdomName, "members"))
                 .setBarons((List<Player>) kingdomInfo.getField(kingdomName, "barons"))
                 .setReputation((Integer) kingdomInfo.getField(kingdomName, "reputation"))
-                .setBalance((Integer) kingdomInfo.getField(kingdomName, "balance"))
+                .setBalance((Long) kingdomInfo.getField(kingdomName, "balance"))
                 .setTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "territory"))
                 .setPrivateTerritory((List<Chunk>) kingdomInfo.getField(kingdomName, "privateTerritory"));
 
@@ -173,7 +173,7 @@ public class LoadAndSaveDataUtils {
                 .setExperience((Integer) playerInfo.getField(player, "experience"))
                 .setGameClassLvl((Integer) playerInfo.getField(player, "gameClassLvl"))
                 .setGameClassExperience((Integer) playerInfo.getField(player, "gameClassExperience"))
-                .setBalance((Integer) playerInfo.getField(player, "balance"))
+                .setBalance((Long) playerInfo.getField(player, "balance"))
                 .setDeaths((Integer) playerInfo.getField(player, "deaths"))
                 .setKills((Integer) playerInfo.getField(player, "kills"))
                 .setLuckLvl((Integer) playerInfo.getField(player, "luckLvl"))
