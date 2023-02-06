@@ -9,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -114,7 +113,7 @@ public class PlayerDBInfo {
             session.close();
         }
 
-        return null;
+        return "NoObject";
     }
 
     public void setField(@NotNull Player player, String fieldName, Object value) {
@@ -129,10 +128,7 @@ public class PlayerDBInfo {
                     .iterator()
                     .hasNext()) return;
 
-            Bson filter = Filters.eq("_id", player.getUniqueId().toString());
-            Bson updates = Updates.set(fieldName, value);
-
-            collection.findOneAndUpdate(filter, updates);
+            collection.findOneAndUpdate(Filters.eq("_id", player.getUniqueId().toString()), Updates.set(fieldName, value));
 
             session.commitTransaction();
 

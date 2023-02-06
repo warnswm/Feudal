@@ -89,7 +89,7 @@ public class KingdomDBInfo {
             session.close();
         }
 
-        return null;
+        return "NoObject";
     }
 
     public void setField(String kingdomName, String fieldName, Object value) {
@@ -130,7 +130,7 @@ public class KingdomDBInfo {
                     .iterator()
                     .hasNext()) return;
 
-//            collection.drop();
+            collection.deleteOne(Filters.eq("_id", kingdomName));
 
             session.commitTransaction();
 
