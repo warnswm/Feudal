@@ -4,6 +4,7 @@ import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomDBInfo;
 import feudal.data.database.PlayerDBInfo;
 import feudal.utils.LoadAndSaveDataUtils;
+import feudal.utils.TabUtils;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -37,6 +38,8 @@ public class PlayerJoinAndQuit implements Listener {
         LoadAndSaveDataUtils.loadPlayer(player);
         LoadAndSaveDataUtils.loadPlayerAttributes(player);
         LoadAndSaveDataUtils.loadKingdom(player);
+
+        TabUtils.updateHidePlayers();
 
     }
 

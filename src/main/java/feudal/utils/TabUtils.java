@@ -7,8 +7,13 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
+import java.util.ArrayList;
+import java.util.List;
+
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class TabUtils {
+
+    static List<Player> hidePlayers = new ArrayList<>();
 
     public static void hidePlayer(Player player) {
 
@@ -16,6 +21,22 @@ public class TabUtils {
 
             if (!playerTab.getName().contains(player.getName()))
                 playerTab.hidePlayer(Feudal.getPlugin(), player);
+
+        });
+    }
+
+    public static void updateHidePlayers() {
+
+        if (hidePlayers.isEmpty()) return;
+
+        Bukkit.getServer().getOnlinePlayers().forEach(playerTab -> {
+
+            hidePlayers.forEach(hidePlayer -> {
+
+                if (!playerTab.getName().contains(hidePlayer.getName()))
+                    playerTab.hidePlayer(Feudal.getPlugin(), hidePlayer);
+
+            });
 
         });
     }
