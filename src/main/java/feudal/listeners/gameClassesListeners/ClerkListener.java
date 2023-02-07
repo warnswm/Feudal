@@ -2,6 +2,7 @@ package feudal.listeners.gameClassesListeners;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
+import feudal.utils.enums.EnchantmentEnum;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -12,8 +13,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
-
-import static feudal.utils.enums.EnchantmentEnum.getRandomEnc;
 
 public class ClerkListener implements Listener {
 
@@ -30,14 +29,14 @@ public class ClerkListener implements Listener {
         }
 
         int classLvl = feudalPlayer.getGameClassLvl();
-
         if (classLvl < 75) return;
 
-        event.setExpLevelCost((int) (event.getExpLevelCost() - event.getExpLevelCost() * 0.3));
 
-        if (classLvl != 100) return;
+        if (classLvl == 100)
+            event.getItem().addUnsafeEnchantment(EnchantmentEnum.getRandomEnchantment(), 1);
 
-        event.getItem().addUnsafeEnchantment(getRandomEnc(), 1);
+        else
+            event.setExpLevelCost((int) (event.getExpLevelCost() - event.getExpLevelCost() * 0.3));
 
     }
 

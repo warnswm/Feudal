@@ -18,9 +18,11 @@ public class CookListener implements Listener {
                 != GameClassesIDEnum.COOK.getId()) return;
 
         net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(event.getPlayer().getItemOnCursor());
+
         NBTTagCompound tag = nmsItem.getTag() != null ? nmsItem.getTag() : new NBTTagCompound();
         tag.setBoolean("cookedByChef", true);
         tag.setByte("chefLvl", (byte) CachePlayersMap.getPlayerInfo().get(event.getPlayer()).getGameClassLvl());
+
         nmsItem.setTag(tag);
 
         event.getPlayer().setItemOnCursor(CraftItemStack.asBukkitCopy(nmsItem));
