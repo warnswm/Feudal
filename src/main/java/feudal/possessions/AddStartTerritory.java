@@ -2,7 +2,7 @@ package feudal.possessions;
 
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheKingdomsMap;
-import feudal.data.database.KingdomDBInfo;
+import feudal.data.database.KingdomDBHandler;
 import feudal.utils.GsonUtils;
 import feudal.utils.wrappers.ChunkWrapper;
 import lombok.AccessLevel;
@@ -20,7 +20,7 @@ import java.util.List;
 public class AddStartTerritory {
 
     static FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    static KingdomDBInfo kingdomDataBase = new KingdomDBInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    static KingdomDBHandler kingdomDataBase = new KingdomDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     public static boolean createStartTerritory(String kingdomName, @NotNull List<Chunk> startTerritory) {
 

@@ -14,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PlayerDBInfo {
+public class PlayerDBHandler {
     MongoClient mongoClient;
     MongoCollection<Document> collection;
 
-    public PlayerDBInfo(String mongoClientName, String databaseName, String collectionName) {
+    public PlayerDBHandler(String mongoClientName, String databaseName, String collectionName) {
 
         this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);

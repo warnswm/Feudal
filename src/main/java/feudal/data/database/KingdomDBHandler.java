@@ -20,11 +20,11 @@ import java.util.List;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class KingdomDBInfo {
+public class KingdomDBHandler {
     MongoClient mongoClient;
     MongoCollection<Document> collection;
 
-    public KingdomDBInfo(String mongoClientName, String databaseName, String collectionName) {
+    public KingdomDBHandler(String mongoClientName, String databaseName, String collectionName) {
 
         this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
         MongoDatabase database = mongoClient.getDatabase(databaseName);
@@ -163,10 +163,10 @@ public class KingdomDBInfo {
 
             if (document.get("members") == null) return;
 
-            PlayerDBInfo playerDBInfo = new PlayerDBInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+            PlayerDBHandler playerDBHandler = new PlayerDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
             List<Player> members = (List<Player>) document.get("members");
 
-            members.forEach(playerDBInfo::resetAPlayer);
+            members.forEach(playerDBHandler::resetAPlayer);
 
             session.commitTransaction();
 

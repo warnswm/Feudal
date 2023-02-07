@@ -25,9 +25,10 @@ public class PlayerCaughtFish implements Listener {
         ItemMeta fishMeta = ((Item) event.getCaught()).getItemStack().getItemMeta();
 
         List<String> lore = new ArrayList<>();
+
         lore.add("Редкость: " + CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getString("rare"));
-        lore.add("Размер: " + CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getDouble("size") + " см");
-        lore.add("Вес: " + CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getDouble("weight") + " кг");
+        lore.add("Размер: " + String.format("%.2f",CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getDouble("size")) + " см");
+        lore.add("Вес: " + String.format("%.2f",CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getDouble("weight")) + " кг");
 
         fishMeta.setLore(lore);
 

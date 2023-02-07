@@ -1,8 +1,8 @@
 package feudal.listeners.generalListeners;
 
 import feudal.data.cache.CachePlayersMap;
-import feudal.data.database.KingdomDBInfo;
-import feudal.data.database.PlayerDBInfo;
+import feudal.data.database.KingdomDBHandler;
+import feudal.data.database.PlayerDBHandler;
 import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.TabUtils;
 import lombok.AccessLevel;
@@ -20,15 +20,15 @@ import org.jetbrains.annotations.NotNull;
 public class PlayerJoinAndQuit implements Listener {
 
     FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    PlayerDBInfo playerDBInfo = new PlayerDBInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-    KingdomDBInfo kingdomDBInfo = new KingdomDBInfo(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    PlayerDBHandler playerDBHandler = new PlayerDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
+    KingdomDBHandler kingdomDBHandler = new KingdomDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
 
-        if (!playerDBInfo.hasPlayer(player)) {
+        if (!playerDBHandler.hasPlayer(player)) {
 
             LoadAndSaveDataUtils.loadPlayer(player);
             return;
@@ -50,7 +50,7 @@ public class PlayerJoinAndQuit implements Listener {
 
         Player player = event.getPlayer();
 
-        if (kingdomDBInfo.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) {
+        if (kingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) {
 
             LoadAndSaveDataUtils.savePlayer(player);
             return;
