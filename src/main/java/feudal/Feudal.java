@@ -5,20 +5,20 @@ import feudal.commands.AdminCommands;
 import feudal.commands.AhCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
-import feudal.listeners.gameClassesListeners.*;
-import feudal.listeners.generalListeners.ArmorListener;
-import feudal.listeners.generalListeners.MobListener;
-import feudal.listeners.generalListeners.PlayerJoinAndQuit;
-import feudal.listeners.generalListeners.PlayerListener;
-import feudal.listeners.generalListeners.craftItems.CraftItemsListener;
-import feudal.listeners.interactListeners.menuListeners.AttributesUpMenuInteractListener;
-import feudal.listeners.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
-import feudal.listeners.interactListeners.menuListeners.GameClassUpMenuInteractListener;
-import feudal.newFishing.PlayerCaughtFish;
+import feudal.fishing.PlayerCaughtFish;
+import feudal.gameClassesListeners.peasants.*;
+import feudal.generalListeners.ArmorListener;
+import feudal.generalListeners.MobListener;
+import feudal.generalListeners.PlayerJoinAndQuit;
+import feudal.generalListeners.PlayerListener;
+import feudal.generalListeners.craftItems.CraftItemsListener;
+import feudal.interactListeners.menuListeners.AttributesUpMenuInteractListener;
+import feudal.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
+import feudal.interactListeners.menuListeners.GameClassUpMenuInteractListener;
 import feudal.possessions.privatesTerritoryListeners.BlocksListener;
 import feudal.possessions.privatesTerritoryListeners.InteractListener;
 import feudal.utils.LoadAndSaveDataUtils;
-import feudal.utils.PlannedActivities;
+import feudal.utils.PlannedActivitiesUtils;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
@@ -49,8 +49,8 @@ public final class Feudal extends JavaPlugin {
         loadConfig();
         Auction.load();
 
-        PlannedActivities.taxCollection();
-        PlannedActivities.restart();
+        PlannedActivitiesUtils.taxCollection();
+        PlannedActivitiesUtils.restart();
 
     }
 

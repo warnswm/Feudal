@@ -4,7 +4,7 @@ import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomDBHandler;
-import feudal.view.generalMenu.GameClassUpMenu;
+import feudal.visual.menus.GameClassUpMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;

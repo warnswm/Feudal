@@ -7,7 +7,7 @@ import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomDBHandler;
 import feudal.data.database.PlayerDBHandler;
 import feudal.utils.wrappers.ChunkWrapper;
-import feudal.view.ScoreBoardInfo;
+import feudal.visual.scoreboards.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
