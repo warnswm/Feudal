@@ -245,6 +245,6 @@ public class KingdomDBHandler {
             session.close();
         }
 
-        return "notInTheKingdom";
+        return "";
     }
 }

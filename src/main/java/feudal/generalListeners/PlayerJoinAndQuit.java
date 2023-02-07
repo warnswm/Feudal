@@ -50,7 +50,7 @@ public class PlayerJoinAndQuit implements Listener {
 
         Player player = event.getPlayer();
 
-        if (kingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom")) {
+        if (kingdomDBHandler.getPlayerKingdom(player).equals("")) {
 
             LoadAndSaveDataUtils.savePlayer(player);
             return;

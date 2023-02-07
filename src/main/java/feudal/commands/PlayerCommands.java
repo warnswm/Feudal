@@ -84,7 +84,7 @@ public class PlayerCommands implements CommandExecutor {
     }
 
     private boolean checkKingdomName(@NotNull String kingdomName) {
-        return kingdomName.length() <= 16 && kingdomName.length() > 3 && !kingdomName.equalsIgnoreCase("notInTheKingdom");
+        return kingdomName.length() <= 16 && kingdomName.length() > 3;
     }
 
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<Player> members) {
@@ -108,9 +108,9 @@ public class PlayerCommands implements CommandExecutor {
 
     private void withdrawMoneyFromTheTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
 
-        if (kingdomName.equalsIgnoreCase("notInTheKingdom")) {
+        if (kingdomName.equals("")) {
 
-            player.sendMessage("Вы не состоите в королевстве");
+            player.sendMessage("Вы не состоите в королевстве!");
             return;
 
         }

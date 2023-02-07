@@ -161,7 +161,7 @@ public class LoadAndSaveDataUtils {
             feudalPlayer.setaClassID(0).setExperience(0).setGameClassExperience(0)
                     .setBalance(1000).setDeaths(0).setKills(0)
                     .setLuckLvl(0).setSpeedLvl(0).setStaminaLvl(0)
-                    .setStrengthLvl(0).setKingdomName("notInTheKingdom").setSurvivabilityLvl(0)
+                    .setStrengthLvl(0).setKingdomName("").setSurvivabilityLvl(0)
                     .setGameClassLvl(0);
 
             return;
@@ -197,7 +197,7 @@ public class LoadAndSaveDataUtils {
         ScoreBoardInfo.createScoreBoardInfo(player);
 
 
-        if (!kingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase("notInTheKingdom"))
+        if (!kingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase(""))
             player.setDisplayName(player.getDisplayName() + " [" + kingdomDBHandler.getPlayerKingdom(player) + "]");
 
     }

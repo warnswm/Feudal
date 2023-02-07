@@ -51,7 +51,7 @@ public class PlayerDBHandler {
                     .append("staminaLvl", 0)
                     .append("strengthLvl", 0)
                     .append("survivabilityLvl", 0)
-                    .append("kingdomName", "notInTheKingdom"));
+                    .append("kingdomName", ""));
 
             session.commitTransaction();
 
@@ -168,7 +168,7 @@ public class PlayerDBHandler {
                             .append("staminaLvl", 0)
                             .append("strengthLvl", 0)
                             .append("survivabilityLvl", 0)
-                            .append("kingdomName", "notInTheKingdom"));
+                            .append("kingdomName", ""));
 
             session.commitTransaction();
 
