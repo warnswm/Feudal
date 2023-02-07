@@ -7,6 +7,7 @@ import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
 import feudal.donateItemsListeners.VampirismListener;
 import feudal.fishing.PlayerCaughtFish;
+import feudal.gameClassesListeners.expListeners.*;
 import feudal.gameClassesListeners.peasants.*;
 import feudal.generalListeners.ArmorListener;
 import feudal.generalListeners.MobListener;
@@ -75,7 +76,6 @@ public final class Feudal extends JavaPlugin {
 
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new GameClassesExpListeners(), this);
         Bukkit.getPluginManager().registerEvents(new GameClassChangeMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new AttributesUpMenuInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new GameClassUpMenuInteractListener(), this);
@@ -96,6 +96,14 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
         Bukkit.getPluginManager().registerEvents(new VampirismListener(), this);
+
+        Bukkit.getPluginManager().registerEvents(new FarmerExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ClerkExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new FishermanExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new HunterExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new MinerExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ShepherdExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new WoodcutterExpListener(), this);
 
     }
 
