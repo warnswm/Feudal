@@ -78,7 +78,7 @@ public class PlannedActivities {
         scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
 
 
-        }, 0L), MathUtils.getRandInt(72000, 360000));
+        }, 0L), MathUtils.getRandomInt(72000, 360001));
 
         System.gc();
 

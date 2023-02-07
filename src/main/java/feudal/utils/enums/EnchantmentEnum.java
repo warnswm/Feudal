@@ -7,7 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.bukkit.enchantments.Enchantment;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @AllArgsConstructor
@@ -35,8 +35,8 @@ public enum EnchantmentEnum {
         return null;
     }
 
-    public static Enchantment getRandomEnc() {
-        return EnchantmentEnum.getByID(new Random().ints(1, 30).findFirst().getAsInt());
+    public static Enchantment getRandomEnchantment() {
+        return EnchantmentEnum.getByID(ThreadLocalRandom.current().nextInt(1, 31));
     }
 
 }

@@ -32,8 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static feudal.utils.MathUtils.getRandInt;
-
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerListener implements Listener {
 
@@ -63,10 +61,10 @@ public class PlayerListener implements Listener {
         }
 
         FeudalPlayer feudalPlayerDeath = CachePlayersMap.getPlayerInfo().get((Player) event.getEntity());
-        int temp = feudalPlayerDeath.getBalance() / 100 * getRandInt(2, 6);
+        int temp = feudalPlayerDeath.getBalance() / 100 * MathUtils.getRandomInt(3, 6);
 
         feudalPlayer.addBalance(temp);
-        feudalPlayerDeath.takeBalance(temp + getRandInt(0, 4));
+        feudalPlayerDeath.takeBalance(temp + MathUtils.getRandomInt(1, 4));
 
     }
 
@@ -157,6 +155,7 @@ public class PlayerListener implements Listener {
         if (!(entity instanceof Player)) return;
 
         event.setDamage(defaultDamage - defaultDamage / 100 * (CachePlayersMap.getPlayerInfo().get(entity).getStaminaLvl() * 0.2));
+
     }
 
     @EventHandler
@@ -169,9 +168,9 @@ public class PlayerListener implements Listener {
 
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
-        if (item.getDurability() == 0 || MathUtils.getRandInt(0, 26) != 25) return;
+        if (item.getDurability() == 0 || MathUtils.getRandomInt(1, 26) != 25) return;
 
-        item.setDurability((short) (item.getDurability() + getRandInt(6, 11)));
+        item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));
 
     }
 
@@ -179,7 +178,7 @@ public class PlayerListener implements Listener {
     public void playerFishing(@NotNull PlayerFishEvent event) {
 
         if (event.getState() != PlayerFishEvent.State.CAUGHT_FISH ||
-                getRandInt(0, 36) != 35) return;
+                MathUtils.getRandomInt(1, 36) != 35) return;
 
         event.getPlayer().getWorld().spawn(event.getPlayer().getLocation(), EntityType.GUARDIAN.getEntityClass());
 

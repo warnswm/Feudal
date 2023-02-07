@@ -1,12 +1,10 @@
 package feudal.utils;
 
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MathUtils {
-    public static int getRandInt(int min, int max) {
-        return new Random().ints(min, max)
-                .findFirst()
-                .getAsInt();
+    public static int getRandomInt(int min, int max) {
+        return ThreadLocalRandom.current().nextInt(min, max);
     }
 }

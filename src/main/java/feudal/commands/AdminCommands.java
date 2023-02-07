@@ -1,5 +1,6 @@
 package feudal.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -16,8 +17,27 @@ public class AdminCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
+        switch (args[1]) {
+
+            case "addls":
+
+                //add ls
+                break;
+
+            case "broadcast":
+
+                Bukkit.broadcastMessage(args[2]);
+                break;
+
+
+        }
+
         if (args[1].equalsIgnoreCase("addls")) {
             //add ls permission
+        } else if (args[1].equalsIgnoreCase("broadcast")) {
+
+            Bukkit.broadcastMessage(args[2]);
+
         }
 
 
