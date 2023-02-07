@@ -5,7 +5,6 @@ import feudal.data.cache.CachePlayersMap;
 import feudal.utils.enums.EnchantmentEnum;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,15 +43,15 @@ public class ClerkListener implements Listener {
     public void playerInteract(@NotNull PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
+        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
 
         if (event.getClickedBlock() == null ||
                 !event.getClickedBlock().getType().equals(Material.ENCHANTMENT_TABLE) ||
                 !player.isSneaking() ||
                 !event.getAction().equals(Action.RIGHT_CLICK_BLOCK) ||
-                !event.getMaterial().equals(Material.ENCHANTED_BOOK)) return;
+                !event.getMaterial().equals(Material.ENCHANTED_BOOK) ||
+                feudalPlayer.getAClassID() != GameClassesIDEnum.CLERK.getId()) return;
 
-        for (Enchantment e : player.getInventory().getItemInMainHand().getEnchantments().keySet())
-            player.getInventory().getItemInMainHand().removeEnchantment(e);
-
+        player.getInventory().getItemInMainHand().setType(Material.BOOK);
     }
 }
