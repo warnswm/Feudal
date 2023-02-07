@@ -101,10 +101,12 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void playerEats(@NotNull PlayerItemConsumeEvent event) {
 
+        if (event.getItem().getType().equals(Material.GOLDEN_APPLE))
+            event.getPlayer().setCooldown(Material.GOLDEN_APPLE, 220);
+
         if (CraftItemStack.asNMSCopy(event.getItem()).getTag() == null ||
                 !Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef") ||
-                Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25)
-            return;
+                Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25) return;
 
         Player player = event.getPlayer();
 
