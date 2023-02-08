@@ -1,5 +1,7 @@
 package feudal.donateItemsListeners;
 
+import feudal.utils.FeudalValuesUtils;
+import feudal.utils.MathUtils;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,7 +20,11 @@ public class DoubleDamageListener implements Listener {
 
         Player player = (Player) event.getDamager();
 
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getString("donateEnchantment").equals("doubleDamage")) return;
+        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("doubleDamage") ||
+                MathUtils.getRandomInt(1, 101) >
+                        Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") *
+                        FeudalValuesUtils.doubleDamagePersent) return;
+
 
         event.setDamage(event.getDamage() * 2);
 

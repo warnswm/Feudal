@@ -177,7 +177,7 @@ enum ConfigUtils {
 
                 databaseConfiguration.save(file);
 
-            } catch (final IOException e) {
+            } catch (IOException e) {
 
                 throw new RuntimeException(e);
 

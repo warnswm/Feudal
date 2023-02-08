@@ -22,10 +22,13 @@ public class VampirismListener implements Listener {
         Player player = (Player) event.getDamager();
 
         if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
-                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getString("donateEnchantment").equals("vampirism") ||
-                MathUtils.getRandomInt(1, 5) > 1) return;
+                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("vampirism") ||
+                MathUtils.getRandomInt(1, 101) >
+                        Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("vampirismLvl") *
+                                FeudalValuesUtils.vampirismPersent) return;
 
-        double vampirismLvl = FeudalValuesUtils.vampirismPersent * Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getByte("vampirismEnchantmentLvl");
+
+        double vampirismLvl = FeudalValuesUtils.vampirismPersent * Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("vampirismEnchantmentLvl");
 
         double health =
                 player.getMaxHealth() < player.getHealth() + event.getDamage() / 100 * vampirismLvl ?
