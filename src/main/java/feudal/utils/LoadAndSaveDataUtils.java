@@ -124,7 +124,7 @@ public class LoadAndSaveDataUtils {
 
         Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
 
-            FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+            FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
             playerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
             playerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
@@ -140,7 +140,7 @@ public class LoadAndSaveDataUtils {
             playerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             playerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
-            CachePlayersMap.getPlayerInfo().remove(player);
+            CachePlayersMap.getFeudalPlayerInfo().remove(player);
 
         }).start());
 
@@ -182,7 +182,7 @@ public class LoadAndSaveDataUtils {
                 .setKingdomName((String) playerDBHandler.getField(player, "kingdomName"))
                 .setSurvivabilityLvl((Integer) playerDBHandler.getField(player, "survivabilityLvl"));
 
-        CachePlayersMap.getPlayerInfo().put(player, feudalPlayer);
+        CachePlayersMap.getFeudalPlayerInfo().put(player, feudalPlayer);
 
     }
 
@@ -206,7 +206,7 @@ public class LoadAndSaveDataUtils {
 
         new Thread(() -> {
 
-            FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+            FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
             playerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
             playerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
@@ -222,7 +222,7 @@ public class LoadAndSaveDataUtils {
             playerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             playerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
-            CachePlayersMap.getPlayerInfo().remove(player);
+            CachePlayersMap.getFeudalPlayerInfo().remove(player);
 
         }).start();
 

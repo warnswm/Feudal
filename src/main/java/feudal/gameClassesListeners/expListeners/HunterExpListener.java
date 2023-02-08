@@ -18,12 +18,14 @@ public class HunterExpListener implements Listener {
         if (event.getEntity().getKiller() == null) return;
 
         Player player = event.getEntity().getKiller();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.HUNTER.getId()) return;
 
-        feudalPlayer.addExperience(AnimalsForHuntedEnum.getByEntity(event.getEntityType()));
-        feudalPlayer.addGameClassExperience(AnimalsForHuntedEnum.getByEntity(event.getEntityType()) * 4);
+        int exp = AnimalsForHuntedEnum.getByEntity(event.getEntityType());
+
+        feudalPlayer.addExperience(exp);
+        feudalPlayer.addGameClassExperience(exp * 4);
 
     }
 }

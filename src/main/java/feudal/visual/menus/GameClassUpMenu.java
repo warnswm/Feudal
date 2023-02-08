@@ -21,7 +21,7 @@ public class GameClassUpMenu {
     public void upgradeGameClass() {
 
         Inventory upgradeGameClassInv = Bukkit.createInventory(player, 9, "Прокачка класса");
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         upgradeGameClassInv.setItem(2, CreateItemUtils.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getOneAttributeNameByID(feudalPlayer.getAClassID())));
         upgradeGameClassInv.setItem(6, CreateItemUtils.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getSecondAttributeNameByID(feudalPlayer.getAClassID())));

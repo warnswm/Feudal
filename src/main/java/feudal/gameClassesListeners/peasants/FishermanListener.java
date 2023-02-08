@@ -15,7 +15,7 @@ public class FishermanListener implements Listener {
     @EventHandler
     public void playerFishing(@NotNull PlayerFishEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() ||
                 feudalPlayer.getGameClassLvl() < 25 ||

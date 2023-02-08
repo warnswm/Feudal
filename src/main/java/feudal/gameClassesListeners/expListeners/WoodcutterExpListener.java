@@ -17,15 +17,13 @@ public class WoodcutterExpListener implements Listener {
     public void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
 
         if (block.hasMetadata("PLACED") ||
                 feudalPlayer.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId() ||
                 !block.getType().equals(LOG)) return;
 
-        int colum = 0;
-        for (int i = block.getY(); i < block.getWorld().getHighestBlockYAt(block.getX(), block.getZ());)
-            colum++;
+        int colum = block.getWorld().getHighestBlockYAt(block.getX(), block.getZ());
 
         feudalPlayer.addExperience(colum);
         feudalPlayer.addGameClassExperience(colum * 4);

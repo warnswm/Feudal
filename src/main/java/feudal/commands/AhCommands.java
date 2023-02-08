@@ -16,7 +16,7 @@ public class AhCommands implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         if (!args[0].equals("ah") || feudalPlayer.getAClassID() != GameClassesIDEnum.TRADER.getId()) return false;
 

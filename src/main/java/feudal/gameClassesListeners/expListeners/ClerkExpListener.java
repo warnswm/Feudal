@@ -14,7 +14,7 @@ public class ClerkExpListener implements Listener {
     @EventHandler
     public void playerItemEnchant(@NotNull EnchantItemEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getEnchanter());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getEnchanter());
 
         if (event.getItem().getType().equals(Material.BOOK) && feudalPlayer.getAClassID() != GameClassesIDEnum.CLERK.getId()) {
 
@@ -23,20 +23,22 @@ public class ClerkExpListener implements Listener {
 
         }
 
-        if (event.getExpLevelCost() > 2) {
+        int expLevelCost = event.getExpLevelCost();
 
-            feudalPlayer.addExperience(5);
-            feudalPlayer.addGameClassExperience(20);
+        if (expLevelCost > 20) {
 
-        } else if (event.getExpLevelCost() > 10) {
+            feudalPlayer.addExperience(17);
+            feudalPlayer.addGameClassExperience(68);
+
+        } else if (expLevelCost > 10) {
 
             feudalPlayer.addExperience(10);
             feudalPlayer.addGameClassExperience(40);
 
-        } else if (event.getExpLevelCost() > 20) {
+        } else if (expLevelCost > 2) {
 
-            feudalPlayer.addExperience(17);
-            feudalPlayer.addGameClassExperience(68);
+            feudalPlayer.addExperience(5);
+            feudalPlayer.addGameClassExperience(20);
 
         }
     }

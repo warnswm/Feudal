@@ -54,7 +54,7 @@ public class PlayerListener implements Listener {
 
         if (event.getEntity().getKiller() == null) return;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getEntity().getKiller());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getEntity().getKiller());
 
         if (event.getEntityType() != EntityType.PLAYER) {
 
@@ -63,7 +63,7 @@ public class PlayerListener implements Listener {
 
         }
 
-        FeudalPlayer feudalPlayerDeath = CachePlayersMap.getPlayerInfo().get((Player) event.getEntity());
+        FeudalPlayer feudalPlayerDeath = CachePlayersMap.getFeudalPlayer((Player) event.getEntity());
         int temp = feudalPlayerDeath.getBalance() / 100 * MathUtils.getRandomInt(3, 6);
 
         feudalPlayer.addBalance(temp);
@@ -127,7 +127,7 @@ public class PlayerListener implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-        float staminaLvl = CachePlayersMap.getPlayerInfo().get(player).getStaminaLvl();
+        float staminaLvl = CachePlayersMap.getFeudalPlayer(player).getStaminaLvl();
         double defaultAmount = event.getAmount();
 
         event.setAmount(defaultAmount * (staminaLvl / 100) + defaultAmount);
@@ -139,7 +139,7 @@ public class PlayerListener implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-        float survivabilityLvl = CachePlayersMap.getPlayerInfo().get(player).getSurvivabilityLvl();
+        float survivabilityLvl = CachePlayersMap.getFeudalPlayer(player).getSurvivabilityLvl();
 
         event.setAmount(1 * (survivabilityLvl / 200) + 1);
 
@@ -152,14 +152,14 @@ public class PlayerListener implements Listener {
 
         Player player = (Player) event.getDamager();
         Entity entity = event.getEntity();
-        float strengthLvl = CachePlayersMap.getPlayerInfo().get(player).getStrengthLvl();
+        float strengthLvl = CachePlayersMap.getFeudalPlayer(player).getStrengthLvl();
         double defaultDamage = event.getDamage();
 
         event.setDamage(defaultDamage * (strengthLvl / 200) + defaultDamage);
 
         if (!(entity instanceof Player)) return;
 
-        event.setDamage(defaultDamage - defaultDamage / 100 * (CachePlayersMap.getPlayerInfo().get(entity).getStaminaLvl() * 0.2));
+        event.setDamage(defaultDamage - defaultDamage / 100 * (CachePlayersMap.getFeudalPlayer(entity).getStaminaLvl() * 0.2));
 
     }
 

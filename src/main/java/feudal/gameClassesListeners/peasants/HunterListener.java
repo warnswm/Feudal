@@ -23,7 +23,7 @@ public class HunterListener implements Listener {
         Player player = event.getEntity().getKiller();
         if (player == null) return;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.HUNTER.getId() ||
                 feudalPlayer.getGameClassLvl() < 25) return;

@@ -34,7 +34,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "changegameclass":
 
-                feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+                feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
                 feudalPlayer.setaClassID(Integer.parseInt(args[2]));
                 break;
             case "addchunk":

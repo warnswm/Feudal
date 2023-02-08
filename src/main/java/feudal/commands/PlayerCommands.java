@@ -125,7 +125,7 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         feudalKingdom.takeBalance(colum);
-        CachePlayersMap.getPlayerInfo().get(player).addBalance(colum - colum / 100 * 5);
+        CachePlayersMap.getFeudalPlayer(player).addBalance(colum - colum / 100 * 5);
 
     }
 }

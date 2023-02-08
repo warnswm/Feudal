@@ -20,7 +20,7 @@ public class AttributesUpMenuInteractListener implements Listener {
 
         Player player = (Player) event.getView().getPlayer();
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         if (event.getCurrentItem().getItemMeta() == null)
             return;

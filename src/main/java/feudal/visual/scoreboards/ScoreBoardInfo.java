@@ -18,7 +18,7 @@ public class ScoreBoardInfo {
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName("Feudal");
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         Score name = objective.getScore("Имя: " + player.getName());
         Score kingdom = objective.getScore("Королевство: " + feudalPlayer.getKingdomName());

@@ -18,7 +18,7 @@ public class ClerkListener implements Listener {
     @EventHandler
     public void playerItemEnchant(@NotNull EnchantItemEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getEnchanter());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getEnchanter());
 
         if (event.getItem().getType().equals(Material.BOOK) && feudalPlayer.getAClassID() != GameClassesIDEnum.CLERK.getId()) {
 
@@ -43,7 +43,7 @@ public class ClerkListener implements Listener {
     public void playerInteract(@NotNull PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         if (event.getClickedBlock() == null ||
                 !event.getClickedBlock().getType().equals(Material.ENCHANTMENT_TABLE) ||

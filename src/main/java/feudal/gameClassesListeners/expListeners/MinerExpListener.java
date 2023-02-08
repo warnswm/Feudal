@@ -19,12 +19,14 @@ public class MinerExpListener implements Listener {
 
         if (block.hasMetadata("PLACED")) return;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.MINER.getId()) return;
 
-        feudalPlayer.addExperience(BlocksForMinerEnum.getByMaterial(block.getType()));
-        feudalPlayer.addGameClassExperience(BlocksForMinerEnum.getByMaterial(block.getType()) * 4);
+        int exp = BlocksForMinerEnum.getByMaterial(block.getType());
+
+        feudalPlayer.addExperience(exp);
+        feudalPlayer.addGameClassExperience(exp * 4);
 
     }
 }

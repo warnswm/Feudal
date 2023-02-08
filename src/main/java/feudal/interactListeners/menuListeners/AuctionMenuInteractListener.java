@@ -28,7 +28,7 @@ public class AuctionMenuInteractListener implements Listener {
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(player);
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
         if (event.getView().getTitle().equals("Аукцион")) {
 

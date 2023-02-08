@@ -46,7 +46,7 @@ public class PlayerJoinAndQuit implements Listener {
     @EventHandler
     public void playerQuit(@NotNull PlayerQuitEvent event) {
 
-        if (CachePlayersMap.getPlayerInfo().get(event.getPlayer()) == null) return;
+        if (CachePlayersMap.getFeudalPlayer(event.getPlayer()) == null) return;
 
         Player player = event.getPlayer();
 

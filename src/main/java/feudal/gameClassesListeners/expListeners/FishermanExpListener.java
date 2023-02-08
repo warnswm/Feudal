@@ -13,13 +13,13 @@ public class FishermanExpListener implements Listener {
     @EventHandler
     public void playerFishing(@NotNull PlayerFishEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH)
             return;
 
-        feudalPlayer.addExperience(30);
-        feudalPlayer.addGameClassExperience(120);
+        feudalPlayer.addExperience(20);
+        feudalPlayer.addGameClassExperience(80);
 
     }
 }

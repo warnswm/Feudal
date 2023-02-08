@@ -9,10 +9,13 @@ import java.util.HashMap;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CachePlayersMap {
-    static HashMap<Player, FeudalPlayer> playerCache = new HashMap<>();
+    static HashMap<Player, FeudalPlayer> feudalPlayerCache = new HashMap<>();
 
-    public static HashMap<Player, FeudalPlayer> getPlayerInfo() {
-        return playerCache;
+    public static HashMap<Player, FeudalPlayer> getFeudalPlayerInfo() {
+        return feudalPlayerCache;
+    }
+    public static FeudalPlayer getFeudalPlayer(Player player) {
+        return feudalPlayerCache.get(player);
     }
 
 }

@@ -3,6 +3,7 @@ package feudal.gameClassesListeners.peasants;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
 import feudal.utils.CreateItemUtils;
+import feudal.utils.MathUtils;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -17,7 +18,7 @@ public class MinerListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getPlayerInfo().get(event.getPlayer());
+        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
         Block block = event.getBlock();
 
         if (block.hasMetadata("PLACED") ||
@@ -25,7 +26,12 @@ public class MinerListener implements Listener {
                 !block.getType().equals(Material.GOLD_ORE) &&
                         !block.getType().equals(Material.IRON_ORE)) return;
 
-        block.getWorld().dropItemNaturally(block.getLocation(), block.getType().equals(Material.GOLD_ORE) ? feudalPlayer.getGameClassLvl() >= 25 ? CreateItemUtils.createItem(Material.GOLD_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.GOLD_INGOT) : feudalPlayer.getGameClassLvl() >= 25 ? CreateItemUtils.createItem(Material.IRON_INGOT, (int) (1 + Math.random() * 3)) : new ItemStack(Material.IRON_INGOT));
+        block.getWorld().dropItemNaturally(block.getLocation(), block.getType().equals(Material.GOLD_ORE) ?
+                feudalPlayer.getGameClassLvl() >= 25 ?
+                        CreateItemUtils.createItem(Material.GOLD_INGOT, MathUtils.getRandomInt(1, 4)) :
+                        new ItemStack(Material.GOLD_INGOT) :
+                feudalPlayer.getGameClassLvl() >= 25 ? CreateItemUtils.createItem(Material.IRON_INGOT, MathUtils.getRandomInt(1, 4)) :
+                        new ItemStack(Material.IRON_INGOT));
 
     }
 }
