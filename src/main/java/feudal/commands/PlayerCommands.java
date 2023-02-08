@@ -5,12 +5,10 @@ import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomDBHandler;
 import feudal.visual.menus.GameClassUpMenu;
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,9 +17,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class PlayerCommands implements CommandExecutor {
-
-    final FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    final KingdomDBHandler kingdomDBHandler = new KingdomDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -50,7 +45,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 }
 
-                withdrawMoneyFromTheTreasury(kingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
+                withdrawMoneyFromTheTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
                 break;
             case "gameclassupmenu":
 
@@ -89,18 +84,18 @@ public class PlayerCommands implements CommandExecutor {
 
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<Player> members) {
 
-        kingdomDBHandler.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+        KingdomDBHandler.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
         feudalKingdom.setKingdomName(kingdomName)
-                .setKing((Player) kingdomDBHandler.getField(kingdomName, "king"))
+                .setKing((Player) KingdomDBHandler.getField(kingdomName, "king"))
                 .setBalance(10000)
                 .setReputation(1000)
-                .setMembers((List<Player>) kingdomDBHandler.getField(kingdomName, "members"))
-                .setBarons((List<Player>) kingdomDBHandler.getField(kingdomName, "barons"))
-                .setTerritory((List<Chunk>) kingdomDBHandler.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<Chunk>) kingdomDBHandler.getField(kingdomName, "privateTerritory"));
+                .setMembers((List<Player>) KingdomDBHandler.getField(kingdomName, "members"))
+                .setBarons((List<Player>) KingdomDBHandler.getField(kingdomName, "barons"))
+                .setTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "territory"))
+                .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
 
         CacheKingdomsMap.getKingdomInfo().put(kingdomName, feudalKingdom);
 

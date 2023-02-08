@@ -1,5 +1,0 @@
-Mongo:
-  address: 'mongodb://localhost:27017'
-  name: 'local'
-  playersCollection: 'players'
-  kingdomsCollection: 'kingdoms'

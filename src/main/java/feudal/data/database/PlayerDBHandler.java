@@ -2,9 +2,13 @@ package feudal.data.database;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoCommandException;
-import com.mongodb.client.*;
+import com.mongodb.client.ClientSession;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import feudal.utils.FeudalValuesUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -15,18 +19,12 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerDBHandler {
-    MongoClient mongoClient;
-    MongoCollection<Document> collection;
 
-    public PlayerDBHandler(String mongoClientName, String databaseName, String collectionName) {
+    static MongoClient mongoClient = FeudalValuesUtils.mongoClient;
+    static MongoDatabase database = FeudalValuesUtils.database;
+    static MongoCollection<Document> collection = FeudalValuesUtils.playersCollection;
 
-        this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
-        MongoDatabase database = mongoClient.getDatabase(databaseName);
-        this.collection = database.getCollection(collectionName);
-
-    }
-
-    public boolean createNewPlayer(@NotNull Player player) {
+    public static boolean createNewPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -70,7 +68,7 @@ public class PlayerDBHandler {
         return false;
     }
 
-    public boolean hasPlayer(@NotNull Player player) {
+    public static boolean hasPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -93,7 +91,7 @@ public class PlayerDBHandler {
         return false;
     }
 
-    public Object getField(@NotNull Player player, String fieldName) {
+    public static Object getField(@NotNull Player player, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -123,7 +121,7 @@ public class PlayerDBHandler {
         return "NoObject";
     }
 
-    public void setField(@NotNull Player player, String fieldName, Object value) {
+    public static void setField(@NotNull Player player, String fieldName, Object value) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -146,7 +144,7 @@ public class PlayerDBHandler {
         }
     }
 
-    public void resetAPlayer(@NotNull Player player) {
+    public static void resetAPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 

@@ -3,20 +3,18 @@ package feudal.utils;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.experimental.FieldDefaults;
+import org.bson.Document;
 
 @Getter
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalValuesUtils {
-    static MongoClient mongoClient;
-    static MongoDatabase database;
-    static MongoCollection playersCollection;
-    static MongoCollection kingdomsCollection;
-    static int clerkDiscount;
-    static int cookFirstGain;
-    static int cookTimeFirstGain;
-    static int cookSecondGain;
-    static int cookTimeSecondGain;
+    public static MongoClient mongoClient;
+    public static MongoDatabase database;
+    public static MongoCollection<Document> playersCollection;
+    public static MongoCollection<Document> kingdomsCollection;
+    public static int clerkDiscount;
+    public static int cookFirstGain;
+    public static int cookTimeFirstGain;
+    public static int cookSecondGain;
+    public static int cookTimeSecondGain;
 }

@@ -5,10 +5,6 @@ import feudal.data.database.KingdomDBHandler;
 import feudal.data.database.PlayerDBHandler;
 import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.TabUtils;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,19 +12,14 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerJoinAndQuit implements Listener {
-
-    FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    PlayerDBHandler playerDBHandler = new PlayerDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-    KingdomDBHandler kingdomDBHandler = new KingdomDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
 
     @EventHandler
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
 
-        if (!playerDBHandler.hasPlayer(player)) {
+        if (!PlayerDBHandler.hasPlayer(player)) {
 
             LoadAndSaveDataUtils.loadPlayer(player);
             return;
@@ -50,7 +41,7 @@ public class PlayerJoinAndQuit implements Listener {
 
         Player player = event.getPlayer();
 
-        if (kingdomDBHandler.getPlayerKingdom(player).equals("")) {
+        if (KingdomDBHandler.getPlayerKingdom(player).equals("")) {
 
             LoadAndSaveDataUtils.savePlayer(player);
             return;

@@ -5,4 +5,4 @@ tax:
 time:
   tax: 432000
   event: 72000, 360000
-  restart: 434400
+  restart: 576000

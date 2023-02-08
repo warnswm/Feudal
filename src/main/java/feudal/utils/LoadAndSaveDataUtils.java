@@ -1,5 +1,6 @@
 package feudal.utils;
 
+import feudal.Feudal;
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheKingdomsMap;
@@ -12,7 +13,6 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,26 +23,21 @@ import java.util.Map;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LoadAndSaveDataUtils {
 
-    static FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
-    static PlayerDBHandler playerDBHandler = new PlayerDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-    static KingdomDBHandler kingdomDBHandler = new KingdomDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
-
-
     public static void loadKingdom(Player player) {
 
-        if (!kingdomDBHandler.playerInKingdom(player)) return;
+        if (!KingdomDBHandler.playerInKingdom(player)) return;
 
-        String kingdomName = kingdomDBHandler.getPlayerKingdom(player);
+        String kingdomName = KingdomDBHandler.getPlayerKingdom(player);
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
         feudalKingdom.setKingdomName(kingdomName)
-                .setKing((Player) kingdomDBHandler.getField(kingdomName, "king"))
-                .setMembers((List<Player>) kingdomDBHandler.getField(kingdomName, "members"))
-                .setBarons((List<Player>) kingdomDBHandler.getField(kingdomName, "barons"))
-                .setReputation((Integer) kingdomDBHandler.getField(kingdomName, "reputation"))
-                .setBalance((Long) kingdomDBHandler.getField(kingdomName, "balance"))
-                .setTerritory((List<Chunk>) kingdomDBHandler.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<Chunk>) kingdomDBHandler.getField(kingdomName, "privateTerritory"));
+                .setKing((Player) KingdomDBHandler.getField(kingdomName, "king"))
+                .setMembers((List<Player>) KingdomDBHandler.getField(kingdomName, "members"))
+                .setBarons((List<Player>) KingdomDBHandler.getField(kingdomName, "barons"))
+                .setReputation((Integer) KingdomDBHandler.getField(kingdomName, "reputation"))
+                .setBalance((Long) KingdomDBHandler.getField(kingdomName, "balance"))
+                .setTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "territory"))
+                .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
 
         CacheKingdomsMap.getKingdomInfo().put(kingdomName, feudalKingdom);
 
@@ -70,13 +65,13 @@ public class LoadAndSaveDataUtils {
                 cacheFeudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
 
-                kingdomDBHandler.setField(kingdomName, "king", cacheFeudalKingdom.getKing().getUniqueId().toString());
-                kingdomDBHandler.setField(kingdomName, "members", members);
-                kingdomDBHandler.setField(kingdomName, "barons", barons);
-                kingdomDBHandler.setField(kingdomName, "territory", territory);
-                kingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
-                kingdomDBHandler.setField(kingdomName, "balance", cacheFeudalKingdom.getBalance());
-                kingdomDBHandler.setField(kingdomName, "reputation", cacheFeudalKingdom.getReputation());
+                KingdomDBHandler.setField(kingdomName, "king", cacheFeudalKingdom.getKing().getUniqueId().toString());
+                KingdomDBHandler.setField(kingdomName, "members", members);
+                KingdomDBHandler.setField(kingdomName, "barons", barons);
+                KingdomDBHandler.setField(kingdomName, "territory", territory);
+                KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
+                KingdomDBHandler.setField(kingdomName, "balance", cacheFeudalKingdom.getBalance());
+                KingdomDBHandler.setField(kingdomName, "reputation", cacheFeudalKingdom.getReputation());
 
                 CacheKingdomsMap.getKingdomInfo().remove(kingdomName);
 
@@ -91,7 +86,7 @@ public class LoadAndSaveDataUtils {
 
         new Thread(() -> {
 
-            String kingdomName = kingdomDBHandler.getPlayerKingdom(player);
+            String kingdomName = KingdomDBHandler.getPlayerKingdom(player);
             FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
             List<String> members = new ArrayList<>();
@@ -106,13 +101,13 @@ public class LoadAndSaveDataUtils {
             List<String> privateTerritory = new ArrayList<>();
             feudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
-            kingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKing());
-            kingdomDBHandler.setField(kingdomName, "members", members);
-            kingdomDBHandler.setField(kingdomName, "barons", barons);
-            kingdomDBHandler.setField(kingdomName, "territory", territory);
-            kingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
-            kingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
-            kingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
+            KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKing());
+            KingdomDBHandler.setField(kingdomName, "members", members);
+            KingdomDBHandler.setField(kingdomName, "barons", barons);
+            KingdomDBHandler.setField(kingdomName, "territory", territory);
+            KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
+            KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
+            KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
 
         }).start();
 
@@ -126,19 +121,19 @@ public class LoadAndSaveDataUtils {
 
             FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
-            playerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
-            playerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
-            playerDBHandler.setField(player, "gameClassLvl", feudalPlayer.getGameClassLvl());
-            playerDBHandler.setField(player, "gameClassExperience", feudalPlayer.getGameClassExperience());
-            playerDBHandler.setField(player, "balance", feudalPlayer.getBalance());
-            playerDBHandler.setField(player, "deaths", feudalPlayer.getDeaths());
-            playerDBHandler.setField(player, "kills", feudalPlayer.getKills());
-            playerDBHandler.setField(player, "luckLvl", feudalPlayer.getLuckLvl());
-            playerDBHandler.setField(player, "speedLvl", feudalPlayer.getSpeedLvl());
-            playerDBHandler.setField(player, "staminaLvl", feudalPlayer.getStaminaLvl());
-            playerDBHandler.setField(player, "strengthLvl", feudalPlayer.getStrengthLvl());
-            playerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
-            playerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
+            PlayerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
+            PlayerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
+            PlayerDBHandler.setField(player, "gameClassLvl", feudalPlayer.getGameClassLvl());
+            PlayerDBHandler.setField(player, "gameClassExperience", feudalPlayer.getGameClassExperience());
+            PlayerDBHandler.setField(player, "balance", feudalPlayer.getBalance());
+            PlayerDBHandler.setField(player, "deaths", feudalPlayer.getDeaths());
+            PlayerDBHandler.setField(player, "kills", feudalPlayer.getKills());
+            PlayerDBHandler.setField(player, "luckLvl", feudalPlayer.getLuckLvl());
+            PlayerDBHandler.setField(player, "speedLvl", feudalPlayer.getSpeedLvl());
+            PlayerDBHandler.setField(player, "staminaLvl", feudalPlayer.getStaminaLvl());
+            PlayerDBHandler.setField(player, "strengthLvl", feudalPlayer.getStrengthLvl());
+            PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
+            PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
             CachePlayersMap.getFeudalPlayerInfo().remove(player);
 
@@ -154,7 +149,7 @@ public class LoadAndSaveDataUtils {
 
         player.sendMessage("Подождите, ваши данные загружаются!");
 
-        if (!playerDBHandler.createNewPlayer(player)) {
+        if (!PlayerDBHandler.createNewPlayer(player)) {
 
             player.kickPlayer("Произошла проблема! Ваши данные не загружены или повреждены, попробуйте зайти позже.");
             return;
@@ -163,7 +158,7 @@ public class LoadAndSaveDataUtils {
 
         player.sendMessage("Ваши данные успешно загружены! Удачной игры");
 
-        if (!playerDBHandler.hasPlayer(player)) {
+        if (!PlayerDBHandler.hasPlayer(player)) {
 
             feudalPlayer = new FeudalPlayer(player);
             feudalPlayer.setaClassID(0).setExperience(0).setGameClassExperience(0)
@@ -176,19 +171,19 @@ public class LoadAndSaveDataUtils {
         }
 
         feudalPlayer = new FeudalPlayer(player);
-        feudalPlayer.setaClassID((Integer) playerDBHandler.getField(player, "classID"))
-                .setExperience((Integer) playerDBHandler.getField(player, "experience"))
-                .setGameClassLvl((Integer) playerDBHandler.getField(player, "gameClassLvl"))
-                .setGameClassExperience((Integer) playerDBHandler.getField(player, "gameClassExperience"))
-                .setBalance((Integer) playerDBHandler.getField(player, "balance"))
-                .setDeaths((Integer) playerDBHandler.getField(player, "deaths"))
-                .setKills((Integer) playerDBHandler.getField(player, "kills"))
-                .setLuckLvl((Integer) playerDBHandler.getField(player, "luckLvl"))
-                .setSpeedLvl((Integer) playerDBHandler.getField(player, "speedLvl"))
-                .setStaminaLvl((Integer) playerDBHandler.getField(player, "staminaLvl"))
-                .setStrengthLvl((Integer) playerDBHandler.getField(player, "strengthLvl"))
-                .setKingdomName((String) playerDBHandler.getField(player, "kingdomName"))
-                .setSurvivabilityLvl((Integer) playerDBHandler.getField(player, "survivabilityLvl"));
+        feudalPlayer.setaClassID((Integer) PlayerDBHandler.getField(player, "classID"))
+                .setExperience((Integer) PlayerDBHandler.getField(player, "experience"))
+                .setGameClassLvl((Integer) PlayerDBHandler.getField(player, "gameClassLvl"))
+                .setGameClassExperience((Integer) PlayerDBHandler.getField(player, "gameClassExperience"))
+                .setBalance((Integer) PlayerDBHandler.getField(player, "balance"))
+                .setDeaths((Integer) PlayerDBHandler.getField(player, "deaths"))
+                .setKills((Integer) PlayerDBHandler.getField(player, "kills"))
+                .setLuckLvl((Integer) PlayerDBHandler.getField(player, "luckLvl"))
+                .setSpeedLvl((Integer) PlayerDBHandler.getField(player, "speedLvl"))
+                .setStaminaLvl((Integer) PlayerDBHandler.getField(player, "staminaLvl"))
+                .setStrengthLvl((Integer) PlayerDBHandler.getField(player, "strengthLvl"))
+                .setKingdomName((String) PlayerDBHandler.getField(player, "kingdomName"))
+                .setSurvivabilityLvl((Integer) PlayerDBHandler.getField(player, "survivabilityLvl"));
 
         CachePlayersMap.getFeudalPlayerInfo().put(player, feudalPlayer);
 
@@ -205,8 +200,8 @@ public class LoadAndSaveDataUtils {
         ScoreBoardInfo.createScoreBoardInfo(player);
 
 
-        if (!kingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase(""))
-            player.setDisplayName(player.getDisplayName() + " [" + kingdomDBHandler.getPlayerKingdom(player) + "]");
+        if (!KingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase(""))
+            player.setDisplayName(player.getDisplayName() + " [" + KingdomDBHandler.getPlayerKingdom(player) + "]");
 
     }
 
@@ -216,25 +211,39 @@ public class LoadAndSaveDataUtils {
 
             FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
 
-            playerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
-            playerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
-            playerDBHandler.setField(player, "gameClassLvl", feudalPlayer.getGameClassLvl());
-            playerDBHandler.setField(player, "gameClassExperience", feudalPlayer.getGameClassExperience());
-            playerDBHandler.setField(player, "balance", feudalPlayer.getBalance());
-            playerDBHandler.setField(player, "deaths", feudalPlayer.getDeaths());
-            playerDBHandler.setField(player, "kills", feudalPlayer.getKills());
-            playerDBHandler.setField(player, "luckLvl", feudalPlayer.getLuckLvl());
-            playerDBHandler.setField(player, "speedLvl", feudalPlayer.getSpeedLvl());
-            playerDBHandler.setField(player, "staminaLvl", feudalPlayer.getStaminaLvl());
-            playerDBHandler.setField(player, "strengthLvl", feudalPlayer.getStrengthLvl());
-            playerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
-            playerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
+            PlayerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
+            PlayerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
+            PlayerDBHandler.setField(player, "gameClassLvl", feudalPlayer.getGameClassLvl());
+            PlayerDBHandler.setField(player, "gameClassExperience", feudalPlayer.getGameClassExperience());
+            PlayerDBHandler.setField(player, "balance", feudalPlayer.getBalance());
+            PlayerDBHandler.setField(player, "deaths", feudalPlayer.getDeaths());
+            PlayerDBHandler.setField(player, "kills", feudalPlayer.getKills());
+            PlayerDBHandler.setField(player, "luckLvl", feudalPlayer.getLuckLvl());
+            PlayerDBHandler.setField(player, "speedLvl", feudalPlayer.getSpeedLvl());
+            PlayerDBHandler.setField(player, "staminaLvl", feudalPlayer.getStaminaLvl());
+            PlayerDBHandler.setField(player, "strengthLvl", feudalPlayer.getStrengthLvl());
+            PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
+            PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
             CachePlayersMap.getFeudalPlayerInfo().remove(player);
 
         }).start();
 
         System.gc();
+
+    }
+
+    public static void loadAllConfigs() {
+
+        Feudal.getPlugin().getConfig().options().copyDefaults(true);
+        Feudal.getPlugin().saveDefaultConfig();
+
+        ConfigUtils.readDatabaseConfig();
+
+    }
+    public static void saveAllConfigs() {
+
+        ConfigUtils.saveDatabaseConfig();
 
     }
 }

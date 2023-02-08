@@ -2,9 +2,13 @@ package feudal.data.database;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoCommandException;
-import com.mongodb.client.*;
+import com.mongodb.client.ClientSession;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
+import feudal.utils.FeudalValuesUtils;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -21,18 +25,13 @@ import java.util.List;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomDBHandler {
-    MongoClient mongoClient;
-    MongoCollection<Document> collection;
 
-    public KingdomDBHandler(String mongoClientName, String databaseName, String collectionName) {
+    static MongoClient mongoClient = FeudalValuesUtils.mongoClient;
+    static MongoDatabase database = FeudalValuesUtils.database;
+    static MongoCollection<Document> collection = FeudalValuesUtils.kingdomsCollection;
 
-        this.mongoClient = MongoClients.create("mongodb://" + mongoClientName);
-        MongoDatabase database = mongoClient.getDatabase(databaseName);
-        this.collection = database.getCollection(collectionName);
 
-    }
-
-    public void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> territory, List<Chunk> privateTerritory, List<Player> barons) {
+    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> territory, List<Chunk> privateTerritory, List<Player> barons) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -62,7 +61,7 @@ public class KingdomDBHandler {
         }
     }
 
-    public Object getField(String kingdomName, String fieldName) {
+    public static Object getField(String kingdomName, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -92,7 +91,7 @@ public class KingdomDBHandler {
         return "NoObject";
     }
 
-    public void setField(String kingdomName, String fieldName, Object value) {
+    public static void setField(String kingdomName, String fieldName, Object value) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -118,7 +117,7 @@ public class KingdomDBHandler {
         }
     }
 
-    public void resetTheKingdom(String kingdomName) {
+    public static void resetTheKingdom(String kingdomName) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -142,7 +141,7 @@ public class KingdomDBHandler {
 
     }
 
-    public void resetAllClanMembers(String kingdomName) {
+    public static void resetAllClanMembers(String kingdomName) {
 
         ClientSession session = mongoClient.startSession();
         FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
@@ -163,10 +162,8 @@ public class KingdomDBHandler {
 
             if (document.get("members") == null) return;
 
-            PlayerDBHandler playerDBHandler = new PlayerDBHandler(config.get("MongoClientName").toString(), config.get("MongoDataBaseName").toString(), config.get("MongoCollectionName").toString());
             List<Player> members = (List<Player>) document.get("members");
-
-            members.forEach(playerDBHandler::resetAPlayer);
+            members.forEach(PlayerDBHandler::resetAPlayer);
 
             session.commitTransaction();
 
@@ -178,7 +175,7 @@ public class KingdomDBHandler {
 
     }
 
-    public boolean playerInKingdom(@NotNull Player player) {
+    public static boolean playerInKingdom(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -201,7 +198,7 @@ public class KingdomDBHandler {
         return false;
     }
 
-    public boolean chunkInKingdom(@NotNull String chunk) {
+    public static boolean chunkInKingdom(@NotNull String chunk) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -224,7 +221,7 @@ public class KingdomDBHandler {
         return false;
     }
 
-    public String getPlayerKingdom(@NotNull Player player) {
+    public static String getPlayerKingdom(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 

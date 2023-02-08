@@ -48,13 +48,12 @@ public final class Feudal extends JavaPlugin {
 
         registerCommands();
         registerEvents();
-        loadConfig();
+        LoadAndSaveDataUtils.loadAllConfigs();
         Auction.load();
 
         PlannedActivitiesUtils.taxCollection();
         PlannedActivitiesUtils.restart();
 
-//        ConfigUtils.readDatabaseConfig();
 
     }
 
@@ -63,9 +62,8 @@ public final class Feudal extends JavaPlugin {
 
         LoadAndSaveDataUtils.saveAllPlayers();
         LoadAndSaveDataUtils.saveAllKingdoms();
+        LoadAndSaveDataUtils.saveAllConfigs();
         Auction.save();
-
-//        ConfigUtils.saveDatabaseConfig();
 
     }
 
@@ -99,6 +97,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
+
         Bukkit.getPluginManager().registerEvents(new VampirismListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new FarmerExpListener(), this);
@@ -108,13 +107,6 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MinerExpListener(), this);
         Bukkit.getPluginManager().registerEvents(new ShepherdExpListener(), this);
         Bukkit.getPluginManager().registerEvents(new WoodcutterExpListener(), this);
-
-    }
-
-    private void loadConfig() {
-
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
 
     }
 }

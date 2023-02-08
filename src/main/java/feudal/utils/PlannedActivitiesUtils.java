@@ -80,7 +80,14 @@ public class PlannedActivitiesUtils {
 
         }, 0L), MathUtils.getRandomInt(72000, 360001));
 
-        System.gc();
+    }
+
+    public static void changeOfSeason() {
+
+        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
+
+
+        }, 0L), 1);
 
     }
 
@@ -89,7 +96,7 @@ public class PlannedActivitiesUtils {
 
         scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
             //restart
-        }, 0L), 434400L);
+        }, 0L), 576000);
 
     }
 
