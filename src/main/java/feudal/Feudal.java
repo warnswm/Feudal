@@ -54,6 +54,8 @@ public final class Feudal extends JavaPlugin {
         PlannedActivitiesUtils.taxCollection();
         PlannedActivitiesUtils.restart();
 
+//        ConfigUtils.readDatabaseConfig();
+
     }
 
     @Override
@@ -62,6 +64,8 @@ public final class Feudal extends JavaPlugin {
         LoadAndSaveDataUtils.saveAllPlayers();
         LoadAndSaveDataUtils.saveAllKingdoms();
         Auction.save();
+
+//        ConfigUtils.saveDatabaseConfig();
 
     }
 

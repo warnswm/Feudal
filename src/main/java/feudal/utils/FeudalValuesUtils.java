@@ -9,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class FeudalConfigsValuesUtils {
+public class FeudalValuesUtils {
     static MongoClient mongoClient;
     static MongoDatabase database;
     static MongoCollection playersCollection;
