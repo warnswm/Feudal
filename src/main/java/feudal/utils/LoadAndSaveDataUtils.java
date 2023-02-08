@@ -195,7 +195,7 @@ public class LoadAndSaveDataUtils {
 
         float health = feudalPlayer.getSurvivabilityLvl(), speed = feudalPlayer.getSpeedLvl();
 
-        player.setMaxHealth(20 * (health / 100) + 20);
+        player.setMaxHealth(20 * (health / 100.0F) + 20);
         player.setWalkSpeed(0.2f * (speed / 100) + 0.2f);
         ScoreBoardInfo.createScoreBoardInfo(player);
 

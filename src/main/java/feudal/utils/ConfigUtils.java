@@ -6,19 +6,22 @@ import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
 import java.io.IOException;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ConfigUtils {
+enum ConfigUtils {
+    ;
 
+    public static final String ENCHANTMENTS_YML = "enchantments.yml";
     static File path = Feudal.getPlugin().getDataFolder();
-    static FileConfiguration databaseConfiguration;
+    static @NonNls FileConfiguration databaseConfiguration;
 
     public static void readDatabaseConfig() {
 
-        File file = new File(path, "database.yml");
+        final File file = new File(path, "database.yml");
         checkDatabaseConfig();
 
         databaseConfiguration = YamlConfiguration.loadConfiguration(file);
@@ -32,19 +35,19 @@ public class ConfigUtils {
 
     public static void saveDatabaseConfig() {
 
-        File file = new File(path, "database.yml");
+        final File file = new File(path, "database.yml");
         checkDatabaseConfig();
 
         try {
 
             YamlConfiguration.loadConfiguration(file).save(file);
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
 
             throw new RuntimeException(e);
 
         }
-
+        
     }
 
     public static void checkDatabaseConfig() {
@@ -52,7 +55,7 @@ public class ConfigUtils {
         if (!path.exists())
             path.mkdir();
 
-        File file = new File(path, "database.yml");
+        final File file = new File(path, "database.yml");
 
         if (!file.exists())
 
@@ -69,7 +72,7 @@ public class ConfigUtils {
 
                 databaseConfiguration.save(file);
 
-            } catch (IOException e) {
+            } catch (final IOException e) {
 
                 throw new RuntimeException(e);
 
@@ -78,7 +81,7 @@ public class ConfigUtils {
 
     public static void readEnchantmentsConfig() {
 
-        File file = new File(path, "enchantments.yml");
+        final File file = new File(path, ENCHANTMENTS_YML);
         checkEnchantmentsConfig();
 
         databaseConfiguration = YamlConfiguration.loadConfiguration(file);
@@ -102,7 +105,7 @@ public class ConfigUtils {
         FeudalValuesUtils.nauseaMaxLvl = (int) databaseConfiguration.get("Nausea.nauseaMaxLvl");
         FeudalValuesUtils.nauseaPersent = (double) databaseConfiguration.get("Nausea.nauseaPersent");
         FeudalValuesUtils.hookMaxLvl = (int) databaseConfiguration.get("Hook.hookMaxLvl");
-        FeudalValuesUtils.hookPersent = (double) databaseConfiguration.get("Hook.hookPersent");
+        FeudalValuesUtils.hookPersent = ((Double) databaseConfiguration.get("Hook.hookPersent")).doubleValue();
         FeudalValuesUtils.multi_shootingMaxLvl = (int) databaseConfiguration.get("Multi-shooting.multi_shootingMaxLvl");
         FeudalValuesUtils.multi_shootingPersent = (double) databaseConfiguration.get("Multi-shooting.multi_shootingPersent");
         FeudalValuesUtils.bowStunMaxLvl = (int) databaseConfiguration.get("BowStun.bowStunMaxLvl");
@@ -114,14 +117,14 @@ public class ConfigUtils {
 
     public static void saveEnchantmentsConfig() {
 
-        File file = new File(path, "enchantments.yml");
+        final File file = new File(path, ENCHANTMENTS_YML);
         checkEnchantmentsConfig();
 
         try {
 
             YamlConfiguration.loadConfiguration(file).save(file);
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
 
             throw new RuntimeException(e);
 
@@ -135,7 +138,7 @@ public class ConfigUtils {
         if (!path.exists())
             path.mkdir();
 
-        File file = new File(path, "enchantments.yml");
+        final File file = new File(path, ENCHANTMENTS_YML);
 
         if (!file.exists())
 
@@ -174,7 +177,7 @@ public class ConfigUtils {
 
                 databaseConfiguration.save(file);
 
-            } catch (IOException e) {
+            } catch (final IOException e) {
 
                 throw new RuntimeException(e);
 
