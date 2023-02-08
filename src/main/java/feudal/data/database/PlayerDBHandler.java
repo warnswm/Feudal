@@ -26,7 +26,7 @@ public class PlayerDBHandler {
 
     }
 
-    public void createNewPlayer(@NotNull Player player) {
+    public boolean createNewPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -36,7 +36,7 @@ public class PlayerDBHandler {
 
             if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
                     .iterator()
-                    .hasNext()) return;
+                    .hasNext()) return true;
 
             collection.insertOne(new Document("_id", player.getUniqueId().toString())
                     .append("classID", 0)
@@ -55,12 +55,19 @@ public class PlayerDBHandler {
 
             session.commitTransaction();
 
+            return true;
+
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
+        return false;
     }
 
     public boolean hasPlayer(@NotNull Player player) {

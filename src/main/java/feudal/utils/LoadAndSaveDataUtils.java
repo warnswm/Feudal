@@ -148,14 +148,22 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void loadPlayer(Player player) {
+    public static void loadPlayer(@NotNull Player player) {
 
         FeudalPlayer feudalPlayer;
 
+        player.sendMessage("Подождите, ваши данные загружаются!");
+
+        if (!playerDBHandler.createNewPlayer(player)) {
+
+            player.kickPlayer("Произошла проблема! Ваши данные не загружены или повреждены, попробуйте зайти позже.");
+            return;
+
+        }
+
+        player.sendMessage("Ваши данные успешно загружены! Удачной игры");
 
         if (!playerDBHandler.hasPlayer(player)) {
-
-            playerDBHandler.createNewPlayer(player);
 
             feudalPlayer = new FeudalPlayer(player);
             feudalPlayer.setaClassID(0).setExperience(0).setGameClassExperience(0)
