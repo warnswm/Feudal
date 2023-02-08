@@ -45,7 +45,6 @@ public class ConfigUtils {
 
         }
 
-
     }
 
     public static void checkDatabaseConfig() {
@@ -67,6 +66,111 @@ public class ConfigUtils {
                 databaseConfiguration.set("Mongo.name", "local");
                 databaseConfiguration.set("Mongo.playersCollection", "players");
                 databaseConfiguration.set("Mongo.kingdomsCollection", "kingdoms");
+
+                databaseConfiguration.save(file);
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+
+            }
+    }
+
+    public static void readEnchantmentsConfig() {
+
+        File file = new File(path, "enchantments.yml");
+        checkEnchantmentsConfig();
+
+        databaseConfiguration = YamlConfiguration.loadConfiguration(file);
+
+        FeudalValuesUtils.vampirismMaxLvl = (int) databaseConfiguration.get("Vampirism.vampirismMaxLvl");
+        FeudalValuesUtils.vampirismPersent = (double) databaseConfiguration.get("Vampirism.vampirismPersent");
+        FeudalValuesUtils.doubleDamageMaxLvl = (int) databaseConfiguration.get("DoubleDamage.doubleDamageMaxLvl");
+        FeudalValuesUtils.doubleDamagePersent = (double) databaseConfiguration.get("DoubleDamage.doubleDamagePersent");
+        FeudalValuesUtils.blindnessMaxLvl = (int) databaseConfiguration.get("Blindness.blindnessMaxLvl");
+        FeudalValuesUtils.blindnessPersent = (double) databaseConfiguration.get("Blindness.blindnessPersent");
+        FeudalValuesUtils.slowdownMaxLvl = (int) databaseConfiguration.get("Slowdown.slowdownMaxLvl");
+        FeudalValuesUtils.slowdownPersent = (double) databaseConfiguration.get("Slowdown.slowdownPersent");
+        FeudalValuesUtils.desiccationMaxLvl = (int) databaseConfiguration.get("Desiccation.desiccationMaxLvl");
+        FeudalValuesUtils.desiccationPersent = (double) databaseConfiguration.get("Desiccation.desiccationPersent");
+        FeudalValuesUtils.swordStunMaxLvl = (int) databaseConfiguration.get("SwordStun.swordStunMaxLvl");
+        FeudalValuesUtils.swordStunPersent = (double) databaseConfiguration.get("SwordStun.swordStunPersent");
+        FeudalValuesUtils.levitationMaxLvl = (int) databaseConfiguration.get("Levitation.levitationMaxLvl");
+        FeudalValuesUtils.levitationPersent = (double) databaseConfiguration.get("Levitation.levitationPersent");
+        FeudalValuesUtils.poisoningMaxLvl = (int) databaseConfiguration.get("Poisoning.poisoningMaxLvl");
+        FeudalValuesUtils.poisoningPersent = (double) databaseConfiguration.get("Poisoning.poisoningPersent");
+        FeudalValuesUtils.nauseaMaxLvl = (int) databaseConfiguration.get("Nausea.nauseaMaxLvl");
+        FeudalValuesUtils.nauseaPersent = (double) databaseConfiguration.get("Nausea.nauseaPersent");
+        FeudalValuesUtils.hookMaxLvl = (int) databaseConfiguration.get("Hook.hookMaxLvl");
+        FeudalValuesUtils.hookPersent = (double) databaseConfiguration.get("Hook.hookPersent");
+        FeudalValuesUtils.multi_shootingMaxLvl = (int) databaseConfiguration.get("Multi-shooting.multi_shootingMaxLvl");
+        FeudalValuesUtils.multi_shootingPersent = (double) databaseConfiguration.get("Multi-shooting.multi_shootingPersent");
+        FeudalValuesUtils.bowStunMaxLvl = (int) databaseConfiguration.get("BowStun.bowStunMaxLvl");
+        FeudalValuesUtils.bowStunPersent = (double) databaseConfiguration.get("BowStun.bowStunPersent");
+        FeudalValuesUtils.greedMaxLvl = (int) databaseConfiguration.get("Greed.greedMaxLvl");
+        FeudalValuesUtils.greedPersent = (double) databaseConfiguration.get("Greed.greedPersent");
+
+    }
+
+    public static void saveEnchantmentsConfig() {
+
+        File file = new File(path, "enchantments.yml");
+        checkEnchantmentsConfig();
+
+        try {
+
+            YamlConfiguration.loadConfiguration(file).save(file);
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+
+    }
+
+    public static void checkEnchantmentsConfig() {
+
+        if (!path.exists())
+            path.mkdir();
+
+        File file = new File(path, "enchantments.yml");
+
+        if (!file.exists())
+
+            try {
+
+                file.createNewFile();
+
+                databaseConfiguration = YamlConfiguration.loadConfiguration(file);
+
+                databaseConfiguration.set("Vampirism.vampirismMaxLvl", 1);
+                databaseConfiguration.set("Vampirism.vampirismPersent", 1.0);
+                databaseConfiguration.set("DoubleDamage.doubleDamageMaxLvl", 1);
+                databaseConfiguration.set("DoubleDamage.doubleDamagePersent", 1.0);
+                databaseConfiguration.set("Blindness.blindnessMaxLvl", 1);
+                databaseConfiguration.set("Blindness.blindnessPersent", 1.0);
+                databaseConfiguration.set("Slowdown.slowdownMaxLvl", 1);
+                databaseConfiguration.set("Slowdown.slowdownPersent", 1.0);
+                databaseConfiguration.set("Desiccation.desiccationMaxLvl", 1);
+                databaseConfiguration.set("Desiccation.desiccationPersent", 1.0);
+                databaseConfiguration.set("SwordStun.swordStunMaxLvl", 1);
+                databaseConfiguration.set("SwordStun.swordStunPersent", 1.0);
+                databaseConfiguration.set("Levitation.levitationMaxLvl", 1);
+                databaseConfiguration.set("Levitation.levitationPersent", 1.0);
+                databaseConfiguration.set("Poisoning.poisoningMaxLvl", 1);
+                databaseConfiguration.set("Poisoning.poisoningPersent", 1.0);
+                databaseConfiguration.set("Nausea.nauseaMaxLvl", 1);
+                databaseConfiguration.set("Nausea.nauseaPersent", 1.0);
+                databaseConfiguration.set("Hook.hookMaxLvl", 1);
+                databaseConfiguration.set("Hook.hookPersent", 1.0);
+                databaseConfiguration.set("Multi-shooting.multi_shootingMaxLvl", 1);
+                databaseConfiguration.set("Multi-shooting.multi_shootingPersent", 1.0);
+                databaseConfiguration.set("BowStun.bowStunMaxLvl", 1);
+                databaseConfiguration.set("BowStun.bowStunPersent", 1.0);
+                databaseConfiguration.set("Greed.greedMaxLvl", 1);
+                databaseConfiguration.set("Greed.greedPersent", 1.0);
 
                 databaseConfiguration.save(file);
 

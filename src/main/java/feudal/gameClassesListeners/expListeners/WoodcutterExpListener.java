@@ -25,8 +25,8 @@ public class WoodcutterExpListener implements Listener {
 
         int colum = block.getWorld().getHighestBlockYAt(block.getX(), block.getZ());
 
-        feudalPlayer.addExperience(colum);
-        feudalPlayer.addGameClassExperience(colum * 4);
+        feudalPlayer.addExperience(colum / 5);
+        feudalPlayer.addGameClassExperience(colum / 5 * 4);
 
     }
 }

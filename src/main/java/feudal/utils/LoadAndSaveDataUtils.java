@@ -239,11 +239,13 @@ public class LoadAndSaveDataUtils {
         Feudal.getPlugin().saveDefaultConfig();
 
         ConfigUtils.readDatabaseConfig();
+        ConfigUtils.readEnchantmentsConfig();
 
     }
     public static void saveAllConfigs() {
 
         ConfigUtils.saveDatabaseConfig();
+        ConfigUtils.saveEnchantmentsConfig();
 
     }
 }

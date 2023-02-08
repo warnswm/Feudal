@@ -7,6 +7,7 @@ import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.utils.TabUtils;
 import feudal.utils.wrappers.ItemStackWrapper;
+import feudal.visual.menus.GameClassSelectionMenu;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -100,6 +101,13 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                     player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0, true, true));
+
+                break;
+
+            case "menu":
+
+                GameClassSelectionMenu gameClassSelectionMenu = new GameClassSelectionMenu(player);
+                gameClassSelectionMenu.openClassSelection();
 
                 break;
 
