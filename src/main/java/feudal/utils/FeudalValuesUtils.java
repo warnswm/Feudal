@@ -12,9 +12,5 @@ public class FeudalValuesUtils {
     public static MongoDatabase database;
     public static MongoCollection<Document> playersCollection;
     public static MongoCollection<Document> kingdomsCollection;
-    public static int clerkDiscount;
-    public static int cookFirstGain;
-    public static int cookTimeFirstGain;
-    public static int cookSecondGain;
-    public static int cookTimeSecondGain;
+    public static int vampirismPersent;
 }
