@@ -7,6 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class DoubleDamageListener implements Listener {
 
     @EventHandler
@@ -16,9 +18,9 @@ public class DoubleDamageListener implements Listener {
 
         Player player = (Player) event.getDamager();
 
-        if (!CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag().getString("donateEnchantment").equals("doubleDamage")) return;
+        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getString("donateEnchantment").equals("doubleDamage")) return;
 
-        player.setHealth(player.getHealth() + CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag().getByte("donateEnchantmentLvl"));
+        event.setDamage(event.getDamage() * 2);
 
     }
 }
