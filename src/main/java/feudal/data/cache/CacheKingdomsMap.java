@@ -10,10 +10,10 @@ import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CacheKingdomsMap {
-    static Map<String, FeudalKingdom> kingdomCache = new HashMap<>();
+    static Map<String, FeudalKingdom> feudalKingdomCache = new HashMap<>();
 
     public static Map<String, FeudalKingdom> getKingdomInfo() {
-        return kingdomCache;
+        return feudalKingdomCache;
     }
 
     public static boolean chunkInKingdomCache(@NotNull String chunk) {

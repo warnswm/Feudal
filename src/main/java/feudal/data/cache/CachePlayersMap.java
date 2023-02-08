@@ -14,6 +14,7 @@ public class CachePlayersMap {
     public static HashMap<Player, FeudalPlayer> getFeudalPlayerInfo() {
         return feudalPlayerCache;
     }
+
     public static FeudalPlayer getFeudalPlayer(Player player) {
         return feudalPlayerCache.get(player);
     }

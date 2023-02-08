@@ -159,7 +159,7 @@ public class PlayerListener implements Listener {
 
         if (!(entity instanceof Player)) return;
 
-        event.setDamage(defaultDamage - defaultDamage / 100 * (CachePlayersMap.getFeudalPlayer(entity).getStaminaLvl() * 0.2));
+        event.setDamage(defaultDamage - defaultDamage / 100 * (CachePlayersMap.getFeudalPlayer((Player) entity).getStaminaLvl() * 0.2));
 
     }
 

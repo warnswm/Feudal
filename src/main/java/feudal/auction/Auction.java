@@ -20,6 +20,7 @@ public class Auction {
     static List<ItemStackWrapper> products = new ArrayList<>();
 
     public static void addProduct(@NotNull ItemStackWrapper product) {
+
         products.add(product);
 
         for (ItemStackWrapper item : products)
@@ -57,7 +58,11 @@ public class Auction {
 
             }
 
-            products.add(new Gson().fromJson(new FileReader(file), ItemStackWrapper.class));
+            Gson gson = new Gson();
+
+            if (gson.fromJson(new FileReader(file), ItemStackWrapper.class) == null) return;
+
+            products.add(gson.fromJson(new FileReader(file), ItemStackWrapper.class));
 
         } catch (IOException e) {
 
