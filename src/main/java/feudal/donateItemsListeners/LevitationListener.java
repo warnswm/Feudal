@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class SwordStunListener implements Listener {
+public class LevitationListener implements Listener {
 
     @EventHandler
     public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
@@ -23,15 +23,15 @@ public class SwordStunListener implements Listener {
 
         Player player = (Player) event.getDamager();
 
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("swordStun") ||
+        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("levitation") ||
                 MathUtils.getRandomInt(1, 101) >
-                        Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("swordStunLvl") *
-                                FeudalValuesUtils.swordStunPercentagePerLvl) return;
+                        Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("levitationLvl") *
+                                FeudalValuesUtils.levitationTimePercentagePerLvl) return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int swordStun = FeudalValuesUtils.swordStunTime;
+        int levitation = FeudalValuesUtils.levitationTime;
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (swordStun + swordStun / 100 * FeudalValuesUtils.swordStunTimePercentagePerLvl), 255, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) (levitation + levitation / 100 * FeudalValuesUtils.levitationTimePercentagePerLvl), 1, true, true));
 
     }
 

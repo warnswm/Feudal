@@ -94,6 +94,8 @@ enum ConfigUtils {
 
         FeudalValuesUtils.blindnessMaxLvl = (int) databaseConfiguration.get("Blindness.blindnessMaxLvl");
         FeudalValuesUtils.blindnessPercentagePerLvl = (double) databaseConfiguration.get("Blindness.blindnessTimePercentagePerLvl");
+        FeudalValuesUtils.blindnessTime = (int) databaseConfiguration.get("Blindness.blindnessTime");
+        FeudalValuesUtils.blindnessTimePercentagePerLvl = (double) databaseConfiguration.get("Blindness.blindnessTimePercentagePerLvl");
 
         FeudalValuesUtils.slowdownMaxLvl = (int) databaseConfiguration.get("Slowdown.slowdownMaxLvl");
         FeudalValuesUtils.slowdownPercentagePerLvl = (double) databaseConfiguration.get("Slowdown.slowdownPercentagePerLvl");
@@ -107,9 +109,13 @@ enum ConfigUtils {
 
         FeudalValuesUtils.swordStunMaxLvl = (int) databaseConfiguration.get("SwordStun.swordStunMaxLvl");
         FeudalValuesUtils.swordStunPercentagePerLvl = (double) databaseConfiguration.get("SwordStun.swordStunPercentagePerLvl");
+        FeudalValuesUtils.swordStunTime = (int) databaseConfiguration.get("SwordStun.swordStunTime");
+        FeudalValuesUtils.swordStunTimePercentagePerLvl = (double) databaseConfiguration.get("SwordStun.swordStunTimePercentagePerLvl");
 
         FeudalValuesUtils.levitationMaxLvl = (int) databaseConfiguration.get("Levitation.levitationMaxLvl");
         FeudalValuesUtils.levitationPercentagePerLvl = (double) databaseConfiguration.get("Levitation.levitationPercentagePerLvl");
+        FeudalValuesUtils.levitationTime = (int) databaseConfiguration.get("Levitation.levitationTime");
+        FeudalValuesUtils.levitationTimePercentagePerLvl = (double) databaseConfiguration.get("Levitation.levitationTimePercentagePerLvl");
 
         FeudalValuesUtils.poisoningMaxLvl = (int) databaseConfiguration.get("Poisoning.poisoningMaxLvl");
         FeudalValuesUtils.poisoningPercentagePerLvl = (double) databaseConfiguration.get("Poisoning.poisoningPercentagePerLvl");

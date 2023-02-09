@@ -39,6 +39,8 @@ public class FeudalValuesUtils {
 
     public static int levitationMaxLvl;
     public static double levitationPercentagePerLvl;
+    public static int levitationTime;
+    public static double levitationTimePercentagePerLvl;
 
     public static int poisoningMaxLvl;
     public static double poisoningPercentagePerLvl;
