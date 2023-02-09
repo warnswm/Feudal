@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
+
 public class InteractListener implements Listener {
 
     @EventHandler
@@ -23,10 +24,9 @@ public class InteractListener implements Listener {
     }
 
     @EventHandler
-    public void playerInteractBlock(@NotNull PlayerInteractEvent event) {
+    public void playerInteractBlockP(@NotNull PlayerInteractEvent event) {
 
-        if (event.getClickedBlock() == null ||
-                !PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()) &&
+        if (event.getClickedBlock() == null || !PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()) &&
                         !CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk())), event.getPlayer())) return;
 
         event.setCancelled(true);

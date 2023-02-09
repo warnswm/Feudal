@@ -24,10 +24,20 @@ public class CacheKingdomsMap {
             if (!kingdom.getValue().chunkInKingdomCache(chunk)) return false;
 
             return !kingdom.getValue().getMembers().contains(player);
+
         }
 
         return false;
 
+    }
+
+    public static String playerInKingdomCache(@NotNull Player player) {
+
+        for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet())
+            if (kingdom.getValue().getMembers().contains(player))
+                return kingdom.getValue().getKingdomName();
+
+        return "";
     }
 
 }

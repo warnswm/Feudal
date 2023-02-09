@@ -48,7 +48,6 @@ public final class Feudal extends JavaPlugin {
         registerCommands();
         registerEvents();
         LoadAndSaveDataUtils.loadAllConfigs();
-        LoadAndSaveDataUtils.loadCustomCrafts();
 
         PlannedActivitiesUtils.taxCollection();
         PlannedActivitiesUtils.restart();

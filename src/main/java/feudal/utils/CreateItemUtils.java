@@ -7,6 +7,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CreateItemUtils {
 
     public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName) {
@@ -34,6 +37,22 @@ public class CreateItemUtils {
 
         item.setItemMeta(itemMeta);
 
+
+        return item;
+    }
+
+    public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName, String lore) {
+
+        ItemStack item = new ItemStack(material, materialAmount);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName(displayName);
+
+        List<String> loreT = new ArrayList<>();
+        loreT.add(lore);
+        itemMeta.setLore(loreT);
+
+        item.setItemMeta(itemMeta);
 
         return item;
     }
