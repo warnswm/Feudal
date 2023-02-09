@@ -2,6 +2,7 @@ package feudal.gameClassesListeners.peasants;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
+import feudal.utils.MathUtils;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,7 +27,7 @@ public class WoodcutterListener implements Listener {
                 feudalPlayer.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId()) return;
 
 
-        if (feudalPlayer.getGameClassLvl() <= 75)
+        if (feudalPlayer.getGameClassLvl() >= 75 && MathUtils.getRandomInt(1, 4) == 3)
             cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
 
     }

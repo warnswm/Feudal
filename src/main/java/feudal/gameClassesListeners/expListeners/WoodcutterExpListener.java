@@ -23,10 +23,8 @@ public class WoodcutterExpListener implements Listener {
                 feudalPlayer.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId() ||
                 !block.getType().equals(LOG)) return;
 
-        int colum = block.getWorld().getHighestBlockYAt(block.getX(), block.getZ());
-
-        feudalPlayer.addExperience(colum / 5);
-        feudalPlayer.addGameClassExperience(colum / 5 * 4);
+        feudalPlayer.addExperience(2);
+        feudalPlayer.addGameClassExperience(8);
 
     }
 }

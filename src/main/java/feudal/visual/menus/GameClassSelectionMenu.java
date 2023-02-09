@@ -1,21 +1,15 @@
 package feudal.visual.menus;
 
 import feudal.utils.CreateItemUtils;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class GameClassSelectionMenu {
 
-    Player player;
-
-    public void openClassSelection() {
+    public static void openClassSelection(@NotNull Player player) {
 
         Inventory inventory = Bukkit.createInventory(player, 54, "Выберите класс");
 

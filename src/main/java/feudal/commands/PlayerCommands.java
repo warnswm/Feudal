@@ -49,8 +49,8 @@ public class PlayerCommands implements CommandExecutor {
                 break;
             case "gameclassupmenu":
 
-                GameClassUpMenu gameClassUpMenu = new GameClassUpMenu(player);
-                gameClassUpMenu.upgradeGameClass();
+                GameClassUpMenu.upgradeGameClass(player);
+
                 break;
 
         }

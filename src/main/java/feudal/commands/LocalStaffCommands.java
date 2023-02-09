@@ -7,7 +7,7 @@ import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.utils.TabUtils;
 import feudal.utils.wrappers.ItemStackWrapper;
-import feudal.visual.menus.GameClassSelectionMenu;
+import feudal.visual.menus.ClerkMenu;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -70,10 +70,10 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 break;
 
-            case "menu":
+            case "test":
 
-                GameClassSelectionMenu gameClassSelectionMenu = new GameClassSelectionMenu(player);
-                gameClassSelectionMenu.openClassSelection();
+//                GameClassSelectionMenu.openClassSelection(player);
+                ClerkMenu.openClerkMenu(player);
 
                 break;
 

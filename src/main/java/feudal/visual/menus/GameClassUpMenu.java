@@ -4,21 +4,15 @@ import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CachePlayersMap;
 import feudal.utils.CreateItemUtils;
 import feudal.utils.enums.gameClassesEnums.AttributeForGameClassesEnum;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class GameClassUpMenu {
 
-    Player player;
-
-    public void upgradeGameClass() {
+    public static void upgradeGameClass(@NotNull Player player) {
 
         Inventory upgradeGameClassInv = Bukkit.createInventory(player, 9, "Прокачка класса");
         FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
