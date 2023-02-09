@@ -19,6 +19,8 @@ public class FeudalValuesUtils {
 
     public static int blindnessMaxLvl;
     public static double blindnessPercentagePerLvl;
+    public static int blindnessTime;
+    public static double blindnessTimePercentagePerLvl;
 
     public static int slowdownMaxLvl;
     public static double slowdownPercentagePerLvl;
@@ -32,6 +34,8 @@ public class FeudalValuesUtils {
 
     public static int swordStunMaxLvl;
     public static double swordStunPercentagePerLvl;
+    public static int swordStunTime;
+    public static double swordStunTimePercentagePerLvl;
 
     public static int levitationMaxLvl;
     public static double levitationPercentagePerLvl;

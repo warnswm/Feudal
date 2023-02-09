@@ -29,9 +29,9 @@ public class BlindnessListener implements Listener {
                                 FeudalValuesUtils.blindnessPercentagePerLvl) return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int blindness = FeudalValuesUtils.desiccationTime;
+        int blindness = FeudalValuesUtils.blindnessTime;
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (blindness + blindness / 100 * FeudalValuesUtils.desiccationTimePercentagePerLvl), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (blindness + blindness / 100 * FeudalValuesUtils.blindnessTimePercentagePerLvl), 1, true, true));
 
     }
 
