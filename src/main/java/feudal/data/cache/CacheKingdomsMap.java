@@ -3,6 +3,7 @@ package feudal.data.cache;
 import feudal.data.builder.FeudalKingdom;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -16,10 +17,14 @@ public class CacheKingdomsMap {
         return feudalKingdomCache;
     }
 
-    public static boolean chunkInKingdomCache(@NotNull String chunk) {
+    public static boolean checkPrivate(@NotNull String chunk, @NotNull Player player) {
 
-        for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet())
-            return kingdom.getValue().chunkInKingdomCache(chunk);
+        for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
+
+            if (!kingdom.getValue().chunkInKingdomCache(chunk)) return false;
+
+            return !kingdom.getValue().getMembers().contains(player);
+        }
 
         return false;
 
