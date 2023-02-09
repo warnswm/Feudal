@@ -12,7 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-public class GameClassUpMenuInteractListener implements Listener {
+public class GameClassUpMenuListener implements Listener {
 
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
@@ -31,19 +31,29 @@ public class GameClassUpMenuInteractListener implements Listener {
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Сила":
+
                 attributesUpMenu(player, feudalPlayer.getStrengthLvl(), "силы", 5);
+
                 break;
             case "Выносливость":
+
                 attributesUpMenu(player, feudalPlayer.getStaminaLvl(), "выносливости", 5);
+
                 break;
             case "Удача":
+
                 attributesUpMenu(player, feudalPlayer.getLuckLvl(), "удачи", 7);
+
                 break;
             case "Живучесть":
+
                 attributesUpMenu(player, feudalPlayer.getSurvivabilityLvl(), "живучести", 5);
+
                 break;
             case "Скорость":
+
                 attributesUpMenu(player, feudalPlayer.getSpeedLvl(), "скорости", 5);
+
                 break;
         }
     }

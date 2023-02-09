@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class GameClassChangeMenuInteractListener implements Listener {
+public class GameClassChangeMenuListener implements Listener {
 
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {

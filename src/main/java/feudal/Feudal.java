@@ -14,9 +14,10 @@ import feudal.generalListeners.MobListener;
 import feudal.generalListeners.PlayerJoinAndQuit;
 import feudal.generalListeners.PlayerListener;
 import feudal.generalListeners.craftItems.CraftItemsListener;
-import feudal.interactListeners.menuListeners.AttributesUpMenuInteractListener;
-import feudal.interactListeners.menuListeners.GameClassChangeMenuInteractListener;
-import feudal.interactListeners.menuListeners.GameClassUpMenuInteractListener;
+import feudal.interactListeners.menuListeners.AttributesUpMenuListener;
+import feudal.interactListeners.menuListeners.ClerkMenuListener;
+import feudal.interactListeners.menuListeners.GameClassChangeMenuListener;
+import feudal.interactListeners.menuListeners.GameClassUpMenuListener;
 import feudal.possessions.privatesTerritoryListeners.BlocksListener;
 import feudal.possessions.privatesTerritoryListeners.InteractListener;
 import feudal.utils.LoadAndSaveDataUtils;
@@ -78,9 +79,9 @@ public final class Feudal extends JavaPlugin {
 
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new GameClassChangeMenuInteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new AttributesUpMenuInteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new GameClassUpMenuInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GameClassChangeMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new AttributesUpMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GameClassUpMenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
         Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
@@ -107,6 +108,8 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MinerExpListener(), this);
         Bukkit.getPluginManager().registerEvents(new ShepherdExpListener(), this);
         Bukkit.getPluginManager().registerEvents(new WoodcutterExpListener(), this);
+
+        Bukkit.getPluginManager().registerEvents(new ClerkMenuListener(), this);
 
     }
 }

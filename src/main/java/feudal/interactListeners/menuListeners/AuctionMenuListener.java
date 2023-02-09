@@ -13,7 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class AuctionMenuInteractListener implements Listener {
+public class AuctionMenuListener implements Listener {
 
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
