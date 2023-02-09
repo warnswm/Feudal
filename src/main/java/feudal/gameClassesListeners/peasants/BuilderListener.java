@@ -19,7 +19,8 @@ public class BuilderListener implements Listener {
         Block block = event.getBlock();
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.BUILDER.getId() &&
-                !block.getType().equals(Material.MOB_SPAWNER)) return;
+                !block.getType().equals(Material.MOB_SPAWNER)) {
+        }
 
 
 //      block.getWorld().dropItemNaturally(block.getLocation(), );

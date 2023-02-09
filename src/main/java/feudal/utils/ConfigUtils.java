@@ -21,7 +21,7 @@ enum ConfigUtils {
 
     public static void readDatabaseConfig() {
 
-        final File file = new File(path, "database.yml");
+        File file = new File(path, "database.yml");
         checkDatabaseConfig();
 
         databaseConfiguration = YamlConfiguration.loadConfiguration(file);
@@ -35,19 +35,19 @@ enum ConfigUtils {
 
     public static void saveDatabaseConfig() {
 
-        final File file = new File(path, "database.yml");
+        File file = new File(path, "database.yml");
         checkDatabaseConfig();
 
         try {
 
             YamlConfiguration.loadConfiguration(file).save(file);
 
-        } catch (final IOException e) {
+        } catch (IOException e) {
 
             throw new RuntimeException(e);
 
         }
-        
+
     }
 
     public static void checkDatabaseConfig() {
@@ -55,7 +55,7 @@ enum ConfigUtils {
         if (!path.exists())
             path.mkdir();
 
-        final File file = new File(path, "database.yml");
+        File file = new File(path, "database.yml");
 
         if (!file.exists())
 
@@ -72,7 +72,7 @@ enum ConfigUtils {
 
                 databaseConfiguration.save(file);
 
-            } catch (final IOException e) {
+            } catch (IOException e) {
 
                 throw new RuntimeException(e);
 
@@ -81,7 +81,7 @@ enum ConfigUtils {
 
     public static void readEnchantmentsConfig() {
 
-        final File file = new File(path, ENCHANTMENTS_YML);
+        File file = new File(path, ENCHANTMENTS_YML);
         checkEnchantmentsConfig();
 
         databaseConfiguration = YamlConfiguration.loadConfiguration(file);
@@ -117,14 +117,14 @@ enum ConfigUtils {
 
     public static void saveEnchantmentsConfig() {
 
-        final File file = new File(path, ENCHANTMENTS_YML);
+        File file = new File(path, ENCHANTMENTS_YML);
         checkEnchantmentsConfig();
 
         try {
 
             YamlConfiguration.loadConfiguration(file).save(file);
 
-        } catch (final IOException e) {
+        } catch (IOException e) {
 
             throw new RuntimeException(e);
 
@@ -138,7 +138,7 @@ enum ConfigUtils {
         if (!path.exists())
             path.mkdir();
 
-        final File file = new File(path, ENCHANTMENTS_YML);
+        File file = new File(path, ENCHANTMENTS_YML);
 
         if (!file.exists())
 

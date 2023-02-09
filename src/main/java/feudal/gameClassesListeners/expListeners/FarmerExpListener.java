@@ -18,7 +18,8 @@ public class FarmerExpListener implements Listener {
         Block block = event.getBlock();
         FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
 
-        if (block.getData() != CropState.RIPE.getData() || feudalPlayer.getAClassID() != GameClassesIDEnum.FARMER.getId()) return;
+        if (block.getData() != CropState.RIPE.getData() || feudalPlayer.getAClassID() != GameClassesIDEnum.FARMER.getId())
+            return;
 
         feudalPlayer.addExperience(1);
         feudalPlayer.addGameClassExperience(3);

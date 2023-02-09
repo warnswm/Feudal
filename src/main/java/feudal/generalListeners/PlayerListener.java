@@ -106,7 +106,8 @@ public class PlayerListener implements Listener {
 
         if (CraftItemStack.asNMSCopy(event.getItem()).getTag() == null ||
                 !Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef") ||
-                Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25) return;
+                Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25)
+            return;
 
         Player player = event.getPlayer();
 

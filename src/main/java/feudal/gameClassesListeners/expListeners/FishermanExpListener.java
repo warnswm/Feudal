@@ -15,7 +15,8 @@ public class FishermanExpListener implements Listener {
 
         FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
 
-        if (feudalPlayer.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
+        if (feudalPlayer.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH)
+            return;
 
         feudalPlayer.addExperience(20);
         feudalPlayer.addGameClassExperience(80);

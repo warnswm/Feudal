@@ -14,7 +14,7 @@ public class KingdomMenu {
 
         Inventory kingdomMenu = Bukkit.createInventory(player, 54, "Меню королевства");
 
-        kingdomMenu.setItem(21, CreateItemUtils.createItem(Material.NAME_TAG, 1, "⌦ Переименовать королевство","⌦ Текущее имя королевства: " + CacheKingdomsMap.playerInKingdomCache(player)));
+        kingdomMenu.setItem(21, CreateItemUtils.createItem(Material.NAME_TAG, 1, "⌦ Переименовать королевство", "⌦ Текущее имя королевства: " + CacheKingdomsMap.playerInKingdomCache(player)));
 
         player.openInventory(kingdomMenu);
 

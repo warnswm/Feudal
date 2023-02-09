@@ -17,7 +17,8 @@ public class InteractListener implements Listener {
 
         if (event.getClickedBlock() == null ||
                 !PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()) &&
-                        !CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk())), event.getPlayer())) return;
+                        !CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk())), event.getPlayer()))
+            return;
 
         event.setCancelled(true);
 
@@ -27,7 +28,8 @@ public class InteractListener implements Listener {
     public void playerInteractBlockP(@NotNull PlayerInteractEvent event) {
 
         if (event.getClickedBlock() == null || !PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()) &&
-                        !CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk())), event.getPlayer())) return;
+                !CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk())), event.getPlayer()))
+            return;
 
         event.setCancelled(true);
 

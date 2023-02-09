@@ -32,7 +32,7 @@ public class VampirismListener implements Listener {
 
         double health =
                 player.getMaxHealth() < player.getHealth() + event.getDamage() / 100 * vampirismLvl ?
-                20 : player.getHealth() + event.getDamage() / 100 * vampirismLvl;
+                        20 : player.getHealth() + event.getDamage() / 100 * vampirismLvl;
 
         player.setHealth(health);
         player.spawnParticle(Particle.REDSTONE, player.getLocation(), 0, 1, 0, 0);

@@ -16,6 +16,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class ClerkListener implements Listener {
 
+    private static boolean isaBoolean(@NotNull PlayerInteractEvent event, Player player, FeudalPlayer feudalPlayer) {
+        return event.getClickedBlock() == null ||
+                !event.getClickedBlock().getType().equals(Material.ENCHANTMENT_TABLE) ||
+                !player.isSneaking() ||
+                !event.getAction().equals(Action.LEFT_CLICK_BLOCK) ||
+                feudalPlayer.getAClassID() != GameClassesIDEnum.CLERK.getId();
+    }
+
     @EventHandler
     public void playerItemEnchant(@NotNull EnchantItemEvent event) {
 
@@ -50,13 +58,5 @@ public class ClerkListener implements Listener {
 
         ClerkMenu.openClerkMenu(player);
 
-    }
-
-    private static boolean isaBoolean(@NotNull PlayerInteractEvent event, Player player, FeudalPlayer feudalPlayer) {
-        return event.getClickedBlock() == null ||
-                !event.getClickedBlock().getType().equals(Material.ENCHANTMENT_TABLE) ||
-                !player.isSneaking() ||
-                !event.getAction().equals(Action.LEFT_CLICK_BLOCK) ||
-                feudalPlayer.getAClassID() != GameClassesIDEnum.CLERK.getId();
     }
 }

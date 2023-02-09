@@ -15,6 +15,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class LocalStaffCommands implements CommandExecutor {
+    private static boolean isLs(CommandSender sender, String[] args) {
+        return !(sender instanceof Player) && !sender.hasPermission("feudal.ls") && !args[0].equals("ls");
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
@@ -71,9 +75,5 @@ public class LocalStaffCommands implements CommandExecutor {
         }
 
         return false;
-    }
-
-    private static boolean isLs(CommandSender sender, String[] args) {
-        return !(sender instanceof Player) && !sender.hasPermission("feudal.ls") && !args[0].equals("ls");
     }
 }
