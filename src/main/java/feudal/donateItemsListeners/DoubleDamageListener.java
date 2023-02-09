@@ -23,10 +23,11 @@ public class DoubleDamageListener implements Listener {
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("doubleDamage") ||
                 MathUtils.getRandomInt(1, 101) >
                         Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") *
-                                FeudalValuesUtils.doubleDamagePersent) return;
+                                FeudalValuesUtils.doubleDamagePercentagePerLvl) return;
 
 
         event.setDamage(event.getDamage() * 2);
 
     }
+
 }

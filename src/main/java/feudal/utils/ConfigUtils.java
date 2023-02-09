@@ -87,31 +87,45 @@ enum ConfigUtils {
         databaseConfiguration = YamlConfiguration.loadConfiguration(file);
 
         FeudalValuesUtils.vampirismMaxLvl = (int) databaseConfiguration.get("Vampirism.vampirismMaxLvl");
-        FeudalValuesUtils.vampirismPersent = (double) databaseConfiguration.get("Vampirism.vampirismPersent");
+        FeudalValuesUtils.vampirismPercentagePerLvl = (double) databaseConfiguration.get("Vampirism.vampirismPercentagePerLvl");
+
         FeudalValuesUtils.doubleDamageMaxLvl = (int) databaseConfiguration.get("DoubleDamage.doubleDamageMaxLvl");
-        FeudalValuesUtils.doubleDamagePersent = (double) databaseConfiguration.get("DoubleDamage.doubleDamagePersent");
+        FeudalValuesUtils.doubleDamagePercentagePerLvl = (double) databaseConfiguration.get("DoubleDamage.doubleDamagePercentagePerLvl");
+
         FeudalValuesUtils.blindnessMaxLvl = (int) databaseConfiguration.get("Blindness.blindnessMaxLvl");
-        FeudalValuesUtils.blindnessPersent = (double) databaseConfiguration.get("Blindness.blindnessPersent");
+        FeudalValuesUtils.blindnessPercentagePerLvl = (double) databaseConfiguration.get("Blindness.blindnessTimePercentagePerLvl");
+
         FeudalValuesUtils.slowdownMaxLvl = (int) databaseConfiguration.get("Slowdown.slowdownMaxLvl");
-        FeudalValuesUtils.slowdownPersent = (double) databaseConfiguration.get("Slowdown.slowdownPersent");
+        FeudalValuesUtils.slowdownPercentagePerLvl = (double) databaseConfiguration.get("Slowdown.slowdownPercentagePerLvl");
+        FeudalValuesUtils.slowdownTime = (int) databaseConfiguration.get("Slowdown.slowdownTime");
+        FeudalValuesUtils.slowdownTimePercentagePerLvl = (double) databaseConfiguration.get("Slowdown.slowdownTimePercentagePerLvl");
+
         FeudalValuesUtils.desiccationMaxLvl = (int) databaseConfiguration.get("Desiccation.desiccationMaxLvl");
-        FeudalValuesUtils.desiccationPersent = (double) databaseConfiguration.get("Desiccation.desiccationPersent");
+        FeudalValuesUtils.desiccationPercentagePerLvl = (double) databaseConfiguration.get("Desiccation.desiccationPercentagePerLvl");
+
         FeudalValuesUtils.swordStunMaxLvl = (int) databaseConfiguration.get("SwordStun.swordStunMaxLvl");
-        FeudalValuesUtils.swordStunPersent = (double) databaseConfiguration.get("SwordStun.swordStunPersent");
+        FeudalValuesUtils.swordStunPercentagePerLvl = (double) databaseConfiguration.get("SwordStun.swordStunPercentagePerLvl");
+
         FeudalValuesUtils.levitationMaxLvl = (int) databaseConfiguration.get("Levitation.levitationMaxLvl");
-        FeudalValuesUtils.levitationPersent = (double) databaseConfiguration.get("Levitation.levitationPersent");
+        FeudalValuesUtils.levitationPercentagePerLvl = (double) databaseConfiguration.get("Levitation.levitationPercentagePerLvl");
+
         FeudalValuesUtils.poisoningMaxLvl = (int) databaseConfiguration.get("Poisoning.poisoningMaxLvl");
-        FeudalValuesUtils.poisoningPersent = (double) databaseConfiguration.get("Poisoning.poisoningPersent");
+        FeudalValuesUtils.poisoningPercentagePerLvl = (double) databaseConfiguration.get("Poisoning.poisoningPercentagePerLvl");
+
         FeudalValuesUtils.nauseaMaxLvl = (int) databaseConfiguration.get("Nausea.nauseaMaxLvl");
-        FeudalValuesUtils.nauseaPersent = (double) databaseConfiguration.get("Nausea.nauseaPersent");
+        FeudalValuesUtils.nauseaPercentagePerLvl = (double) databaseConfiguration.get("Nausea.nauseaPercentagePerLvl");
+
         FeudalValuesUtils.hookMaxLvl = (int) databaseConfiguration.get("Hook.hookMaxLvl");
-        FeudalValuesUtils.hookPersent = ((Double) databaseConfiguration.get("Hook.hookPersent")).doubleValue();
+        FeudalValuesUtils.hookPercentagePerLvl = (double) databaseConfiguration.get("Hook.hookPercentagePerLvl");
+
         FeudalValuesUtils.multi_shootingMaxLvl = (int) databaseConfiguration.get("Multi-shooting.multi_shootingMaxLvl");
-        FeudalValuesUtils.multi_shootingPersent = (double) databaseConfiguration.get("Multi-shooting.multi_shootingPersent");
+        FeudalValuesUtils.multi_shootingPercentagePerLvl = (double) databaseConfiguration.get("Multi-shooting.multi_shootingPercentagePerLvl");
+
         FeudalValuesUtils.bowStunMaxLvl = (int) databaseConfiguration.get("BowStun.bowStunMaxLvl");
-        FeudalValuesUtils.bowStunPersent = (double) databaseConfiguration.get("BowStun.bowStunPersent");
+        FeudalValuesUtils.bowStunPercentagePerLvl = (double) databaseConfiguration.get("BowStun.bowStunPercentagePerLvl");
+
         FeudalValuesUtils.greedMaxLvl = (int) databaseConfiguration.get("Greed.greedMaxLvl");
-        FeudalValuesUtils.greedPersent = (double) databaseConfiguration.get("Greed.greedPersent");
+        FeudalValuesUtils.greedPercentagePerLvl = (double) databaseConfiguration.get("Greed.greedPercentagePerLvl");
 
     }
 
@@ -149,31 +163,31 @@ enum ConfigUtils {
                 databaseConfiguration = YamlConfiguration.loadConfiguration(file);
 
                 databaseConfiguration.set("Vampirism.vampirismMaxLvl", 1);
-                databaseConfiguration.set("Vampirism.vampirismPersent", 1.0);
+                databaseConfiguration.set("Vampirism.vampirismPercentagePerLvl", 1.0);
                 databaseConfiguration.set("DoubleDamage.doubleDamageMaxLvl", 1);
-                databaseConfiguration.set("DoubleDamage.doubleDamagePersent", 1.0);
+                databaseConfiguration.set("DoubleDamage.doubleDamagePercentagePerLvl", 1.0);
                 databaseConfiguration.set("Blindness.blindnessMaxLvl", 1);
-                databaseConfiguration.set("Blindness.blindnessPersent", 1.0);
+                databaseConfiguration.set("Blindness.blindnessPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Slowdown.slowdownMaxLvl", 1);
-                databaseConfiguration.set("Slowdown.slowdownPersent", 1.0);
+                databaseConfiguration.set("Slowdown.slowdownPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Desiccation.desiccationMaxLvl", 1);
-                databaseConfiguration.set("Desiccation.desiccationPersent", 1.0);
+                databaseConfiguration.set("Desiccation.desiccationPercentagePerLvl", 1.0);
                 databaseConfiguration.set("SwordStun.swordStunMaxLvl", 1);
-                databaseConfiguration.set("SwordStun.swordStunPersent", 1.0);
+                databaseConfiguration.set("SwordStun.swordStunPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Levitation.levitationMaxLvl", 1);
-                databaseConfiguration.set("Levitation.levitationPersent", 1.0);
+                databaseConfiguration.set("Levitation.levitationPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Poisoning.poisoningMaxLvl", 1);
-                databaseConfiguration.set("Poisoning.poisoningPersent", 1.0);
+                databaseConfiguration.set("Poisoning.poisoningPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Nausea.nauseaMaxLvl", 1);
-                databaseConfiguration.set("Nausea.nauseaPersent", 1.0);
+                databaseConfiguration.set("Nausea.nauseaPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Hook.hookMaxLvl", 1);
-                databaseConfiguration.set("Hook.hookPersent", 1.0);
+                databaseConfiguration.set("Hook.hookPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Multi-shooting.multi_shootingMaxLvl", 1);
-                databaseConfiguration.set("Multi-shooting.multi_shootingPersent", 1.0);
+                databaseConfiguration.set("Multi-shooting.multi_shootingPercentagePerLvl", 1.0);
                 databaseConfiguration.set("BowStun.bowStunMaxLvl", 1);
-                databaseConfiguration.set("BowStun.bowStunPersent", 1.0);
+                databaseConfiguration.set("BowStun.bowStunPercentagePerLvl", 1.0);
                 databaseConfiguration.set("Greed.greedMaxLvl", 1);
-                databaseConfiguration.set("Greed.greedPersent", 1.0);
+                databaseConfiguration.set("Greed.greedPercentagePerLvl", 1.0);
 
                 databaseConfiguration.save(file);
 

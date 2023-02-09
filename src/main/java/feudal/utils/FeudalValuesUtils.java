@@ -12,30 +12,36 @@ public class FeudalValuesUtils {
     public static MongoCollection<Document> kingdomsCollection;
 
     public static int vampirismMaxLvl;
-    public static double vampirismPersent;
+    public static double vampirismPercentagePerLvl;
+
     public static int doubleDamageMaxLvl;
-    public static double doubleDamagePersent;
+    public static double doubleDamagePercentagePerLvl;
+
     public static int blindnessMaxLvl;
-    public static double blindnessPersent;
+    public static double blindnessPercentagePerLvl;
+
     public static int slowdownMaxLvl;
-    public static double slowdownPersent;
+    public static double slowdownPercentagePerLvl;
+    public static int slowdownTime;
+    public static double slowdownTimePercentagePerLvl;
+
     public static int desiccationMaxLvl;
-    public static double desiccationPersent;
+    public static double desiccationPercentagePerLvl;
     public static int swordStunMaxLvl;
-    public static double swordStunPersent;
+    public static double swordStunPercentagePerLvl;
     public static int levitationMaxLvl;
-    public static double levitationPersent;
+    public static double levitationPercentagePerLvl;
     public static int poisoningMaxLvl;
-    public static double poisoningPersent;
+    public static double poisoningPercentagePerLvl;
     public static int nauseaMaxLvl;
-    public static double nauseaPersent;
+    public static double nauseaPercentagePerLvl;
     public static int hookMaxLvl;
-    public static double hookPersent;
+    public static double hookPercentagePerLvl;
     public static int multi_shootingMaxLvl;
-    public static double multi_shootingPersent;
+    public static double multi_shootingPercentagePerLvl;
     public static int bowStunMaxLvl;
-    public static double bowStunPersent;
+    public static double bowStunPercentagePerLvl;
     public static int greedMaxLvl;
-    public static double greedPersent;
+    public static double greedPercentagePerLvl;
 
 }
