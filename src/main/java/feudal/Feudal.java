@@ -2,7 +2,6 @@ package feudal;
 
 import feudal.auction.Auction;
 import feudal.commands.AdminCommands;
-import feudal.commands.AhCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
 import feudal.donateItemsListeners.VampirismListener;
@@ -72,7 +71,6 @@ public final class Feudal extends JavaPlugin {
 
         getCommand("admin").setExecutor(new AdminCommands());
         getCommand("ls").setExecutor(new LocalStaffCommands());
-        getCommand("ah").setExecutor(new AhCommands());
         getCommand("f").setExecutor(new PlayerCommands());
 
     }

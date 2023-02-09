@@ -7,15 +7,14 @@ import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.jetbrains.annotations.NotNull;
 
 
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuctionMenu {
 
-    Player player;
-
-    public void openAuctionMenu(int page) {
+    public static void openAuctionMenu(@NotNull Player player, int page) {
 
         Inventory openAuctionMenu = Bukkit.createInventory(player, 54, "Аукцион");
 
@@ -23,7 +22,7 @@ public class AuctionMenu {
         int maxIndex = page * 34 + page + 8;
 
         for (int i = minIndex; i < maxIndex; i++)
-            if (Auction.products.size() > i)
+            if (Auction.products.size() >= i)
                 openAuctionMenu.addItem(ItemStackWrapper.itemStackWrapperToItemStack(Auction.products.get(i)));
 
         player.openInventory(openAuctionMenu);

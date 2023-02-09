@@ -23,9 +23,6 @@ public class Auction {
 
         products.add(product);
 
-        for (ItemStackWrapper item : products)
-            System.out.println(item.toString());
-
     }
 
     public static void save() {
@@ -34,6 +31,7 @@ public class Auction {
 
             if (!file.exists())
                 file.createNewFile();
+
 
             if (products.isEmpty()) return;
 
@@ -59,10 +57,11 @@ public class Auction {
             }
 
             Gson gson = new Gson();
+            BufferedReader reader = new BufferedReader(new FileReader(file));
 
-            if (gson.fromJson(new FileReader(file), ItemStackWrapper.class) == null) return;
+            if (gson.fromJson(reader, List.class) == null) return;
 
-            products.add(gson.fromJson(new FileReader(file), ItemStackWrapper.class));
+            products = (List<ItemStackWrapper>) gson.fromJson(reader, List.class);
 
         } catch (IOException e) {
 

@@ -1,10 +1,12 @@
 package feudal.commands;
 
+import feudal.auction.AuctionMenu;
 import feudal.data.builder.FeudalKingdom;
+import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomDBHandler;
-import feudal.visual.menus.GameClassUpMenu;
+import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -26,6 +28,7 @@ public class PlayerCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         switch (args[0]) {
+
             case "help":
 
                 helpCommand(player);
@@ -48,9 +51,14 @@ public class PlayerCommands implements CommandExecutor {
                 withdrawMoneyFromTheTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
 
                 break;
-            case "menu":
 
-                GameClassUpMenu.upgradeGameClass(player);
+            case "ah":
+
+                FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+
+                if (feudalPlayer.getAClassID() != GameClassesIDEnum.TRADER.getId()) break;
+
+                AuctionMenu.openAuctionMenu(player, 1);
 
                 break;
 
@@ -124,4 +132,5 @@ public class PlayerCommands implements CommandExecutor {
         CachePlayersMap.getFeudalPlayer(player).addBalance(colum - colum / 100 * 5);
 
     }
+
 }

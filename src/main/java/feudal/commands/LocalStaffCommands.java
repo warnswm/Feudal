@@ -20,7 +20,7 @@ public class LocalStaffCommands implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player) && !sender.hasPermission("feudal.ls") && !args[0].equals("ls")) return false;
+        if (isLs(sender, args)) return false;
 
         assert sender instanceof Player;
         Player player = (Player) sender;
@@ -46,7 +46,9 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 if (player.getInventory().getItemInMainHand() == null ||
                         Integer.parseInt(args[1]) > 1_000_000_000) break;
+
                 Auction.addProduct(ItemStackWrapper.itemStackToItemStackWrapper(player.getInventory().getItemInMainHand(), Integer.parseInt(args[1])));
+
                 break;
 
             case "spy":
@@ -80,5 +82,9 @@ public class LocalStaffCommands implements CommandExecutor {
         }
 
         return false;
+    }
+
+    private static boolean isLs(CommandSender sender, String[] args) {
+        return !(sender instanceof Player) && !sender.hasPermission("feudal.ls") && !args[0].equals("ls");
     }
 }
