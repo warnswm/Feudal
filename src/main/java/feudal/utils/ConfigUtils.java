@@ -102,6 +102,8 @@ enum ConfigUtils {
 
         FeudalValuesUtils.desiccationMaxLvl = (int) databaseConfiguration.get("Desiccation.desiccationMaxLvl");
         FeudalValuesUtils.desiccationPercentagePerLvl = (double) databaseConfiguration.get("Desiccation.desiccationPercentagePerLvl");
+        FeudalValuesUtils.desiccationTime = (int) databaseConfiguration.get("Desiccation.slowdownTime");
+        FeudalValuesUtils.desiccationTimePercentagePerLvl = (double) databaseConfiguration.get("Desiccation.slowdownTimePercentagePerLvl");
 
         FeudalValuesUtils.swordStunMaxLvl = (int) databaseConfiguration.get("SwordStun.swordStunMaxLvl");
         FeudalValuesUtils.swordStunPercentagePerLvl = (double) databaseConfiguration.get("SwordStun.swordStunPercentagePerLvl");

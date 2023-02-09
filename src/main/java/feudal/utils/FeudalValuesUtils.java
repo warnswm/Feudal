@@ -27,20 +27,30 @@ public class FeudalValuesUtils {
 
     public static int desiccationMaxLvl;
     public static double desiccationPercentagePerLvl;
+    public static int desiccationTime;
+    public static double desiccationTimePercentagePerLvl;
+
     public static int swordStunMaxLvl;
     public static double swordStunPercentagePerLvl;
+
     public static int levitationMaxLvl;
     public static double levitationPercentagePerLvl;
+
     public static int poisoningMaxLvl;
     public static double poisoningPercentagePerLvl;
+
     public static int nauseaMaxLvl;
     public static double nauseaPercentagePerLvl;
+
     public static int hookMaxLvl;
     public static double hookPercentagePerLvl;
+
     public static int multi_shootingMaxLvl;
     public static double multi_shootingPercentagePerLvl;
+
     public static int bowStunMaxLvl;
     public static double bowStunPercentagePerLvl;
+
     public static int greedMaxLvl;
     public static double greedPercentagePerLvl;
 

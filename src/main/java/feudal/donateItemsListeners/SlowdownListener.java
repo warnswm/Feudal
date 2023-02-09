@@ -33,6 +33,7 @@ public class SlowdownListener implements Listener {
         int slowdown = FeudalValuesUtils.slowdownTime;
 
         entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, (int) (slowdown + slowdown / 100 * FeudalValuesUtils.slowdownTimePercentagePerLvl), 1, true, true));
+
     }
 
 }
