@@ -19,6 +19,7 @@ import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class KingdomDBHandler {
         }
     }
 
-    public static Object getField(String kingdomName, String fieldName) {
+    public static @Nullable Object getField(String kingdomName, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -89,6 +90,66 @@ public class KingdomDBHandler {
         }
 
         return "NoObject";
+    }
+
+    public static int getIntegerField(String kingdomName, String fieldName) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return 0;
+
+            Document document = collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .next();
+
+            if (document.get(fieldName) != null)
+                return (int) document.get(fieldName);
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+        return 0;
+    }
+
+    public static long getLongField(String kingdomName, String fieldName) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return 0;
+
+            Document document = collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .next();
+
+            if (document.get(fieldName) != null)
+                return (long) document.get(fieldName);
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+        return 0;
     }
 
     public static void setField(String kingdomName, String fieldName, Object value) {

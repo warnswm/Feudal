@@ -34,8 +34,8 @@ public class LoadAndSaveDataUtils {
                 .setKing((Player) KingdomDBHandler.getField(kingdomName, "king"))
                 .setMembers((List<Player>) KingdomDBHandler.getField(kingdomName, "members"))
                 .setBarons((List<Player>) KingdomDBHandler.getField(kingdomName, "barons"))
-                .setReputation((Integer) KingdomDBHandler.getField(kingdomName, "reputation"))
-                .setBalance((Long) KingdomDBHandler.getField(kingdomName, "balance"))
+                .setReputation(KingdomDBHandler.getIntegerField(kingdomName, "reputation"))
+                .setBalance(KingdomDBHandler.getLongField(kingdomName, "balance"))
                 .setTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "territory"))
                 .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
 
@@ -171,19 +171,19 @@ public class LoadAndSaveDataUtils {
         }
 
         feudalPlayer = new FeudalPlayer(player);
-        feudalPlayer.setaClassID((Integer) PlayerDBHandler.getField(player, "classID"))
-                .setExperience((Integer) PlayerDBHandler.getField(player, "experience"))
-                .setGameClassLvl((Integer) PlayerDBHandler.getField(player, "gameClassLvl"))
-                .setGameClassExperience((Integer) PlayerDBHandler.getField(player, "gameClassExperience"))
-                .setBalance((Integer) PlayerDBHandler.getField(player, "balance"))
-                .setDeaths((Integer) PlayerDBHandler.getField(player, "deaths"))
-                .setKills((Integer) PlayerDBHandler.getField(player, "kills"))
-                .setLuckLvl((Integer) PlayerDBHandler.getField(player, "luckLvl"))
-                .setSpeedLvl((Integer) PlayerDBHandler.getField(player, "speedLvl"))
-                .setStaminaLvl((Integer) PlayerDBHandler.getField(player, "staminaLvl"))
-                .setStrengthLvl((Integer) PlayerDBHandler.getField(player, "strengthLvl"))
-                .setKingdomName((String) PlayerDBHandler.getField(player, "kingdomName"))
-                .setSurvivabilityLvl((Integer) PlayerDBHandler.getField(player, "survivabilityLvl"));
+        feudalPlayer.setaClassID(PlayerDBHandler.getIntegerField(player, "classID"))
+                .setExperience(PlayerDBHandler.getIntegerField(player, "experience"))
+                .setGameClassLvl(PlayerDBHandler.getIntegerField(player, "gameClassLvl"))
+                .setGameClassExperience(PlayerDBHandler.getIntegerField(player, "gameClassExperience"))
+                .setBalance(PlayerDBHandler.getIntegerField(player, "balance"))
+                .setDeaths(PlayerDBHandler.getIntegerField(player, "deaths"))
+                .setKills(PlayerDBHandler.getIntegerField(player, "kills"))
+                .setLuckLvl(PlayerDBHandler.getIntegerField(player, "luckLvl"))
+                .setSpeedLvl(PlayerDBHandler.getIntegerField(player, "speedLvl"))
+                .setStaminaLvl(PlayerDBHandler.getIntegerField(player, "staminaLvl"))
+                .setStrengthLvl(PlayerDBHandler.getIntegerField(player, "strengthLvl"))
+                .setKingdomName(PlayerDBHandler.getStringField(player, "kingdomName"))
+                .setSurvivabilityLvl(PlayerDBHandler.getIntegerField(player, "survivabilityLvl"));
 
         CachePlayersMap.getFeudalPlayerInfo().put(player, feudalPlayer);
 

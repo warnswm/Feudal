@@ -91,7 +91,7 @@ public class PlayerDBHandler {
         return false;
     }
 
-    public static Object getField(@NotNull Player player, String fieldName) {
+    public static int getIntegerField(@NotNull Player player, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -101,14 +101,14 @@ public class PlayerDBHandler {
 
             if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
                     .iterator()
-                    .hasNext()) return null;
+                    .hasNext()) return 0;
 
             Document document = collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
                     .iterator()
                     .next();
 
             if (document.get(fieldName) != null)
-                return document.get(fieldName);
+                return (int) document.get(fieldName);
 
             session.commitTransaction();
 
@@ -118,7 +118,37 @@ public class PlayerDBHandler {
             session.close();
         }
 
-        return "NoObject";
+        return 0;
+    }
+
+    public static String getStringField(@NotNull Player player, String fieldName) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                    .iterator()
+                    .hasNext()) return "";
+
+            Document document = collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+                    .iterator()
+                    .next();
+
+            if (document.get(fieldName) != null)
+                return (String) document.get(fieldName);
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+            session.abortTransaction();
+        } finally {
+            session.close();
+        }
+
+        return "";
     }
 
     public static void setField(@NotNull Player player, String fieldName, Object value) {
