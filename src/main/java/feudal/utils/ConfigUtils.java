@@ -197,8 +197,8 @@ enum ConfigUtils {
 
                 databaseConfiguration.set("SwordStun.swordStunMaxLvl", 1);
                 databaseConfiguration.set("SwordStun.swordStunPercentagePerLvl", 1.0);
-                databaseConfiguration.get("SwordStun.swordStunTime");
-                databaseConfiguration.get("SwordStun.swordStunTimePercentagePerLvl");
+                databaseConfiguration.set("SwordStun.swordStunTime", 1);
+                databaseConfiguration.set("SwordStun.swordStunTimePercentagePerLvl", 1.0);
 
                 databaseConfiguration.set("Levitation.levitationMaxLvl", 1);
                 databaseConfiguration.set("Levitation.levitationPercentagePerLvl", 1.0);
