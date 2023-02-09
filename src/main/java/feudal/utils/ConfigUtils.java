@@ -119,9 +119,13 @@ enum ConfigUtils {
 
         FeudalValuesUtils.poisoningMaxLvl = (int) databaseConfiguration.get("Poisoning.poisoningMaxLvl");
         FeudalValuesUtils.poisoningPercentagePerLvl = (double) databaseConfiguration.get("Poisoning.poisoningPercentagePerLvl");
+        FeudalValuesUtils.poisoningTime = (int) databaseConfiguration.get("Poisoning.poisoningTime");
+        FeudalValuesUtils.poisoningTimePercentagePerLvl = (double) databaseConfiguration.get("Poisoning.poisoningTimePercentagePerLvl");
 
         FeudalValuesUtils.nauseaMaxLvl = (int) databaseConfiguration.get("Nausea.nauseaMaxLvl");
         FeudalValuesUtils.nauseaPercentagePerLvl = (double) databaseConfiguration.get("Nausea.nauseaPercentagePerLvl");
+        FeudalValuesUtils.nauseaTime = (int) databaseConfiguration.get("Nausea.nauseaTime");
+        FeudalValuesUtils.nauseaTimePercentagePerLvl = (double) databaseConfiguration.get("Nausea.nauseaTimePercentagePerLvl");
 
         FeudalValuesUtils.hookMaxLvl = (int) databaseConfiguration.get("Hook.hookMaxLvl");
         FeudalValuesUtils.hookPercentagePerLvl = (double) databaseConfiguration.get("Hook.hookPercentagePerLvl");

@@ -44,9 +44,13 @@ public class FeudalValuesUtils {
 
     public static int poisoningMaxLvl;
     public static double poisoningPercentagePerLvl;
+    public static int poisoningTime;
+    public static double poisoningTimePercentagePerLvl;
 
     public static int nauseaMaxLvl;
     public static double nauseaPercentagePerLvl;
+    public static int nauseaTime;
+    public static double nauseaTimePercentagePerLvl;
 
     public static int hookMaxLvl;
     public static double hookPercentagePerLvl;
