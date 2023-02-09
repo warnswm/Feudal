@@ -1,12 +1,10 @@
 package feudal.commands;
 
-import feudal.auction.Auction;
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.utils.TabUtils;
-import feudal.utils.wrappers.ItemStackWrapper;
 import feudal.visual.menus.ClerkMenu;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -40,15 +38,6 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(args[1]);
                 feudalKingdom.addTerritory(player.getLocation().getChunk());
-                break;
-
-            case "addah":
-
-                if (player.getInventory().getItemInMainHand() == null ||
-                        Integer.parseInt(args[1]) > 1_000_000_000) break;
-
-                Auction.addProduct(ItemStackWrapper.itemStackToItemStackWrapper(player.getInventory().getItemInMainHand(), Integer.parseInt(args[1])));
-
                 break;
 
             case "spy":

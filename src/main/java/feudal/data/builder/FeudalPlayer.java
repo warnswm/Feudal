@@ -2,10 +2,12 @@ package feudal.data.builder;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;
 
 @Getter
+@ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalPlayer {
     Player player;
@@ -100,113 +102,113 @@ public class FeudalPlayer {
 
 
     public FeudalPlayer addExperience(int value) {
-        this.experience += value;
+        experience += value;
         return this;
     }
 
     public FeudalPlayer addBalance(int value) {
-        this.balance += value;
+        balance += value;
         return this;
     }
 
     public FeudalPlayer addDeaths(int value) {
-        this.deaths += value;
+        deaths += value;
         return this;
     }
 
     public FeudalPlayer addKills(int value) {
-        this.kills += value;
+        kills += value;
         return this;
     }
 
     public FeudalPlayer addStrengthLvl(int value) {
-        this.strengthLvl += value;
+        strengthLvl += value;
         return this;
     }
 
     public FeudalPlayer addSurvivabilityLvl(int value) {
-        this.survivabilityLvl += value;
+        survivabilityLvl += value;
         return this;
     }
 
     public FeudalPlayer addSpeedLvl(int value) {
-        this.speedLvl += value;
+        speedLvl += value;
         return this;
     }
 
     public FeudalPlayer addStaminaLvl(int value) {
-        this.staminaLvl += value;
+        staminaLvl += value;
         return this;
     }
 
     public FeudalPlayer addLuckLvl(int value) {
-        this.luckLvl += value;
+        luckLvl += value;
         return this;
     }
 
     public FeudalPlayer addGameClassLvl(int value) {
-        this.gameClassLvl += value;
+        gameClassLvl += value;
         return this;
     }
 
     public FeudalPlayer addGameClassExperience(int value) {
-        this.gameClassExperience += value;
+        gameClassExperience += value;
         return this;
     }
 
 
     public FeudalPlayer takeExperience(int value) {
-        this.experience -= value;
+        experience -= value;
         return this;
     }
 
     public FeudalPlayer takeBalance(int value) {
-        this.balance -= value;
+        balance -= value;
         return this;
     }
 
     public FeudalPlayer takeDeaths(int value) {
-        this.deaths -= value;
+        deaths -= value;
         return this;
     }
 
     public FeudalPlayer takeKills(int value) {
-        this.kills -= value;
+        kills -= value;
         return this;
     }
 
     public FeudalPlayer takeStrengthLvl(int value) {
-        this.strengthLvl -= value;
+        strengthLvl -= value;
         return this;
     }
 
     public FeudalPlayer takeSurvivabilityLvl(int value) {
-        this.survivabilityLvl -= value;
+        survivabilityLvl -= value;
         return this;
     }
 
     public FeudalPlayer takeSpeedLvl(int value) {
-        this.speedLvl -= value;
+        speedLvl -= value;
         return this;
     }
 
     public FeudalPlayer takeStaminaLvl(int value) {
-        this.staminaLvl -= value;
+        staminaLvl -= value;
         return this;
     }
 
     public FeudalPlayer takeLuckLvl(int value) {
-        this.luckLvl -= value;
+        luckLvl -= value;
         return this;
     }
 
     public FeudalPlayer takeGameClassLvl(int value) {
-        this.gameClassLvl -= value;
+        gameClassLvl -= value;
         return this;
     }
 
     public FeudalPlayer takeGameClassExperience(int value) {
-        this.gameClassExperience -= value;
+        gameClassExperience -= value;
         return this;
     }
 }

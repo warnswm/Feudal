@@ -69,73 +69,73 @@ public class FeudalKingdom {
 
 
     public FeudalKingdom addMember(@NotNull Player player) {
-        this.members.add(player);
+        members.add(player);
         return this;
     }
 
     public FeudalKingdom addTerritory(@NotNull Chunk chunk) {
-        this.territory.add(chunk);
+        territory.add(chunk);
         return this;
     }
 
     public FeudalKingdom addPrivateTerritory(@NotNull Chunk chunk) {
-        this.privateTerritory.add(chunk);
+        privateTerritory.add(chunk);
         return this;
     }
 
     public FeudalKingdom addBaron(@NotNull Player player) {
-        this.barons.add(player);
+        barons.add(player);
         return this;
     }
 
     public FeudalKingdom addBalance(long value) {
-        this.balance += value;
+        balance += value;
         return this;
     }
 
     public FeudalKingdom addReputation(int value) {
-        this.reputation += value;
+        reputation += value;
         return this;
     }
 
 
     public FeudalKingdom takeMember(@NotNull Player player) {
-        this.members.remove(player);
+        members.remove(player);
         return this;
     }
 
     public FeudalKingdom takeTerritory(@NotNull Chunk chunk) {
-        this.territory.remove(chunk);
+        territory.remove(chunk);
         return this;
     }
 
     public FeudalKingdom takePrivateTerritory(@NotNull Chunk chunk) {
-        this.privateTerritory.remove(chunk);
+        privateTerritory.remove(chunk);
         return this;
     }
 
     public FeudalKingdom takeAllTerritory() {
-        this.territory.clear();
+        territory.clear();
         return this;
     }
 
     public FeudalKingdom takeAllPrivateTerritory() {
-        this.privateTerritory.clear();
+        privateTerritory.clear();
         return this;
     }
 
     public FeudalKingdom takeBaron(@NotNull Player player) {
-        this.barons.remove(player);
+        barons.remove(player);
         return this;
     }
 
     public FeudalKingdom takeBalance(long value) {
-        this.balance -= value;
+        balance -= value;
         return this;
     }
 
     public FeudalKingdom takeReputation(int value) {
-        this.reputation -= value;
+        reputation -= value;
         return this;
     }
 

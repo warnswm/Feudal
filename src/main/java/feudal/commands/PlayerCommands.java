@@ -1,12 +1,9 @@
 package feudal.commands;
 
-import feudal.auction.AuctionMenu;
 import feudal.data.builder.FeudalKingdom;
-import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
 import feudal.data.database.KingdomDBHandler;
-import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -49,16 +46,6 @@ public class PlayerCommands implements CommandExecutor {
                 }
 
                 withdrawMoneyFromTheTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
-
-                break;
-
-            case "ah":
-
-                FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
-
-                if (feudalPlayer.getAClassID() != GameClassesIDEnum.TRADER.getId()) break;
-
-                AuctionMenu.openAuctionMenu(player, 1);
 
                 break;
 
