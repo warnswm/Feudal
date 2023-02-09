@@ -18,8 +18,8 @@ import feudal.interactListeners.menuListeners.AttributesUpMenuListener;
 import feudal.interactListeners.menuListeners.ClerkMenuListener;
 import feudal.interactListeners.menuListeners.GameClassChangeMenuListener;
 import feudal.interactListeners.menuListeners.GameClassUpMenuListener;
-import feudal.possessions.privatesTerritoryListeners.BlocksListener;
-import feudal.possessions.privatesTerritoryListeners.InteractListener;
+import feudal.possessions.territoryListeners.BlocksListener;
+import feudal.possessions.territoryListeners.InteractListener;
 import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.PlannedActivitiesUtils;
 import lombok.AccessLevel;
@@ -50,11 +50,11 @@ public final class Feudal extends JavaPlugin {
         registerCommands();
         registerEvents();
         LoadAndSaveDataUtils.loadAllConfigs();
+        LoadAndSaveDataUtils.loadCustomCrafts();
         Auction.load();
 
         PlannedActivitiesUtils.taxCollection();
         PlannedActivitiesUtils.restart();
-
 
     }
 

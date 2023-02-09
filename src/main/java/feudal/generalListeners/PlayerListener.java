@@ -65,10 +65,10 @@ public class PlayerListener implements Listener {
         }
 
         FeudalPlayer feudalPlayerDeath = CachePlayersMap.getFeudalPlayer((Player) event.getEntity());
-        int temp = feudalPlayerDeath.getBalance() / 100 * MathUtils.getRandomInt(3, 6);
+        int balance = feudalPlayerDeath.getBalance() / 100 * MathUtils.getRandomInt(3, 6);
 
-        feudalPlayer.addBalance(temp);
-        feudalPlayerDeath.takeBalance(temp + MathUtils.getRandomInt(1, 4));
+        feudalPlayer.addBalance(balance);
+        feudalPlayerDeath.takeBalance(balance + MathUtils.getRandomInt(1, 4));
 
     }
 
@@ -83,15 +83,14 @@ public class PlayerListener implements Listener {
         if (!sleepingPlayers.contains(player.getUniqueId().toString()))
             sleepingPlayers.add(player.getUniqueId().toString());
 
-        if (sleepingPlayers.size() / Bukkit.getOnlinePlayers().size() < 2) {
+        if (sleepingPlayers.size() / Bukkit.getOnlinePlayers().size() > 2) return;
 
-            World world = player.getWorld();
+        World world = player.getWorld();
 
-            world.setTime(24000);
-            world.setStorm(false);
-            world.setThundering(false);
+        world.setTime(24000);
+        world.setStorm(false);
+        world.setThundering(false);
 
-        }
     }
 
     @EventHandler

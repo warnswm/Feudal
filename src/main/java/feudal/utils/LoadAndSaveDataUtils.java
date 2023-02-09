@@ -11,14 +11,22 @@ import feudal.utils.wrappers.ChunkWrapper;
 import feudal.visual.scoreboards.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapelessRecipe;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.bukkit.Bukkit.getServer;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LoadAndSaveDataUtils {
@@ -242,10 +250,40 @@ public class LoadAndSaveDataUtils {
         ConfigUtils.readEnchantmentsConfig();
 
     }
+
     public static void saveAllConfigs() {
 
         ConfigUtils.saveDatabaseConfig();
         ConfigUtils.saveEnchantmentsConfig();
 
+    }
+
+    public static void loadCustomCrafts() {
+
+        ItemStack kingdomBlock = new ItemStack(Material.BRICK);
+        ItemMeta kingdomBlockItemMeta = kingdomBlock.getItemMeta();
+        kingdomBlockItemMeta.setDisplayName("Блок королевства");
+        kingdomBlock.setItemMeta(kingdomBlockItemMeta);
+
+        net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(kingdomBlock);
+        NBTTagCompound tag = nmsItem.getTag() != null ? nmsItem.getTag() : new NBTTagCompound();
+        tag.setBoolean("kingdomBlock", true);
+
+        nmsItem.setTag(tag);
+
+
+        ShapelessRecipe recipe = new ShapelessRecipe(CraftItemStack.asBukkitCopy(nmsItem));
+
+        recipe.addIngredient(1, Material.WOOD_STAIRS);
+        recipe.addIngredient(1, Material.WOOD_STAIRS);
+        recipe.addIngredient(1, Material.WOOD);
+        recipe.addIngredient(1, Material.WOOD);
+        recipe.addIngredient(1, Material.STONE);
+        recipe.addIngredient(1, Material.STONE);
+        recipe.addIngredient(1, Material.BRICK);
+        recipe.addIngredient(1, Material.EMERALD);
+        recipe.addIngredient(1, Material.IRON_INGOT);
+
+        getServer().addRecipe(recipe);
     }
 }

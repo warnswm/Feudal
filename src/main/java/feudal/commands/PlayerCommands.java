@@ -46,8 +46,9 @@ public class PlayerCommands implements CommandExecutor {
                 }
 
                 withdrawMoneyFromTheTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
+
                 break;
-            case "gameclassupmenu":
+            case "menu":
 
                 GameClassUpMenu.upgradeGameClass(player);
 
