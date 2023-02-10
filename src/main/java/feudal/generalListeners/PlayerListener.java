@@ -11,7 +11,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
-import org.bukkit.entity.EnderCrystal;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -148,13 +147,6 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
-
-        if ((event.getDamager() instanceof EnderCrystal)) {
-
-            event.setDamage(10);
-            return;
-
-        }
 
         if (!(event.getDamager() instanceof Player)) return;
 
