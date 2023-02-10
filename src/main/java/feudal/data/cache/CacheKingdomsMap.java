@@ -21,9 +21,8 @@ public class CacheKingdomsMap {
 
         for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
 
-            if (!kingdom.getValue().chunkInKingdomCache(chunk)) return false;
-
-            return !kingdom.getValue().getMembers().contains(player);
+            if (kingdom.getValue().chunkInKingdomCache(chunk))
+                return !kingdom.getValue().getMembers().contains(player);
 
         }
 

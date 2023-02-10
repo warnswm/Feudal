@@ -16,8 +16,7 @@ public class BlocksListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        if (CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()) ||
-                event.getBlock().hasMetadata("Kingdom"))
+        if (CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()))
             event.setCancelled(true);
 
     }
