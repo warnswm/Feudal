@@ -4,15 +4,15 @@ import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheKingdomsMap;
 import feudal.data.cache.CachePlayersMap;
-import feudal.utils.TabUtils;
-import feudal.visual.menus.ClerkMenu;
-import org.bukkit.GameMode;
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
+import org.bukkit.inventory.ItemStack;
 
 public class LocalStaffCommands implements CommandExecutor {
     private static boolean isLs(CommandSender sender, String[] args) {
@@ -35,40 +35,30 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "changegameclass":
 
-                feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+                feudalPlayer = CachePlayersMap.getFeudalPlayer(Bukkit.getPlayer(args[1]));
                 feudalPlayer.setaClassID(Integer.parseInt(args[2]));
+
                 break;
+
             case "addchunk":
 
                 feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(args[1]);
                 feudalKingdom.addTerritory(player.getLocation().getChunk());
-                break;
-
-            case "spy":
-
-                if (player.getGameMode().equals(GameMode.SPECTATOR)) {
-
-                    TabUtils.showPlayer(player);
-
-                    if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
-                        player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-
-                    break;
-
-                }
-
-                TabUtils.hidePlayer(player);
-                player.setGameMode(GameMode.SPECTATOR);
-
-                if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0, true, true));
 
                 break;
 
             case "test":
 
-//                GameClassSelectionMenu.openClassSelection(player);
-                ClerkMenu.openClerkMenu(player);
+                ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
+
+                net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+
+                NBTTagCompound tag = nmsItem.getTag() != null ? nmsItem.getTag() : new NBTTagCompound();
+                tag.setBoolean(args[1], true);
+                tag.setInt(args[2], 10);
+
+                nmsItem.setTag(tag);
+                player.getInventory().addItem(CraftItemStack.asBukkitCopy(nmsItem));
 
                 break;
 

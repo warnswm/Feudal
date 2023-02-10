@@ -3,6 +3,7 @@ package feudal;
 import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
+import feudal.commands.StaffCommands;
 import feudal.donateItemsListeners.VampirismListener;
 import feudal.fishing.PlayerCaughtFish;
 import feudal.gameClassesListeners.expListeners.*;
@@ -68,6 +69,7 @@ public final class Feudal extends JavaPlugin {
         getCommand("admin").setExecutor(new AdminCommands());
         getCommand("ls").setExecutor(new LocalStaffCommands());
         getCommand("f").setExecutor(new PlayerCommands());
+        getCommand("s").setExecutor(new StaffCommands());
 
     }
 
