@@ -31,11 +31,11 @@ public class LoadAndSaveDataUtils {
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
         feudalKingdom.setKingdomName(kingdomName)
-                .setKing((Player) KingdomDBHandler.getField(kingdomName, "king"))
+                .setKing(player)
                 .setMembers((List<Player>) KingdomDBHandler.getField(kingdomName, "members"))
                 .setBarons((List<Player>) KingdomDBHandler.getField(kingdomName, "barons"))
                 .setReputation(KingdomDBHandler.getIntegerField(kingdomName, "reputation"))
-                .setBalance(KingdomDBHandler.getLongField(kingdomName, "balance"))
+                .setBalance(KingdomDBHandler.getIntegerField(kingdomName, "balance"))
                 .setTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "territory"))
                 .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
 

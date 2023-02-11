@@ -100,7 +100,7 @@ public class PlayerCommands implements CommandExecutor {
     }
 
     private boolean checkKingdomName(@NotNull String kingdomName) {
-        return kingdomName.length() <= 16 && kingdomName.length() > 3;
+        return kingdomName.length() <= 16 && kingdomName.length() > 3 && CacheFeudalKingdoms.getKingdomInfo().get(kingdomName) == null;
     }
 
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<Player> members) {
@@ -110,7 +110,7 @@ public class PlayerCommands implements CommandExecutor {
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
         feudalKingdom.setKingdomName(kingdomName)
-                .setKing((Player) KingdomDBHandler.getField(kingdomName, "king"))
+                .setKing(player)
                 .setBalance(10000)
                 .setReputation(1000)
                 .setMembers((List<Player>) KingdomDBHandler.getField(kingdomName, "members"))
@@ -119,6 +119,9 @@ public class PlayerCommands implements CommandExecutor {
                 .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        feudalPlayer.setKingdomName(kingdomName);
 
     }
 

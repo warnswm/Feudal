@@ -9,6 +9,8 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import feudal.utils.FeudalValuesUtils;
+import feudal.utils.GsonUtils;
+import feudal.utils.wrappers.ChunkWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -21,6 +23,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -44,14 +47,26 @@ public class KingdomDBHandler {
                     .iterator()
                     .hasNext()) return;
 
+            List<String> membersUUID = new ArrayList<>();
+            members.forEach(member -> membersUUID.add(member.getUniqueId().toString()));
+
+            List<String> baronsUUID = new ArrayList<>();
+            barons.forEach(baron -> baronsUUID.add(baron.getUniqueId().toString()));
+
+            List<String> territoryWrappers = new ArrayList<>();
+            territory.forEach(chunk -> territoryWrappers.add(GsonUtils.chunkToJson(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()))));
+
+            List<String> privateTerritoryWrappers = new ArrayList<>();
+            privateTerritory.forEach(privateChunk -> privateTerritoryWrappers.add(GsonUtils.chunkToJson(new ChunkWrapper(privateChunk.getWorld().getName(), privateChunk.getX(), privateChunk.getZ()))));
+
             collection.insertOne(new Document("_id", kingdomName)
                     .append("king", king.getUniqueId().toString())
-                    .append("members", members)
-                    .append("territory", territory)
-                    .append("privateTerritory", privateTerritory)
+                    .append("members", membersUUID)
+                    .append("territory", territoryWrappers)
+                    .append("privateTerritory", privateTerritoryWrappers)
                     .append("reputation", 1000)
                     .append("balance", 10000)
-                    .append("barons", barons));
+                    .append("barons", baronsUUID));
 
             session.commitTransaction();
 
@@ -110,36 +125,6 @@ public class KingdomDBHandler {
 
             if (document.get(fieldName) != null)
                 return (int) document.get(fieldName);
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-            session.abortTransaction();
-        } finally {
-            session.close();
-        }
-
-        return 0;
-    }
-
-    public static long getLongField(String kingdomName, String fieldName) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            session.startTransaction();
-
-            if (!collection.find(new BasicDBObject("_id", kingdomName))
-                    .iterator()
-                    .hasNext()) return 0;
-
-            Document document = collection.find(new BasicDBObject("_id", kingdomName))
-                    .iterator()
-                    .next();
-
-            if (document.get(fieldName) != null)
-                return (long) document.get(fieldName);
 
             session.commitTransaction();
 
