@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.peasants;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.CreateItemUtils;
 import feudal.utils.MathUtils;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
@@ -18,7 +18,7 @@ public class MinerListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
         Block block = event.getBlock();
 
         if (block.hasMetadata("PLACED") ||

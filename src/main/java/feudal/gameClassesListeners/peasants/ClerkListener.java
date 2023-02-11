@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.peasants;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.EnchantmentEnum;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import feudal.visual.menus.ClerkMenu;
@@ -27,7 +27,7 @@ public class ClerkListener implements Listener {
     @EventHandler
     public void playerItemEnchant(@NotNull EnchantItemEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getEnchanter());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getEnchanter());
 
         if (event.getItem().getType().equals(Material.BOOK) && feudalPlayer.getAClassID() != GameClassesIDEnum.CLERK.getId()) {
 
@@ -52,7 +52,7 @@ public class ClerkListener implements Listener {
     public void playerInteract(@NotNull PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         if (isaBoolean(event, player, feudalPlayer)) return;
 

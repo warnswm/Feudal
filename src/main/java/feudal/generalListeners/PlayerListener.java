@@ -2,7 +2,7 @@ package feudal.generalListeners;
 
 import feudal.Feudal;
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
 import feudal.utils.enums.MoneyForMobsEnum;
 import lombok.AccessLevel;
@@ -55,7 +55,7 @@ public class PlayerListener implements Listener {
 
         if (event.getEntity().getKiller() == null) return;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getEntity().getKiller());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getEntity().getKiller());
 
         if (event.getEntityType() != EntityType.PLAYER) {
 
@@ -64,7 +64,7 @@ public class PlayerListener implements Listener {
 
         }
 
-        FeudalPlayer feudalPlayerDeath = CachePlayersMap.getFeudalPlayer((Player) event.getEntity());
+        FeudalPlayer feudalPlayerDeath = CacheFeudalPlayers.getFeudalPlayer((Player) event.getEntity());
         int balance = feudalPlayerDeath.getBalance() / 100 * MathUtils.getRandomInt(3, 6);
 
         feudalPlayer.addBalance(balance);
@@ -133,7 +133,7 @@ public class PlayerListener implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-        float staminaLvl = CachePlayersMap.getFeudalPlayer(player).getStaminaLvl();
+        float staminaLvl = CacheFeudalPlayers.getFeudalPlayer(player).getStaminaLvl();
         double defaultAmount = event.getAmount();
 
         event.setAmount(defaultAmount * (staminaLvl / 100) + defaultAmount);
@@ -145,7 +145,7 @@ public class PlayerListener implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
 
         Player player = (Player) event.getEntity();
-        float survivabilityLvl = CachePlayersMap.getFeudalPlayer(player).getSurvivabilityLvl();
+        float survivabilityLvl = CacheFeudalPlayers.getFeudalPlayer(player).getSurvivabilityLvl();
 
         event.setAmount(1 * (survivabilityLvl / 200) + 1);
 
@@ -158,14 +158,14 @@ public class PlayerListener implements Listener {
 
         Player player = (Player) event.getDamager();
         Entity entity = event.getEntity();
-        float strengthLvl = CachePlayersMap.getFeudalPlayer(player).getStrengthLvl();
+        float strengthLvl = CacheFeudalPlayers.getFeudalPlayer(player).getStrengthLvl();
         double defaultDamage = event.getDamage();
 
         event.setDamage(defaultDamage * (strengthLvl / 200) + defaultDamage);
 
         if (!(entity instanceof Player)) return;
 
-        event.setDamage(defaultDamage - defaultDamage / 100 * (CachePlayersMap.getFeudalPlayer((Player) entity).getStaminaLvl() * 0.2));
+        event.setDamage(defaultDamage - defaultDamage / 100 * (CacheFeudalPlayers.getFeudalPlayer((Player) entity).getStaminaLvl() * 0.2));
 
     }
 

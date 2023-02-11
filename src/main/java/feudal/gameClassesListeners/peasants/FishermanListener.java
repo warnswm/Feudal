@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.peasants;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
 import feudal.utils.enums.gameClassesEnums.FishermanLootTableEnum;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
@@ -15,7 +15,7 @@ public class FishermanListener implements Listener {
     @EventHandler
     public void playerFishing(@NotNull PlayerFishEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.FISHERMAN.getId() ||
                 feudalPlayer.getGameClassLvl() < 25 ||

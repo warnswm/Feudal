@@ -21,6 +21,7 @@ public class FeudalKingdom {
     List<Player> barons;
     long balance;
     int reputation;
+    List<Player> invitation;
 
     public FeudalKingdom(String kingdomName) {
         this.kingdomName = kingdomName;
@@ -136,6 +137,16 @@ public class FeudalKingdom {
 
     public FeudalKingdom takeReputation(int value) {
         reputation -= value;
+        return this;
+    }
+
+    public FeudalKingdom addInvitation(@NotNull Player player) {
+        invitation.add(player);
+        return this;
+    }
+
+    public FeudalKingdom clearInvitation() {
+        invitation.clear();
         return this;
     }
 

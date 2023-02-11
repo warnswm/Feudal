@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.expListeners;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.gameClassesEnums.BlocksForMinerEnum;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.block.Block;
@@ -19,7 +19,7 @@ public class MinerExpListener implements Listener {
 
         if (block.hasMetadata("PLACED")) return;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.MINER.getId()) return;
 

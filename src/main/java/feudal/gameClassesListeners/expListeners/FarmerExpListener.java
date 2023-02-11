@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.expListeners;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.CropState;
 import org.bukkit.block.Block;
@@ -16,7 +16,7 @@ public class FarmerExpListener implements Listener {
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
         if (block.getData() != CropState.RIPE.getData() || feudalPlayer.getAClassID() != GameClassesIDEnum.FARMER.getId())
             return;

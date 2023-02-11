@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CacheKingdomsMap {
+public class CacheFeudalKingdoms {
     static Map<String, FeudalKingdom> feudalKingdomCache = new HashMap<>();
 
     public static Map<String, FeudalKingdom> getKingdomInfo() {
@@ -19,7 +19,7 @@ public class CacheKingdomsMap {
 
     public static boolean checkPrivate(@NotNull String chunk, @NotNull Player player) {
 
-        for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
+        for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
             if (kingdom.getValue().chunkInKingdomCache(chunk))
                 return !kingdom.getValue().getMembers().contains(player);
@@ -32,7 +32,7 @@ public class CacheKingdomsMap {
 
     public static String playerInKingdomCache(@NotNull Player player) {
 
-        for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet())
+        for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet())
             if (kingdom.getValue().getMembers().contains(player))
                 return kingdom.getValue().getKingdomName();
 

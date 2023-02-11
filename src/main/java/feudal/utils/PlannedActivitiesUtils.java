@@ -2,7 +2,7 @@ package feudal.utils;
 
 import feudal.Feudal;
 import feudal.data.builder.FeudalKingdom;
-import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CacheFeudalKingdoms;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
@@ -16,9 +16,9 @@ public class PlannedActivitiesUtils {
 
         scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
 
-            if (CacheKingdomsMap.getKingdomInfo().isEmpty()) return;
+            if (CacheFeudalKingdoms.getKingdomInfo().isEmpty()) return;
 
-            for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
+            for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
                 FeudalKingdom cacheFeudalKingdom = kingdom.getValue();
                 int reputation = kingdom.getValue().getReputation();

@@ -1,6 +1,6 @@
 package feudal.possessions.territoryListeners;
 
-import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.utils.GsonUtils;
 import feudal.utils.wrappers.ChunkWrapper;
 import org.bukkit.event.EventHandler;
@@ -16,7 +16,7 @@ public class BlocksListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        if (CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()))
+        if (CacheFeudalKingdoms.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()))
             event.setCancelled(true);
 
     }
@@ -24,7 +24,7 @@ public class BlocksListener implements Listener {
     @EventHandler
     public void playerPlaceBlock(@NotNull BlockPlaceEvent event) {
 
-        if (CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()))
+        if (CacheFeudalKingdoms.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()))
             event.setCancelled(true);
 
     }
@@ -32,7 +32,7 @@ public class BlocksListener implements Listener {
     @EventHandler
     public void playerBlockDamage(@NotNull BlockDamageEvent event) {
 
-        if (CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()))
+        if (CacheFeudalKingdoms.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk())), event.getPlayer()))
             event.setCancelled(true);
 
     }

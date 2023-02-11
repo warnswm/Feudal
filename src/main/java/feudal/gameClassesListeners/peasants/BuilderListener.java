@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.peasants;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import feudal.utils.enums.gameClassesEnums.SpawnersForBuilderEnum;
 import org.bukkit.Material;
@@ -17,7 +17,7 @@ public class BuilderListener implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
         Block block = event.getBlock();
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.BUILDER.getId() ||

@@ -1,6 +1,6 @@
 package feudal.visual.menus;
 
-import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.utils.CreateItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -14,7 +14,7 @@ public class KingdomMenu {
 
         Inventory kingdomMenu = Bukkit.createInventory(player, 54, "Меню королевства");
 
-        kingdomMenu.setItem(22, CreateItemUtils.createItem(Material.NAME_TAG, 1, "⌦ Переименовать королевство", "⌦ Текущее имя королевства: " + CacheKingdomsMap.playerInKingdomCache(player)));
+        kingdomMenu.setItem(22, CreateItemUtils.createItem(Material.NAME_TAG, 1, "⌦ Переименовать королевство", "⌦ Текущее имя королевства: " + CacheFeudalKingdoms.playerInKingdomCache(player)));
 
         player.openInventory(kingdomMenu);
 

@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.expListeners;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.gameClassesEnums.AnimalsForShepherdEnum;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ public class ShepherdExpListener implements Listener {
         if (!(event.getBreeder() instanceof Player)) return;
 
         Player player = (Player) event.getBreeder();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.SHEPHERD.getId()) return;
 

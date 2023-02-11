@@ -1,6 +1,6 @@
 package feudal.generalListeners;
 
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.data.database.PlayerDBHandler;
 import feudal.utils.LoadAndSaveDataUtils;
@@ -37,7 +37,7 @@ public class PlayerJoinAndQuit implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void playerQuit(@NotNull PlayerQuitEvent event) {
 
-        if (CachePlayersMap.getFeudalPlayer(event.getPlayer()) == null) return;
+        if (CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()) == null) return;
 
         Player player = event.getPlayer();
 

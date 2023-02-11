@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.expListeners;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -17,7 +17,7 @@ public class WoodcutterExpListener implements Listener {
     public void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(event.getPlayer());
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
         if (block.hasMetadata("PLACED") ||
                 feudalPlayer.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId() ||

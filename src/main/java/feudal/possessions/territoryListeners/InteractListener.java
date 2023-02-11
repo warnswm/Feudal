@@ -1,6 +1,6 @@
 package feudal.possessions.territoryListeners;
 
-import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.utils.GsonUtils;
 import feudal.utils.enums.PrivateBlocksEnum;
 import feudal.utils.wrappers.ChunkWrapper;
@@ -16,7 +16,7 @@ public class InteractListener implements Listener {
     public void playerInteract(@NotNull PlayerInteractEvent event) {
 
         if (event.getClickedBlock() == null ||
-                !CacheKingdomsMap.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk())), event.getPlayer()) ||
+                !CacheFeudalKingdoms.checkPrivate(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk())), event.getPlayer()) ||
                 !PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()))
             return;
 

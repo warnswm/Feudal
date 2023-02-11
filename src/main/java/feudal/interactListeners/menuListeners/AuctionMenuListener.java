@@ -1,7 +1,7 @@
 package feudal.interactListeners.menuListeners;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.CreateItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -28,7 +28,7 @@ public class AuctionMenuListener implements Listener {
         if (event.getCurrentItem().getItemMeta() == null)
             return;
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         if (event.getView().getTitle().equals("Аукцион")) {
 

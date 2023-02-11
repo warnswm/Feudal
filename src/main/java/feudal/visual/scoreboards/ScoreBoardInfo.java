@@ -1,7 +1,7 @@
 package feudal.visual.scoreboards;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
@@ -18,7 +18,7 @@ public class ScoreBoardInfo {
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         objective.setDisplayName("Feudal");
 
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         Score name = objective.getScore("Имя: " + player.getName());
         Score kingdom = objective.getScore("Королевство: " + feudalPlayer.getKingdomName());

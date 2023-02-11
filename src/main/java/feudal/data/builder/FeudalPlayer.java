@@ -6,6 +6,8 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 @Getter
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -24,6 +26,7 @@ public class FeudalPlayer {
     int gameClassLvl;
     int gameClassExperience;
     String kingdomName;
+    List<String> invitations;
 
     public FeudalPlayer(Player player) {
         this.player = player;
@@ -211,4 +214,15 @@ public class FeudalPlayer {
         gameClassExperience -= value;
         return this;
     }
+
+    public FeudalPlayer addInvitations(String kingdomName) {
+        invitations.add(kingdomName);
+        return this;
+    }
+
+    public FeudalPlayer clearInvitations() {
+        invitations.clear();
+        return this;
+    }
+
 }

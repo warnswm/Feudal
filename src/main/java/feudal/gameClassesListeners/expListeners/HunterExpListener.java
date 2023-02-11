@@ -1,7 +1,7 @@
 package feudal.gameClassesListeners.expListeners;
 
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.gameClassesEnums.AnimalsForHuntedEnum;
 import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ public class HunterExpListener implements Listener {
         if (event.getEntity().getKiller() == null) return;
 
         Player player = event.getEntity().getKiller();
-        FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.HUNTER.getId()) return;
 

@@ -3,8 +3,8 @@ package feudal.utils;
 import feudal.Feudal;
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CacheKingdomsMap;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalKingdoms;
+import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.data.database.PlayerDBHandler;
 import feudal.utils.wrappers.ChunkWrapper;
@@ -39,7 +39,7 @@ public class LoadAndSaveDataUtils {
                 .setTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "territory"))
                 .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
 
-        CacheKingdomsMap.getKingdomInfo().put(kingdomName, feudalKingdom);
+        CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
     }
 
@@ -47,7 +47,7 @@ public class LoadAndSaveDataUtils {
 
         new Thread(() -> {
 
-            for (Map.Entry<String, FeudalKingdom> kingdom : CacheKingdomsMap.getKingdomInfo().entrySet()) {
+            for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
                 FeudalKingdom cacheFeudalKingdom = kingdom.getValue();
                 String kingdomName = cacheFeudalKingdom.getKingdomName();
@@ -73,7 +73,7 @@ public class LoadAndSaveDataUtils {
                 KingdomDBHandler.setField(kingdomName, "balance", cacheFeudalKingdom.getBalance());
                 KingdomDBHandler.setField(kingdomName, "reputation", cacheFeudalKingdom.getReputation());
 
-                CacheKingdomsMap.getKingdomInfo().remove(kingdomName);
+                CacheFeudalKingdoms.getKingdomInfo().remove(kingdomName);
 
             }
         }).start();
@@ -119,7 +119,7 @@ public class LoadAndSaveDataUtils {
 
         Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
 
-            FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
             PlayerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
             PlayerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
@@ -135,7 +135,7 @@ public class LoadAndSaveDataUtils {
             PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
-            CachePlayersMap.getFeudalPlayerInfo().remove(player);
+            CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
 
         }).start());
 
@@ -185,7 +185,7 @@ public class LoadAndSaveDataUtils {
                 .setKingdomName(PlayerDBHandler.getStringField(player, "kingdomName"))
                 .setSurvivabilityLvl(PlayerDBHandler.getIntegerField(player, "survivabilityLvl"));
 
-        CachePlayersMap.getFeudalPlayerInfo().put(player, feudalPlayer);
+        CacheFeudalPlayers.getFeudalPlayerInfo().put(player, feudalPlayer);
 
     }
 
@@ -209,7 +209,7 @@ public class LoadAndSaveDataUtils {
 
         new Thread(() -> {
 
-            FeudalPlayer feudalPlayer = CachePlayersMap.getFeudalPlayer(player);
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
             PlayerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
             PlayerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
@@ -225,7 +225,7 @@ public class LoadAndSaveDataUtils {
             PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
-            CachePlayersMap.getFeudalPlayerInfo().remove(player);
+            CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
 
         }).start();
 

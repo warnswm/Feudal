@@ -1,7 +1,7 @@
 package feudal.possessions;
 
 import feudal.data.builder.FeudalKingdom;
-import feudal.data.cache.CacheKingdomsMap;
+import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.database.KingdomDBHandler;
 import feudal.utils.GsonUtils;
 import feudal.utils.wrappers.ChunkWrapper;
@@ -24,7 +24,7 @@ public class AddStartTerritory {
             if (KingdomDBHandler.chunkInKingdom(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))))
                 return false;
 
-            FeudalKingdom feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(kingdomName);
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
 
             feudalKingdom.addTerritory(chunk);
             feudalKingdom.addPrivateTerritory(chunk);

@@ -2,8 +2,8 @@ package feudal.commands;
 
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
-import feudal.data.cache.CacheKingdomsMap;
-import feudal.data.cache.CachePlayersMap;
+import feudal.data.cache.CacheFeudalKingdoms;
+import feudal.data.cache.CacheFeudalPlayers;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -35,14 +35,14 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "changegameclass":
 
-                feudalPlayer = CachePlayersMap.getFeudalPlayer(Bukkit.getPlayer(args[1]));
+                feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(args[1]));
                 feudalPlayer.setaClassID(Integer.parseInt(args[2]));
 
                 break;
 
             case "addchunk":
 
-                feudalKingdom = CacheKingdomsMap.getKingdomInfo().get(args[1]);
+                feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
                 feudalKingdom.addTerritory(player.getLocation().getChunk());
 
                 break;
