@@ -62,6 +62,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "reject":
+
+                reject(player, args[1]);
+
+                break;
+
             default:
                 player.sendMessage("Не известная команда! Введите /f help, чтобы посмотреть доступные команды");
 
@@ -224,8 +230,6 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.addMember(player);
 
-        System.out.println(feudalKingdom);
-        System.out.println(feudalKingdom.getMembers());
         feudalPlayer.setKingdomName(kingdomName);
         feudalPlayer.clearInvitations();
 
@@ -233,6 +237,30 @@ public class PlayerCommands implements CommandExecutor {
                 player.getDisplayName() +
                 ", принял ваше приглашение!");
         player.sendMessage("Вы вступили в королевство: " +
+                kingdomName);
+
+    }
+
+    private void reject(@NotNull Player player, String kingdomName) {
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
+        if (!feudalPlayer.getInvitations().contains(kingdomName)) {
+
+            player.sendMessage("Вы не были приглашены этим королевством!");
+            return;
+
+        }
+
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
+        feudalKingdom.deleteInvitation(player);
+        feudalPlayer.deleteInvitations(kingdomName);
+
+        feudalKingdom.getKing().sendMessage("Игрок " +
+                player.getDisplayName() +
+                ", отклонил ваше приглашение.");
+        player.sendMessage("Вы отклонили приграшение в королевство: " +
                 kingdomName);
 
     }

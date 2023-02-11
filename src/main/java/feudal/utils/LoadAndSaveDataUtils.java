@@ -70,29 +70,30 @@ public class LoadAndSaveDataUtils {
 
             for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
-                FeudalKingdom cacheFeudalKingdom = kingdom.getValue();
-                String kingdomName = cacheFeudalKingdom.getKingdomName();
+                FeudalKingdom feudalKingdom = kingdom.getValue();
+                String kingdomName = feudalKingdom.getKingdomName();
+
+                feudalKingdom.clearInvitation();
 
                 List<String> members = new ArrayList<>();
-                cacheFeudalKingdom.getMembers().forEach(member -> members.add(member.getUniqueId().toString()));
+                feudalKingdom.getMembers().forEach(member -> members.add(member.getUniqueId().toString()));
 
                 List<String> barons = new ArrayList<>();
-                cacheFeudalKingdom.getBarons().forEach(baron -> barons.add(baron.getUniqueId().toString()));
+                feudalKingdom.getBarons().forEach(baron -> barons.add(baron.getUniqueId().toString()));
 
                 List<String> territory = new ArrayList<>();
-                cacheFeudalKingdom.getTerritory().forEach(chunk -> territory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
+                feudalKingdom.getTerritory().forEach(chunk -> territory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
                 List<String> privateTerritory = new ArrayList<>();
-                cacheFeudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
+                feudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
-
-                KingdomDBHandler.setField(kingdomName, "king", cacheFeudalKingdom.getKing().getUniqueId().toString());
+                KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKing().getUniqueId().toString());
                 KingdomDBHandler.setField(kingdomName, "members", members);
                 KingdomDBHandler.setField(kingdomName, "barons", barons);
                 KingdomDBHandler.setField(kingdomName, "territory", territory);
                 KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
-                KingdomDBHandler.setField(kingdomName, "balance", cacheFeudalKingdom.getBalance());
-                KingdomDBHandler.setField(kingdomName, "reputation", cacheFeudalKingdom.getReputation());
+                KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
+                KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
 
                 CacheFeudalKingdoms.getKingdomInfo().remove(kingdomName);
 
@@ -112,6 +113,8 @@ public class LoadAndSaveDataUtils {
             if (kingdomName.equals("")) return;
 
             FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
+
+            feudalKingdom.clearInvitation();
 
             List<String> members = new ArrayList<>();
             feudalKingdom.getMembers().forEach(member -> members.add(member.getUniqueId().toString()));

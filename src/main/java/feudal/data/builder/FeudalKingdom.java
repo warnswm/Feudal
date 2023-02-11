@@ -151,6 +151,11 @@ public class FeudalKingdom {
         return this;
     }
 
+    public FeudalKingdom deleteInvitation(@NotNull Player player) {
+        invitation.remove(player);
+        return this;
+    }
+
 
     public boolean chunkInKingdomCache(@NotNull String chunk) {
         return territory.contains(chunk);

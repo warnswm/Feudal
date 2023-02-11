@@ -226,4 +226,9 @@ public class FeudalPlayer {
         return this;
     }
 
+    public FeudalPlayer deleteInvitations(String kingdomName) {
+        invitations.remove(kingdomName);
+        return this;
+    }
+
 }
