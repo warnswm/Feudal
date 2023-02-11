@@ -1,5 +1,8 @@
 package feudal.interactListeners.menuListeners;
 
+import feudal.utils.CreateItemUtils;
+import feudal.utils.enums.gameClassesEnums.ClerkTakeExpEnum;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,6 +30,8 @@ public class ClerkMenuListener implements Listener {
             if (!player.getInventory().getItemInMainHand().getEnchantments().containsKey(enchantment)) return;
 
             player.getInventory().getItemInMainHand().removeEnchantment(enchantment);
+            player.getInventory().addItem(CreateItemUtils.createItem(Material.ENCHANTED_BOOK, enchantment, event.getCurrentItem().getEnchantments().get(enchantment).byteValue(), 1));
+            player.setExp(player.getExp() - ClerkTakeExpEnum.getLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2);
 
             player.closeInventory();
 

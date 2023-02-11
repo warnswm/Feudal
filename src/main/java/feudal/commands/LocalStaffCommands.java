@@ -35,7 +35,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "changegameclass":
 
-                feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(args[1]));
+                feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
                 feudalPlayer.setaClassID(Integer.parseInt(args[2]));
 
                 break;
