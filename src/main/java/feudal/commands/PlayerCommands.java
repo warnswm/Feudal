@@ -134,8 +134,9 @@ public class PlayerCommands implements CommandExecutor {
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
-
         feudalPlayer.setKingdomName(kingdomName);
+
+        player.sendMessage("Вы успешно создали королевство " + kingdomName);
 
     }
 
@@ -172,22 +173,16 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        }
-
-        if (invitedPlayer == null || !invitedPlayer.isOnline()) {
+        } else if (invitedPlayer == null || !invitedPlayer.isOnline()) {
 
             playerInviting.sendMessage("Игрок не найден на сервере!");
             return;
 
-        }
-
-        if (invitedPlayer == playerInviting) {
+        } else if (invitedPlayer == playerInviting) {
 
             playerInviting.sendMessage("Вы не можете пригласить самого себя!");
             return;
-        }
-
-        if (feudalKingdom.getKing() != playerInviting) {
+        } else if (feudalKingdom.getKing() != playerInviting) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;

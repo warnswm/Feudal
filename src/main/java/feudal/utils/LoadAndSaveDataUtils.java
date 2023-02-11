@@ -60,8 +60,6 @@ public class LoadAndSaveDataUtils {
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
-        System.out.println(feudalKingdom.toString());
-
     }
 
     public static void saveAllKingdoms() {
