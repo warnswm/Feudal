@@ -31,6 +31,18 @@ public class ClerkMenuListener implements Listener {
 
             player.getInventory().getItemInMainHand().removeEnchantment(enchantment);
             player.getInventory().addItem(CreateItemUtils.createItem(Material.ENCHANTED_BOOK, enchantment, event.getCurrentItem().getEnchantments().get(enchantment).byteValue(), 1));
+
+            float exp = player.getExp() - ClerkTakeExpEnum.getLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2;
+
+            if (exp <= 0) {
+
+                player.sendMessage("Недостаточно опыта!");
+                player.closeInventory();
+
+                return;
+
+            }
+
             player.setExp(player.getExp() - ClerkTakeExpEnum.getLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2);
 
             player.closeInventory();
