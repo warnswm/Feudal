@@ -6,6 +6,7 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,7 +27,7 @@ public class FeudalPlayer {
     int gameClassLvl;
     int gameClassExperience;
     String kingdomName;
-    List<String> invitations;
+    final List<String> invitations = new ArrayList<>();
 
     public FeudalPlayer(Player player) {
         this.player = player;

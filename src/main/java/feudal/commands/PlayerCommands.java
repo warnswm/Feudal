@@ -163,7 +163,7 @@ public class PlayerCommands implements CommandExecutor {
 
         if (kingdomName.equals("") || feudalKingdom == null) {
 
-            playerInviting.sendMessage("Вы не находитесь в королевстве!");
+            playerInviting.sendMessage("Вы не состоите в королевстве!");
             return;
 
         }
@@ -173,7 +173,9 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Игрок не найден на сервере!");
             return;
 
-        } else if (invitedPlayer == playerInviting) {
+        }
+
+        if (invitedPlayer == playerInviting) {
 
             playerInviting.sendMessage("Вы не можете пригласить самого себя!");
             return;
@@ -190,7 +192,7 @@ public class PlayerCommands implements CommandExecutor {
 
         if (!feudalInvitedPlayer.getKingdomName().equals("")) {
 
-            playerInviting.sendMessage("Игрок уже состоит в другом королевстве!");
+            playerInviting.sendMessage("Игрок уже состоит в королевстве!");
             return;
 
         }
@@ -198,7 +200,11 @@ public class PlayerCommands implements CommandExecutor {
         feudalKingdom.addInvitation(invitedPlayer);
         feudalInvitedPlayer.addInvitations(kingdomName);
 
-        invitedPlayer.sendMessage("Игрок: " + playerInviting.getDisplayName() + " приглашает вас вступить в его королевство, " + kingdomName + ". Введите /f accept [имя королевства], чтобы принять приглашение!");
+        invitedPlayer.sendMessage("Игрок " +
+                playerInviting.getName() +
+                ", приглашает вас вступить в его королевство - " +
+                kingdomName +
+                ". Введите /f accept [имя королевства], чтобы принять приглашение!");
         playerInviting.sendMessage("Приглашение отправлено!");
 
     }
@@ -217,11 +223,17 @@ public class PlayerCommands implements CommandExecutor {
         FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
 
         feudalKingdom.addMember(player);
+
+        System.out.println(feudalKingdom);
+        System.out.println(feudalKingdom.getMembers());
         feudalPlayer.setKingdomName(kingdomName);
         feudalPlayer.clearInvitations();
 
-        feudalKingdom.getKing().sendMessage("Игрок: " + player.getDisplayName() + " принял ваше приглашение!");
-        player.sendMessage("Вы вступили в королевство: " + kingdomName);
+        feudalKingdom.getKing().sendMessage("Игрок " +
+                player.getDisplayName() +
+                ", принял ваше приглашение!");
+        player.sendMessage("Вы вступили в королевство: " +
+                kingdomName);
 
     }
 

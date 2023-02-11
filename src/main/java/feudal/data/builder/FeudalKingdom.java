@@ -7,6 +7,7 @@ import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -15,13 +16,13 @@ public class FeudalKingdom {
 
     String kingdomName;
     Player king;
-    List<Player> members;
-    List<Chunk> territory;
-    List<Chunk> privateTerritory;
-    List<Player> barons;
+    List<Player> members = new ArrayList<>();
+    List<Chunk> territory = new ArrayList<>();
+    List<Chunk> privateTerritory = new ArrayList<>();
+    List<Player> barons = new ArrayList<>();
     long balance;
     int reputation;
-    List<Player> invitation;
+    final List<Player> invitation = new ArrayList<>();
 
     public FeudalKingdom(String kingdomName) {
         this.kingdomName = kingdomName;

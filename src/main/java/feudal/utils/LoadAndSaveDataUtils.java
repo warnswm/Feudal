@@ -60,6 +60,8 @@ public class LoadAndSaveDataUtils {
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
+        System.out.println(feudalKingdom.toString());
+
     }
 
     public static void saveAllKingdoms() {
@@ -122,6 +124,7 @@ public class LoadAndSaveDataUtils {
 
             List<String> privateTerritory = new ArrayList<>();
             feudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
+
 
             KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKing());
             KingdomDBHandler.setField(kingdomName, "members", members);
