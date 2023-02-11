@@ -31,7 +31,7 @@ public class PlannedActivitiesUtils {
 
                 }
 
-                long balance = kingdom.getValue().getBalance();
+                int balance = kingdom.getValue().getBalance();
 
                 int landTax = reputation == 1000 ? 1500 : 1500 * (1000 - reputation) / 1000 + 1500;
                 int taxOnResidents = reputation == 1000 ? 300 : 300 * (1000 - reputation) / 1000 + 300;

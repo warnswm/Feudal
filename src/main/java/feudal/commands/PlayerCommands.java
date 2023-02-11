@@ -92,7 +92,7 @@ public class PlayerCommands implements CommandExecutor {
 
         if (!checkKingdomName(kingdomName)) {
 
-            player.sendMessage("Невозможно создать королевство с таким именем");
+            player.sendMessage("Нельзя создать королевство с таким именем!");
             return;
 
         }
@@ -105,7 +105,13 @@ public class PlayerCommands implements CommandExecutor {
     }
 
     private boolean checkKingdomName(@NotNull String kingdomName) {
-        return kingdomName.length() <= 16 && kingdomName.length() > 3 && CacheFeudalKingdoms.getKingdomInfo().get(kingdomName) == null;
+
+        kingdomName.replaceAll("[^A-Za-zА-Яа-я0-9]", "");
+
+        return kingdomName.length() <= 16 &&
+                kingdomName.length() > 3 &&
+                CacheFeudalKingdoms.getKingdomInfo().get(kingdomName) == null;
+
     }
 
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<Player> members) {
@@ -182,9 +188,15 @@ public class PlayerCommands implements CommandExecutor {
 
             playerInviting.sendMessage("Вы не можете пригласить самого себя!");
             return;
+
         } else if (feudalKingdom.getKing() != playerInviting) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
+            return;
+
+        } else if (feudalKingdom.getInvitation().contains(invitedPlayer)) {
+
+            playerInviting.sendMessage("Приглашение уже отправлено этому игроку!");
             return;
 
         }

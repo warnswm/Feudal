@@ -20,7 +20,7 @@ public class FeudalKingdom {
     List<Chunk> territory = new ArrayList<>();
     List<Chunk> privateTerritory = new ArrayList<>();
     List<Player> barons = new ArrayList<>();
-    long balance;
+    int balance;
     int reputation;
     final List<Player> invitation = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class FeudalKingdom {
         return this;
     }
 
-    public FeudalKingdom setBalance(long balance) {
+    public FeudalKingdom setBalance(int balance) {
         this.balance = balance;
         return this;
     }
@@ -90,7 +90,7 @@ public class FeudalKingdom {
         return this;
     }
 
-    public FeudalKingdom addBalance(long value) {
+    public FeudalKingdom addBalance(int value) {
         balance += value;
         return this;
     }
@@ -131,7 +131,7 @@ public class FeudalKingdom {
         return this;
     }
 
-    public FeudalKingdom takeBalance(long value) {
+    public FeudalKingdom takeBalance(int value) {
         balance -= value;
         return this;
     }
