@@ -4,7 +4,7 @@ import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
 import feudal.commands.StaffCommands;
-import feudal.donateItemsListeners.VampirismListener;
+import feudal.donateItemsListeners.*;
 import feudal.fishing.PlayerCaughtFish;
 import feudal.gameClassesListeners.expListeners.*;
 import feudal.gameClassesListeners.peasants.*;
@@ -95,6 +95,14 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
 
+        Bukkit.getPluginManager().registerEvents(new BlindnessListener(), this);
+//        Bukkit.getPluginManager().registerEvents(new DesiccationListener(), this);
+        Bukkit.getPluginManager().registerEvents(new DoubleDamageListener(), this);
+        Bukkit.getPluginManager().registerEvents(new LevitationListener(), this);
+        Bukkit.getPluginManager().registerEvents(new NauseaListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PoisoningListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SlowdownListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SwordStunListener(), this);
         Bukkit.getPluginManager().registerEvents(new VampirismListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new FarmerExpListener(), this);

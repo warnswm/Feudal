@@ -87,6 +87,9 @@ public class LoadAndSaveDataUtils {
         new Thread(() -> {
 
             String kingdomName = KingdomDBHandler.getPlayerKingdom(player);
+
+            if (kingdomName.equals("")) return;
+
             FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
             List<String> members = new ArrayList<>();

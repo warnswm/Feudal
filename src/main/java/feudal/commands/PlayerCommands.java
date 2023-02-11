@@ -6,7 +6,6 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -105,6 +104,15 @@ public class PlayerCommands implements CommandExecutor {
 
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<Player> members) {
 
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
+        if (!feudalPlayer.getKingdomName().equals("")) {
+
+            player.sendMessage("Вы уже состоите в королевстве!");
+            return;
+
+        }
+
         KingdomDBHandler.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
@@ -113,14 +121,14 @@ public class PlayerCommands implements CommandExecutor {
                 .setKing(player)
                 .setBalance(10000)
                 .setReputation(1000)
-                .setMembers((List<Player>) KingdomDBHandler.getField(kingdomName, "members"))
-                .setBarons((List<Player>) KingdomDBHandler.getField(kingdomName, "barons"))
-                .setTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
+                .setMembers(members)
+                .setBarons(Collections.EMPTY_LIST)
+                .setTerritory(Collections.EMPTY_LIST)
+                .setPrivateTerritory(Collections.EMPTY_LIST);
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
         feudalPlayer.setKingdomName(kingdomName);
 
     }
@@ -152,6 +160,8 @@ public class PlayerCommands implements CommandExecutor {
 
         Player invitedPlayer = Bukkit.getPlayer(nick);
         FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
+        if (feudalKingdom == null) return;
 
         if (kingdomName.equals("")) {
 
