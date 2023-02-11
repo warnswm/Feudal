@@ -147,6 +147,8 @@ public class LoadAndSaveDataUtils {
 
             FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
+            feudalPlayer.clearInvitations();
+
             PlayerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
             PlayerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
             PlayerDBHandler.setField(player, "gameClassLvl", feudalPlayer.getGameClassLvl());
