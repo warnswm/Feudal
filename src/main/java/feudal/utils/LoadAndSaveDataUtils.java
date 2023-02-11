@@ -1,5 +1,6 @@
 package feudal.utils;
 
+import com.google.gson.Gson;
 import feudal.Feudal;
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LoadAndSaveDataUtils {
@@ -30,14 +32,31 @@ public class LoadAndSaveDataUtils {
         String kingdomName = KingdomDBHandler.getPlayerKingdom(player);
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
+        List<String> membersDB = (List<String>) KingdomDBHandler.getField(kingdomName, "members");
+        List<String> baronsDB = (List<String>) KingdomDBHandler.getField(kingdomName, "barons");
+        List<String> territoryDB = (List<String>) KingdomDBHandler.getField(kingdomName, "territory");
+        List<String> privateTerritoryDB = (List<String>) KingdomDBHandler.getField(kingdomName, "privateTerritory");
+
+        List<Player> members = new ArrayList<>();
+        Objects.requireNonNull(membersDB).forEach(member -> members.add(Bukkit.getPlayer(member)));
+
+        List<Player> barons = new ArrayList<>();
+        Objects.requireNonNull(baronsDB).forEach(baron -> barons.add(Bukkit.getPlayer(baron)));
+
+        List<Chunk> territory = new ArrayList<>();
+        Objects.requireNonNull(territoryDB).forEach(chunk -> territory.add(ChunkWrapper.chunkWrapperToChunk(new Gson().fromJson(chunk, ChunkWrapper.class))));
+
+        List<Chunk> privateTerritory = new ArrayList<>();
+        Objects.requireNonNull(privateTerritoryDB).forEach(privateChunk -> privateTerritory.add(ChunkWrapper.chunkWrapperToChunk(new Gson().fromJson(privateChunk, ChunkWrapper.class))));
+
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(player)
-                .setMembers((List<Player>) KingdomDBHandler.getField(kingdomName, "members"))
-                .setBarons((List<Player>) KingdomDBHandler.getField(kingdomName, "barons"))
+                .setMembers(members)
+                .setBarons(barons)
                 .setReputation(KingdomDBHandler.getIntegerField(kingdomName, "reputation"))
                 .setBalance(KingdomDBHandler.getIntegerField(kingdomName, "balance"))
-                .setTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "territory"))
-                .setPrivateTerritory((List<Chunk>) KingdomDBHandler.getField(kingdomName, "privateTerritory"));
+                .setTerritory(territory)
+                .setPrivateTerritory(privateTerritory);
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 

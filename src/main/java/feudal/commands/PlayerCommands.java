@@ -158,22 +158,28 @@ public class PlayerCommands implements CommandExecutor {
 
     private void invitePlayer(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
 
-        Player invitedPlayer = Bukkit.getPlayer(nick);
+        Player invitedPlayer = Bukkit.getPlayerExact(nick);
         FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
 
-        if (feudalKingdom == null) return;
-
-        if (kingdomName.equals("")) {
+        if (kingdomName.equals("") || feudalKingdom == null) {
 
             playerInviting.sendMessage("Вы не находитесь в королевстве!");
             return;
 
-        } else if (invitedPlayer == null || !invitedPlayer.isOnline()) {
+        }
+
+        if (invitedPlayer == null || !invitedPlayer.isOnline()) {
 
             playerInviting.sendMessage("Игрок не найден на сервере!");
             return;
 
-        } else if (feudalKingdom.getKing() != playerInviting) {
+        } else if (invitedPlayer == playerInviting) {
+
+            playerInviting.sendMessage("Вы не можете пригласить самого себя!");
+            return;
+        }
+
+        if (feudalKingdom.getKing() != playerInviting) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
