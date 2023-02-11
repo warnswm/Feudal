@@ -100,13 +100,18 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void playerEats(@NotNull PlayerItemConsumeEvent event) {
 
-        if (event.getItem().getType().equals(Material.GOLDEN_APPLE))
+        if (event.getItem().getType().equals(Material.GOLDEN_APPLE)) {
+
             event.getPlayer().setCooldown(Material.GOLDEN_APPLE, 220);
+            return;
+
+        }
 
         if (CraftItemStack.asNMSCopy(event.getItem()).getTag() == null ||
                 !Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getBoolean("cookedByChef") ||
                 Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItem()).getTag()).getByte("chefLvl") < 25)
             return;
+
 
         Player player = event.getPlayer();
 
@@ -131,6 +136,7 @@ public class PlayerListener implements Listener {
         double defaultAmount = event.getAmount();
 
         event.setAmount(defaultAmount * (staminaLvl / 100) + defaultAmount);
+
     }
 
     @EventHandler
