@@ -7,14 +7,14 @@ import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.TabUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerJoinAndQuit implements Listener {
-
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
@@ -34,7 +34,7 @@ public class PlayerJoinAndQuit implements Listener {
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void playerQuit(@NotNull PlayerQuitEvent event) {
 
         if (CachePlayersMap.getFeudalPlayer(event.getPlayer()) == null) return;

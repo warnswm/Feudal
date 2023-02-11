@@ -15,6 +15,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -126,7 +127,7 @@ public class PlayerListener implements Listener {
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerOnFoodChange(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
@@ -138,8 +139,7 @@ public class PlayerListener implements Listener {
         event.setAmount(defaultAmount * (staminaLvl / 100) + defaultAmount);
 
     }
-
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerRegenerationEvent(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
@@ -151,7 +151,7 @@ public class PlayerListener implements Listener {
 
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (!(event.getDamager() instanceof Player)) return;
@@ -174,7 +174,7 @@ public class PlayerListener implements Listener {
         event.getBlock().setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
