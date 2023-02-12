@@ -226,7 +226,7 @@ public class LoadAndSaveDataUtils {
 
     public static void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
 
-        player.setMaxHealth(20 * (survivabilityLvl / 100.0F) + 20);
+        player.setMaxHealth(16 * (survivabilityLvl / 100.0F) + 16);
         player.setWalkSpeed(0.2f * (speedLvl / 100) + 0.2f);
         ScoreBoardInfo.createScoreBoardInfo(player);
 

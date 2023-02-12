@@ -36,6 +36,7 @@ public class AttributesUpMenuListener implements Listener {
                 ScoreBoardInfo.createScoreBoardInfo(player);
 
                 break;
+
             case "Прокачать уровень выносливости":
 
                 feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getStaminaLvl()) * 100));
@@ -45,6 +46,7 @@ public class AttributesUpMenuListener implements Listener {
                 ScoreBoardInfo.createScoreBoardInfo(player);
 
                 break;
+
             case "Прокачать уровень удачи":
 
                 feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getLuckLvl()) * 100));
@@ -54,6 +56,7 @@ public class AttributesUpMenuListener implements Listener {
                 ScoreBoardInfo.createScoreBoardInfo(player);
 
                 break;
+
             case "Прокачать уровень живучести":
 
                 feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getSurvivabilityLvl()) * 100));
@@ -66,6 +69,7 @@ public class AttributesUpMenuListener implements Listener {
                 ScoreBoardInfo.createScoreBoardInfo(player);
 
                 break;
+
             case "Прокачать уровень скорости":
 
                 feudalPlayer.setExperience((int) (feudalPlayer.getExperience() - Math.pow(1 + 0.05, feudalPlayer.getSpeedLvl()) * 100));
