@@ -139,6 +139,7 @@ public class PlayerListener implements Listener {
         event.setAmount(defaultAmount * (staminaLvl / 100) + defaultAmount);
 
     }
+
     @EventHandler(priority = EventPriority.HIGH)
     public void playerRegenerationEvent(@NotNull EntityRegainHealthEvent event) {
 

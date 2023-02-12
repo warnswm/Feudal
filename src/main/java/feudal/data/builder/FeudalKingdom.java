@@ -14,6 +14,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalKingdom {
 
+    final List<Player> invitation = new ArrayList<>();
     String kingdomName;
     Player king;
     List<Player> members = new ArrayList<>();
@@ -23,7 +24,6 @@ public class FeudalKingdom {
     List<Player> barons = new ArrayList<>();
     int balance;
     int reputation;
-    final List<Player> invitation = new ArrayList<>();
 
     public FeudalKingdom(String kingdomName) {
         this.kingdomName = kingdomName;

@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalPlayer {
+    final List<String> invitations = new ArrayList<>();
     Player player;
     int aClassID;
     int experience;
@@ -27,7 +28,6 @@ public class FeudalPlayer {
     int gameClassLvl;
     int gameClassExperience;
     String kingdomName;
-    final List<String> invitations = new ArrayList<>();
 
     public FeudalPlayer(Player player) {
         this.player = player;
