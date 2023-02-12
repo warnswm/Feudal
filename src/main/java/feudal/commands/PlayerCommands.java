@@ -1,10 +1,12 @@
 package feudal.commands;
 
+import feudal.Feudal;
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
+import feudal.utils.PlannedActivitiesUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -229,10 +231,20 @@ public class PlayerCommands implements CommandExecutor {
 
         invitedPlayer.sendMessage("Игрок " +
                 playerInviting.getName() +
-                ", приглашает вас вступить в его королевство - " +
+                " приглашает вас вступить в его королевство - " +
                 kingdomName +
                 ". Введите /f accept [имя королевства], чтобы принять приглашение!");
         playerInviting.sendMessage("Приглашение отправлено!");
+
+
+        PlannedActivitiesUtils.scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
+
+            feudalInvitedPlayer.deleteInvitations(kingdomName);
+            feudalKingdom.deleteInvitation(invitedPlayer);
+
+            playerInviting.sendMessage("Игрок " + invitedPlayer.getName() + " не принял ваше приглашение!");
+
+        }, 0L), 2400);
 
     }
 
@@ -256,7 +268,7 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.getKing().sendMessage("Игрок " +
                 player.getDisplayName() +
-                ", принял ваше приглашение!");
+                " принял ваше приглашение!");
         player.sendMessage("Вы вступили в королевство: " +
                 kingdomName);
 

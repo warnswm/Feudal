@@ -82,16 +82,6 @@ public class PlannedActivitiesUtils {
 
     }
 
-    public static void changeOfSeason() {
-
-        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
-
-
-        }, 0L), 1);
-
-    }
-
-
     public static void restart() {
 
         scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
@@ -100,7 +90,7 @@ public class PlannedActivitiesUtils {
 
     }
 
-    private static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {
+    public static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 0L, period);
 
