@@ -78,7 +78,7 @@ public class PlayerCommands implements CommandExecutor {
                 break;
 
             default:
-                player.sendMessage("Не известная команда! Введите /f help, чтобы посмотреть доступные команды");
+                player.sendMessage("Неизвестная команда! Введите /f help, чтобы посмотреть доступные команды");
 
         }
 

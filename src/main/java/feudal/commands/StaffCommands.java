@@ -20,7 +20,7 @@ public class StaffCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        if (args[1].equals("spy")) {
+        if (args[0].equals("spy")) {
 
             if (player.getGameMode().equals(GameMode.SPECTATOR)) {
 

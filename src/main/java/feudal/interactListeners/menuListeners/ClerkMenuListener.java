@@ -43,7 +43,7 @@ public class ClerkMenuListener implements Listener {
 
             }
 
-            player.setExp(player.getExp() - ClerkTakeExpEnum.getLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2);
+            player.setExp((int) player.getExp() - ClerkTakeExpEnum.getLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2);
 
             player.closeInventory();
 

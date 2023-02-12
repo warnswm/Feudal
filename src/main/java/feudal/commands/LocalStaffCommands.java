@@ -4,15 +4,13 @@ import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
-import net.minecraft.server.v1_12_R1.NBTTagCompound;
+import feudal.visual.menus.GameClassSelectionMenu;
+import feudal.visual.menus.GameClassUpMenu;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public class LocalStaffCommands implements CommandExecutor {
     private static boolean isLs(CommandSender sender, String[] args) {
@@ -49,17 +47,12 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "test":
 
-                ItemStack item = new ItemStack(Material.DIAMOND_SWORD);
+                GameClassSelectionMenu.openClassSelection(player);
+                break;
 
-                net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+            case "test1":
 
-                NBTTagCompound tag = nmsItem.getTag() != null ? nmsItem.getTag() : new NBTTagCompound();
-                tag.setBoolean(args[1], true);
-                tag.setInt(args[2], 10);
-
-                nmsItem.setTag(tag);
-                player.getInventory().addItem(CraftItemStack.asBukkitCopy(nmsItem));
-
+                GameClassUpMenu.upgradeGameClass(player);
                 break;
 
         }
