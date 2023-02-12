@@ -1,5 +1,6 @@
 package feudal.data.builder;
 
+import feudal.visual.scoreboards.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,7 +14,6 @@ import java.util.List;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalPlayer {
-    final List<String> invitations = new ArrayList<>();
     Player player;
     int aClassID;
     int experience;
@@ -28,6 +28,7 @@ public class FeudalPlayer {
     int gameClassLvl;
     int gameClassExperience;
     String kingdomName;
+    final List<String> invitations = new ArrayList<>();
 
     public FeudalPlayer(Player player) {
         this.player = player;
@@ -39,53 +40,53 @@ public class FeudalPlayer {
         return this;
     }
 
-    public FeudalPlayer setaClassID(int aClassID) {
-        this.aClassID = aClassID;
+    public FeudalPlayer setaClassID(int value) {
+        aClassID = value;
         return this;
     }
 
-    public FeudalPlayer setExperience(int experience) {
-        this.experience = experience;
+    public FeudalPlayer setExperience(int value) {
+        experience = value;
         return this;
     }
 
-    public FeudalPlayer setBalance(int balance) {
-        this.balance = balance;
+    public FeudalPlayer setBalance(int value) {
+        balance = value;
         return this;
     }
 
-    public FeudalPlayer setDeaths(int deaths) {
-        this.deaths = deaths;
+    public FeudalPlayer setDeaths(int value) {
+        deaths = value;
         return this;
     }
 
-    public FeudalPlayer setKills(int kills) {
-        this.kills = kills;
+    public FeudalPlayer setKills(int value) {
+        kills = value;
         return this;
     }
 
-    public FeudalPlayer setStrengthLvl(int strengthLvl) {
-        this.strengthLvl = strengthLvl;
+    public FeudalPlayer setStrengthLvl(int value) {
+        strengthLvl = strengthLvl;
         return this;
     }
 
-    public FeudalPlayer setSurvivabilityLvl(int survivabilityLvl) {
-        this.survivabilityLvl = survivabilityLvl;
+    public FeudalPlayer setSurvivabilityLvl(int value) {
+        survivabilityLvl = value;
         return this;
     }
 
-    public FeudalPlayer setSpeedLvl(int speedLvl) {
-        this.speedLvl = speedLvl;
+    public FeudalPlayer setSpeedLvl(int value) {
+        speedLvl = value;
         return this;
     }
 
-    public FeudalPlayer setStaminaLvl(int staminaLvl) {
-        this.staminaLvl = staminaLvl;
+    public FeudalPlayer setStaminaLvl(int value) {
+        staminaLvl = value;
         return this;
     }
 
-    public FeudalPlayer setLuckLvl(int luckLvl) {
-        this.luckLvl = luckLvl;
+    public FeudalPlayer setLuckLvl(int value) {
+        luckLvl = value;
         return this;
     }
 
@@ -94,8 +95,8 @@ public class FeudalPlayer {
         return this;
     }
 
-    public FeudalPlayer setGameClassExperience(int gameClassExperience) {
-        this.gameClassExperience = gameClassExperience;
+    public FeudalPlayer setGameClassExperience(int value) {
+        gameClassExperience = value;
         return this;
     }
 
@@ -106,12 +107,18 @@ public class FeudalPlayer {
 
 
     public FeudalPlayer addExperience(int value) {
+
         experience += value;
+        ScoreBoardInfo.updateScoreBoardInfo(player);
+
         return this;
     }
 
     public FeudalPlayer addBalance(int value) {
+
         balance += value;
+        ScoreBoardInfo.updateScoreBoardInfo(player);
+
         return this;
     }
 
@@ -156,18 +163,27 @@ public class FeudalPlayer {
     }
 
     public FeudalPlayer addGameClassExperience(int value) {
+
         gameClassExperience += value;
+        ScoreBoardInfo.updateScoreBoardInfo(player);
+
         return this;
     }
 
 
     public FeudalPlayer takeExperience(int value) {
+
         experience -= value;
+        ScoreBoardInfo.updateScoreBoardInfo(player);
+
         return this;
     }
 
     public FeudalPlayer takeBalance(int value) {
+
         balance -= value;
+        ScoreBoardInfo.updateScoreBoardInfo(player);
+
         return this;
     }
 

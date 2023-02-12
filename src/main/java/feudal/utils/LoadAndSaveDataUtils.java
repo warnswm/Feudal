@@ -228,7 +228,7 @@ public class LoadAndSaveDataUtils {
 
         player.setMaxHealth(16 * (survivabilityLvl / 100.0F) + 16);
         player.setWalkSpeed(0.2f * (speedLvl / 100) + 0.2f);
-        ScoreBoardInfo.createScoreBoardInfo(player);
+        ScoreBoardInfo.updateScoreBoardInfo(player);
 
 
         if (!KingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase(""))
