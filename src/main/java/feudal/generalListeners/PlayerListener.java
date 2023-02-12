@@ -4,12 +4,15 @@ import feudal.Feudal;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
+import feudal.utils.enums.BlockToSaveEnum;
 import feudal.utils.enums.MoneyForMobsEnum;
+import feudal.utils.wrappers.PlacedBlockWrapper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -40,6 +43,7 @@ import java.util.Objects;
 public class PlayerListener implements Listener {
 
     List<String> sleepingPlayers = new ArrayList<>();
+    public static List<PlacedBlockWrapper> placedBlocks = new ArrayList<>();
 
     @EventHandler
     public void playerTeleport(@NotNull PlayerTeleportEvent event) {
@@ -175,7 +179,26 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void playerBlockPlaced(@NotNull BlockPlaceEvent event) {
-        event.getBlock().setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
+
+        Block block = event.getBlock();
+
+        if (!BlockToSaveEnum.getByBlockMaterial(block.getType())) return;
+
+        block.setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
+        placedBlocks.add(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
+
+    }
+
+    @EventHandler
+    public void playerBreakBlock(@NotNull BlockBreakEvent event) {
+
+        Block block = event.getBlock();
+
+        if (!BlockToSaveEnum.getByBlockMaterial(block.getType()) ||
+                !placedBlocks.contains(PlacedBlockWrapper.blockToPlacedBlockWrapper(block))) return;
+
+        placedBlocks.remove(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
+
     }
 
     @EventHandler(priority = EventPriority.HIGH)

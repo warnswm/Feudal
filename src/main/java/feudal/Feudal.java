@@ -45,7 +45,9 @@ public final class Feudal extends JavaPlugin {
 
         registerCommands();
         registerEvents();
+
         LoadAndSaveDataUtils.loadAllConfigs();
+        LoadAndSaveDataUtils.loadPlacedBlocks();
 
         PlannedActivitiesUtils.taxCollection();
         PlannedActivitiesUtils.restart();
@@ -58,6 +60,8 @@ public final class Feudal extends JavaPlugin {
         LoadAndSaveDataUtils.saveAllPlayers();
         LoadAndSaveDataUtils.saveAllKingdoms();
         LoadAndSaveDataUtils.saveAllConfigs();
+
+        LoadAndSaveDataUtils.savePlacedBlocks();
 
     }
 
