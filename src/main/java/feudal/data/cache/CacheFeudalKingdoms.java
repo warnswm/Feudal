@@ -31,12 +31,7 @@ public class CacheFeudalKingdoms {
     }
 
     public static String playerInKingdomCache(@NotNull Player player) {
-
-        for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet())
-            if (kingdom.getValue().getMembers().contains(player))
-                return kingdom.getValue().getKingdomName();
-
-        return "";
+        return CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
     }
 
 }
