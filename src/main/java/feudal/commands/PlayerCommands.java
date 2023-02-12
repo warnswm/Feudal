@@ -6,6 +6,7 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -132,6 +133,7 @@ public class PlayerCommands implements CommandExecutor {
                 .setBalance(10000)
                 .setReputation(1000)
                 .setMembers(members)
+                .setMaxNumberMembers(5)
                 .setBarons(new ArrayList<>())
                 .setTerritory(new ArrayList<>())
                 .setPrivateTerritory(new ArrayList<>());
@@ -140,7 +142,7 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalPlayer.setKingdomName(kingdomName);
 
-        player.sendMessage("Вы успешно создали королевство " + kingdomName);
+        player.sendMessage("Вы успешно создали королевство: " + kingdomName);
 
     }
 
@@ -177,14 +179,14 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (invitedPlayer == null || !invitedPlayer.isOnline()) {
-
-            playerInviting.sendMessage("Игрок не найден на сервере!");
-            return;
-
         } else if (invitedPlayer == playerInviting) {
 
             playerInviting.sendMessage("Вы не можете пригласить самого себя!");
+            return;
+
+        } else if (invitedPlayer == null || !invitedPlayer.isOnline() || invitedPlayer.getGameMode().equals(GameMode.SPECTATOR)) {
+
+            playerInviting.sendMessage("Игрок не найден на сервере!");
             return;
 
         } else if (feudalKingdom.getKing() != playerInviting) {

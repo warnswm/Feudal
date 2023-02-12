@@ -62,6 +62,7 @@ public class KingdomDBHandler {
             collection.insertOne(new Document("_id", kingdomName)
                     .append("king", king.getUniqueId().toString())
                     .append("members", membersUUID)
+                    .append("maxNumberMembers", 5)
                     .append("territory", territoryWrappers)
                     .append("privateTerritory", privateTerritoryWrappers)
                     .append("reputation", 1000)
