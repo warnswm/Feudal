@@ -201,6 +201,8 @@ public class LoadAndSaveDataUtils {
             return;
         }
 
+        int speedLvl = PlayerDBHandler.getIntegerField(player, "speedLvl"), survivabilityLvl = PlayerDBHandler.getIntegerField(player, "survivabilityLvl");
+
         feudalPlayer = new FeudalPlayer(player);
         feudalPlayer.setaClassID(PlayerDBHandler.getIntegerField(player, "classID"))
                 .setExperience(PlayerDBHandler.getIntegerField(player, "experience"))
@@ -210,24 +212,22 @@ public class LoadAndSaveDataUtils {
                 .setDeaths(PlayerDBHandler.getIntegerField(player, "deaths"))
                 .setKills(PlayerDBHandler.getIntegerField(player, "kills"))
                 .setLuckLvl(PlayerDBHandler.getIntegerField(player, "luckLvl"))
-                .setSpeedLvl(PlayerDBHandler.getIntegerField(player, "speedLvl"))
+                .setSpeedLvl(speedLvl)
                 .setStaminaLvl(PlayerDBHandler.getIntegerField(player, "staminaLvl"))
                 .setStrengthLvl(PlayerDBHandler.getIntegerField(player, "strengthLvl"))
                 .setKingdomName(PlayerDBHandler.getStringField(player, "kingdomName"))
-                .setSurvivabilityLvl(PlayerDBHandler.getIntegerField(player, "survivabilityLvl"));
+                .setSurvivabilityLvl(survivabilityLvl);
 
         CacheFeudalPlayers.getFeudalPlayerInfo().put(player, feudalPlayer);
 
+        loadPlayerAttributes(player, speedLvl, survivabilityLvl);
+
     }
 
-    public static void loadPlayerAttributes(@NotNull Player player) {
+    public static void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
 
-        FeudalPlayer feudalPlayer = new FeudalPlayer(player);
-
-        float health = feudalPlayer.getSurvivabilityLvl(), speed = feudalPlayer.getSpeedLvl();
-
-        player.setMaxHealth(20 * (health / 100.0F) + 20);
-        player.setWalkSpeed(0.2f * (speed / 100) + 0.2f);
+        player.setMaxHealth(20 * (survivabilityLvl / 100.0F) + 20);
+        player.setWalkSpeed(0.2f * (speedLvl / 100) + 0.2f);
         ScoreBoardInfo.createScoreBoardInfo(player);
 
 

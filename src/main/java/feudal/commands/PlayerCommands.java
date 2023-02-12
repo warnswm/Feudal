@@ -68,6 +68,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "map":
+
+                map(player);
+
+                break;
+
             default:
                 player.sendMessage("Не известная команда! Введите /f help, чтобы посмотреть доступные команды");
 
@@ -274,6 +280,30 @@ public class PlayerCommands implements CommandExecutor {
                 ", отклонил ваше приглашение.");
         player.sendMessage("Вы отклонили приграшение в королевство: " +
                 kingdomName);
+
+    }
+
+    private void map(@NotNull Player player) {
+
+        if (player.getGameMode().equals(GameMode.SPECTATOR)) {
+
+            player.setGameMode(GameMode.SURVIVAL);
+            player.teleport(player.getLocation().add(0, -50, 0));
+
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+            int speed = feudalPlayer.getSpeedLvl();
+
+            player.setWalkSpeed(0.2f * (speed / 100) + 0.2f);
+
+            System.out.println(speed);
+
+            return;
+
+        }
+
+        player.setGameMode(GameMode.SPECTATOR);
+        player.teleport(player.getLocation().add(0, 50, 0));
+        player.setWalkSpeed(0);
 
     }
 

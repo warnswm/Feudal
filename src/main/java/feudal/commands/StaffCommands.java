@@ -1,6 +1,6 @@
 package feudal.commands;
 
-import feudal.utils.TabUtils;
+import feudal.visual.tab.Tab;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +24,7 @@ public class StaffCommands implements CommandExecutor {
 
             if (player.getGameMode().equals(GameMode.SPECTATOR)) {
 
-                TabUtils.showPlayer(player);
+                Tab.showPlayer(player);
 
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                     player.removePotionEffect(PotionEffectType.NIGHT_VISION);
@@ -33,7 +33,7 @@ public class StaffCommands implements CommandExecutor {
 
             }
 
-            TabUtils.hidePlayer(player);
+            Tab.hidePlayer(player);
             player.setGameMode(GameMode.SPECTATOR);
 
             if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))

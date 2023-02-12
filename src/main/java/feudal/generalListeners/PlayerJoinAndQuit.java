@@ -4,7 +4,7 @@ import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.data.database.PlayerDBHandler;
 import feudal.utils.LoadAndSaveDataUtils;
-import feudal.utils.TabUtils;
+import feudal.visual.tab.Tab;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,10 +27,9 @@ public class PlayerJoinAndQuit implements Listener {
         }
 
         LoadAndSaveDataUtils.loadPlayer(player);
-        LoadAndSaveDataUtils.loadPlayerAttributes(player);
         LoadAndSaveDataUtils.loadKingdom(player);
 
-        TabUtils.updateHidePlayers();
+        Tab.updateHidePlayers();
 
     }
 

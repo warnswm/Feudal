@@ -1,4 +1,4 @@
-package feudal.utils;
+package feudal.visual.tab;
 
 import feudal.Feudal;
 import lombok.AccessLevel;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class TabUtils {
+public class Tab {
 
     static List<Player> hidePlayers = new ArrayList<>();
     static Map<Player, GameMode> gameModes = new HashMap<>();
