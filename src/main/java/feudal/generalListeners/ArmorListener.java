@@ -1,6 +1,8 @@
 package feudal.generalListeners;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
+import feudal.data.builder.FeudalPlayer;
+import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,7 +26,12 @@ public class ArmorListener implements Listener {
         attribute += playerInv.getLeggings() == null ? 0 : getByItemMaterial(playerInv.getLeggings().getType());
         attribute += playerInv.getBoots() == null ? 0 : getByItemMaterial(playerInv.getBoots().getType());
 
-        player.setWalkSpeed(0.2f - (0.2f / 100 * attribute));
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        float speed = attribute == 0 ? 0.2f * feudalPlayer.getSpeedLvl() / 100 + 0.2f : (0.2f * feudalPlayer.getSpeedLvl() / 100 + 0.2f) - 0.2f - (0.2f / 100 * attribute);
+
+        player.setWalkSpeed(speed);
+        System.out.println(speed);
 
     }
 }
