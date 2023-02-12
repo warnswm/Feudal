@@ -48,7 +48,6 @@ public class PlayerJoinAndQuit implements Listener {
         }
 
         LoadAndSaveDataUtils.savePlayer(player);
-        LoadAndSaveDataUtils.saveKingdom(player);
 
     }
 }

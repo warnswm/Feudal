@@ -3,6 +3,7 @@ package feudal.utils;
 import feudal.Feudal;
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheFeudalKingdoms;
+import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
@@ -85,7 +86,15 @@ public class PlannedActivitiesUtils {
     public static void restart() {
 
         scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
-            //restart
+
+            Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Рестарт!"));
+
+            LoadAndSaveDataUtils.saveAllKingdoms();
+            LoadAndSaveDataUtils.saveAllConfigs();
+
+            CacheFeudalPlayers.getFeudalPlayerInfo().clear();
+            CacheFeudalKingdoms.getKingdomInfo().clear();
+
         }, 0L), 576000);
 
     }
