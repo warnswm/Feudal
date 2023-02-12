@@ -41,9 +41,6 @@ public final class Feudal extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        if (!Bukkit.getPluginManager().isPluginEnabled("ProtocolLib"))
-            Bukkit.getPluginManager().disablePlugin(this);
-
         plugin = this;
 
         registerCommands();
