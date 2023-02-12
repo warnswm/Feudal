@@ -109,7 +109,9 @@ public class FeudalPlayer {
     public FeudalPlayer addExperience(int value) {
 
         experience += value;
+
         ScoreBoardInfo.updateScoreBoardInfo(player);
+        player.sendMessage("+" + value + " опыта атрибутов");
 
         return this;
     }
@@ -117,7 +119,9 @@ public class FeudalPlayer {
     public FeudalPlayer addBalance(int value) {
 
         balance += value;
+
         ScoreBoardInfo.updateScoreBoardInfo(player);
+        player.sendMessage("+" + value + " денег");
 
         return this;
     }
@@ -165,7 +169,10 @@ public class FeudalPlayer {
     public FeudalPlayer addGameClassExperience(int value) {
 
         gameClassExperience += value;
+
         ScoreBoardInfo.updateScoreBoardInfo(player);
+        player.sendMessage("+" + value + " опыта класса");
+
 
         return this;
     }
@@ -174,7 +181,9 @@ public class FeudalPlayer {
     public FeudalPlayer takeExperience(int value) {
 
         experience -= value;
+
         ScoreBoardInfo.updateScoreBoardInfo(player);
+        player.sendMessage("-" + value + " опыта атрибутов");
 
         return this;
     }
@@ -182,7 +191,9 @@ public class FeudalPlayer {
     public FeudalPlayer takeBalance(int value) {
 
         balance -= value;
+
         ScoreBoardInfo.updateScoreBoardInfo(player);
+        player.sendMessage("-" + value + " денег");
 
         return this;
     }
