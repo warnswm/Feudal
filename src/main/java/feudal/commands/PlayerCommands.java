@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PlayerCommands implements CommandExecutor {
@@ -125,18 +124,17 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        KingdomDBHandler.createNewKingdom(kingdomName, player, members, Collections.EMPTY_LIST, Collections.EMPTY_LIST, Collections.EMPTY_LIST);
+        KingdomDBHandler.createNewKingdom(kingdomName, player, members, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
-
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(player)
                 .setBalance(10000)
                 .setReputation(1000)
                 .setMembers(members)
-                .setBarons(Collections.EMPTY_LIST)
-                .setTerritory(Collections.EMPTY_LIST)
-                .setPrivateTerritory(Collections.EMPTY_LIST);
+                .setBarons(new ArrayList<>())
+                .setTerritory(new ArrayList<>())
+                .setPrivateTerritory(new ArrayList<>());
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
@@ -192,6 +190,11 @@ public class PlayerCommands implements CommandExecutor {
         } else if (feudalKingdom.getKing() != playerInviting) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
+            return;
+
+        } else if (feudalKingdom.getMaxNumberMembers() <= (feudalKingdom.getMembers().size() + 1)) {
+
+            playerInviting.sendMessage("В ваше королевство нельзя пригласить больше участников!");
             return;
 
         } else if (feudalKingdom.getInvitation().contains(invitedPlayer)) {

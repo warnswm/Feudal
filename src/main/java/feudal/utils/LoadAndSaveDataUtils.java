@@ -55,6 +55,7 @@ public class LoadAndSaveDataUtils {
                 .setBarons(barons)
                 .setReputation(KingdomDBHandler.getIntegerField(kingdomName, "reputation"))
                 .setBalance(KingdomDBHandler.getIntegerField(kingdomName, "balance"))
+                .setMaxNumberMembers(KingdomDBHandler.getIntegerField(kingdomName, "maxNumberMembers"))
                 .setTerritory(territory)
                 .setPrivateTerritory(privateTerritory);
 
@@ -87,6 +88,7 @@ public class LoadAndSaveDataUtils {
 
                 KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKing().getUniqueId().toString());
                 KingdomDBHandler.setField(kingdomName, "members", members);
+                KingdomDBHandler.setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
                 KingdomDBHandler.setField(kingdomName, "barons", barons);
                 KingdomDBHandler.setField(kingdomName, "territory", territory);
                 KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
@@ -134,6 +136,7 @@ public class LoadAndSaveDataUtils {
             KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
             KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
             KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
+            KingdomDBHandler.setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
 
         }).start();
 

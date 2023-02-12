@@ -17,6 +17,7 @@ public class FeudalKingdom {
     String kingdomName;
     Player king;
     List<Player> members = new ArrayList<>();
+    int maxNumberMembers;
     List<Chunk> territory = new ArrayList<>();
     List<Chunk> privateTerritory = new ArrayList<>();
     List<Player> barons = new ArrayList<>();
@@ -153,6 +154,16 @@ public class FeudalKingdom {
 
     public FeudalKingdom deleteInvitation(@NotNull Player player) {
         invitation.remove(player);
+        return this;
+    }
+
+    public FeudalKingdom setMaxNumberMembers(int value) {
+        maxNumberMembers = value;
+        return this;
+    }
+
+    public FeudalKingdom addMaxNumberMembers(int value) {
+        maxNumberMembers += value;
         return this;
     }
 
