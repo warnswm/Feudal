@@ -170,9 +170,17 @@ public class FeudalPlayer {
 
         gameClassExperience += value;
 
+        if (gameClassLvl <= 100 && gameClassExperience >= (int) (Math.pow(1 + 0.05, gameClassLvl) * 100)) {
+
+            addGameClassLvl(1);
+            takeGameClassExperience((int) (Math.pow(1 + 0.05, gameClassLvl) * 100));
+
+            player.sendMessage("+1 уровень класса");
+
+        }
+
         ScoreBoardInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " опыта класса");
-
 
         return this;
     }
@@ -239,7 +247,12 @@ public class FeudalPlayer {
     }
 
     public FeudalPlayer takeGameClassExperience(int value) {
+
         gameClassExperience -= value;
+
+        ScoreBoardInfo.updateScoreBoardInfo(player);
+        player.sendMessage("-" + value + " опыта класса");
+
         return this;
     }
 
