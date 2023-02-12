@@ -24,4 +24,11 @@ public enum GameClassesIDEnum {
                 return gameClassesIDEnum.getId();
         return 0;
     }
+
+    public static String getByID(int id) {
+        for (GameClassesIDEnum gameClassesIDEnum : values())
+            if (gameClassesIDEnum.getId() == id)
+                return gameClassesIDEnum.getGameClassName();
+        return "";
+    }
 }

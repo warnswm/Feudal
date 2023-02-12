@@ -64,11 +64,14 @@ public class PlayerListener implements Listener {
 
         }
 
+        feudalPlayer.addKills(1);
+
         FeudalPlayer feudalPlayerDeath = CacheFeudalPlayers.getFeudalPlayer((Player) event.getEntity());
         int balance = feudalPlayerDeath.getBalance() / 100 * MathUtils.getRandomInt(3, 6);
 
         feudalPlayer.addBalance(balance);
         feudalPlayerDeath.takeBalance(balance + MathUtils.getRandomInt(1, 4));
+        feudalPlayerDeath.addDeaths(1);
 
     }
 
@@ -185,5 +188,4 @@ public class PlayerListener implements Listener {
         item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));
 
     }
-
 }
