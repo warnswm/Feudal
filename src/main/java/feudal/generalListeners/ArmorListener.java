@@ -31,7 +31,6 @@ public class ArmorListener implements Listener {
         float speed = attribute == 0 ? 0.2f * feudalPlayer.getSpeedLvl() / 100 + 0.2f : (0.2f * feudalPlayer.getSpeedLvl() / 100 + 0.2f) - 0.2f - (0.2f / 100 * attribute);
 
         player.setWalkSpeed(speed);
-        System.out.println(speed);
 
     }
 }

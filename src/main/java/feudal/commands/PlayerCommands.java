@@ -11,10 +11,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static feudal.utils.enums.ArmorEnum.getByItemMaterial;
 
 public class PlayerCommands implements CommandExecutor {
 
@@ -290,12 +293,18 @@ public class PlayerCommands implements CommandExecutor {
             player.setGameMode(GameMode.SURVIVAL);
             player.teleport(player.getLocation().add(0, -50, 0));
 
+            PlayerInventory playerInv = player.getInventory();
+
+            int attribute = playerInv.getHelmet() == null ? 0 : getByItemMaterial(playerInv.getHelmet().getType());
+            attribute += playerInv.getChestplate() == null ? 0 : getByItemMaterial(playerInv.getChestplate().getType());
+            attribute += playerInv.getLeggings() == null ? 0 : getByItemMaterial(playerInv.getLeggings().getType());
+            attribute += playerInv.getBoots() == null ? 0 : getByItemMaterial(playerInv.getBoots().getType());
+
+
             FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-            int speed = feudalPlayer.getSpeedLvl();
+            float speed = attribute == 0 ? 0.2f * feudalPlayer.getSpeedLvl() / 100 + 0.2f : (0.2f * feudalPlayer.getSpeedLvl() / 100 + 0.2f) - 0.2f - (0.2f / 100 * attribute);
 
-            player.setWalkSpeed(0.2f * (speed / 100) + 0.2f);
-
-            System.out.println(speed);
+            player.setWalkSpeed(speed);
 
             return;
 
