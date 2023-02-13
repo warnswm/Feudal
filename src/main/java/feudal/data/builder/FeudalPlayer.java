@@ -29,6 +29,7 @@ public class FeudalPlayer {
     int gameClassExperience;
     String kingdomName;
     final List<String> invitations = new ArrayList<>();
+    List<String> playerLetters = new ArrayList<>();
 
     public FeudalPlayer(Player player) {
         this.player = player;
@@ -268,6 +269,26 @@ public class FeudalPlayer {
 
     public FeudalPlayer deleteInvitations(String kingdomName) {
         invitations.remove(kingdomName);
+        return this;
+    }
+
+    public FeudalPlayer setLetters(List<String> letters) {
+        playerLetters = letters;
+        return this;
+    }
+
+    public FeudalPlayer addLetter(String letter) {
+        playerLetters.add(letter);
+        return this;
+    }
+
+    public FeudalPlayer clearLetters() {
+        playerLetters.clear();
+        return this;
+    }
+
+    public FeudalPlayer deleteLetter(String letter) {
+        playerLetters.remove(letter);
         return this;
     }
 

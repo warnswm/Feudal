@@ -104,6 +104,7 @@ public class LoadAndSaveDataUtils {
                 CacheFeudalKingdoms.getKingdomInfo().remove(kingdomName);
 
             }
+
         }).start();
 
     }
@@ -222,6 +223,8 @@ public class LoadAndSaveDataUtils {
 
         loadPlayerAttributes(player, speedLvl, survivabilityLvl);
 
+        loadPlayerMail(player);
+
     }
 
     public static void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
@@ -255,6 +258,8 @@ public class LoadAndSaveDataUtils {
             PlayerDBHandler.setField(player, "strengthLvl", feudalPlayer.getStrengthLvl());
             PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
+
+            savePlayerMail(player);
 
             CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
 
@@ -319,6 +324,80 @@ public class LoadAndSaveDataUtils {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
 
+        if (!file.exists())
+            try {
+
+                file.createNewFile();
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+
+            }
+
+
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
+
+            fileWriter.write(new Gson().toJson(PlayerListener.placedBlocks));
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+    public static void savePlayerMail(Player player) {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
+
+        if (!file.exists())
+            try {
+
+                file.createNewFile();
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+
+            }
+
+
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
+
+            Type mapType = new TypeToken<Map<Player, List<String>>>() {
+            }.getType();
+            Map<Player, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
+
+
+            for (Map.Entry<Player, FeudalPlayer> feudalPlayer : CacheFeudalPlayers.getFeudalPlayerInfo().entrySet()) {
+
+                if (playerLetters.get(player) == null) return;
+
+                if (!playerLetters.containsKey(player))
+                    playerLetters.put(feudalPlayer.getKey(), feudalPlayer.getValue().getPlayerLetters());
+
+                else
+                    playerLetters.replace(feudalPlayer.getKey(), feudalPlayer.getValue().getPlayerLetters());
+
+            }
+
+
+            fileWriter.write(new Gson().toJson(playerLetters));
+
+        } catch (IOException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+    public static void loadPlayerMail(Player player) {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
+
         if (!file.exists()) {
 
             try {
@@ -331,13 +410,27 @@ public class LoadAndSaveDataUtils {
 
             }
 
+            return;
+
         }
 
-        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
+        try {
 
-            fileWriter.write(new Gson().toJson(PlayerListener.placedBlocks));
+            Type mapType = new TypeToken<Map<Player, List<String>>>() {
+            }.getType();
+            Map<Player, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
 
-        } catch (IOException e) {
+
+            for (Map.Entry<Player, List<String>> letters : playerLetters.entrySet()) {
+
+                if (letters.getKey() != player) return;
+
+                CacheFeudalPlayers.getFeudalPlayer(letters.getKey()).setLetters(letters.getValue());
+
+            }
+
+
+        } catch (FileNotFoundException e) {
 
             throw new RuntimeException(e);
 
