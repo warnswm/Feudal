@@ -6,7 +6,6 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
@@ -53,7 +52,7 @@ public class PlannedActivitiesUtils {
                     cacheFeudalKingdom.takeBalance(landTax);
                 }
 
-                for (Player ignored : kingdom.getValue().getMembers()) {
+                for (String ignored : kingdom.getValue().getMembersUUID()) {
 
                     if (balance < taxOnResidents) {
 

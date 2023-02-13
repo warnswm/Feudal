@@ -108,10 +108,10 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        List<Player> members = new ArrayList<>();
-        members.add(player);
+        List<String> membersUUID = new ArrayList<>();
+        membersUUID.add(player.getUniqueId().toString());
 
-        createKingdom(kingdomName, player, members);
+        createKingdom(kingdomName, player, membersUUID);
 
     }
 
@@ -125,7 +125,7 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<Player> members) {
+    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<String> membersUUID) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
@@ -136,14 +136,14 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        KingdomDBHandler.createNewKingdom(kingdomName, player, members, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(player)
                 .setBalance(10000)
                 .setReputation(1000)
-                .setMembers(members)
+                .setMembers(membersUUID)
                 .setMaxNumberMembers(5)
                 .setBarons(new ArrayList<>())
                 .setTerritory(new ArrayList<>())
@@ -200,17 +200,17 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Игрок не найден на сервере!");
             return;
 
-        } else if (feudalKingdom.getKing() != playerInviting) {
+        } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId().toString())) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
 
-        } else if (feudalKingdom.getMaxNumberMembers() <= (feudalKingdom.getMembers().size() + 1)) {
+        } else if (feudalKingdom.getMaxNumberMembers() <= (feudalKingdom.getMembersUUID().size() + 1)) {
 
             playerInviting.sendMessage("В ваше королевство нельзя пригласить больше участников!");
             return;
 
-        } else if (feudalKingdom.getInvitation().contains(invitedPlayer)) {
+        } else if (feudalKingdom.getInvitationUUID().contains(invitedPlayer.getUniqueId().toString())) {
 
             playerInviting.sendMessage("Приглашение уже отправлено этому игроку!");
             return;
@@ -266,7 +266,7 @@ public class PlayerCommands implements CommandExecutor {
         feudalPlayer.setKingdomName(kingdomName);
         feudalPlayer.clearInvitations();
 
-        feudalKingdom.getKing().sendMessage("Игрок " +
+        Bukkit.getPlayerExact(feudalKingdom.getKingUUID()).sendMessage("Игрок " +
                 player.getDisplayName() +
                 " принял ваше приглашение!");
         player.sendMessage("Вы вступили в королевство: " +
@@ -290,7 +290,7 @@ public class PlayerCommands implements CommandExecutor {
         feudalKingdom.deleteInvitation(player);
         feudalPlayer.deleteInvitations(kingdomName);
 
-        feudalKingdom.getKing().sendMessage("Игрок " +
+        Bukkit.getPlayerExact(feudalKingdom.getKingUUID()).sendMessage("Игрок " +
                 player.getDisplayName() +
                 ", отклонил ваше приглашение.");
         player.sendMessage("Вы отклонили приграшение в королевство: " +

@@ -32,11 +32,11 @@ public class PlayerDBHandler {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+            if (collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .hasNext()) return true;
 
-            collection.insertOne(new Document("_id", player.getUniqueId().toString())
+            collection.insertOne(new Document("_id", player.getUniqueId().hashCode())
                     .append("classID", 0)
                     .append("experience", 0)
                     .append("gameClassLvl", 0)
@@ -66,6 +66,7 @@ public class PlayerDBHandler {
         }
 
         return false;
+
     }
 
     public static boolean hasPlayer(@NotNull Player player) {
@@ -76,18 +77,23 @@ public class PlayerDBHandler {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+            if (collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .hasNext())
-                return collection.find(new BasicDBObject("_id", player.getUniqueId().toString())).iterator().hasNext();
+                return collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode())).iterator().hasNext();
 
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
+
         return false;
     }
 

@@ -35,7 +35,7 @@ public class KingdomDBHandler {
     static MongoCollection<Document> collection = FeudalValuesUtils.kingdomsCollection;
 
 
-    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<Player> members, List<Chunk> territory, List<Chunk> privateTerritory, List<Player> barons) {
+    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Chunk> territory, List<Chunk> privateTerritory, List<String> baronsUUID) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -46,12 +46,6 @@ public class KingdomDBHandler {
             if (collection.find(new BasicDBObject("_id", kingdomName))
                     .iterator()
                     .hasNext()) return;
-
-            List<String> membersUUID = new ArrayList<>();
-            members.forEach(member -> membersUUID.add(member.getUniqueId().toString()));
-
-            List<String> baronsUUID = new ArrayList<>();
-            barons.forEach(baron -> baronsUUID.add(baron.getUniqueId().toString()));
 
             List<String> territoryWrappers = new ArrayList<>();
             territory.forEach(chunk -> territoryWrappers.add(GsonUtils.chunkToJson(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()))));

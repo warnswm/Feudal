@@ -38,22 +38,17 @@ public class LoadAndSaveDataUtils {
         String kingdomName = KingdomDBHandler.getPlayerKingdom(player);
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
-        List<String> membersDB = (List<String>) KingdomDBHandler.getField(kingdomName, "members");
-        List<String> baronsDB = (List<String>) KingdomDBHandler.getField(kingdomName, "barons");
+        List<String> members = (List<String>) KingdomDBHandler.getField(kingdomName, "members");
+        List<String> barons = (List<String>) KingdomDBHandler.getField(kingdomName, "barons");
         List<String> territoryDB = (List<String>) KingdomDBHandler.getField(kingdomName, "territory");
         List<String> privateTerritoryDB = (List<String>) KingdomDBHandler.getField(kingdomName, "privateTerritory");
-
-        List<Player> members = new ArrayList<>();
-        Objects.requireNonNull(membersDB).forEach(member -> members.add(Bukkit.getPlayer(member)));
-
-        List<Player> barons = new ArrayList<>();
-        Objects.requireNonNull(baronsDB).forEach(baron -> barons.add(Bukkit.getPlayer(baron)));
 
         List<Chunk> territory = new ArrayList<>();
         Objects.requireNonNull(territoryDB).forEach(chunk -> territory.add(ChunkWrapper.chunkWrapperToChunk(new Gson().fromJson(chunk, ChunkWrapper.class))));
 
         List<Chunk> privateTerritory = new ArrayList<>();
         Objects.requireNonNull(privateTerritoryDB).forEach(privateChunk -> privateTerritory.add(ChunkWrapper.chunkWrapperToChunk(new Gson().fromJson(privateChunk, ChunkWrapper.class))));
+
 
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(player)
@@ -80,22 +75,16 @@ public class LoadAndSaveDataUtils {
 
                 feudalKingdom.clearInvitation();
 
-                List<String> members = new ArrayList<>();
-                feudalKingdom.getMembers().forEach(member -> members.add(member.getUniqueId().toString()));
-
-                List<String> barons = new ArrayList<>();
-                feudalKingdom.getBarons().forEach(baron -> barons.add(baron.getUniqueId().toString()));
-
                 List<String> territory = new ArrayList<>();
                 feudalKingdom.getTerritory().forEach(chunk -> territory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
                 List<String> privateTerritory = new ArrayList<>();
                 feudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
-                KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKing().getUniqueId().toString());
-                KingdomDBHandler.setField(kingdomName, "members", members);
+                KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKingUUID());
+                KingdomDBHandler.setField(kingdomName, "members", feudalKingdom.getMembersUUID());
                 KingdomDBHandler.setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
-                KingdomDBHandler.setField(kingdomName, "barons", barons);
+                KingdomDBHandler.setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
                 KingdomDBHandler.setField(kingdomName, "territory", territory);
                 KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
                 KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
@@ -121,12 +110,6 @@ public class LoadAndSaveDataUtils {
 
             feudalKingdom.clearInvitation();
 
-            List<String> members = new ArrayList<>();
-            feudalKingdom.getMembers().forEach(member -> members.add(member.getUniqueId().toString()));
-
-            List<String> barons = new ArrayList<>();
-            feudalKingdom.getBarons().forEach(baron -> barons.add(baron.getUniqueId().toString()));
-
             List<String> territory = new ArrayList<>();
             feudalKingdom.getTerritory().forEach(chunk -> territory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
@@ -134,9 +117,9 @@ public class LoadAndSaveDataUtils {
             feudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
 
 
-            KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKing());
-            KingdomDBHandler.setField(kingdomName, "members", members);
-            KingdomDBHandler.setField(kingdomName, "barons", barons);
+            KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKingUUID());
+            KingdomDBHandler.setField(kingdomName, "members", feudalKingdom.getMembersUUID());
+            KingdomDBHandler.setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
             KingdomDBHandler.setField(kingdomName, "territory", territory);
             KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
             KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());

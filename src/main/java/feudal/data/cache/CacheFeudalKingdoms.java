@@ -22,7 +22,7 @@ public class CacheFeudalKingdoms {
         for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
             if (kingdom.getValue().chunkInKingdomCache(chunk))
-                return !kingdom.getValue().getMembers().contains(player);
+                return !kingdom.getValue().getMembersUUID().contains(player.getUniqueId().toString());
 
         }
 

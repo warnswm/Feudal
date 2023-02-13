@@ -15,15 +15,15 @@ import java.util.List;
 public class FeudalKingdom {
 
     String kingdomName;
-    Player king;
-    List<Player> members = new ArrayList<>();
+    final List<String> invitationUUID = new ArrayList<>();
+    String kingUUID;
     int maxNumberMembers;
     List<Chunk> territory = new ArrayList<>();
     List<Chunk> privateTerritory = new ArrayList<>();
-    List<Player> barons = new ArrayList<>();
+    List<String> membersUUID = new ArrayList<>();
     int balance;
     int reputation;
-    final List<Player> invitation = new ArrayList<>();
+    List<String> baronsUUID = new ArrayList<>();
     final List<String> kingdomLetters = new ArrayList<>();
 
     public FeudalKingdom(String kingdomName) {
@@ -36,13 +36,13 @@ public class FeudalKingdom {
         return this;
     }
 
-    public FeudalKingdom setKing(Player king) {
-        this.king = king;
+    public FeudalKingdom setKing(@NotNull Player player) {
+        kingUUID = player.getUniqueId().toString();
         return this;
     }
 
-    public FeudalKingdom setMembers(List<Player> members) {
-        this.members = members;
+    public FeudalKingdom setMembers(List<String> membersUUID) {
+        this.membersUUID = membersUUID;
         return this;
     }
 
@@ -56,8 +56,8 @@ public class FeudalKingdom {
         return this;
     }
 
-    public FeudalKingdom setBarons(List<Player> barons) {
-        this.barons = barons;
+    public FeudalKingdom setBarons(List<String> barons) {
+        baronsUUID = barons;
         return this;
     }
 
@@ -72,8 +72,8 @@ public class FeudalKingdom {
     }
 
 
-    public FeudalKingdom addMember(@NotNull Player player) {
-        members.add(player);
+    public FeudalKingdom addMember(Player player) {
+        membersUUID.add(player.getUniqueId().toString());
         return this;
     }
 
@@ -88,7 +88,7 @@ public class FeudalKingdom {
     }
 
     public FeudalKingdom addBaron(@NotNull Player player) {
-        barons.add(player);
+        baronsUUID.add(player.getUniqueId().toString());
         return this;
     }
 
@@ -104,7 +104,7 @@ public class FeudalKingdom {
 
 
     public FeudalKingdom takeMember(@NotNull Player player) {
-        members.remove(player);
+        membersUUID.remove(player.getUniqueId().toString());
         return this;
     }
 
@@ -129,7 +129,7 @@ public class FeudalKingdom {
     }
 
     public FeudalKingdom takeBaron(@NotNull Player player) {
-        barons.remove(player);
+        baronsUUID.remove(player.getUniqueId().toString());
         return this;
     }
 
@@ -144,17 +144,17 @@ public class FeudalKingdom {
     }
 
     public FeudalKingdom addInvitation(@NotNull Player player) {
-        invitation.add(player);
+        invitationUUID.add(player.getUniqueId().toString());
         return this;
     }
 
     public FeudalKingdom clearInvitation() {
-        invitation.clear();
+        invitationUUID.clear();
         return this;
     }
 
     public FeudalKingdom deleteInvitation(@NotNull Player player) {
-        invitation.remove(player);
+        invitationUUID.remove(player.getUniqueId().toString());
         return this;
     }
 
