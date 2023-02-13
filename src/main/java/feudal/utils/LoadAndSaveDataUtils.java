@@ -10,20 +10,17 @@ import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.data.database.PlayerDBHandler;
 import feudal.generalListeners.PlayerListener;
-import feudal.utils.wrappers.ChunkWrapper;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import feudal.visual.scoreboards.ScoreBoardInfo;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,15 +37,8 @@ public class LoadAndSaveDataUtils {
 
         List<String> members = (List<String>) KingdomDBHandler.getField(kingdomName, "members");
         List<String> barons = (List<String>) KingdomDBHandler.getField(kingdomName, "barons");
-        List<String> territoryDB = (List<String>) KingdomDBHandler.getField(kingdomName, "territory");
-        List<String> privateTerritoryDB = (List<String>) KingdomDBHandler.getField(kingdomName, "privateTerritory");
-
-        List<Chunk> territory = new ArrayList<>();
-        Objects.requireNonNull(territoryDB).forEach(chunk -> territory.add(ChunkWrapper.chunkWrapperToChunk(new Gson().fromJson(chunk, ChunkWrapper.class))));
-
-        List<Chunk> privateTerritory = new ArrayList<>();
-        Objects.requireNonNull(privateTerritoryDB).forEach(privateChunk -> privateTerritory.add(ChunkWrapper.chunkWrapperToChunk(new Gson().fromJson(privateChunk, ChunkWrapper.class))));
-
+        List<Integer> territory = (List<Integer>) KingdomDBHandler.getField(kingdomName, "territory");
+        List<Integer> privateTerritory = (List<Integer>) KingdomDBHandler.getField(kingdomName, "privateTerritory");
 
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(player)
@@ -57,8 +47,8 @@ public class LoadAndSaveDataUtils {
                 .setReputation(KingdomDBHandler.getIntegerField(kingdomName, "reputation"))
                 .setBalance(KingdomDBHandler.getIntegerField(kingdomName, "balance"))
                 .setMaxNumberMembers(KingdomDBHandler.getIntegerField(kingdomName, "maxNumberMembers"))
-                .setTerritory(territory)
-                .setPrivateTerritory(privateTerritory);
+                .setTerritory(Objects.requireNonNull(territory))
+                .setPrivateTerritory(Objects.requireNonNull(privateTerritory));
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
@@ -75,18 +65,12 @@ public class LoadAndSaveDataUtils {
 
                 feudalKingdom.clearInvitation();
 
-                List<String> territory = new ArrayList<>();
-                feudalKingdom.getTerritory().forEach(chunk -> territory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
-
-                List<String> privateTerritory = new ArrayList<>();
-                feudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
-
                 KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKingUUID());
                 KingdomDBHandler.setField(kingdomName, "members", feudalKingdom.getMembersUUID());
                 KingdomDBHandler.setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
                 KingdomDBHandler.setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
-                KingdomDBHandler.setField(kingdomName, "territory", territory);
-                KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
+                KingdomDBHandler.setField(kingdomName, "territory", feudalKingdom.getTerritory());
+                KingdomDBHandler.setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
                 KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
                 KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
 
@@ -110,18 +94,11 @@ public class LoadAndSaveDataUtils {
 
             feudalKingdom.clearInvitation();
 
-            List<String> territory = new ArrayList<>();
-            feudalKingdom.getTerritory().forEach(chunk -> territory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
-
-            List<String> privateTerritory = new ArrayList<>();
-            feudalKingdom.getPrivateTerritory().forEach(chunk -> privateTerritory.add(GsonUtils.chunkToJson(ChunkWrapper.chunkToChunkWrapper(chunk))));
-
-
             KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKingUUID());
             KingdomDBHandler.setField(kingdomName, "members", feudalKingdom.getMembersUUID());
             KingdomDBHandler.setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
-            KingdomDBHandler.setField(kingdomName, "territory", territory);
-            KingdomDBHandler.setField(kingdomName, "privateTerritory", privateTerritory);
+            KingdomDBHandler.setField(kingdomName, "territory", feudalKingdom.getTerritory());
+            KingdomDBHandler.setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
             KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
             KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
             KingdomDBHandler.setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
@@ -206,7 +183,7 @@ public class LoadAndSaveDataUtils {
 
         loadPlayerAttributes(player, speedLvl, survivabilityLvl);
 
-        loadPlayerMail(player);
+//        loadPlayerMail(player);
 
     }
 
@@ -242,7 +219,7 @@ public class LoadAndSaveDataUtils {
             PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
-            savePlayerMail(player);
+//            savePlayerMail(player);
 
             CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
 

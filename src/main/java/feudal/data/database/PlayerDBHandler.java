@@ -80,7 +80,7 @@ public class PlayerDBHandler {
             if (collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .hasNext())
-                return collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode())).iterator().hasNext();
+                return true;
 
             session.commitTransaction();
 
@@ -105,11 +105,11 @@ public class PlayerDBHandler {
 
             session.startTransaction();
 
-            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .hasNext()) return 0;
 
-            Document document = collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+            Document document = collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .next();
 
@@ -165,11 +165,11 @@ public class PlayerDBHandler {
 
             session.startTransaction();
 
-            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .hasNext()) return;
 
-            collection.findOneAndUpdate(Filters.eq("_id", player.getUniqueId().toString()), Updates.set(fieldName, value));
+            collection.findOneAndUpdate(Filters.eq("_id", player.getUniqueId().hashCode()), Updates.set(fieldName, value));
 
             session.commitTransaction();
 

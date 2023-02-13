@@ -9,21 +9,17 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import feudal.utils.FeudalValuesUtils;
-import feudal.utils.GsonUtils;
-import feudal.utils.wrappers.ChunkWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,7 +31,7 @@ public class KingdomDBHandler {
     static MongoCollection<Document> collection = FeudalValuesUtils.kingdomsCollection;
 
 
-    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Chunk> territory, List<Chunk> privateTerritory, List<String> baronsUUID) {
+    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<Integer> privateTerritory, List<String> baronsUUID) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -47,18 +43,12 @@ public class KingdomDBHandler {
                     .iterator()
                     .hasNext()) return;
 
-            List<String> territoryWrappers = new ArrayList<>();
-            territory.forEach(chunk -> territoryWrappers.add(GsonUtils.chunkToJson(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()))));
-
-            List<String> privateTerritoryWrappers = new ArrayList<>();
-            privateTerritory.forEach(privateChunk -> privateTerritoryWrappers.add(GsonUtils.chunkToJson(new ChunkWrapper(privateChunk.getWorld().getName(), privateChunk.getX(), privateChunk.getZ()))));
-
             collection.insertOne(new Document("_id", kingdomName)
                     .append("king", king.getUniqueId().toString())
                     .append("members", membersUUID)
                     .append("maxNumberMembers", 5)
-                    .append("territory", territoryWrappers)
-                    .append("privateTerritory", privateTerritoryWrappers)
+                    .append("territory", territory)
+                    .append("privateTerritory", privateTerritory)
                     .append("reputation", 1000)
                     .append("balance", 10000)
                     .append("barons", baronsUUID));
@@ -239,7 +229,7 @@ public class KingdomDBHandler {
         return false;
     }
 
-    public static boolean chunkInKingdom(@NotNull String chunk) {
+    public static boolean chunkInKingdom(int chunkHashCode) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -247,7 +237,7 @@ public class KingdomDBHandler {
 
             session.startTransaction();
 
-            if (collection.find(new BasicDBObject("territory", chunk))
+            if (collection.find(new BasicDBObject("territory", chunkHashCode))
                     .iterator()
                     .hasNext()) return true;
 

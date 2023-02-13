@@ -6,11 +6,10 @@ import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
-import org.jetbrains.annotations.NotNull;
 
 public class ScoreBoardInfo {
 
-    public static void updateScoreBoardInfo(@NotNull Player player) {
+    public static void updateScoreBoardInfo(Player player) {
 
         ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = scoreboardManager.getNewScoreboard();

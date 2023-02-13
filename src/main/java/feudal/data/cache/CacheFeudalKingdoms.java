@@ -17,11 +17,11 @@ public class CacheFeudalKingdoms {
         return feudalKingdomCache;
     }
 
-    public static boolean checkPrivate(@NotNull String chunk, @NotNull Player player) {
+    public static boolean checkPrivate(int chunkHashCode, @NotNull Player player) {
 
         for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
-            if (kingdom.getValue().chunkInKingdomCache(chunk))
+            if (kingdom.getValue().chunkInKingdomCache(chunkHashCode))
                 return !kingdom.getValue().getMembersUUID().contains(player.getUniqueId().toString());
 
         }

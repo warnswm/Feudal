@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @ToString
@@ -113,7 +114,7 @@ public class FeudalPlayer {
 
         experience += value;
 
-        Player player = Bukkit.getPlayerExact(playerUUID);
+        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
         ScoreBoardInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " опыта атрибутов");
@@ -125,7 +126,7 @@ public class FeudalPlayer {
 
         balance += value;
 
-        Player player = Bukkit.getPlayerExact(playerUUID);
+        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
         ScoreBoardInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " денег");
@@ -177,7 +178,7 @@ public class FeudalPlayer {
 
         gameClassExperience += value;
 
-        Player player = Bukkit.getPlayerExact(playerUUID);
+        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
         if (gameClassLvl <= 100 && gameClassExperience >= (int) (Math.pow(1 + 0.05, gameClassLvl) * 100)) {
 
@@ -199,7 +200,7 @@ public class FeudalPlayer {
 
         experience -= value;
 
-        Player player = Bukkit.getPlayerExact(playerUUID);
+        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
         ScoreBoardInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " опыта атрибутов");
@@ -211,7 +212,7 @@ public class FeudalPlayer {
 
         balance -= value;
 
-        Player player = Bukkit.getPlayerExact(playerUUID);
+        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
         ScoreBoardInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " денег");
@@ -263,7 +264,7 @@ public class FeudalPlayer {
 
         gameClassExperience -= value;
 
-        Player player = Bukkit.getPlayerExact(playerUUID);
+        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
         ScoreBoardInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " опыта класса");

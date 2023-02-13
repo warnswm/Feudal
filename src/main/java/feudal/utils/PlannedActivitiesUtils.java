@@ -5,7 +5,6 @@ import feudal.data.builder.FeudalKingdom;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
@@ -39,12 +38,12 @@ public class PlannedActivitiesUtils {
 
                 cacheFeudalKingdom.takeBalance(balance / 100 * 3);
 
-                for (Chunk chunk : kingdom.getValue().getTerritory()) {
+                for (Integer chunkHashCode : kingdom.getValue().getTerritory()) {
 
                     if (balance < landTax) {
 
-                        cacheFeudalKingdom.takeTerritory(chunk);
-                        cacheFeudalKingdom.takePrivateTerritory(chunk);
+                        cacheFeudalKingdom.takeTerritory(chunkHashCode);
+                        cacheFeudalKingdom.takePrivateTerritory(chunkHashCode);
                         continue;
 
                     }

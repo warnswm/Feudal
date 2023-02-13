@@ -18,8 +18,8 @@ public class FeudalKingdom {
     final List<String> invitationUUID = new ArrayList<>();
     String kingUUID;
     int maxNumberMembers;
-    List<Chunk> territory = new ArrayList<>();
-    List<Chunk> privateTerritory = new ArrayList<>();
+    List<Integer> territory = new ArrayList<>();
+    List<Integer> privateTerritory = new ArrayList<>();
     List<String> membersUUID = new ArrayList<>();
     int balance;
     int reputation;
@@ -46,12 +46,12 @@ public class FeudalKingdom {
         return this;
     }
 
-    public FeudalKingdom setTerritory(List<Chunk> territory) {
+    public FeudalKingdom setTerritory(@NotNull List<Integer> territory) {
         this.territory = territory;
         return this;
     }
 
-    public FeudalKingdom setPrivateTerritory(List<Chunk> privateTerritory) {
+    public FeudalKingdom setPrivateTerritory(@NotNull List<Integer> privateTerritory) {
         this.privateTerritory = privateTerritory;
         return this;
     }
@@ -78,12 +78,12 @@ public class FeudalKingdom {
     }
 
     public FeudalKingdom addTerritory(@NotNull Chunk chunk) {
-        territory.add(chunk);
+        territory.add(chunk.hashCode());
         return this;
     }
 
     public FeudalKingdom addPrivateTerritory(@NotNull Chunk chunk) {
-        privateTerritory.add(chunk);
+        privateTerritory.add(chunk.hashCode());
         return this;
     }
 
@@ -108,13 +108,13 @@ public class FeudalKingdom {
         return this;
     }
 
-    public FeudalKingdom takeTerritory(@NotNull Chunk chunk) {
-        territory.remove(chunk);
+    public FeudalKingdom takeTerritory(int chunkHashCode) {
+        territory.remove(chunkHashCode);
         return this;
     }
 
-    public FeudalKingdom takePrivateTerritory(@NotNull Chunk chunk) {
-        privateTerritory.remove(chunk);
+    public FeudalKingdom takePrivateTerritory(int chunkHashCode) {
+        privateTerritory.remove(chunkHashCode);
         return this;
     }
 
@@ -169,8 +169,8 @@ public class FeudalKingdom {
     }
 
 
-    public boolean chunkInKingdomCache(@NotNull String chunk) {
-        return territory.contains(chunk);
+    public boolean chunkInKingdomCache(int chunkHashCode) {
+        return territory.contains(chunkHashCode);
     }
 
 }
