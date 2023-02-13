@@ -21,5 +21,6 @@ public class GameClassUpMenu {
         upgradeGameClassInv.setItem(6, CreateItemUtils.createItem(Material.CLAY_BALL, 1, AttributeForGameClassesEnum.getSecondAttributeNameByID(feudalPlayer.getAClassID())));
 
         player.openInventory(upgradeGameClassInv);
+
     }
 }

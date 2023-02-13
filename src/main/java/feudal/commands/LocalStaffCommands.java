@@ -6,6 +6,7 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.visual.menus.GameClassSelectionMenu;
 import feudal.visual.menus.GameClassUpMenu;
+import feudal.visual.menus.TravelingMerchantMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -53,6 +54,12 @@ public class LocalStaffCommands implements CommandExecutor {
             case "test1":
 
                 GameClassUpMenu.upgradeGameClass(player);
+                break;
+
+            case "test2":
+
+                TravelingMerchantMenu.openTravelingMerchantMenu(player);
+
                 break;
 
         }
