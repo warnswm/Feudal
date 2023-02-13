@@ -70,8 +70,6 @@ public class PlannedActivitiesUtils {
 
         }, 0L), 432000);
 
-        System.gc();
-
     }
 
     public static void eventCall() {

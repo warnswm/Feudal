@@ -106,8 +106,6 @@ public class LoadAndSaveDataUtils {
             }
         }).start();
 
-        System.gc();
-
     }
 
     public static void saveKingdom(Player player) {
@@ -146,8 +144,6 @@ public class LoadAndSaveDataUtils {
 
         }).start();
 
-        System.gc();
-
     }
 
     public static void saveAllPlayers() {
@@ -175,8 +171,6 @@ public class LoadAndSaveDataUtils {
             CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
 
         }).start());
-
-        System.gc();
 
     }
 
@@ -265,8 +259,6 @@ public class LoadAndSaveDataUtils {
             CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
 
         }).start();
-
-        System.gc();
 
     }
 
