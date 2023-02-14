@@ -36,7 +36,7 @@ public class FeudalPlayer {
     int gameClassLvl;
     int gameClassExperience;
     String kingdomName;
-    List<String> playerLetters = new ArrayList<>();
+    List<String> letters = new ArrayList<>();
 
     public FeudalPlayer(@NotNull Player player) {
         playerUUID = player.getUniqueId().toString();
@@ -292,15 +292,15 @@ public class FeudalPlayer {
     }
 
     public FeudalPlayer setLetters(List<String> letters) {
-        playerLetters = letters;
+        this.letters = letters;
         return this;
     }
 
     public FeudalPlayer addLetter(@NotNull Player sender, String letter) {
 
-        playerLetters.add(letter);
+        letters.add(letter);
 
-        String shortLetter = letter.length() < 10 ? letter : letter.substring(0, 9);
+        String shortLetter = letter.length() < 10 ? letter : letter.substring(0, 10);
 
         CraftPlayer player = (CraftPlayer) Bukkit.getPlayer(UUID.fromString(playerUUID));
         player.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + "§lНовое письмо от игрока " + sender.getName() + " - §n" + shortLetter + "..." + "\"}"), ChatMessageType.GAME_INFO));
@@ -309,12 +309,12 @@ public class FeudalPlayer {
     }
 
     public FeudalPlayer clearLetters() {
-        playerLetters.clear();
+        letters.clear();
         return this;
     }
 
     public FeudalPlayer deleteLetter(String letter) {
-        playerLetters.remove(kingdomName);
+        letters.remove(kingdomName);
         return this;
     }
 

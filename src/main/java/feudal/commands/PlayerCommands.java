@@ -7,6 +7,7 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.utils.PlannedActivitiesUtils;
+import feudal.visual.menus.MailMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -77,6 +78,12 @@ public class PlayerCommands implements CommandExecutor {
             case "reject":
 
                 reject(player, args[1]);
+
+                break;
+
+            case "mail":
+
+                MailMenu.openMailMenu(player);
 
                 break;
 

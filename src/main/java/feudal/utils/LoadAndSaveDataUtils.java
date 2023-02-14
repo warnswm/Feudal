@@ -297,10 +297,10 @@ public class LoadAndSaveDataUtils {
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         if (!playerLetters.containsKey(player.getUniqueId().hashCode()))
-            playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getPlayerLetters());
+            playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
 
         else
-            playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getPlayerLetters());
+            playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
 
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
@@ -329,7 +329,7 @@ public class LoadAndSaveDataUtils {
             Map<Integer, List<String>> mail = new HashMap<>();
 
             List<String> letters = new ArrayList<>();
-            letters.add("Добро пожаловать на режим Feudal! Обязательно пройдите обучение, удачной игры.");
+            letters.add("Добро пожаловать на Feudal!");
 
             mail.put(player.getUniqueId().hashCode(), letters);
             CacheFeudalPlayers.getFeudalPlayer(player).setLetters(letters);

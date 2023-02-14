@@ -13,10 +13,7 @@ import feudal.generalListeners.MobListener;
 import feudal.generalListeners.PlayerJoinAndQuit;
 import feudal.generalListeners.PlayerListener;
 import feudal.generalListeners.craftItems.CraftItemsListener;
-import feudal.interactListeners.menuListeners.AttributesUpMenuListener;
-import feudal.interactListeners.menuListeners.ClerkMenuListener;
-import feudal.interactListeners.menuListeners.GameClassChangeMenuListener;
-import feudal.interactListeners.menuListeners.GameClassUpMenuListener;
+import feudal.interactListeners.menuListeners.*;
 import feudal.possessions.territoryListeners.BlocksListener;
 import feudal.possessions.territoryListeners.InteractListener;
 import feudal.utils.LoadAndSaveDataUtils;
@@ -95,6 +92,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
+        Bukkit.getPluginManager().registerEvents(new MailMenuListener(), this);
 
         Bukkit.getPluginManager().registerEvents(new BlindnessListener(), this);
 //        Bukkit.getPluginManager().registerEvents(new DesiccationListener(), this);

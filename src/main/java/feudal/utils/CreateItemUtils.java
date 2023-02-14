@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CreateItemUtils {
@@ -41,15 +42,17 @@ public class CreateItemUtils {
         return item;
     }
 
-    public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName, String lore) {
+    public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName, @NotNull String lore) {
 
         ItemStack item = new ItemStack(material, materialAmount);
         ItemMeta itemMeta = item.getItemMeta();
 
         itemMeta.setDisplayName(displayName);
 
+        String[] loreS = lore.split("!.?");
         List<String> loreT = new ArrayList<>();
-        loreT.add(lore);
+
+        Collections.addAll(loreT, loreS);
         itemMeta.setLore(loreT);
 
         item.setItemMeta(itemMeta);
