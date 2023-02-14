@@ -29,6 +29,13 @@ public class LocalStaffCommands implements CommandExecutor {
         FeudalPlayer feudalPlayer;
         FeudalKingdom feudalKingdom;
 
+        if (args[1] == null) {
+
+            player.sendMessage("Недостаточно аргументов!");
+            return false;
+
+        }
+
 
         switch (args[0].toLowerCase()) {
 
@@ -43,6 +50,22 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
                 feudalKingdom.addTerritory(player.getLocation().getChunk());
+
+                break;
+
+            case "sendletter":
+
+                if (Bukkit.getPlayerExact(args[1]) == null) {
+
+                    player.sendMessage("Игрок не найден!");
+                    break;
+
+                }
+
+                String[] text = new String[args.length - 2];
+                System.arraycopy(args, 2, text, 0, args.length - 2);
+
+                sendLetter(Bukkit.getPlayerExact(args[1]), text);
 
                 break;
 
@@ -65,5 +88,10 @@ public class LocalStaffCommands implements CommandExecutor {
         }
 
         return false;
+
+    }
+
+    private void sendLetter(Player player, String[] text) {
+        CacheFeudalPlayers.getFeudalPlayer(player).addLetter(player, String.join(" ", text));
     }
 }

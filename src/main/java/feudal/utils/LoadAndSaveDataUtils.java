@@ -21,9 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LoadAndSaveDataUtils {
@@ -184,7 +182,7 @@ public class LoadAndSaveDataUtils {
 
         loadPlayerAttributes(player, speedLvl, survivabilityLvl);
 
-//        loadPlayerMail(player);
+        loadPlayerMail(player);
 
     }
 
@@ -220,7 +218,7 @@ public class LoadAndSaveDataUtils {
             PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
-//            savePlayerMail(player);
+            savePlayerMail(player);
 
             CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
 
@@ -324,26 +322,21 @@ public class LoadAndSaveDataUtils {
 
             }
 
-
         try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
 
-            Type mapType = new TypeToken<Map<Player, List<String>>>() {
+            Type mapType = new TypeToken<Map<String, List<String>>>() {
             }.getType();
 
             Map<String, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
 
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-            for (Map.Entry<String, FeudalPlayer> feudalPlayer : CacheFeudalPlayers.getFeudalPlayerInfo().entrySet()) {
 
-                if (playerLetters.get(player.getUniqueId().toString()) == null) return;
+            if (!playerLetters.containsKey(player.getUniqueId().toString()))
+                playerLetters.put(player.getUniqueId().toString(), feudalPlayer.getPlayerLetters());
 
-                if (!playerLetters.containsKey(player.getUniqueId().toString()))
-                    playerLetters.put(feudalPlayer.getKey(), feudalPlayer.getValue().getPlayerLetters());
-
-                else
-                    playerLetters.replace(feudalPlayer.getKey(), feudalPlayer.getValue().getPlayerLetters());
-
-            }
+            else
+                playerLetters.replace(player.getUniqueId().toString(), feudalPlayer.getPlayerLetters());
 
 
             fileWriter.write(new Gson().toJson(playerLetters));
@@ -372,22 +365,43 @@ public class LoadAndSaveDataUtils {
 
             }
 
-            return;
-
         }
 
         try {
 
-            Type mapType = new TypeToken<Map<Player, List<String>>>() {
+            Type mapType = new TypeToken<Map<String, List<String>>>() {
             }.getType();
-            Map<Player, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
+            Map<String, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
+
+            if (playerLetters == null) {
+
+                try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
+
+                    Map<String, List<String>> mail = new HashMap<>();
+
+                    List<String> letters = new ArrayList<>();
+                    letters.add("Добро пожаловать на режим Feudal! Обязательно пройдите обучение, удачной игры.");
+
+                    mail.put(player.getUniqueId().toString(), letters);
+
+                    fileWriter.write(new Gson().toJson(mail));
+
+                } catch (IOException e) {
+
+                    throw new RuntimeException(e);
+
+                }
+
+                return;
+
+            }
 
 
-            for (Map.Entry<Player, List<String>> letters : playerLetters.entrySet()) {
+            for (Map.Entry<String, List<String>> letters : playerLetters.entrySet()) {
 
-                if (letters.getKey() != player) return;
+                if (!Objects.equals(letters.getKey(), player.getUniqueId().toString())) return;
 
-                CacheFeudalPlayers.getFeudalPlayer(letters.getKey()).setLetters(letters.getValue());
+                CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(UUID.fromString(letters.getKey()))).setLetters(letters.getValue());
 
             }
 

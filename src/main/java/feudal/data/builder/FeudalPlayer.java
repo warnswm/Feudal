@@ -5,7 +5,11 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import net.minecraft.server.v1_12_R1.ChatMessageType;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
+import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -292,8 +296,15 @@ public class FeudalPlayer {
         return this;
     }
 
-    public FeudalPlayer addLetter(String letter) {
+    public FeudalPlayer addLetter(@NotNull Player sender, String letter) {
+
         playerLetters.add(letter);
+
+        String shortLetter = letter.length() < 10 ? letter : letter.substring(0, 9);
+
+        CraftPlayer player = (CraftPlayer) Bukkit.getPlayer(UUID.fromString(playerUUID));
+        player.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + "§lНовое письмо от игрока " + sender.getName() + " - §n" + shortLetter + "..." + "\"}"), ChatMessageType.GAME_INFO));
+
         return this;
     }
 
