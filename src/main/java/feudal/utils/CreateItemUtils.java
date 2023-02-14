@@ -49,10 +49,13 @@ public class CreateItemUtils {
 
         itemMeta.setDisplayName(displayName);
 
-        String[] loreS = lore.split("!.?");
+        String[] loreS = lore.split("!.\\?");
         List<String> loreT = new ArrayList<>();
 
         Collections.addAll(loreT, loreS);
+
+        loreT.add("");
+        loreT.add("Нажмите [ПКМ], чтобы взаимодействовать.");
         itemMeta.setLore(loreT);
 
         item.setItemMeta(itemMeta);

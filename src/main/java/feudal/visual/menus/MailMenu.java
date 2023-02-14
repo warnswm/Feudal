@@ -17,7 +17,7 @@ public class MailMenu {
 
         Inventory mailMenu = Bukkit.createInventory(player, 54, "Почта");
 
-        int iterations = feudalPlayer.getLetters().size() > 54 ? 54 : feudalPlayer.getLetters().size();
+        int iterations = Math.min(feudalPlayer.getLetters().size(), 54);
 
         for (int i = 0; i < iterations; i++) {
 

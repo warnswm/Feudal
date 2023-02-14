@@ -329,7 +329,7 @@ public class LoadAndSaveDataUtils {
             Map<Integer, List<String>> mail = new HashMap<>();
 
             List<String> letters = new ArrayList<>();
-            letters.add("Добро пожаловать на Feudal!");
+            letters.add("Добро пожаловать на режим Feudal!");
 
             mail.put(player.getUniqueId().hashCode(), letters);
             CacheFeudalPlayers.getFeudalPlayer(player).setLetters(letters);

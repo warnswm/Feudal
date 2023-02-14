@@ -243,11 +243,11 @@ public class PlayerCommands implements CommandExecutor {
         feudalKingdom.addInvitation(invitedPlayer);
         feudalInvitedPlayer.addInvitations(kingdomName);
 
-        invitedPlayer.sendMessage("Игрок " +
+        feudalInvitedPlayer.addLetter(playerInviting, "Игрок " +
                 playerInviting.getName() +
-                " приглашает вас вступить в его королевство - " +
-                kingdomName +
-                ". Введите /f accept [имя королевства], чтобы принять приглашение!");
+                " приглашает вас вступить в королевство - " +
+                kingdomName);
+
         playerInviting.sendMessage("Приглашение отправлено!");
 
 
@@ -258,7 +258,12 @@ public class PlayerCommands implements CommandExecutor {
 
             playerInviting.sendMessage("Игрок " + invitedPlayer.getName() + " не принял ваше приглашение!");
 
-        }, 0L), 2400);
+            feudalInvitedPlayer.deleteLetter("Игрок " +
+                    playerInviting.getName() +
+                    " приглашает вас вступить в королевство - " +
+                    kingdomName);
+
+        }, 2400), 0);
 
     }
 
