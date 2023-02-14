@@ -39,6 +39,13 @@ public class PlayerCommands implements CommandExecutor {
 
             case "create":
 
+                if (args[1] == null) {
+
+                    player.sendMessage("Пожалуйста укажите желаемое имя королевства!");
+                    break;
+
+                }
+
                 createKingdomCommand(player, args[1]);
                 break;
 

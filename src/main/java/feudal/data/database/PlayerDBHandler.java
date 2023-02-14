@@ -119,9 +119,13 @@ public class PlayerDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
         return 0;
@@ -135,11 +139,11 @@ public class PlayerDBHandler {
 
             session.startTransaction();
 
-            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+            if (!collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .hasNext()) return "";
 
-            Document document = collection.find(new BasicDBObject("_id", player.getUniqueId().toString()))
+            Document document = collection.find(new BasicDBObject("_id", player.getUniqueId().hashCode()))
                     .iterator()
                     .next();
 
@@ -189,7 +193,7 @@ public class PlayerDBHandler {
             session.startTransaction();
 
 
-            String uuid = player.getUniqueId().toString();
+            int uuid = player.getUniqueId().hashCode();
 
             if (!collection.find(new BasicDBObject("_id", uuid))
                     .iterator()

@@ -160,6 +160,7 @@ public class LoadAndSaveDataUtils {
                     .setGameClassLvl(0);
 
             return;
+
         }
 
         int speedLvl = PlayerDBHandler.getIntegerField(player, "speedLvl"), survivabilityLvl = PlayerDBHandler.getIntegerField(player, "survivabilityLvl");
