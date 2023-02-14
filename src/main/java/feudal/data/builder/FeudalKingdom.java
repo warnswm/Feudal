@@ -1,5 +1,6 @@
 package feudal.data.builder;
 
+import feudal.utils.wrappers.ChunkWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
@@ -72,18 +73,18 @@ public class FeudalKingdom {
     }
 
 
-    public FeudalKingdom addMember(Player player) {
+    public FeudalKingdom addMember(@NotNull Player player) {
         membersUUID.add(player.getUniqueId().toString());
         return this;
     }
 
     public FeudalKingdom addTerritory(@NotNull Chunk chunk) {
-        territory.add(chunk.hashCode());
+        territory.add(ChunkWrapper.chunkToChunkWrapper(chunk).hashCode());
         return this;
     }
 
     public FeudalKingdom addPrivateTerritory(@NotNull Chunk chunk) {
-        privateTerritory.add(chunk.hashCode());
+        privateTerritory.add(ChunkWrapper.chunkToChunkWrapper(chunk).hashCode());
         return this;
     }
 

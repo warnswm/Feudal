@@ -179,7 +179,7 @@ public class LoadAndSaveDataUtils {
                 .setKingdomName(PlayerDBHandler.getStringField(player, "kingdomName"))
                 .setSurvivabilityLvl(survivabilityLvl);
 
-        CacheFeudalPlayers.getFeudalPlayerInfo().put(player, feudalPlayer);
+        CacheFeudalPlayers.getFeudalPlayerInfo().put(player.getUniqueId().toString(), feudalPlayer);
 
         loadPlayerAttributes(player, speedLvl, survivabilityLvl);
 
@@ -328,14 +328,15 @@ public class LoadAndSaveDataUtils {
 
             Type mapType = new TypeToken<Map<Player, List<String>>>() {
             }.getType();
-            Map<Player, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
+
+            Map<String, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
 
 
-            for (Map.Entry<Player, FeudalPlayer> feudalPlayer : CacheFeudalPlayers.getFeudalPlayerInfo().entrySet()) {
+            for (Map.Entry<String, FeudalPlayer> feudalPlayer : CacheFeudalPlayers.getFeudalPlayerInfo().entrySet()) {
 
-                if (playerLetters.get(player) == null) return;
+                if (playerLetters.get(player.getUniqueId().toString()) == null) return;
 
-                if (!playerLetters.containsKey(player))
+                if (!playerLetters.containsKey(player.getUniqueId().toString()))
                     playerLetters.put(feudalPlayer.getKey(), feudalPlayer.getValue().getPlayerLetters());
 
                 else
