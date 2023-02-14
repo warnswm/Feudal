@@ -13,13 +13,17 @@ import feudal.generalListeners.PlayerListener;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import feudal.visual.scoreboards.ScoreBoardInfo;
 import lombok.AccessLevel;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -243,174 +247,101 @@ public class LoadAndSaveDataUtils {
 
     }
 
+    @SneakyThrows
     public static void loadPlacedBlocks() {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
 
         if (!file.exists()) {
 
-            try {
-
-                file.createNewFile();
-
-            } catch (IOException e) {
-
-                throw new RuntimeException(e);
-
-            }
-
+            file.createNewFile();
             return;
 
         }
 
-        try {
+        Type listType = new TypeToken<List<PlacedBlockWrapper>>() {
+        }.getType();
+        List<PlacedBlockWrapper> placedBlockWrapperList = new Gson().fromJson(new FileReader(file), listType);
 
-            Type listType = new TypeToken<List<PlacedBlockWrapper>>() {
-            }.getType();
-            List<PlacedBlockWrapper> placedBlockWrapperList = new Gson().fromJson(new FileReader(file), listType);
-
-            placedBlockWrapperList.forEach(placedBlockWrapper -> PlacedBlockWrapper.placedBlockWrapperToBlock(placedBlockWrapper).setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true")));
-
-        } catch (FileNotFoundException e) {
-
-            throw new RuntimeException(e);
-
-        }
+        placedBlockWrapperList.forEach(placedBlockWrapper -> PlacedBlockWrapper.placedBlockWrapperToBlock(placedBlockWrapper).setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true")));
 
     }
 
+    @SneakyThrows
     public static void savePlacedBlocks() {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
 
         if (!file.exists())
-            try {
+            file.createNewFile();
 
-                file.createNewFile();
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-            } catch (IOException e) {
-
-                throw new RuntimeException(e);
-
-            }
-
-
-        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
-
-            fileWriter.write(new Gson().toJson(PlayerListener.placedBlocks));
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(e);
-
-        }
+        fileWriter.write(new Gson().toJson(PlayerListener.placedBlocks));
+        fileWriter.flush();
 
     }
 
+    @SneakyThrows
     public static void savePlayerMail(Player player) {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
 
         if (!file.exists())
-            try {
+            file.createNewFile();
 
-                file.createNewFile();
+        Type mapType = new TypeToken<Map<Integer, List<String>>>() {
+        }.getType();
+        Map<Integer, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
 
-            } catch (IOException e) {
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-                throw new RuntimeException(e);
+        if (!playerLetters.containsKey(player.getUniqueId().hashCode()))
+            playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getPlayerLetters());
 
-            }
-
-        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
-
-            Type mapType = new TypeToken<Map<String, List<String>>>() {
-            }.getType();
-
-            Map<String, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
-
-            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        else
+            playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getPlayerLetters());
 
 
-            if (!playerLetters.containsKey(player.getUniqueId().toString()))
-                playerLetters.put(player.getUniqueId().toString(), feudalPlayer.getPlayerLetters());
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-            else
-                playerLetters.replace(player.getUniqueId().toString(), feudalPlayer.getPlayerLetters());
-
-
-            fileWriter.write(new Gson().toJson(playerLetters));
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(e);
-
-        }
+        fileWriter.write(new Gson().toJson(playerLetters));
+        fileWriter.flush();
 
     }
 
+    @SneakyThrows
     public static void loadPlayerMail(Player player) {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
 
-        if (!file.exists()) {
+        if (!file.exists())
+            file.createNewFile();
 
-            try {
+        Type mapType = new TypeToken<Map<Integer, List<String>>>() {
+        }.getType();
+        Map<Integer, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
 
-                file.createNewFile();
+        if (playerLetters == null || playerLetters.get(player.getUniqueId().hashCode()) == null) {
 
-            } catch (IOException e) {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-                throw new RuntimeException(e);
+            Map<Integer, List<String>> mail = new HashMap<>();
 
-            }
+            List<String> letters = new ArrayList<>();
+            letters.add("Добро пожаловать на режим Feudal! Обязательно пройдите обучение, удачной игры.");
 
-        }
+            mail.put(player.getUniqueId().hashCode(), letters);
+            CacheFeudalPlayers.getFeudalPlayer(player).setLetters(letters);
 
-        try {
+            fileWriter.write(new Gson().toJson(mail));
+            fileWriter.flush();
 
-            Type mapType = new TypeToken<Map<String, List<String>>>() {
-            }.getType();
-            Map<String, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
-
-            if (playerLetters == null) {
-
-                try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file))) {
-
-                    Map<String, List<String>> mail = new HashMap<>();
-
-                    List<String> letters = new ArrayList<>();
-                    letters.add("Добро пожаловать на режим Feudal! Обязательно пройдите обучение, удачной игры.");
-
-                    mail.put(player.getUniqueId().toString(), letters);
-
-                    fileWriter.write(new Gson().toJson(mail));
-
-                } catch (IOException e) {
-
-                    throw new RuntimeException(e);
-
-                }
-
-                return;
-
-            }
-
-
-            for (Map.Entry<String, List<String>> letters : playerLetters.entrySet()) {
-
-                if (!Objects.equals(letters.getKey(), player.getUniqueId().toString())) return;
-
-                CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(UUID.fromString(letters.getKey()))).setLetters(letters.getValue());
-
-            }
-
-
-        } catch (FileNotFoundException e) {
-
-            throw new RuntimeException(e);
+            return;
 
         }
+
+        CacheFeudalPlayers.getFeudalPlayer(player).setLetters(playerLetters.get(player.getUniqueId().hashCode()));
 
     }
 }
