@@ -21,6 +21,7 @@ import java.util.UUID;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalPlayer {
+    final List<String> invitations = new ArrayList<>();
     String playerUUID;
     int aClassID;
     int experience;
@@ -35,7 +36,6 @@ public class FeudalPlayer {
     int gameClassLvl;
     int gameClassExperience;
     String kingdomName;
-    final List<String> invitations = new ArrayList<>();
     List<String> playerLetters = new ArrayList<>();
 
     public FeudalPlayer(@NotNull Player player) {

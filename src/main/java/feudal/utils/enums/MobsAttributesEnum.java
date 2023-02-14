@@ -36,15 +36,15 @@ public enum MobsAttributesEnum {
     WITHER(EntityType.WITHER, 25, 1200),
     ENDER_DRAGON(EntityType.ENDER_DRAGON, 30, 10000);
 
+    EntityType entity;
+    int strength;
+    int hp;
+
     MobsAttributesEnum(EntityType entity, int hp) {
         this.entity = entity;
         this.hp = hp;
         strength = 0;
     }
-
-    EntityType entity;
-    int strength;
-    int hp;
 
     public static int getStrengthByEntity(EntityType entity) {
         for (MobsAttributesEnum mobsAttributesEnum : values())

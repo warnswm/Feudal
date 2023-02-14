@@ -42,8 +42,8 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerListener implements Listener {
 
-    List<String> sleepingPlayers = new ArrayList<>();
     public static List<PlacedBlockWrapper> placedBlocks = new ArrayList<>();
+    List<String> sleepingPlayers = new ArrayList<>();
 
     @EventHandler
     public void playerTeleport(@NotNull PlayerTeleportEvent event) {
