@@ -6,13 +6,18 @@ import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
 import feudal.utils.enums.BlockToSaveEnum;
 import feudal.utils.enums.MoneyForMobsEnum;
+import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
+import net.minecraft.server.v1_12_R1.ChatMessageType;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
+import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -25,10 +30,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.player.PlayerBedEnterEvent;
-import org.bukkit.event.player.PlayerBedLeaveEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.potion.PotionEffect;
@@ -106,6 +108,27 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
+    public void playerInteractWithPlayer(@NotNull PlayerInteractAtEntityEvent event) {
+
+        if (!(event.getRightClicked() instanceof Player)) return;
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer((Player) event.getRightClicked());
+        String kingdomName = feudalPlayer.getKingdomName().equals("") ? "Не состоит" : feudalPlayer.getKingdomName();
+
+        CraftPlayer player = (CraftPlayer) event.getPlayer();
+        player.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" +
+                "-=[Короролевство: " +
+                kingdomName +
+                ", класс: " +
+                GameClassesIDEnum.getByID(feudalPlayer.getAClassID()) +
+                ", убийств: " + feudalPlayer.getKills() +
+                ", смертей: " + feudalPlayer.getDeaths() +
+                "]=-" +
+                "\"}"), ChatMessageType.GAME_INFO));
+
+    }
+
+    @EventHandler
     public void playerEats(@NotNull PlayerItemConsumeEvent event) {
 
         if (event.getItem().getType().equals(Material.GOLDEN_APPLE)) {
@@ -134,7 +157,7 @@ public class PlayerListener implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void playerOnFoodChange(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
@@ -147,7 +170,7 @@ public class PlayerListener implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void playerRegenerationEvent(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
@@ -159,7 +182,7 @@ public class PlayerListener implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (!(event.getDamager() instanceof Player)) return;
@@ -201,7 +224,7 @@ public class PlayerListener implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();

@@ -29,6 +29,6 @@ public enum GameClassesIDEnum {
         for (GameClassesIDEnum gameClassesIDEnum : values())
             if (gameClassesIDEnum.getId() == id)
                 return gameClassesIDEnum.getGameClassName();
-        return "";
+        return "Не выбран";
     }
 }
