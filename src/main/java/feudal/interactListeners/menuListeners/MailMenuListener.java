@@ -29,53 +29,51 @@ public class MailMenuListener implements Listener {
 
         Player player = (Player) event.getView().getPlayer();
 
-        if (event.getCurrentItem().getItemMeta() == null) return;
+        if (event.getCurrentItem() == null ||
+                event.getCurrentItem().getItemMeta() == null) return;
 
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        String lore = event.getCurrentItem().getItemMeta().getLore().get(0) != null ? event.getCurrentItem().getItemMeta().getLore().get(0) : " lore";
-        String lastWord = lore.substring(lore.lastIndexOf(" ") + 1);
+        String lore = event.getCurrentItem().getItemMeta().getLore() != null ? event.getCurrentItem().getItemMeta().getLore().get(0) : " lore";
+        String displayName = event.getCurrentItem().getItemMeta().getDisplayName();
 
 
-        if (lore.contains(" приглашает вас вступить в королевство - ")) {
+        if (lore.contains(" приглашает вас вступить в королевство - "))
+            menuInteractionInvitation(player, lore.substring(lore.lastIndexOf(" ") + 1), lore);
 
-            lastWord = lore.substring(lore.lastIndexOf(" ") + 1);
-            menuInteractionInvitation(player, lastWord);
+        if (displayName.contains("Вступить в королевство")) {
 
-        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Вступить в королевство " + lastWord)) {
+            String kingdomName = displayName.substring(displayName.lastIndexOf(" " + 1)).substring(1);
 
-            if (!feudalPlayer.getInvitations().contains(lastWord)) {
+            if (!feudalPlayer.getInvitations().contains(kingdomName)) {
 
                 player.sendMessage("Вы не были приглашены этим королевством! Или время приглашения истекло.");
                 return;
 
             }
 
-            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(lastWord);
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
             feudalKingdom.addMember(player);
 
-            feudalPlayer.setKingdomName(lastWord);
+            feudalPlayer.setKingdomName(kingdomName);
             feudalPlayer.clearInvitations();
 
-            Bukkit.getPlayer(UUID.fromString(feudalKingdom.getKingUUID())).sendMessage("Игрок " +
-                    player.getDisplayName() +
-                    " принял ваше приглашение!");
-            player.sendMessage("Вы вступили в королевство: " +
-                    lastWord);
+            Bukkit.getPlayer(UUID.fromString(feudalKingdom.getKingUUID())).sendMessage("Игрок " + player.getDisplayName() + " принял ваше приглашение!");
 
+            player.sendMessage("Вы вступили в королевство: " + kingdomName);
             player.closeInventory();
 
-        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Закрыть"))
+        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Закрыть меню"))
             player.closeInventory();
 
     }
 
-    private void menuInteractionInvitation(Player player, String kingdomName) {
+    private void menuInteractionInvitation(Player player, String kingdomName, String lore) {
 
         Inventory inventory = Bukkit.createInventory(player, 9, "Взаимодействие с приглашением");
 
-        inventory.setItem(1, CreateItemUtils.createItem(Material.GREEN_SHULKER_BOX, 1, "Вступить в королевство " + kingdomName));
+        inventory.setItem(1, CreateItemUtils.createItem(Material.GREEN_SHULKER_BOX, 1, "Вступить в королевство " + kingdomName, lore));
         inventory.setItem(7, CreateItemUtils.createItem(Material.BARRIER, 1, "Закрыть меню"));
 
         player.openInventory(inventory);
