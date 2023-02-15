@@ -283,32 +283,6 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    public static void savePlayerMail(Player player) {
-
-        File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
-
-        if (!file.exists())
-            file.createNewFile();
-
-        Type mapType = new TypeToken<Map<Integer, List<String>>>() {
-        }.getType();
-        Map<Integer, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
-
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-
-        if (playerLetters.containsKey(player.getUniqueId().hashCode()))
-            playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
-        else playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
-
-
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
-
-        fileWriter.write(new Gson().toJson(playerLetters));
-        fileWriter.flush();
-
-    }
-
-    @SneakyThrows
     public static void loadPlayerMail(Player player) {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
@@ -342,4 +316,60 @@ public class LoadAndSaveDataUtils {
         CacheFeudalPlayers.getFeudalPlayer(player).setLetters(playerLetters.get(player.getUniqueId().hashCode()));
 
     }
+
+    @SneakyThrows
+    public static void savePlayerMail(Player player) {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
+
+        if (!file.exists())
+            file.createNewFile();
+
+        Type mapType = new TypeToken<Map<Integer, List<String>>>() {
+        }.getType();
+        Map<Integer, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
+        if (playerLetters.containsKey(player.getUniqueId().hashCode()))
+            playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
+        else playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
+
+
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
+
+        fileWriter.write(new Gson().toJson(playerLetters));
+        fileWriter.flush();
+
+    }
+
+    @SneakyThrows
+    public static void saveAllPlayerMail() {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
+
+        if (!file.exists())
+            file.createNewFile();
+
+        Type mapType = new TypeToken<Map<Integer, List<String>>>() {
+        }.getType();
+        Map<Integer, List<String>> playerLetters = new Gson().fromJson(new FileReader(file), mapType);
+
+        new Thread(() -> Bukkit.getOnlinePlayers().forEach(player -> {
+
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
+            if (playerLetters.containsKey(player.getUniqueId().hashCode()))
+                playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
+            else playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
+
+        })).start();
+
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
+
+        fileWriter.write(new Gson().toJson(playerLetters));
+        fileWriter.flush();
+
+    }
+
 }

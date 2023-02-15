@@ -56,9 +56,10 @@ public final class Feudal extends JavaPlugin {
 
         LoadAndSaveDataUtils.saveAllPlayers();
         LoadAndSaveDataUtils.saveAllKingdoms();
-        LoadAndSaveDataUtils.saveAllConfigs();
 
+        LoadAndSaveDataUtils.saveAllConfigs();
         LoadAndSaveDataUtils.savePlacedBlocks();
+        LoadAndSaveDataUtils.saveAllPlayerMail();
 
     }
 
