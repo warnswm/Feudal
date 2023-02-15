@@ -22,17 +22,7 @@ public class MailMenuListener implements Listener {
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Почта") &&
-                !event.getView().getTitle().equals("Взаимодействие с приглашением")) return;
-
-        event.setCancelled(true);
-
         Player player = (Player) event.getView().getPlayer();
-
-        if (event.getCurrentItem() == null ||
-                event.getCurrentItem().getItemMeta() == null) return;
-
-
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         String lore = event.getCurrentItem().getItemMeta().getLore() != null ? event.getCurrentItem().getItemMeta().getLore().get(0) : " lore";

@@ -15,15 +15,7 @@ public class ClerkMenuListener implements Listener {
     @EventHandler
     public void playerInteractClerkMenu(@NotNull InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Выберите зачарование для снятия")) return;
-
-        event.setCancelled(true);
-
         Player player = (Player) event.getView().getPlayer();
-
-        if (event.getCurrentItem() == null)
-            return;
-
 
         for (Enchantment enchantment : event.getCurrentItem().getEnchantments().keySet()) {
 

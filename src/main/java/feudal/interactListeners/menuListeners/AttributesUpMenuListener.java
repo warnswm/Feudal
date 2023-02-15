@@ -13,16 +13,8 @@ public class AttributesUpMenuListener implements Listener {
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Прокачка атрибутов")) return;
-
-        event.setCancelled(true);
-
         Player player = (Player) event.getView().getPlayer();
-
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-
-        if (event.getCurrentItem().getItemMeta() == null)
-            return;
 
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 

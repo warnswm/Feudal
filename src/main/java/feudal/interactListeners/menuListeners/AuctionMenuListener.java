@@ -18,16 +18,7 @@ public class AuctionMenuListener implements Listener {
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Аукцион") &&
-                !event.getView().getTitle().equals("Подтверждение")) return;
-
-        event.setCancelled(true);
-
         Player player = (Player) event.getView().getPlayer();
-
-        if (event.getCurrentItem().getItemMeta() == null)
-            return;
-
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         if (event.getView().getTitle().equals("Аукцион")) {

@@ -15,15 +15,7 @@ public class GameClassUpMenuListener implements Listener {
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (!event.getView().getTitle().equals("Прокачка класса")) return;
-
-        event.setCancelled(true);
-
         Player player = (Player) event.getView().getPlayer();
-
-        if (event.getCurrentItem().getItemMeta() == null)
-            return;
-
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
