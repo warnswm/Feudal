@@ -16,8 +16,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PlayerCommands implements CommandExecutor {
+
+    private boolean confirmDeletion;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -67,6 +70,12 @@ public class PlayerCommands implements CommandExecutor {
             case "reject":
 
                 reject(player, args[1]);
+
+                break;
+
+            case "disband":
+
+                disband(player);
 
                 break;
 
@@ -265,4 +274,33 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
+    private void disband(@NotNull Player player) {
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(feudalPlayer.getKingdomName());
+
+        if (!feudalKingdom.getKingUUID().equals(player.getUniqueId().toString())) {
+
+            player.sendMessage("Вы не лидер королевства!");
+            return;
+
+        }
+
+        confirmDeletion = !confirmDeletion;
+        if (!confirmDeletion) return;
+
+        feudalKingdom.getMembersUUID().forEach(member -> {
+
+            FeudalPlayer feudalMember = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(UUID.fromString(member)));
+            feudalMember.setKingdomName("");
+
+            Bukkit.getPlayer(UUID.fromString(member)).sendMessage("Ваше королевство расформировано!");
+
+        });
+
+        KingdomDBHandler.deleteKingdom(feudalPlayer.getKingdomName());
+
+        player.sendMessage("Королевство расформировано!");
+
+    }
 }

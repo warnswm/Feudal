@@ -62,6 +62,38 @@ public class KingdomDBHandler {
         }
     }
 
+    public static void deleteKingdom(@NotNull String kingdomName) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return;
+
+
+            collection.deleteOne(collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .next());
+
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+
+            session.abortTransaction();
+
+        } finally {
+
+            session.close();
+
+        }
+    }
+
     public static @Nullable Object getField(String kingdomName, String fieldName) {
 
         ClientSession session = mongoClient.startSession();
