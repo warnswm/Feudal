@@ -156,14 +156,20 @@ public class PlayerCommands implements CommandExecutor {
 
     private void withdrawMoneyFromTheTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
 
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
         if (kingdomName.equals("")) {
 
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        }
+        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId().toString()) &&
+                !feudalKingdom.getKingUUID().equals(player.getUniqueId().toString())) {
 
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+            player.sendMessage("Недостаточно прав для снаятия денег с казны!");
+            return;
+
+        }
 
         if (feudalKingdom.getBalance() < colum) {
 
