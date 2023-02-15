@@ -1,4 +1,4 @@
-package feudal.interactListeners.menuListeners;
+package feudal.interactListeners;
 
 import feudal.utils.CreateItemUtils;
 import feudal.utils.enums.gcEnums.ClerkTakeExpE;

@@ -1,4 +1,4 @@
-package feudal.interactListeners.menuListeners;
+package feudal.interactListeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,4 +1,4 @@
-package feudal.interactListeners.menuListeners;
+package feudal.interactListeners;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;

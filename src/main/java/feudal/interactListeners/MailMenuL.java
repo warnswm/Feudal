@@ -1,4 +1,4 @@
-package feudal.interactListeners.menuListeners;
+package feudal.interactListeners;
 
 import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;

@@ -13,7 +13,7 @@ import feudal.generalListeners.MobListener;
 import feudal.generalListeners.PlayerJoinAndQuitListener;
 import feudal.generalListeners.PlayerListener;
 import feudal.generalListeners.craftItems.CraftItemsListener;
-import feudal.interactListeners.menuListeners.*;
+import feudal.interactListeners.*;
 import feudal.possessions.territoryListeners.BlocksListener;
 import feudal.possessions.territoryListeners.InteractListener;
 import feudal.utils.LoadAndSaveDataUtils;
