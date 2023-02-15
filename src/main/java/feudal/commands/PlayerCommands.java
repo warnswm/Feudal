@@ -85,6 +85,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "addbaron":
+
+                addbaron(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
+
+                break;
+
             case "mail":
 
                 MailMenu.openMailMenu(player);
@@ -208,14 +214,14 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (invitedPlayer == playerInviting) {
-
-            playerInviting.sendMessage("Вы не можете пригласить самого себя!");
-            return;
-
         } else if (invitedPlayer == null || !invitedPlayer.isOnline() || invitedPlayer.getGameMode().equals(GameMode.SPECTATOR)) {
 
             playerInviting.sendMessage("Игрок не найден на сервере!");
+            return;
+
+        } else if (invitedPlayer == playerInviting) {
+
+            playerInviting.sendMessage("Вы не можете пригласить самого себя!");
             return;
 
         } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId().toString())) {
@@ -333,6 +339,48 @@ public class PlayerCommands implements CommandExecutor {
         feudalPlayer.setKingdomName("");
 
         player.sendMessage("Вы покинули королевство " + kingdomName);
+
+    }
+
+    private void addbaron(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+
+        Player baron = Bukkit.getPlayerExact(nick);
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
+        if (kingdomName.equals("") || feudalKingdom == null) {
+
+            playerInviting.sendMessage("Вы не состоите в королевстве!");
+            return;
+
+        } else if (baron == null || !baron.isOnline()) {
+
+            playerInviting.sendMessage("Игрок не найден на сервере!");
+            return;
+
+        } else if (baron == playerInviting) {
+
+            playerInviting.sendMessage("Вы не можете назначить самого себя!");
+            return;
+
+        } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId().toString())) {
+
+            playerInviting.sendMessage("Вы не лидер королевства!");
+            return;
+
+        } else if (feudalKingdom.getBaronsUUID().size() == 1) {
+
+            playerInviting.sendMessage("В королевстве максимальное количество баронов!");
+            return;
+
+        } else if (feudalKingdom.getBaronsUUID().contains(baron.getUniqueId().toString())) {
+
+            playerInviting.sendMessage("Этот игрок уже назначен бароном!");
+            return;
+
+        }
+
+        feudalKingdom.addBaron(baron);
+        playerInviting.sendMessage("Игрок " + baron.getName() + " назначен бароном!");
 
     }
 }
