@@ -22,7 +22,7 @@ public class ScoreBoardGeneralInfo {
 
         Score name = objective.getScore("Имя: " + player.getName());
         Score kingdom = objective.getScore("Королевство: " + feudalPlayer.getKingdomName());
-        Score gameClass = objective.getScore("Класс: " + GameClassesIDEnum.getByID(feudalPlayer.getAClassID()));
+        Score gameClass = objective.getScore("Класс: " + GameClassesIDEnum.getNameByID(feudalPlayer.getAClassID()));
         Score classExp = objective.getScore("Опыта класса: " + feudalPlayer.getGameClassExperience());
         Score attributeExp = objective.getScore("Опыта атрибутов: " + feudalPlayer.getExperience());
         Score balance = objective.getScore("Баланс: " + feudalPlayer.getBalance());
