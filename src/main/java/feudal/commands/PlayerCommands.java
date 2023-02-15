@@ -87,7 +87,13 @@ public class PlayerCommands implements CommandExecutor {
 
             case "addbaron":
 
-                addbaron(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
+                addBaron(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
+
+                break;
+
+            case "removebaron":
+
+                removeBaron(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
 
                 break;
 
@@ -342,7 +348,7 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void addbaron(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+    private void addBaron(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
 
         Player baron = Bukkit.getPlayerExact(nick);
         FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
@@ -374,13 +380,50 @@ public class PlayerCommands implements CommandExecutor {
 
         } else if (feudalKingdom.getBaronsUUID().contains(baron.getUniqueId().toString())) {
 
-            playerInviting.sendMessage("Этот игрок уже назначен бароном!");
+            playerInviting.sendMessage("Игрок уже назначен бароном!");
             return;
 
         }
 
         feudalKingdom.addBaron(baron);
         playerInviting.sendMessage("Игрок " + baron.getName() + " назначен бароном!");
+
+    }
+
+    private void removeBaron(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+
+        Player baron = Bukkit.getPlayerExact(nick);
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
+        if (kingdomName.equals("") || feudalKingdom == null) {
+
+            playerInviting.sendMessage("Вы не состоите в королевстве!");
+            return;
+
+        } else if (baron == null || !baron.isOnline()) {
+
+            playerInviting.sendMessage("Игрок не найден на сервере!");
+            return;
+
+        } else if (baron == playerInviting) {
+
+            playerInviting.sendMessage("Вы не можете убрать барона с самого себя!");
+            return;
+
+        } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId().toString())) {
+
+            playerInviting.sendMessage("Вы не лидер королевства!");
+            return;
+
+        } else if (!feudalKingdom.getBaronsUUID().contains(baron.getUniqueId().toString())) {
+
+            playerInviting.sendMessage("Игрок не назначен бароном!");
+            return;
+
+        }
+
+        feudalKingdom.removeBaron(baron);
+        playerInviting.sendMessage("Игрок " + baron.getName() + " снят с поста барона!");
 
     }
 }

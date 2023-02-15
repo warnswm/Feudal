@@ -126,7 +126,7 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom takeBaron(@NotNull Player player) {
+    public final FeudalKingdom removeBaron(@NotNull Player player) {
         baronsUUID.remove(player.getUniqueId().toString());
         return this;
     }
