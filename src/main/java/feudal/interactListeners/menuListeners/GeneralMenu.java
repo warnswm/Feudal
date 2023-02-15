@@ -2,15 +2,13 @@ package feudal.interactListeners.menuListeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
+public class GeneralMenu implements Listener {
 
-public class GeneralMenuListener implements Listener {
-
-    private static boolean isaBoolean(@NotNull InventoryClickEvent event) {
+    public static boolean isaBoolean(@NotNull InventoryClickEvent event) {
         return !event.getView().getTitle().equals("Почта") &&
                 !event.getView().getTitle().equals("Взаимодействие с приглашением") &&
                 !event.getView().getTitle().equals("Прокачка класса") &&
@@ -18,14 +16,15 @@ public class GeneralMenuListener implements Listener {
                 !event.getView().getTitle().equals("Выберите зачарование для снятия") &&
                 !event.getView().getTitle().equals("Аукцион") &&
                 !event.getView().getTitle().equals("Подтверждение покупки") &&
-                !event.getView().getTitle().equals("Прокачка атрибутов");
+                !event.getView().getTitle().equals("Прокачка атрибутов") ||
+                event.getCurrentItem() == null ||
+                event.getCurrentItem().getItemMeta() == null;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (isaBoolean(event) || event.getCurrentItem() == null ||
-                event.getCurrentItem().getItemMeta() == null) return;
+        if (GeneralMenu.isaBoolean(event)) return;
 
         event.setCancelled(true);
 

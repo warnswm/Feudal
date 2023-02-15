@@ -18,6 +18,11 @@ public class AuctionMenuListener implements Listener {
     @EventHandler
     public void interactInventory(@NotNull InventoryClickEvent event) {
 
+        if (GeneralMenu.isaBoolean(event)) return;
+
+        event.setCancelled(true);
+
+
         Player player = (Player) event.getView().getPlayer();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 

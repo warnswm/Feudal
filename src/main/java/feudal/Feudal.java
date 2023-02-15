@@ -93,6 +93,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
         Bukkit.getPluginManager().registerEvents(new MailMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GeneralMenu(), this);
 
         Bukkit.getPluginManager().registerEvents(new BlindnessListener(), this);
 //        Bukkit.getPluginManager().registerEvents(new DesiccationListener(), this);

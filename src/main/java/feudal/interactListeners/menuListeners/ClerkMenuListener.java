@@ -15,6 +15,11 @@ public class ClerkMenuListener implements Listener {
     @EventHandler
     public void playerInteractClerkMenu(@NotNull InventoryClickEvent event) {
 
+        if (GeneralMenu.isaBoolean(event)) return;
+
+        event.setCancelled(true);
+
+
         Player player = (Player) event.getView().getPlayer();
 
         for (Enchantment enchantment : event.getCurrentItem().getEnchantments().keySet()) {
