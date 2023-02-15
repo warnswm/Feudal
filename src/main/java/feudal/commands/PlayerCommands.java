@@ -279,7 +279,7 @@ public class PlayerCommands implements CommandExecutor {
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
         FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(feudalPlayer.getKingdomName());
 
-        if (!feudalKingdom.getKingUUID().equals(player.getUniqueId().toString())) {
+        if (feudalPlayer.getKingdomName().equals("") || !feudalKingdom.getKingUUID().equals(player.getUniqueId().toString())) {
 
             player.sendMessage("Вы не лидер королевства!");
             return;
@@ -287,7 +287,14 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         confirmDeletion = !confirmDeletion;
-        if (!confirmDeletion) return;
+        if (confirmDeletion) {
+
+            player.sendMessage("Напишите ещё раз, чтобы подтвердить расформирование королевства");
+            return;
+
+        }
+
+        KingdomDBHandler.deleteKingdom(feudalPlayer.getKingdomName());
 
         feudalKingdom.getMembersUUID().forEach(member -> {
 
@@ -298,9 +305,7 @@ public class PlayerCommands implements CommandExecutor {
 
         });
 
-        KingdomDBHandler.deleteKingdom(feudalPlayer.getKingdomName());
-
-        player.sendMessage("Королевство расформировано!");
+        CacheFeudalKingdoms.getKingdomInfo().remove(feudalPlayer.getKingdomName());
 
     }
 }

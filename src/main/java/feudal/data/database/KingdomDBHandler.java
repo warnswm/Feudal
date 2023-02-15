@@ -70,11 +70,9 @@ public class KingdomDBHandler {
 
             session.startTransaction();
 
-
             if (!collection.find(new BasicDBObject("_id", kingdomName))
                     .iterator()
                     .hasNext()) return;
-
 
             collection.deleteOne(collection.find(new BasicDBObject("_id", kingdomName))
                     .iterator()
