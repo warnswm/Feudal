@@ -296,11 +296,9 @@ public class LoadAndSaveDataUtils {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        if (!playerLetters.containsKey(player.getUniqueId().hashCode()))
-            playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
-
-        else
+        if (playerLetters.containsKey(player.getUniqueId().hashCode()))
             playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
+        else playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
 
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));

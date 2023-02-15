@@ -53,11 +53,10 @@ public class CreateItemUtils {
         List<String> loreT = new ArrayList<>();
 
         Collections.addAll(loreT, loreS);
-
         loreT.add("");
-        loreT.add("Нажмите [ПКМ], чтобы взаимодействовать.");
-        itemMeta.setLore(loreT);
+        loreT.add("Нажмите, чтобы взаимодействовать.");
 
+        itemMeta.setLore(loreT);
         item.setItemMeta(itemMeta);
 
         return item;
