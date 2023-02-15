@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
-import static feudal.utils.enums.ArmorEnum.getArmorAttributeByItemMaterial;
+import static feudal.utils.enums.ArmorE.getArmorAttributeByItemMaterial;
 
 public class ArmorListener implements Listener {
 

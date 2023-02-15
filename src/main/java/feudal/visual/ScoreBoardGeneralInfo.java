@@ -2,7 +2,7 @@ package feudal.visual;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
+import feudal.utils.enums.gcEnums.GameClassesIDE;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
@@ -22,7 +22,7 @@ public class ScoreBoardGeneralInfo {
 
         Score name = objective.getScore("Имя: " + player.getName());
         Score kingdom = objective.getScore("Королевство: " + feudalPlayer.getKingdomName());
-        Score gameClass = objective.getScore("Класс: " + GameClassesIDEnum.getNameByID(feudalPlayer.getAClassID()));
+        Score gameClass = objective.getScore("Класс: " + GameClassesIDE.getNameByID(feudalPlayer.getAClassID()));
         Score classExp = objective.getScore("Опыта класса: " + feudalPlayer.getGameClassExperience());
         Score attributeExp = objective.getScore("Опыта атрибутов: " + feudalPlayer.getExperience());
         Score balance = objective.getScore("Баланс: " + feudalPlayer.getBalance());
@@ -36,5 +36,6 @@ public class ScoreBoardGeneralInfo {
         balance.setScore(2);
 
         player.setScoreboard(scoreboard);
+
     }
 }

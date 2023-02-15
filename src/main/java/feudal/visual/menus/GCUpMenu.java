@@ -3,7 +3,7 @@ package feudal.visual.menus;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.CreateItemUtils;
-import feudal.utils.enums.gameClassesEnums.AttributeForGCEnum;
+import feudal.utils.enums.gcEnums.AttributeForGCE;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -17,8 +17,8 @@ public class GCUpMenu {
         Inventory upgradeGameClassInv = Bukkit.createInventory(player, 9, "Прокачка класса");
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        upgradeGameClassInv.setItem(2, CreateItemUtils.createItem(Material.CLAY_BALL, 1, AttributeForGCEnum.getOneAttributeNameByID(feudalPlayer.getAClassID())));
-        upgradeGameClassInv.setItem(6, CreateItemUtils.createItem(Material.CLAY_BALL, 1, AttributeForGCEnum.getSecondAttributeNameByID(feudalPlayer.getAClassID())));
+        upgradeGameClassInv.setItem(2, CreateItemUtils.createItem(Material.CLAY_BALL, 1, AttributeForGCE.getOneAttributeNameByID(feudalPlayer.getAClassID())));
+        upgradeGameClassInv.setItem(6, CreateItemUtils.createItem(Material.CLAY_BALL, 1, AttributeForGCE.getSecondAttributeNameByID(feudalPlayer.getAClassID())));
 
         player.openInventory(upgradeGameClassInv);
 

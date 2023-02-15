@@ -1,7 +1,7 @@
 package feudal.possessions.territoryListeners;
 
 import feudal.data.cache.CacheFeudalKingdoms;
-import feudal.utils.enums.PrivateBlocksEnum;
+import feudal.utils.enums.PrivateBlocksE;
 import feudal.utils.wrappers.ChunkWrapper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ public class InteractListener implements Listener {
 
         if (event.getClickedBlock() == null ||
                 !CacheFeudalKingdoms.checkPrivate(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk()).hashCode(), event.getPlayer()) ||
-                !PrivateBlocksEnum.checkMaterial(event.getClickedBlock().getType()))
+                !PrivateBlocksE.checkMaterial(event.getClickedBlock().getType()))
             return;
 
         event.setCancelled(true);

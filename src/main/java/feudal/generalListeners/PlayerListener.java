@@ -4,9 +4,9 @@ import feudal.Feudal;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
-import feudal.utils.enums.BlockToSaveEnum;
-import feudal.utils.enums.MoneyForMobsEnum;
-import feudal.utils.enums.gameClassesEnums.GameClassesIDEnum;
+import feudal.utils.enums.BlockToSaveE;
+import feudal.utils.enums.MoneyForMobsE;
+import feudal.utils.enums.gcEnums.GameClassesIDE;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -65,7 +65,7 @@ public class PlayerListener implements Listener {
 
         if (event.getEntityType() != EntityType.PLAYER) {
 
-            feudalPlayer.addBalance(MoneyForMobsEnum.getMoneyByEntity(event.getEntityType()));
+            feudalPlayer.addBalance(MoneyForMobsE.getMoneyByEntity(event.getEntityType()));
             return;
 
         }
@@ -120,7 +120,7 @@ public class PlayerListener implements Listener {
                 "-=[Короролевство: " +
                 kingdomName +
                 ", класс: " +
-                GameClassesIDEnum.getNameByID(feudalPlayer.getAClassID()) +
+                GameClassesIDE.getNameByID(feudalPlayer.getAClassID()) +
                 ", убийств: " + feudalPlayer.getKills() +
                 ", смертей: " + feudalPlayer.getDeaths() +
                 "]=-" +
@@ -205,7 +205,7 @@ public class PlayerListener implements Listener {
 
         Block block = event.getBlock();
 
-        if (!BlockToSaveEnum.checkBlockMaterial(block.getType())) return;
+        if (!BlockToSaveE.checkBlockMaterial(block.getType())) return;
 
         block.setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
         placedBlocks.add(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
@@ -217,7 +217,7 @@ public class PlayerListener implements Listener {
 
         Block block = event.getBlock();
 
-        if (!BlockToSaveEnum.checkBlockMaterial(block.getType()) ||
+        if (!BlockToSaveE.checkBlockMaterial(block.getType()) ||
                 !placedBlocks.contains(PlacedBlockWrapper.blockToPlacedBlockWrapper(block))) return;
 
         placedBlocks.remove(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
