@@ -20,14 +20,16 @@ public enum FishermanLootTableEnum {
     NAME_TAG(4, new ItemStack(Material.NAME_TAG)),
     SADDLE(5, new ItemStack(Material.SADDLE));
 
-
     int id;
     ItemStack item;
 
-    public static ItemStack getByID(int id) {
+    public static ItemStack getItemByID(int id) {
+
         for (FishermanLootTableEnum fishermanLootTableEnum : values())
             if (fishermanLootTableEnum.getId() == id)
-                return fishermanLootTableEnum.item;
+                return fishermanLootTableEnum.getItem();
+
         return new ItemStack(Material.STICK);
+
     }
 }

@@ -20,11 +20,11 @@ import org.jetbrains.annotations.NotNull;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerDBHandler {
 
-    static MongoClient mongoClient = FeudalValuesUtils.mongoClient;
-    static MongoDatabase database = FeudalValuesUtils.database;
-    static MongoCollection<Document> collection = FeudalValuesUtils.playersCollection;
+    static MongoClient mongoClient = FeudalValuesUtils.getMongoClient();
+    static MongoDatabase database = FeudalValuesUtils.getDatabase();
+    static MongoCollection<Document> collection = FeudalValuesUtils.getPlayersCollection();
 
-    public static boolean createNewPlayer(@NotNull Player player) {
+    public static boolean checkPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -153,12 +153,17 @@ public class PlayerDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
         return "";
+
     }
 
     public static void setField(@NotNull Player player, String fieldName, Object value) {
@@ -178,9 +183,13 @@ public class PlayerDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
     }
 
@@ -191,7 +200,6 @@ public class PlayerDBHandler {
         try {
 
             session.startTransaction();
-
 
             int uuid = player.getUniqueId().hashCode();
 
@@ -218,9 +226,13 @@ public class PlayerDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
     }

@@ -26,6 +26,7 @@ public class PlannedActivitiesUtils {
 
                     cacheFeudalKingdom.takeAllTerritory();
                     cacheFeudalKingdom.takeAllPrivateTerritory();
+
                     return;
 
                 }
@@ -49,6 +50,7 @@ public class PlannedActivitiesUtils {
                     }
 
                     cacheFeudalKingdom.takeBalance(landTax);
+
                 }
 
                 for (String ignored : kingdom.getValue().getMembersUUID()) {

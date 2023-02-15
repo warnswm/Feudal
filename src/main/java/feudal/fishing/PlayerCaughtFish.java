@@ -11,11 +11,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PlayerCaughtFish implements Listener {
 
     @EventHandler
-    public void playerFishing(@NotNull PlayerFishEvent event) {
+    public final void playerFishing(@NotNull PlayerFishEvent event) {
 
         if (event.getState() != PlayerFishEvent.State.CAUGHT_FISH ||
                 ((Item) event.getCaught()).getItemStack().getType() != Material.RAW_FISH) return;
@@ -23,15 +24,13 @@ public class PlayerCaughtFish implements Listener {
         ((Item) event.getCaught()).setItemStack(AddAttributesFish.setFishAttributes(((Item) event.getCaught()).getItemStack()));
 
         ItemMeta fishMeta = ((Item) event.getCaught()).getItemStack().getItemMeta();
-
         List<String> lore = new ArrayList<>();
 
-        lore.add("Редкость: " + CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getString("rare"));
-        lore.add("Размер: " + String.format("%.2f", CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getDouble("size")) + " см");
-        lore.add("Вес: " + String.format("%.2f", CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag().getDouble("weight")) + " кг");
+        lore.add("Редкость: " + Objects.requireNonNull(CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag()).getString("rare"));
+        lore.add("Размер: " + String.format("%.2f", Objects.requireNonNull(CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag()).getDouble("size")) + " см");
+        lore.add("Вес: " + String.format("%.2f", Objects.requireNonNull(CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag()).getDouble("weight")) + " кг");
 
         fishMeta.setLore(lore);
-
         ((Item) event.getCaught()).getItemStack().setItemMeta(fishMeta);
 
     }

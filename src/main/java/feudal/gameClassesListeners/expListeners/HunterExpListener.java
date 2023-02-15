@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class HunterExpListener implements Listener {
 
     @EventHandler
-    public void playerHunted(@NotNull EntityDeathEvent event) {
+    public final void playerHunted(@NotNull EntityDeathEvent event) {
 
         if (event.getEntity().getKiller() == null) return;
 
@@ -22,10 +22,10 @@ public class HunterExpListener implements Listener {
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.HUNTER.getId()) return;
 
-        int exp = AnimalsForHuntedEnum.getByEntity(event.getEntityType());
+        int exp = AnimalsForHuntedEnum.getAttributeExpByEntity(event.getEntityType());
 
         feudalPlayer.addExperience(exp);
-        feudalPlayer.addGameClassExperience(exp * 4);
+        feudalPlayer.addGameClassExperience(4 * exp);
 
     }
 }

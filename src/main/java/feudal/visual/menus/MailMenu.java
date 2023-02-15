@@ -14,7 +14,6 @@ public class MailMenu {
     public static void openMailMenu(@NotNull Player player) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-
         Inventory mailMenu = Bukkit.createInventory(player, 54, "Почта");
 
         int iterations = Math.min(feudalPlayer.getLetters().size(), 54);

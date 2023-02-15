@@ -18,7 +18,7 @@ import java.util.LinkedList;
 public class WoodcutterListener implements Listener {
 
     @EventHandler
-    public void playerBreakBlock(@NotNull BlockBreakEvent event) {
+    public final void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
         Block block = event.getBlock();
@@ -47,19 +47,23 @@ public class WoodcutterListener implements Listener {
 
                 i++;
                 continue;
+
             }
+
             break;
+
         }
 
         for (Block block : blocks) {
 
             if (!block.breakNaturally(handStack)) return;
-
             handStack.setDurability((short) (handStack.getDurability() + 1));
 
             if (handStack.getType().getMaxDurability() == handStack.getDurability()) {
+
                 handStack.setType(Material.AIR);
                 return;
+
             }
 
         }

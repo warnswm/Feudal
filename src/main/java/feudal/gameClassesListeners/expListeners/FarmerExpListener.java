@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class FarmerExpListener implements Listener {
 
     @EventHandler
-    public void playerBreakBlock(@NotNull BlockBreakEvent event) {
+    public final void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());

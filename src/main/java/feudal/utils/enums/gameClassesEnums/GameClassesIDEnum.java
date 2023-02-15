@@ -18,17 +18,23 @@ public enum GameClassesIDEnum {
     int id;
     String gameClassName;
 
-    public static int getByString(String gameClassName) {
+    public static int getIDByString(String gameClassName) {
+
         for (GameClassesIDEnum gameClassesIDEnum : values())
             if (gameClassesIDEnum.getGameClassName().equals(gameClassName))
                 return gameClassesIDEnum.getId();
+
         return 0;
+
     }
 
-    public static String getByID(int id) {
+    public static String getNameByID(int id) {
+
         for (GameClassesIDEnum gameClassesIDEnum : values())
             if (gameClassesIDEnum.getId() == id)
                 return gameClassesIDEnum.getGameClassName();
+
         return "Не выбран";
+
     }
 }

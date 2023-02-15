@@ -14,10 +14,13 @@ public enum ItemInteractEnum {
 
     Material item;
 
-    public static boolean getByItemMaterial(Material item) {
+    public static boolean checkItemMaterial(Material item) {
+
         for (ItemInteractEnum itemInteractEnum : values())
             if (itemInteractEnum.getItem() == item)
                 return true;
+
         return false;
+
     }
 }

@@ -16,10 +16,13 @@ public enum BlockToSaveEnum {
 
     Material blockMaterial;
 
-    public static boolean getByBlockMaterial(Material blockMaterial) {
+    public static boolean checkBlockMaterial(Material blockMaterial) {
+
         for (BlockToSaveEnum blockToSaveEnum : values())
             if (blockToSaveEnum.getBlockMaterial() == blockMaterial)
                 return true;
+
         return false;
+
     }
 }

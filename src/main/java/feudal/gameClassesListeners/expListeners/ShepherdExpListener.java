@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class ShepherdExpListener implements Listener {
 
     @EventHandler
-    public void playerBreed(@NotNull EntityBreedEvent event) {
+    public final void playerBreed(@NotNull EntityBreedEvent event) {
 
         if (!(event.getBreeder() instanceof Player)) return;
 
@@ -22,10 +22,10 @@ public class ShepherdExpListener implements Listener {
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.SHEPHERD.getId()) return;
 
-        int exp = AnimalsForShepherdEnum.getByEntity(event.getEntityType());
+        int exp = AnimalsForShepherdEnum.getAttributeExpByEntity(event.getEntityType());
 
         feudalPlayer.addExperience(exp);
-        feudalPlayer.addGameClassExperience(exp * 4);
+        feudalPlayer.addGameClassExperience(4 * exp);
 
     }
 }

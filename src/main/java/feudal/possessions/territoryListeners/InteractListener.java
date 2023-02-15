@@ -16,7 +16,7 @@ public class InteractListener implements Listener {
 
         if (event.getClickedBlock() == null ||
                 !CacheFeudalKingdoms.checkPrivate(ChunkWrapper.chunkToChunkWrapper(event.getClickedBlock().getChunk()).hashCode(), event.getPlayer()) ||
-                !PrivateBlocksEnum.getByMaterial(event.getClickedBlock().getType()))
+                !PrivateBlocksEnum.checkMaterial(event.getClickedBlock().getType()))
             return;
 
         event.setCancelled(true);

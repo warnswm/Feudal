@@ -25,7 +25,7 @@ public class ClerkListener implements Listener {
     }
 
     @EventHandler
-    public void playerItemEnchant(@NotNull EnchantItemEvent event) {
+    public final void playerItemEnchant(@NotNull EnchantItemEvent event) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getEnchanter());
 
@@ -49,7 +49,7 @@ public class ClerkListener implements Listener {
     }
 
     @EventHandler
-    public void playerInteract(@NotNull PlayerInteractEvent event) {
+    public final void playerInteract(@NotNull PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);

@@ -1,4 +1,4 @@
-package feudal.visual.tab;
+package feudal.utils;
 
 import feudal.Feudal;
 import lombok.AccessLevel;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class Tab {
+public class TabUtils {
 
     static List<Player> hidePlayers = new ArrayList<>();
     static Map<Player, GameMode> gameModes = new HashMap<>();
@@ -22,7 +22,9 @@ public class Tab {
 
     public static void hidePlayer(Player player) {
 
-        if (!hidePlayers.contains(player) && !gameModes.containsKey(player) && !locations.containsKey(player)) {
+        if (!hidePlayers.contains(player) &&
+                !gameModes.containsKey(player) &&
+                !locations.containsKey(player)) {
 
             hidePlayers.add(player);
             gameModes.put(player, player.getGameMode());
@@ -65,7 +67,9 @@ public class Tab {
 
         });
 
-        if (hidePlayers.contains(player) && gameModes.containsKey(player) && locations.containsKey(player)) {
+        if (hidePlayers.contains(player) &&
+                gameModes.containsKey(player) &&
+                locations.containsKey(player)) {
 
             hidePlayers.remove(player);
             gameModes.remove(player);

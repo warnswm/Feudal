@@ -20,15 +20,16 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomDBHandler {
 
-    static MongoClient mongoClient = FeudalValuesUtils.mongoClient;
-    static MongoDatabase database = FeudalValuesUtils.database;
-    static MongoCollection<Document> collection = FeudalValuesUtils.kingdomsCollection;
+    static MongoClient mongoClient = FeudalValuesUtils.getMongoClient();
+    static MongoDatabase database = FeudalValuesUtils.getDatabase();
+    static MongoCollection<Document> collection = FeudalValuesUtils.getKingdomsCollection();
 
 
     public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<Integer> privateTerritory, List<String> baronsUUID) {
@@ -56,9 +57,13 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
     }
 
@@ -114,12 +119,52 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
         return "NoObject";
+
+    }
+
+    public static List getList(String kingdomName, String fieldName) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return Collections.EMPTY_LIST;
+
+            Document document = collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .next();
+
+            if (document.get(fieldName) != null)
+                return Collections.singletonList(document.get(fieldName));
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+
+            session.abortTransaction();
+
+        } finally {
+
+            session.close();
+
+        }
+
+        return Collections.EMPTY_LIST;
+
     }
 
     public static int getIntegerField(String kingdomName, String fieldName) {
@@ -144,9 +189,13 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
         return 0;
@@ -172,9 +221,13 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
     }
 
@@ -195,9 +248,13 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
     }
@@ -229,9 +286,13 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
     }
@@ -251,12 +312,17 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
         return false;
+
     }
 
     public static boolean chunkInKingdom(int chunkHashCode) {
@@ -274,12 +340,17 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
         return false;
+
     }
 
     public static String getPlayerKingdom(@NotNull Player player) {
@@ -298,11 +369,16 @@ public class KingdomDBHandler {
             session.commitTransaction();
 
         } catch (MongoCommandException e) {
+
             session.abortTransaction();
+
         } finally {
+
             session.close();
+
         }
 
         return "";
+
     }
 }

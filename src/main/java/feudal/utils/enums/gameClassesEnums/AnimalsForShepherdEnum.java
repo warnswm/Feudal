@@ -18,10 +18,13 @@ public enum AnimalsForShepherdEnum {
     EntityType entity;
     int attributeExp;
 
-    public static int getByEntity(EntityType entity) {
+    public static int getAttributeExpByEntity(EntityType entity) {
+
         for (AnimalsForShepherdEnum animalsForShepherdEnum : values())
             if (animalsForShepherdEnum.getEntity() == entity)
-                return animalsForShepherdEnum.attributeExp;
+                return animalsForShepherdEnum.getAttributeExp();
+
         return 0;
+
     }
 }

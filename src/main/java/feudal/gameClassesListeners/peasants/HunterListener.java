@@ -16,15 +16,13 @@ import java.util.List;
 
 public class HunterListener implements Listener {
 
-
     @EventHandler
-    public void playerHunted(@NotNull EntityDeathEvent event) {
+    public final void playerHunted(@NotNull EntityDeathEvent event) {
 
         Player player = event.getEntity().getKiller();
         if (player == null) return;
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.HUNTER.getId() ||
                 feudalPlayer.getGameClassLvl() < 25) return;
 

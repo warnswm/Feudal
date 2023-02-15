@@ -7,11 +7,10 @@ import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.data.database.KingdomDBHandler;
 import feudal.data.database.PlayerDBHandler;
 import feudal.generalListeners.PlayerListener;
 import feudal.utils.wrappers.PlacedBlockWrapper;
-import feudal.visual.scoreboards.ScoreBoardInfo;
+import feudal.visual.ScoreBoardGeneralInfo;
 import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
@@ -27,28 +26,30 @@ import java.io.FileWriter;
 import java.lang.reflect.Type;
 import java.util.*;
 
+import static feudal.data.database.KingdomDBHandler.*;
+
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class LoadAndSaveDataUtils {
 
     public static void loadKingdom(Player player) {
 
-        if (!KingdomDBHandler.playerInKingdom(player)) return;
+        if (!playerInKingdom(player)) return;
 
-        String kingdomName = KingdomDBHandler.getPlayerKingdom(player);
+        String kingdomName = getPlayerKingdom(player);
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
-        List<String> members = (List<String>) KingdomDBHandler.getField(kingdomName, "members");
-        List<String> barons = (List<String>) KingdomDBHandler.getField(kingdomName, "barons");
-        List<Integer> territory = (List<Integer>) KingdomDBHandler.getField(kingdomName, "territory");
-        List<Integer> privateTerritory = (List<Integer>) KingdomDBHandler.getField(kingdomName, "privateTerritory");
+        List<String> members = getList(kingdomName, "members");
+        List<String> barons = getList(kingdomName, "barons");
+        List<Integer> territory = getList(kingdomName, "territory");
+        List<Integer> privateTerritory = getList(kingdomName, "privateTerritory");
 
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(player)
                 .setMembers(members)
                 .setBarons(barons)
-                .setReputation(KingdomDBHandler.getIntegerField(kingdomName, "reputation"))
-                .setBalance(KingdomDBHandler.getIntegerField(kingdomName, "balance"))
-                .setMaxNumberMembers(KingdomDBHandler.getIntegerField(kingdomName, "maxNumberMembers"))
+                .setReputation(getIntegerField(kingdomName, "reputation"))
+                .setBalance(getIntegerField(kingdomName, "balance"))
+                .setMaxNumberMembers(getIntegerField(kingdomName, "maxNumberMembers"))
                 .setTerritory(Objects.requireNonNull(territory))
                 .setPrivateTerritory(Objects.requireNonNull(privateTerritory));
 
@@ -67,14 +68,14 @@ public class LoadAndSaveDataUtils {
 
                 feudalKingdom.clearInvitation();
 
-                KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKingUUID());
-                KingdomDBHandler.setField(kingdomName, "members", feudalKingdom.getMembersUUID());
-                KingdomDBHandler.setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
-                KingdomDBHandler.setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
-                KingdomDBHandler.setField(kingdomName, "territory", feudalKingdom.getTerritory());
-                KingdomDBHandler.setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
-                KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
-                KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
+                setField(kingdomName, "king", feudalKingdom.getKingUUID());
+                setField(kingdomName, "members", feudalKingdom.getMembersUUID());
+                setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
+                setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
+                setField(kingdomName, "territory", feudalKingdom.getTerritory());
+                setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
+                setField(kingdomName, "balance", feudalKingdom.getBalance());
+                setField(kingdomName, "reputation", feudalKingdom.getReputation());
 
                 CacheFeudalKingdoms.getKingdomInfo().remove(kingdomName);
 
@@ -88,7 +89,7 @@ public class LoadAndSaveDataUtils {
 
         new Thread(() -> {
 
-            String kingdomName = KingdomDBHandler.getPlayerKingdom(player);
+            String kingdomName = getPlayerKingdom(player);
 
             if (kingdomName.equals("")) return;
 
@@ -96,14 +97,14 @@ public class LoadAndSaveDataUtils {
 
             feudalKingdom.clearInvitation();
 
-            KingdomDBHandler.setField(kingdomName, "king", feudalKingdom.getKingUUID());
-            KingdomDBHandler.setField(kingdomName, "members", feudalKingdom.getMembersUUID());
-            KingdomDBHandler.setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
-            KingdomDBHandler.setField(kingdomName, "territory", feudalKingdom.getTerritory());
-            KingdomDBHandler.setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
-            KingdomDBHandler.setField(kingdomName, "reputation", feudalKingdom.getReputation());
-            KingdomDBHandler.setField(kingdomName, "balance", feudalKingdom.getBalance());
-            KingdomDBHandler.setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
+            setField(kingdomName, "king", feudalKingdom.getKingUUID());
+            setField(kingdomName, "members", feudalKingdom.getMembersUUID());
+            setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
+            setField(kingdomName, "territory", feudalKingdom.getTerritory());
+            setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
+            setField(kingdomName, "reputation", feudalKingdom.getReputation());
+            setField(kingdomName, "balance", feudalKingdom.getBalance());
+            setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
 
         }).start();
 
@@ -143,7 +144,7 @@ public class LoadAndSaveDataUtils {
 
         player.sendMessage("Подождите, ваши данные загружаются!");
 
-        if (!PlayerDBHandler.createNewPlayer(player)) {
+        if (!PlayerDBHandler.checkPlayer(player)) {
 
             player.kickPlayer("Произошла проблема! Ваши данные не загружены или повреждены, попробуйте зайти позже.");
             return;
@@ -193,12 +194,12 @@ public class LoadAndSaveDataUtils {
     public static void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
 
         player.setMaxHealth(16 * (survivabilityLvl / 100.0F) + 16);
-        player.setWalkSpeed(0.2f * (speedLvl / 100) + 0.2f);
-        ScoreBoardInfo.updateScoreBoardInfo(player);
+        player.setWalkSpeed(0.2f * speedLvl / 100 + 0.2f);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
 
 
-        if (!KingdomDBHandler.getPlayerKingdom(player).equalsIgnoreCase(""))
-            player.setDisplayName(player.getDisplayName() + " [" + KingdomDBHandler.getPlayerKingdom(player) + "]");
+        if (!getPlayerKingdom(player).equalsIgnoreCase(""))
+            player.setDisplayName(player.getDisplayName() + " [" + getPlayerKingdom(player) + "]");
 
     }
 

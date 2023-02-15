@@ -32,15 +32,7 @@ public class AdminCommands implements CommandExecutor {
 
         }
 
-        if (args[1].equalsIgnoreCase("addls")) {
-            //add ls permission
-        } else if (args[1].equalsIgnoreCase("broadcast")) {
-
-            Bukkit.broadcastMessage(args[2]);
-
-        }
-
-
         return false;
+
     }
 }

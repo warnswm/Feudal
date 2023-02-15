@@ -4,8 +4,8 @@ import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.visual.menus.GameClassSelectionMenu;
-import feudal.visual.menus.GameClassUpMenu;
+import feudal.visual.menus.GCSelectionMenu;
+import feudal.visual.menus.GCUpMenu;
 import feudal.visual.menus.TravelingMerchantMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -71,12 +71,12 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "test":
 
-                GameClassSelectionMenu.openClassSelection(player);
+                GCSelectionMenu.openClassSelection(player);
                 break;
 
             case "test1":
 
-                GameClassUpMenu.upgradeGameClass(player);
+                GCUpMenu.upgradeGameClass(player);
                 break;
 
             case "test2":

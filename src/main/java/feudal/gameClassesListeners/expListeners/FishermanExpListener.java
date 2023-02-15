@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public class FishermanExpListener implements Listener {
 
     @EventHandler
-    public void playerFishing(@NotNull PlayerFishEvent event) {
+    public final void playerFishing(@NotNull PlayerFishEvent event) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 

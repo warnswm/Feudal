@@ -74,12 +74,17 @@ public final class Feudal extends JavaPlugin {
 
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new GameClassChangeMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GCChangeMenuListener(), this);
         Bukkit.getPluginManager().registerEvents(new AttributesUpMenuListener(), this);
-        Bukkit.getPluginManager().registerEvents(new GameClassUpMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GCUpMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new MailMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GeneralMenuListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ClerkMenuListener(), this);
+
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuit(), this);
         Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+
         Bukkit.getPluginManager().registerEvents(new BuilderListener(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkListener(), this);
         Bukkit.getPluginManager().registerEvents(new FishermanListener(), this);
@@ -88,16 +93,15 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new HunterListener(), this);
         Bukkit.getPluginManager().registerEvents(new FarmerListener(), this);
         Bukkit.getPluginManager().registerEvents(new CookListener(), this);
+
         Bukkit.getPluginManager().registerEvents(new MobListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlocksListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
-        Bukkit.getPluginManager().registerEvents(new MailMenuListener(), this);
-        Bukkit.getPluginManager().registerEvents(new GeneralMenu(), this);
 
         Bukkit.getPluginManager().registerEvents(new BlindnessListener(), this);
-//        Bukkit.getPluginManager().registerEvents(new DesiccationListener(), this);
+        Bukkit.getPluginManager().registerEvents(new DesiccationListener(), this);
         Bukkit.getPluginManager().registerEvents(new DoubleDamageListener(), this);
         Bukkit.getPluginManager().registerEvents(new LevitationListener(), this);
         Bukkit.getPluginManager().registerEvents(new NauseaListener(), this);
@@ -113,8 +117,6 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MinerExpListener(), this);
         Bukkit.getPluginManager().registerEvents(new ShepherdExpListener(), this);
         Bukkit.getPluginManager().registerEvents(new WoodcutterExpListener(), this);
-
-        Bukkit.getPluginManager().registerEvents(new ClerkMenuListener(), this);
 
     }
 }

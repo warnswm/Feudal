@@ -29,10 +29,13 @@ public enum EnchantmentEnum {
     int id;
 
     public static @Nullable Enchantment getByID(int id) {
+
         for (EnchantmentEnum enchantmentEnum : values())
             if (enchantmentEnum.getId() == id)
-                return enchantmentEnum.enchantment;
+                return enchantmentEnum.getEnchantment();
+
         return null;
+
     }
 
     public static Enchantment getRandomEnchantment() {

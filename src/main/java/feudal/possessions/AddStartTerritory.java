@@ -31,5 +31,6 @@ public class AddStartTerritory {
         }
 
         return true;
+
     }
 }

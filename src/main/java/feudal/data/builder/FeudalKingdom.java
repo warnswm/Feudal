@@ -17,154 +17,151 @@ public class FeudalKingdom {
 
     final List<String> invitationUUID = new ArrayList<>();
     final List<String> kingdomLetters = new ArrayList<>();
-    String kingdomName;
-    String kingUUID;
-    int maxNumberMembers;
-    List<Integer> territory = new ArrayList<>();
-    List<Integer> privateTerritory = new ArrayList<>();
-    List<String> membersUUID = new ArrayList<>();
-    int balance;
-    int reputation;
     List<String> baronsUUID = new ArrayList<>();
+    List<String> membersUUID = new ArrayList<>();
+    String kingdomName, kingUUID;
+    int maxNumberMembers, balance, reputation;
+    List<Integer> territory = new ArrayList<>(), privateTerritory = new ArrayList<>();
+
 
     public FeudalKingdom(String kingdomName) {
         this.kingdomName = kingdomName;
     }
 
 
-    public FeudalKingdom setKingdomName(String kingdomName) {
+    public final FeudalKingdom setKingdomName(String kingdomName) {
         this.kingdomName = kingdomName;
         return this;
     }
 
-    public FeudalKingdom setKing(@NotNull Player player) {
+    public final FeudalKingdom setKing(@NotNull Player player) {
         kingUUID = player.getUniqueId().toString();
         return this;
     }
 
-    public FeudalKingdom setMembers(List<String> membersUUID) {
+    public final FeudalKingdom setMembers(List<String> membersUUID) {
         this.membersUUID = membersUUID;
         return this;
     }
 
-    public FeudalKingdom setTerritory(@NotNull List<Integer> territory) {
+    public final FeudalKingdom setTerritory(@NotNull List<Integer> territory) {
         this.territory = territory;
         return this;
     }
 
-    public FeudalKingdom setPrivateTerritory(@NotNull List<Integer> privateTerritory) {
+    public final FeudalKingdom setPrivateTerritory(@NotNull List<Integer> privateTerritory) {
         this.privateTerritory = privateTerritory;
         return this;
     }
 
-    public FeudalKingdom setBarons(List<String> barons) {
+    public final FeudalKingdom setBarons(List<String> barons) {
         baronsUUID = barons;
         return this;
     }
 
-    public FeudalKingdom setBalance(int balance) {
+    public final FeudalKingdom setBalance(int balance) {
         this.balance = balance;
         return this;
     }
 
-    public FeudalKingdom setReputation(int reputation) {
+    public final FeudalKingdom setReputation(int reputation) {
         this.reputation = reputation;
         return this;
     }
 
 
-    public FeudalKingdom addMember(@NotNull Player player) {
+    public final FeudalKingdom addMember(@NotNull Player player) {
         membersUUID.add(player.getUniqueId().toString());
         return this;
     }
 
-    public FeudalKingdom addTerritory(@NotNull Chunk chunk) {
+    public final FeudalKingdom addTerritory(@NotNull Chunk chunk) {
         territory.add(ChunkWrapper.chunkToChunkWrapper(chunk).hashCode());
         return this;
     }
 
-    public FeudalKingdom addPrivateTerritory(@NotNull Chunk chunk) {
+    public final FeudalKingdom addPrivateTerritory(@NotNull Chunk chunk) {
         privateTerritory.add(ChunkWrapper.chunkToChunkWrapper(chunk).hashCode());
         return this;
     }
 
-    public FeudalKingdom addBaron(@NotNull Player player) {
+    public final FeudalKingdom addBaron(@NotNull Player player) {
         baronsUUID.add(player.getUniqueId().toString());
         return this;
     }
 
-    public FeudalKingdom addBalance(int value) {
+    public final FeudalKingdom addBalance(int value) {
         balance += value;
         return this;
     }
 
-    public FeudalKingdom addReputation(int value) {
+    public final FeudalKingdom addReputation(int value) {
         reputation += value;
         return this;
     }
 
 
-    public FeudalKingdom takeMember(@NotNull Player player) {
+    public final FeudalKingdom takeMember(@NotNull Player player) {
         membersUUID.remove(player.getUniqueId().toString());
         return this;
     }
 
-    public FeudalKingdom takeTerritory(int chunkHashCode) {
+    public final FeudalKingdom takeTerritory(int chunkHashCode) {
         territory.remove(chunkHashCode);
         return this;
     }
 
-    public FeudalKingdom takePrivateTerritory(int chunkHashCode) {
+    public final FeudalKingdom takePrivateTerritory(int chunkHashCode) {
         privateTerritory.remove(chunkHashCode);
         return this;
     }
 
-    public FeudalKingdom takeAllTerritory() {
+    public final FeudalKingdom takeAllTerritory() {
         territory.clear();
         return this;
     }
 
-    public FeudalKingdom takeAllPrivateTerritory() {
+    public final FeudalKingdom takeAllPrivateTerritory() {
         privateTerritory.clear();
         return this;
     }
 
-    public FeudalKingdom takeBaron(@NotNull Player player) {
+    public final FeudalKingdom takeBaron(@NotNull Player player) {
         baronsUUID.remove(player.getUniqueId().toString());
         return this;
     }
 
-    public FeudalKingdom takeBalance(int value) {
+    public final FeudalKingdom takeBalance(int value) {
         balance -= value;
         return this;
     }
 
-    public FeudalKingdom takeReputation(int value) {
+    public final FeudalKingdom takeReputation(int value) {
         reputation -= value;
         return this;
     }
 
-    public FeudalKingdom addInvitation(@NotNull Player player) {
+    public final FeudalKingdom addInvitation(@NotNull Player player) {
         invitationUUID.add(player.getUniqueId().toString());
         return this;
     }
 
-    public FeudalKingdom clearInvitation() {
+    public final FeudalKingdom clearInvitation() {
         invitationUUID.clear();
         return this;
     }
 
-    public FeudalKingdom deleteInvitation(@NotNull Player player) {
+    public final FeudalKingdom deleteInvitation(@NotNull Player player) {
         invitationUUID.remove(player.getUniqueId().toString());
         return this;
     }
 
-    public FeudalKingdom setMaxNumberMembers(int value) {
+    public final FeudalKingdom setMaxNumberMembers(int value) {
         maxNumberMembers = value;
         return this;
     }
 
-    public FeudalKingdom addMaxNumberMembers(int value) {
+    public final FeudalKingdom addMaxNumberMembers(int value) {
         maxNumberMembers += value;
         return this;
     }

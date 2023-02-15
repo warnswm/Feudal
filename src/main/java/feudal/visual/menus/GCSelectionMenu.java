@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-public class GameClassSelectionMenu {
+public class GCSelectionMenu {
 
     public static void openClassSelection(@NotNull Player player) {
 

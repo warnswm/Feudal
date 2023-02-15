@@ -17,21 +17,20 @@ import java.util.Objects;
 public class PoisoningListener implements Listener {
 
     @EventHandler
-    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
+    public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("poisoning") ||
-                MathUtils.getRandomInt(1, 101) >
-                        Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("poisoningLvl") *
-                                FeudalValuesUtils.poisoningTimePercentagePerLvl) return;
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("poisoningLvl") * FeudalValuesUtils.getPoisoningPercentagePerLvl())
+            return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int poisoning = FeudalValuesUtils.poisoningTime;
+        int poisoning = FeudalValuesUtils.getPoisoningTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, (int) (poisoning + poisoning / 100 * FeudalValuesUtils.poisoningTimePercentagePerLvl), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, (int) (poisoning + poisoning / 100 * FeudalValuesUtils.getPoisoningTimePercentagePerLvl()), 1, true, true));
 
     }
 

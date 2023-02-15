@@ -32,10 +32,13 @@ public enum PrivateBlocksEnum {
 
     Material material;
 
-    public static boolean getByMaterial(Material material) {
+    public static boolean checkMaterial(Material material) {
+
         for (PrivateBlocksEnum privateBlocksEnum : values())
             if (privateBlocksEnum.getMaterial() == material)
                 return true;
+
         return false;
+
     }
 }

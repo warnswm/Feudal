@@ -13,9 +13,9 @@ import org.jetbrains.annotations.NotNull;
 public class ClerkMenuListener implements Listener {
 
     @EventHandler
-    public void playerInteractClerkMenu(@NotNull InventoryClickEvent event) {
+    public final void playerInteractClerkMenu(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenu.isaBoolean(event)) return;
+        if (GeneralMenuListener.isaBoolean(event)) return;
 
         event.setCancelled(true);
 
@@ -29,7 +29,7 @@ public class ClerkMenuListener implements Listener {
             player.getInventory().getItemInMainHand().removeEnchantment(enchantment);
             player.getInventory().addItem(CreateItemUtils.createItem(Material.ENCHANTED_BOOK, enchantment, event.getCurrentItem().getEnchantments().get(enchantment).byteValue(), 1));
 
-            float exp = player.getExp() - ClerkTakeExpEnum.getLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2;
+            float exp = player.getExp() - ClerkTakeExpEnum.getExpByLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2;
 
             if (exp <= 0) {
 
@@ -40,7 +40,7 @@ public class ClerkMenuListener implements Listener {
 
             }
 
-            player.setExp((int) player.getExp() - ClerkTakeExpEnum.getLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2);
+            player.setExp((int) player.getExp() - ClerkTakeExpEnum.getExpByLvl(event.getCurrentItem().getEnchantments().get(enchantment).byteValue()) * 7 + 2);
 
             player.closeInventory();
 

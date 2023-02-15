@@ -14,13 +14,14 @@ import static org.bukkit.Material.LOG;
 public class WoodcutterExpListener implements Listener {
 
     @EventHandler
-    public void playerBlockBreak(@NotNull BlockBreakEvent event) {
+    public final void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
         if (block.hasMetadata("PLACED") ||
-                feudalPlayer.getAClassID() != GameClassesIDEnum.WOODCUTTER.getId() ||
+                feudalPlayer.getAClassID() !=
+                        GameClassesIDEnum.WOODCUTTER.getId() ||
                 !block.getType().equals(LOG)) return;
 
         feudalPlayer.addExperience(2);

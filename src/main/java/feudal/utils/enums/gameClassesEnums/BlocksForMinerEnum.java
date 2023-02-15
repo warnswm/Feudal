@@ -17,10 +17,13 @@ public enum BlocksForMinerEnum {
     Material material;
     int attributeExp;
 
-    public static int getByMaterial(Material material) {
+    public static int getAttributeExpByMaterial(Material material) {
+
         for (BlocksForMinerEnum blocksForMiner : values())
             if (blocksForMiner.getMaterial() == material)
                 return blocksForMiner.getAttributeExp();
+
         return 0;
+
     }
 }

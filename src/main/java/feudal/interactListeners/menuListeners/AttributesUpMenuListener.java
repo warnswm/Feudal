@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 public class AttributesUpMenuListener implements Listener {
 
     @EventHandler
-    public void interactInventory(@NotNull InventoryClickEvent event) {
+    public final void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenu.isaBoolean(event)) return;
+        if (GeneralMenuListener.isaBoolean(event)) return;
 
         event.setCancelled(true);
 

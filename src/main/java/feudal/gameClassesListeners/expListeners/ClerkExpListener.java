@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class ClerkExpListener implements Listener {
 
     @EventHandler
-    public void playerItemEnchant(@NotNull EnchantItemEvent event) {
+    public final void playerItemEnchant(@NotNull EnchantItemEvent event) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getEnchanter());
 
@@ -41,5 +41,7 @@ public class ClerkExpListener implements Listener {
             feudalPlayer.addGameClassExperience(20);
 
         }
+
     }
+
 }

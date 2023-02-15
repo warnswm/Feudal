@@ -1,6 +1,6 @@
 package feudal.data.builder;
 
-import feudal.visual.scoreboards.ScoreBoardInfo;
+import feudal.visual.ScoreBoardGeneralInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.ToString;
@@ -21,164 +21,154 @@ import java.util.UUID;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalPlayer {
+
     final List<String> invitations = new ArrayList<>();
-    String playerUUID;
-    int aClassID;
-    int experience;
-    int balance;
-    int deaths;
-    int kills;
-    int strengthLvl;
-    int survivabilityLvl;
-    int speedLvl;
-    int staminaLvl;
-    int luckLvl;
-    int gameClassLvl;
-    int gameClassExperience;
-    String kingdomName;
+    String playerUUID, kingdomName;
     List<String> letters = new ArrayList<>();
+    int aClassID, experience, balance, deaths, kills, strengthLvl, survivabilityLvl, speedLvl, staminaLvl, luckLvl, gameClassLvl, gameClassExperience;
 
     public FeudalPlayer(@NotNull Player player) {
         playerUUID = player.getUniqueId().toString();
     }
 
-
-    public FeudalPlayer setPlayer(@NotNull Player player) {
+    public final FeudalPlayer setPlayer(@NotNull Player player) {
         playerUUID = player.getUniqueId().toString();
         return this;
     }
 
-    public FeudalPlayer setaClassID(int value) {
+    public final FeudalPlayer setaClassID(int value) {
         aClassID = value;
         return this;
     }
 
-    public FeudalPlayer setExperience(int value) {
+    public final FeudalPlayer setExperience(int value) {
         experience = value;
         return this;
     }
 
-    public FeudalPlayer setBalance(int value) {
+    public final FeudalPlayer setBalance(int value) {
         balance = value;
         return this;
     }
 
-    public FeudalPlayer setDeaths(int value) {
+    public final FeudalPlayer setDeaths(int value) {
         deaths = value;
         return this;
     }
 
-    public FeudalPlayer setKills(int value) {
+    public final FeudalPlayer setKills(int value) {
         kills = value;
         return this;
     }
 
-    public FeudalPlayer setStrengthLvl(int value) {
-        strengthLvl = strengthLvl;
+    public final FeudalPlayer setStrengthLvl(int value) {
+        strengthLvl = value;
         return this;
     }
 
-    public FeudalPlayer setSurvivabilityLvl(int value) {
+    public final FeudalPlayer setSurvivabilityLvl(int value) {
         survivabilityLvl = value;
         return this;
     }
 
-    public FeudalPlayer setSpeedLvl(int value) {
+    public final FeudalPlayer setSpeedLvl(int value) {
         speedLvl = value;
         return this;
     }
 
-    public FeudalPlayer setStaminaLvl(int value) {
+    public final FeudalPlayer setStaminaLvl(int value) {
         staminaLvl = value;
         return this;
     }
 
-    public FeudalPlayer setLuckLvl(int value) {
+    public final FeudalPlayer setLuckLvl(int value) {
         luckLvl = value;
         return this;
     }
 
-    public FeudalPlayer setGameClassLvl(int gameClassLvl) {
+    public final FeudalPlayer setGameClassLvl(int gameClassLvl) {
         this.gameClassLvl = gameClassLvl;
         return this;
     }
 
-    public FeudalPlayer setGameClassExperience(int value) {
+    public final FeudalPlayer setGameClassExperience(int value) {
         gameClassExperience = value;
         return this;
     }
 
-    public FeudalPlayer setKingdomName(String kingdomName) {
+    public final FeudalPlayer setKingdomName(String kingdomName) {
         this.kingdomName = kingdomName;
         return this;
     }
 
 
-    public FeudalPlayer addExperience(int value) {
+    public final FeudalPlayer addExperience(int value) {
 
         experience += value;
 
         Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
-        ScoreBoardInfo.updateScoreBoardInfo(player);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " опыта атрибутов");
 
         return this;
+
     }
 
-    public FeudalPlayer addBalance(int value) {
+    public final FeudalPlayer addBalance(int value) {
 
         balance += value;
 
         Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
-        ScoreBoardInfo.updateScoreBoardInfo(player);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " денег");
 
         return this;
+
     }
 
-    public FeudalPlayer addDeaths(int value) {
+    public final FeudalPlayer addDeaths(int value) {
         deaths += value;
         return this;
     }
 
-    public FeudalPlayer addKills(int value) {
+    public final FeudalPlayer addKills(int value) {
         kills += value;
         return this;
     }
 
-    public FeudalPlayer addStrengthLvl(int value) {
+    public final FeudalPlayer addStrengthLvl(int value) {
         strengthLvl += value;
         return this;
     }
 
-    public FeudalPlayer addSurvivabilityLvl(int value) {
+    public final FeudalPlayer addSurvivabilityLvl(int value) {
         survivabilityLvl += value;
         return this;
     }
 
-    public FeudalPlayer addSpeedLvl(int value) {
+    public final FeudalPlayer addSpeedLvl(int value) {
         speedLvl += value;
         return this;
     }
 
-    public FeudalPlayer addStaminaLvl(int value) {
+    public final FeudalPlayer addStaminaLvl(int value) {
         staminaLvl += value;
         return this;
     }
 
-    public FeudalPlayer addLuckLvl(int value) {
+    public final FeudalPlayer addLuckLvl(int value) {
         luckLvl += value;
         return this;
     }
 
-    public FeudalPlayer addGameClassLvl(int value) {
+    public final FeudalPlayer addGameClassLvl(int value) {
         gameClassLvl += value;
         return this;
     }
 
-    public FeudalPlayer addGameClassExperience(int value) {
+    public final FeudalPlayer addGameClassExperience(int value) {
 
         gameClassExperience += value;
 
@@ -193,110 +183,113 @@ public class FeudalPlayer {
 
         }
 
-        ScoreBoardInfo.updateScoreBoardInfo(player);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " опыта класса");
 
         return this;
+
     }
 
 
-    public FeudalPlayer takeExperience(int value) {
+    public final FeudalPlayer takeExperience(int value) {
 
         experience -= value;
 
         Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
-        ScoreBoardInfo.updateScoreBoardInfo(player);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " опыта атрибутов");
 
         return this;
+
     }
 
-    public FeudalPlayer takeBalance(int value) {
+    public final FeudalPlayer takeBalance(int value) {
 
         balance -= value;
 
         Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
-        ScoreBoardInfo.updateScoreBoardInfo(player);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " денег");
 
         return this;
     }
 
-    public FeudalPlayer takeDeaths(int value) {
+    public final FeudalPlayer takeDeaths(int value) {
         deaths -= value;
         return this;
     }
 
-    public FeudalPlayer takeKills(int value) {
+    public final FeudalPlayer takeKills(int value) {
         kills -= value;
         return this;
     }
 
-    public FeudalPlayer takeStrengthLvl(int value) {
+    public final FeudalPlayer takeStrengthLvl(int value) {
         strengthLvl -= value;
         return this;
     }
 
-    public FeudalPlayer takeSurvivabilityLvl(int value) {
+    public final FeudalPlayer takeSurvivabilityLvl(int value) {
         survivabilityLvl -= value;
         return this;
     }
 
-    public FeudalPlayer takeSpeedLvl(int value) {
+    public final FeudalPlayer takeSpeedLvl(int value) {
         speedLvl -= value;
         return this;
     }
 
-    public FeudalPlayer takeStaminaLvl(int value) {
+    public final FeudalPlayer takeStaminaLvl(int value) {
         staminaLvl -= value;
         return this;
     }
 
-    public FeudalPlayer takeLuckLvl(int value) {
+    public final FeudalPlayer takeLuckLvl(int value) {
         luckLvl -= value;
         return this;
     }
 
-    public FeudalPlayer takeGameClassLvl(int value) {
+    public final FeudalPlayer takeGameClassLvl(int value) {
         gameClassLvl -= value;
         return this;
     }
 
-    public FeudalPlayer takeGameClassExperience(int value) {
+    public final FeudalPlayer takeGameClassExperience(int value) {
 
         gameClassExperience -= value;
 
         Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
 
-        ScoreBoardInfo.updateScoreBoardInfo(player);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " опыта класса");
 
         return this;
+
     }
 
-    public FeudalPlayer addInvitations(String kingdomName) {
+    public final FeudalPlayer addInvitations(String kingdomName) {
         invitations.add(kingdomName);
         return this;
     }
 
-    public FeudalPlayer clearInvitations() {
+    public final FeudalPlayer clearInvitations() {
         invitations.clear();
         return this;
     }
 
-    public FeudalPlayer deleteInvitations(String kingdomName) {
+    public final FeudalPlayer deleteInvitations(String kingdomName) {
         invitations.remove(kingdomName);
         return this;
     }
 
-    public FeudalPlayer setLetters(List<String> letters) {
+    public final FeudalPlayer setLetters(List<String> letters) {
         this.letters = letters;
         return this;
     }
 
-    public FeudalPlayer addLetter(@NotNull Player sender, String letter) {
+    public final FeudalPlayer addLetter(@NotNull Player sender, String letter) {
 
         letters.add(letter);
 
@@ -306,14 +299,15 @@ public class FeudalPlayer {
         player.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + "§lНовое письмо от игрока " + sender.getName() + " - §n" + shortLetter + "..." + "\"}"), ChatMessageType.GAME_INFO));
 
         return this;
+
     }
 
-    public FeudalPlayer clearLetters() {
+    public final FeudalPlayer clearLetters() {
         letters.clear();
         return this;
     }
 
-    public FeudalPlayer deleteLetter(String letter) {
+    public final FeudalPlayer deleteLetter(String letter) {
         letters.remove(kingdomName);
         return this;
     }

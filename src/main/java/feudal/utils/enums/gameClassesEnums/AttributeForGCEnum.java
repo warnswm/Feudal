@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public enum AttributeForGameClassesEnum {
+public enum AttributeForGCEnum {
     STRENGTH_AND_STAMINA(1, "Выносливость", "Сила", 3), STAMINA_AND_LUCK(2, "Выносливость", "Удача", 8),
     SURVIVABILITY_AND_LUCK(4, "Живучесть", "Удача"), SPEED_AND_STAMINA(5, "Скорость", "Выносливость"),
     STRENGTH_AND_LUCK(6, "Сила", "Удача"), STAMINA_AND_SURVIVABILITY(7, "Выносливость", "Живучесть"),
@@ -19,25 +19,31 @@ public enum AttributeForGameClassesEnum {
     final String secondAttributeName;
     int secondClassID;
 
-    AttributeForGameClassesEnum(int oneClassID, String oneAttributeName, String secondAttributeName) {
+    AttributeForGCEnum(int oneClassID, String oneAttributeName, String secondAttributeName) {
         this.oneClassID = oneClassID;
         this.oneAttributeName = oneAttributeName;
         this.secondAttributeName = secondAttributeName;
     }
 
     public static String getOneAttributeNameByID(int id) {
-        for (AttributeForGameClassesEnum attributeForGameClassesEnum : values())
-            if (attributeForGameClassesEnum.getOneClassID() == id ||
-                    attributeForGameClassesEnum.getSecondClassID() == id)
-                return attributeForGameClassesEnum.getOneAttributeName();
+
+        for (AttributeForGCEnum attributeForGCEnum : values())
+            if (attributeForGCEnum.getOneClassID() == id ||
+                    attributeForGCEnum.getSecondClassID() == id)
+                return attributeForGCEnum.getOneAttributeName();
+
         return "";
+
     }
 
     public static String getSecondAttributeNameByID(int id) {
-        for (AttributeForGameClassesEnum attributeForGameClassesEnum : values())
-            if (attributeForGameClassesEnum.getOneClassID() == id ||
-                    attributeForGameClassesEnum.getSecondClassID() == id)
-                return attributeForGameClassesEnum.getSecondAttributeName();
+
+        for (AttributeForGCEnum attributeForGCEnum : values())
+            if (attributeForGCEnum.getOneClassID() == id ||
+                    attributeForGCEnum.getSecondClassID() == id)
+                return attributeForGCEnum.getSecondAttributeName();
+
         return "";
+
     }
 }

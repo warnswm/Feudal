@@ -1,4 +1,4 @@
-package feudal.visual.scoreboards;
+package feudal.visual;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
@@ -7,7 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 
-public class ScoreBoardInfo {
+public class ScoreBoardGeneralInfo {
 
     public static void updateScoreBoardInfo(Player player) {
 

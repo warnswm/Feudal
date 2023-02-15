@@ -18,10 +18,13 @@ public enum AnimalsForHuntedEnum {
     EntityType entity;
     int attributeExp;
 
-    public static int getByEntity(EntityType entity) {
+    public static int getAttributeExpByEntity(EntityType entity) {
+
         for (AnimalsForHuntedEnum animalsForHuntedEnum : values())
             if (animalsForHuntedEnum.getEntity() == entity)
-                return animalsForHuntedEnum.attributeExp;
+                return animalsForHuntedEnum.getAttributeExp();
+
         return 0;
+
     }
 }

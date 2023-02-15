@@ -13,20 +13,19 @@ import org.jetbrains.annotations.NotNull;
 public class MinerExpListener implements Listener {
 
     @EventHandler
-    public void playerBlockBreak(@NotNull BlockBreakEvent event) {
+    public final void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
-
         if (block.hasMetadata("PLACED")) return;
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
         if (feudalPlayer.getAClassID() != GameClassesIDEnum.MINER.getId()) return;
 
-        int exp = BlocksForMinerEnum.getByMaterial(block.getType());
+        int exp = BlocksForMinerEnum.getAttributeExpByMaterial(block.getType());
 
         feudalPlayer.addExperience(exp);
-        feudalPlayer.addGameClassExperience(exp * 4);
+        feudalPlayer.addGameClassExperience(4 * exp);
 
     }
 }

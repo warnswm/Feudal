@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
-import static feudal.utils.enums.ArmorEnum.getByItemMaterial;
+import static feudal.utils.enums.ArmorEnum.getArmorAttributeByItemMaterial;
 
 public class ArmorListener implements Listener {
 
@@ -21,10 +21,10 @@ public class ArmorListener implements Listener {
         Player player = event.getPlayer();
         PlayerInventory playerInv = player.getInventory();
 
-        int attribute = playerInv.getHelmet() == null ? 0 : getByItemMaterial(playerInv.getHelmet().getType());
-        attribute += playerInv.getChestplate() == null ? 0 : getByItemMaterial(playerInv.getChestplate().getType());
-        attribute += playerInv.getLeggings() == null ? 0 : getByItemMaterial(playerInv.getLeggings().getType());
-        attribute += playerInv.getBoots() == null ? 0 : getByItemMaterial(playerInv.getBoots().getType());
+        int attribute = playerInv.getHelmet() == null ? 0 : getArmorAttributeByItemMaterial(playerInv.getHelmet().getType());
+        attribute += playerInv.getChestplate() == null ? 0 : getArmorAttributeByItemMaterial(playerInv.getChestplate().getType());
+        attribute += playerInv.getLeggings() == null ? 0 : getArmorAttributeByItemMaterial(playerInv.getLeggings().getType());
+        attribute += playerInv.getBoots() == null ? 0 : getArmorAttributeByItemMaterial(playerInv.getBoots().getType());
 
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);

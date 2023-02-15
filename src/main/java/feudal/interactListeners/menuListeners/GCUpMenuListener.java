@@ -10,15 +10,14 @@ import org.jetbrains.annotations.NotNull;
 
 import static feudal.visual.menus.AttributesUpMenu.attributesUpMenu;
 
-public class GameClassUpMenuListener implements Listener {
+public class GCUpMenuListener implements Listener {
 
     @EventHandler
-    public void interactInventory(@NotNull InventoryClickEvent event) {
+    public final void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenu.isaBoolean(event)) return;
+        if (GeneralMenuListener.isaBoolean(event)) return;
 
         event.setCancelled(true);
-
 
         Player player = (Player) event.getView().getPlayer();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
@@ -30,26 +29,31 @@ public class GameClassUpMenuListener implements Listener {
                 attributesUpMenu(player, feudalPlayer.getStrengthLvl(), "силы", 5);
 
                 break;
+
             case "Выносливость":
 
                 attributesUpMenu(player, feudalPlayer.getStaminaLvl(), "выносливости", 5);
 
                 break;
+
             case "Удача":
 
                 attributesUpMenu(player, feudalPlayer.getLuckLvl(), "удачи", 7);
 
                 break;
+
             case "Живучесть":
 
                 attributesUpMenu(player, feudalPlayer.getSurvivabilityLvl(), "живучести", 5);
 
                 break;
+
             case "Скорость":
 
                 attributesUpMenu(player, feudalPlayer.getSpeedLvl(), "скорости", 5);
 
                 break;
+
         }
     }
 }

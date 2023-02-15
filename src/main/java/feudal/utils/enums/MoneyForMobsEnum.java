@@ -28,10 +28,13 @@ public enum MoneyForMobsEnum {
     EntityType entity;
     int money;
 
-    public static int getByEntity(EntityType entity) {
+    public static int getMoneyByEntity(EntityType entity) {
+
         for (MoneyForMobsEnum moneyForMobsEnum : values())
             if (moneyForMobsEnum.getEntity() == entity)
                 return moneyForMobsEnum.getMoney();
+
         return 0;
+
     }
 }

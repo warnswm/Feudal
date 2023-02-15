@@ -3,65 +3,244 @@ package feudal.utils;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalValuesUtils {
-    public static MongoClient mongoClient;
-    public static MongoDatabase database;
-    public static MongoCollection<Document> playersCollection;
-    public static MongoCollection<Document> kingdomsCollection;
+    static MongoClient mongoClient;
+    static MongoDatabase database;
+    static MongoCollection<Document> playersCollection;
+    static MongoCollection<Document> kingdomsCollection;
 
-    public static int vampirismMaxLvl;
-    public static double vampirismPercentagePerLvl;
+    static int vampirismMaxLvl;
+    static double vampirismPercentagePerLvl;
 
-    public static int doubleDamageMaxLvl;
-    public static double doubleDamagePercentagePerLvl;
+    static int doubleDamageMaxLvl;
+    static double doubleDamagePercentagePerLvl;
 
-    public static int blindnessMaxLvl;
-    public static double blindnessPercentagePerLvl;
-    public static int blindnessTime;
-    public static double blindnessTimePercentagePerLvl;
+    static int blindnessMaxLvl;
+    static double blindnessPercentagePerLvl;
+    static int blindnessTime;
+    static double blindnessTimePercentagePerLvl;
 
-    public static int slowdownMaxLvl;
-    public static double slowdownPercentagePerLvl;
-    public static int slowdownTime;
-    public static double slowdownTimePercentagePerLvl;
+    static int slowdownMaxLvl;
+    static double slowdownPercentagePerLvl;
+    static int slowdownTime;
+    static double slowdownTimePercentagePerLvl;
 
-    public static int desiccationMaxLvl;
-    public static double desiccationPercentagePerLvl;
-    public static int desiccationTime;
-    public static double desiccationTimePercentagePerLvl;
+    static int desiccationMaxLvl;
+    static double desiccationPercentagePerLvl;
+    static int desiccationTime;
+    static double desiccationTimePercentagePerLvl;
 
-    public static int swordStunMaxLvl;
-    public static double swordStunPercentagePerLvl;
-    public static int swordStunTime;
-    public static double swordStunTimePercentagePerLvl;
+    static int swordStunMaxLvl;
+    static double swordStunPercentagePerLvl;
+    static int swordStunTime;
+    static double swordStunTimePercentagePerLvl;
 
-    public static int levitationMaxLvl;
-    public static double levitationPercentagePerLvl;
-    public static int levitationTime;
-    public static double levitationTimePercentagePerLvl;
+    static int levitationMaxLvl;
+    static double levitationPercentagePerLvl;
+    static int levitationTime;
+    static double levitationTimePercentagePerLvl;
 
-    public static int poisoningMaxLvl;
-    public static double poisoningPercentagePerLvl;
-    public static int poisoningTime;
-    public static double poisoningTimePercentagePerLvl;
+    static int poisoningMaxLvl;
+    static double poisoningPercentagePerLvl;
+    static int poisoningTime;
+    static double poisoningTimePercentagePerLvl;
 
-    public static int nauseaMaxLvl;
-    public static double nauseaPercentagePerLvl;
-    public static int nauseaTime;
-    public static double nauseaTimePercentagePerLvl;
+    static int nauseaMaxLvl;
+    static double nauseaPercentagePerLvl;
+    static int nauseaTime;
+    static double nauseaTimePercentagePerLvl;
 
-    public static int hookMaxLvl;
-    public static double hookPercentagePerLvl;
+    static int hookMaxLvl;
+    static double hookPercentagePerLvl;
 
-    public static int multi_shootingMaxLvl;
-    public static double multi_shootingPercentagePerLvl;
+    static int multi_shootingMaxLvl;
+    static double multi_shootingPercentagePerLvl;
 
-    public static int bowStunMaxLvl;
-    public static double bowStunPercentagePerLvl;
+    static int bowStunMaxLvl;
+    static double bowStunPercentagePerLvl;
 
-    public static int greedMaxLvl;
-    public static double greedPercentagePerLvl;
+    static int greedMaxLvl;
+    static double greedPercentagePerLvl;
 
+
+    public static MongoClient getMongoClient() {
+        return mongoClient;
+    }
+
+    public static MongoDatabase getDatabase() {
+        return database;
+    }
+
+    public static MongoCollection<Document> getPlayersCollection() {
+        return playersCollection;
+    }
+
+    public static MongoCollection<Document> getKingdomsCollection() {
+        return kingdomsCollection;
+    }
+
+    public static int getVampirismMaxLvl() {
+        return vampirismMaxLvl;
+    }
+
+    public static double getVampirismPercentagePerLvl() {
+        return vampirismPercentagePerLvl;
+    }
+
+    public static int getDoubleDamageMaxLvl() {
+        return doubleDamageMaxLvl;
+    }
+
+    public static double getDoubleDamagePercentagePerLvl() {
+        return doubleDamagePercentagePerLvl;
+    }
+
+    public static int getBlindnessMaxLvl() {
+        return blindnessMaxLvl;
+    }
+
+    public static double getBlindnessPercentagePerLvl() {
+        return blindnessPercentagePerLvl;
+    }
+
+    public static int getBlindnessTime() {
+        return blindnessTime;
+    }
+
+    public static double getBlindnessTimePercentagePerLvl() {
+        return blindnessTimePercentagePerLvl;
+    }
+
+    public static int getSlowdownMaxLvl() {
+        return slowdownMaxLvl;
+    }
+
+    public static double getSlowdownPercentagePerLvl() {
+        return slowdownPercentagePerLvl;
+    }
+
+    public static int getSlowdownTime() {
+        return slowdownTime;
+    }
+
+    public static double getSlowdownTimePercentagePerLvl() {
+        return slowdownTimePercentagePerLvl;
+    }
+
+    public static int getDesiccationMaxLvl() {
+        return desiccationMaxLvl;
+    }
+
+    public static double getDesiccationPercentagePerLvl() {
+        return desiccationPercentagePerLvl;
+    }
+
+    public static int getDesiccationTime() {
+        return desiccationTime;
+    }
+
+    public static double getDesiccationTimePercentagePerLvl() {
+        return desiccationTimePercentagePerLvl;
+    }
+
+    public static int getSwordStunMaxLvl() {
+        return swordStunMaxLvl;
+    }
+
+    public static double getSwordStunPercentagePerLvl() {
+        return swordStunPercentagePerLvl;
+    }
+
+    public static int getSwordStunTime() {
+        return swordStunTime;
+    }
+
+    public static double getSwordStunTimePercentagePerLvl() {
+        return swordStunTimePercentagePerLvl;
+    }
+
+    public static int getLevitationMaxLvl() {
+        return levitationMaxLvl;
+    }
+
+    public static double getLevitationPercentagePerLvl() {
+        return levitationPercentagePerLvl;
+    }
+
+    public static int getLevitationTime() {
+        return levitationTime;
+    }
+
+    public static double getLevitationTimePercentagePerLvl() {
+        return levitationTimePercentagePerLvl;
+    }
+
+    public static int getPoisoningMaxLvl() {
+        return poisoningMaxLvl;
+    }
+
+    public static double getPoisoningPercentagePerLvl() {
+        return poisoningPercentagePerLvl;
+    }
+
+    public static int getPoisoningTime() {
+        return poisoningTime;
+    }
+
+    public static double getPoisoningTimePercentagePerLvl() {
+        return poisoningTimePercentagePerLvl;
+    }
+
+    public static int getNauseaMaxLvl() {
+        return nauseaMaxLvl;
+    }
+
+    public static double getNauseaPercentagePerLvl() {
+        return nauseaPercentagePerLvl;
+    }
+
+    public static int getNauseaTime() {
+        return nauseaTime;
+    }
+
+    public static double getNauseaTimePercentagePerLvl() {
+        return nauseaTimePercentagePerLvl;
+    }
+
+    public static int getHookMaxLvl() {
+        return hookMaxLvl;
+    }
+
+    public static double getHookPercentagePerLvl() {
+        return hookPercentagePerLvl;
+    }
+
+    public static int getMulti_shootingMaxLvl() {
+        return multi_shootingMaxLvl;
+    }
+
+    public static double getMulti_shootingPercentagePerLvl() {
+        return multi_shootingPercentagePerLvl;
+    }
+
+    public static int getBowStunMaxLvl() {
+        return bowStunMaxLvl;
+    }
+
+    public static double getBowStunPercentagePerLvl() {
+        return bowStunPercentagePerLvl;
+    }
+
+    public static int getGreedMaxLvl() {
+        return greedMaxLvl;
+    }
+
+    public static double getGreedPercentagePerLvl() {
+        return greedPercentagePerLvl;
+    }
 }

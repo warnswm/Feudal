@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class MobListener implements Listener {
 
     @EventHandler
-    public void mobSpawn(@NotNull CreatureSpawnEvent event) {
+    public final void mobSpawn(@NotNull CreatureSpawnEvent event) {
 
         if (MobsAttributesEnum.getHPByEntity(event.getEntityType()) == 0) return;
 
@@ -19,7 +19,7 @@ public class MobListener implements Listener {
     }
 
     @EventHandler
-    public void mobAttack(@NotNull EntityDamageByEntityEvent event) {
+    public final void mobAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (MobsAttributesEnum.getStrengthByEntity(event.getDamager().getType()) == 0) return;
 

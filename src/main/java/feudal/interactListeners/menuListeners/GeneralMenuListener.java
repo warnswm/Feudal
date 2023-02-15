@@ -6,7 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class GeneralMenu implements Listener {
+public class GeneralMenuListener implements Listener {
 
     public static boolean isaBoolean(@NotNull InventoryClickEvent event) {
         return !event.getView().getTitle().equals("Почта") &&
@@ -22,9 +22,9 @@ public class GeneralMenu implements Listener {
     }
 
     @EventHandler
-    public void interactInventory(@NotNull InventoryClickEvent event) {
+    public final void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenu.isaBoolean(event)) return;
+        if (GeneralMenuListener.isaBoolean(event)) return;
 
         event.setCancelled(true);
 

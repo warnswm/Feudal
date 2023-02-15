@@ -11,8 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class CookListener implements Listener {
+
     @EventHandler
-    public void playerExtractFurnace(@NotNull FurnaceExtractEvent event) {
+    public final void playerExtractFurnace(@NotNull FurnaceExtractEvent event) {
 
         if (CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()).getAClassID()
                 != GameClassesIDEnum.COOK.getId()) return;
@@ -24,8 +25,8 @@ public class CookListener implements Listener {
         tag.setByte("chefLvl", (byte) CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()).getGameClassLvl());
 
         nmsItem.setTag(tag);
-
         event.getPlayer().setItemOnCursor(CraftItemStack.asBukkitCopy(nmsItem));
 
     }
+
 }

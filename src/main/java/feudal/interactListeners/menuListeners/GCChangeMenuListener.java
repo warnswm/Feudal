@@ -9,12 +9,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class GameClassChangeMenuListener implements Listener {
+public class GCChangeMenuListener implements Listener {
 
     @EventHandler
-    public void interactInventory(@NotNull InventoryClickEvent event) {
+    public final void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenu.isaBoolean(event)) return;
+        if (GeneralMenuListener.isaBoolean(event)) return;
 
         event.setCancelled(true);
 
@@ -22,7 +22,7 @@ public class GameClassChangeMenuListener implements Listener {
         Player player = (Player) event.getView().getPlayer();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        feudalPlayer.setaClassID(GameClassesIDEnum.getByString(event.getCurrentItem().getItemMeta().getDisplayName()));
+        feudalPlayer.setaClassID(GameClassesIDEnum.getIDByString(event.getCurrentItem().getItemMeta().getDisplayName()));
         player.closeInventory();
 
     }

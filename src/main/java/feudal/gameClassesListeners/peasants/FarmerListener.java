@@ -13,16 +13,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class FarmerListener implements Listener {
 
+    private static boolean isaBoolean(@NotNull PlayerInteractEvent event, Block block, ItemStack mainHand) {
+        return !event.getAction().equals(Action.RIGHT_CLICK_BLOCK) ||
+                !mainHand.getType().equals(Material.INK_SACK) ||
+                !BlocksForFarmerEnum.checkPlant(block.getType()) ||
+                block.getData() == CropState.RIPE.getData();
+    }
+
     @EventHandler
-    public void playerUsedBoneMeal(@NotNull PlayerInteractEvent event) {
+    public final void playerUsedBoneMeal(@NotNull PlayerInteractEvent event) {
 
         Block block = event.getClickedBlock();
         ItemStack mainHand = event.getPlayer().getInventory().getItemInMainHand();
 
-        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK) ||
-                !mainHand.getType().equals(Material.INK_SACK) ||
-                !BlocksForFarmerEnum.getPlant(block.getType()) ||
-                block.getData() == CropState.RIPE.getData()) return;
+        if (isaBoolean(event, block, mainHand)) return;
 
         mainHand.setAmount(mainHand.getAmount() + 1);
 
@@ -34,5 +38,6 @@ public class FarmerListener implements Listener {
         }
 
         block.setData(CropState.RIPE.getData());
+
     }
 }

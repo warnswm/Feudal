@@ -20,9 +20,9 @@ import java.util.UUID;
 public class MailMenuListener implements Listener {
 
     @EventHandler
-    public void interactInventory(@NotNull InventoryClickEvent event) {
+    public final void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenu.isaBoolean(event)) return;
+        if (GeneralMenuListener.isaBoolean(event)) return;
 
         event.setCancelled(true);
 
@@ -59,8 +59,7 @@ public class MailMenuListener implements Listener {
             player.sendMessage("Вы вступили в королевство: " + kingdomName);
             player.closeInventory();
 
-        } else if (event.getCurrentItem().getItemMeta().getDisplayName().equals("Закрыть меню"))
-            player.closeInventory();
+        }
 
     }
 

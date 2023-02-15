@@ -10,9 +10,10 @@ import org.jetbrains.annotations.NotNull;
 public class CraftItemsListener implements Listener {
 
     @EventHandler
-    public void playerCrafting(@NotNull PrepareItemCraftEvent event) {
+    public final void playerCrafting(@NotNull PrepareItemCraftEvent event) {
 
-        if (event.getRecipe() == null || !event.getRecipe().getResult().getType().equals(Material.ARMOR_STAND)) return;
+        if (event.getRecipe() == null ||
+                !event.getRecipe().getResult().getType().equals(Material.ARMOR_STAND)) return;
 
         event.getInventory().setResult(new ItemStack(Material.AIR));
 

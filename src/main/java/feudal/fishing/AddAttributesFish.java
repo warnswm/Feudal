@@ -11,7 +11,6 @@ public class AddAttributesFish {
     public static @NotNull ItemStack setFishAttributes(ItemStack fish) {
 
         net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(fish);
-
         NBTTagCompound tag = nmsItem.getTag() != null ? nmsItem.getTag() : new NBTTagCompound();
 
         if (MathUtils.getRandomInt(1, 501) == 500)
@@ -34,7 +33,6 @@ public class AddAttributesFish {
         tag.setDouble("size", MathUtils.getRandomDouble(5, 1300));
 
         nmsItem.setTag(tag);
-
         return CraftItemStack.asBukkitCopy(nmsItem);
     }
 }

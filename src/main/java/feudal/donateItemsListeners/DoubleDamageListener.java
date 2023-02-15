@@ -14,16 +14,15 @@ import java.util.Objects;
 public class DoubleDamageListener implements Listener {
 
     @EventHandler
-    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
+    public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("doubleDamage") ||
-                MathUtils.getRandomInt(1, 101) >
-                        Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") *
-                                FeudalValuesUtils.doubleDamagePercentagePerLvl) return;
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") * FeudalValuesUtils.getDoubleDamagePercentagePerLvl())
+            return;
 
 
         event.setDamage(event.getDamage() * 2);

@@ -48,7 +48,7 @@ public class PlayerListener implements Listener {
     List<String> sleepingPlayers = new ArrayList<>();
 
     @EventHandler
-    public void playerTeleport(@NotNull PlayerTeleportEvent event) {
+    public final void playerTeleport(@NotNull PlayerTeleportEvent event) {
 
         if (event.getCause() != PlayerTeleportEvent.TeleportCause.ENDER_PEARL) return;
 
@@ -57,7 +57,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void entityDeath(@NotNull EntityDeathEvent event) {
+    public final void entityDeath(@NotNull EntityDeathEvent event) {
 
         if (event.getEntity().getKiller() == null) return;
 
@@ -65,7 +65,7 @@ public class PlayerListener implements Listener {
 
         if (event.getEntityType() != EntityType.PLAYER) {
 
-            feudalPlayer.addBalance(MoneyForMobsEnum.getByEntity(event.getEntityType()));
+            feudalPlayer.addBalance(MoneyForMobsEnum.getMoneyByEntity(event.getEntityType()));
             return;
 
         }
@@ -82,7 +82,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerBedEnter(@NotNull PlayerBedEnterEvent event) {
+    public final void playerBedEnter(@NotNull PlayerBedEnterEvent event) {
 
         Player player = event.getPlayer();
 
@@ -108,7 +108,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerInteractWithPlayer(@NotNull PlayerInteractAtEntityEvent event) {
+    public final void playerInteractWithPlayer(@NotNull PlayerInteractAtEntityEvent event) {
 
         if (!(event.getRightClicked() instanceof Player)) return;
 
@@ -120,7 +120,7 @@ public class PlayerListener implements Listener {
                 "-=[Короролевство: " +
                 kingdomName +
                 ", класс: " +
-                GameClassesIDEnum.getByID(feudalPlayer.getAClassID()) +
+                GameClassesIDEnum.getNameByID(feudalPlayer.getAClassID()) +
                 ", убийств: " + feudalPlayer.getKills() +
                 ", смертей: " + feudalPlayer.getDeaths() +
                 "]=-" +
@@ -129,7 +129,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerEats(@NotNull PlayerItemConsumeEvent event) {
+    public final void playerEats(@NotNull PlayerItemConsumeEvent event) {
 
         if (event.getItem().getType().equals(Material.GOLDEN_APPLE)) {
 
@@ -158,7 +158,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerOnFoodChange(@NotNull EntityRegainHealthEvent event) {
+    public final void playerOnFoodChange(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
 
@@ -171,7 +171,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerRegenerationEvent(@NotNull EntityRegainHealthEvent event) {
+    public final void playerRegenerationEvent(@NotNull EntityRegainHealthEvent event) {
 
         if (!(event.getEntity() instanceof Player)) return;
 
@@ -183,7 +183,7 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
+    public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (!(event.getDamager() instanceof Player)) return;
 
@@ -201,11 +201,11 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerBlockPlaced(@NotNull BlockPlaceEvent event) {
+    public final void playerBlockPlaced(@NotNull BlockPlaceEvent event) {
 
         Block block = event.getBlock();
 
-        if (!BlockToSaveEnum.getByBlockMaterial(block.getType())) return;
+        if (!BlockToSaveEnum.checkBlockMaterial(block.getType())) return;
 
         block.setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
         placedBlocks.add(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
@@ -213,11 +213,11 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void playerBreakBlock(@NotNull BlockBreakEvent event) {
+    public final void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
 
-        if (!BlockToSaveEnum.getByBlockMaterial(block.getType()) ||
+        if (!BlockToSaveEnum.checkBlockMaterial(block.getType()) ||
                 !placedBlocks.contains(PlacedBlockWrapper.blockToPlacedBlockWrapper(block))) return;
 
         placedBlocks.remove(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
@@ -225,10 +225,9 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerBlockBreak(@NotNull BlockBreakEvent event) {
+    public final void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
-
         if (item.getDurability() == 0 || MathUtils.getRandomInt(1, 26) != 25) return;
 
         item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));

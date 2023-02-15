@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class FishermanListener implements Listener {
 
     @EventHandler
-    public void playerFishing(@NotNull PlayerFishEvent event) {
+    public final void playerFishing(@NotNull PlayerFishEvent event) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
@@ -22,10 +22,9 @@ public class FishermanListener implements Listener {
                 event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 
         int item = MathUtils.getRandomInt(1, 6), random = MathUtils.getRandomInt(1, 8);
-
         if (random != 1 && random != 2) return;
 
-        event.getPlayer().getInventory().addItem(FishermanLootTableEnum.getByID(item));
+        event.getPlayer().getInventory().addItem(FishermanLootTableEnum.getItemByID(item));
 
     }
 }

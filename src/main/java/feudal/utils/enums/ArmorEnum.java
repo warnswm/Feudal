@@ -21,10 +21,13 @@ public enum ArmorEnum {
     Material armor;
     int attribute;
 
-    public static int getByItemMaterial(Material item) {
+    public static int getArmorAttributeByItemMaterial(Material item) {
+
         for (ArmorEnum armorEnum : values())
             if (armorEnum.getArmor() == item)
                 return armorEnum.getAttribute();
+
         return 0;
+
     }
 }

@@ -3,18 +3,16 @@ package feudal.utils;
 import com.mongodb.client.MongoClients;
 import feudal.Feudal;
 import lombok.AccessLevel;
+import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
-import java.io.IOException;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-enum ConfigUtils {
-    ;
-
+public class ConfigUtils {
     public static final String ENCHANTMENTS_YML = "enchantments.yml";
     static File path = Feudal.getPlugin().getDataFolder();
     static @NonNls FileConfiguration databaseConfiguration;
@@ -22,7 +20,7 @@ enum ConfigUtils {
     public static void readDatabaseConfig() {
 
         File file = new File(path, "database.yml");
-        checkDatabaseConfig();
+        createDatabaseConfig();
 
         databaseConfiguration = YamlConfiguration.loadConfiguration(file);
 
@@ -33,56 +31,44 @@ enum ConfigUtils {
 
     }
 
+    @SneakyThrows
     public static void saveDatabaseConfig() {
 
         File file = new File(path, "database.yml");
-        checkDatabaseConfig();
+        createDatabaseConfig();
 
-        try {
-
-            YamlConfiguration.loadConfiguration(file).save(file);
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(e);
-
-        }
+        YamlConfiguration.loadConfiguration(file).save(file);
 
     }
 
-    public static void checkDatabaseConfig() {
+    @SneakyThrows
+    public static void createDatabaseConfig() {
 
         if (!path.exists())
             path.mkdir();
 
         File file = new File(path, "database.yml");
+        if (!file.exists()) {
 
-        if (!file.exists())
+            file.createNewFile();
 
-            try {
+            databaseConfiguration = YamlConfiguration.loadConfiguration(file);
 
-                file.createNewFile();
+            databaseConfiguration.set("Mongo.address", "mongodb://localhost:27017");
+            databaseConfiguration.set("Mongo.name", "local");
+            databaseConfiguration.set("Mongo.playersCollection", "players");
+            databaseConfiguration.set("Mongo.kingdomsCollection", "kingdoms");
 
-                databaseConfiguration = YamlConfiguration.loadConfiguration(file);
+            databaseConfiguration.save(file);
 
-                databaseConfiguration.set("Mongo.address", "mongodb://localhost:27017");
-                databaseConfiguration.set("Mongo.name", "local");
-                databaseConfiguration.set("Mongo.playersCollection", "players");
-                databaseConfiguration.set("Mongo.kingdomsCollection", "kingdoms");
+        }
 
-                databaseConfiguration.save(file);
-
-            } catch (IOException e) {
-
-                throw new RuntimeException(e);
-
-            }
     }
 
     public static void readEnchantmentsConfig() {
 
         File file = new File(path, ENCHANTMENTS_YML);
-        checkEnchantmentsConfig();
+        createEnchantmentsConfig();
 
         databaseConfiguration = YamlConfiguration.loadConfiguration(file);
 
@@ -141,98 +127,85 @@ enum ConfigUtils {
 
     }
 
+    @SneakyThrows
     public static void saveEnchantmentsConfig() {
 
         File file = new File(path, ENCHANTMENTS_YML);
-        checkEnchantmentsConfig();
+        createEnchantmentsConfig();
 
-        try {
-
-            YamlConfiguration.loadConfiguration(file).save(file);
-
-        } catch (IOException e) {
-
-            throw new RuntimeException(e);
-
-        }
-
+        YamlConfiguration.loadConfiguration(file).save(file);
 
     }
 
-    public static void checkEnchantmentsConfig() {
+    @SneakyThrows
+    public static void createEnchantmentsConfig() {
 
         if (!path.exists())
             path.mkdir();
 
         File file = new File(path, ENCHANTMENTS_YML);
 
-        if (!file.exists())
+        if (!file.exists()) {
 
-            try {
+            file.createNewFile();
 
-                file.createNewFile();
+            databaseConfiguration = YamlConfiguration.loadConfiguration(file);
 
-                databaseConfiguration = YamlConfiguration.loadConfiguration(file);
+            databaseConfiguration.set("Vampirism.vampirismMaxLvl", 1);
+            databaseConfiguration.set("Vampirism.vampirismPercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Vampirism.vampirismMaxLvl", 1);
-                databaseConfiguration.set("Vampirism.vampirismPercentagePerLvl", 1.0);
+            databaseConfiguration.set("DoubleDamage.doubleDamageMaxLvl", 1);
+            databaseConfiguration.set("DoubleDamage.doubleDamagePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("DoubleDamage.doubleDamageMaxLvl", 1);
-                databaseConfiguration.set("DoubleDamage.doubleDamagePercentagePerLvl", 1.0);
+            databaseConfiguration.set("Blindness.blindnessMaxLvl", 1);
+            databaseConfiguration.set("Blindness.blindnessPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Blindness.blindnessTime", 1);
+            databaseConfiguration.set("Blindness.blindnessTimePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Blindness.blindnessMaxLvl", 1);
-                databaseConfiguration.set("Blindness.blindnessPercentagePerLvl", 1.0);
-                databaseConfiguration.set("Blindness.blindnessTime", 1);
-                databaseConfiguration.set("Blindness.blindnessTimePercentagePerLvl", 1.0);
+            databaseConfiguration.set("Slowdown.slowdownMaxLvl", 1);
+            databaseConfiguration.set("Slowdown.slowdownPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Slowdown.slowdownTime", 1);
+            databaseConfiguration.set("Slowdown.slowdownTimePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Slowdown.slowdownMaxLvl", 1);
-                databaseConfiguration.set("Slowdown.slowdownPercentagePerLvl", 1.0);
-                databaseConfiguration.set("Slowdown.slowdownTime", 1);
-                databaseConfiguration.set("Slowdown.slowdownTimePercentagePerLvl", 1.0);
+            databaseConfiguration.set("Desiccation.desiccationMaxLvl", 1);
+            databaseConfiguration.set("Desiccation.desiccationPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Desiccation.slowdownTime", 1);
+            databaseConfiguration.set("Desiccation.slowdownTimePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Desiccation.desiccationMaxLvl", 1);
-                databaseConfiguration.set("Desiccation.desiccationPercentagePerLvl", 1.0);
-                databaseConfiguration.set("Desiccation.slowdownTime", 1);
-                databaseConfiguration.set("Desiccation.slowdownTimePercentagePerLvl", 1.0);
+            databaseConfiguration.set("SwordStun.swordStunMaxLvl", 1);
+            databaseConfiguration.set("SwordStun.swordStunPercentagePerLvl", 1.0);
+            databaseConfiguration.set("SwordStun.swordStunTime", 1);
+            databaseConfiguration.set("SwordStun.swordStunTimePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("SwordStun.swordStunMaxLvl", 1);
-                databaseConfiguration.set("SwordStun.swordStunPercentagePerLvl", 1.0);
-                databaseConfiguration.set("SwordStun.swordStunTime", 1);
-                databaseConfiguration.set("SwordStun.swordStunTimePercentagePerLvl", 1.0);
+            databaseConfiguration.set("Levitation.levitationMaxLvl", 1);
+            databaseConfiguration.set("Levitation.levitationPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Levitation.levitationTime", 1);
+            databaseConfiguration.set("Levitation.levitationTimePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Levitation.levitationMaxLvl", 1);
-                databaseConfiguration.set("Levitation.levitationPercentagePerLvl", 1.0);
-                databaseConfiguration.set("Levitation.levitationTime", 1);
-                databaseConfiguration.set("Levitation.levitationTimePercentagePerLvl", 1.0);
+            databaseConfiguration.set("Poisoning.poisoningMaxLvl", 1);
+            databaseConfiguration.set("Poisoning.poisoningPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Poisoning.poisoningTime", 1);
+            databaseConfiguration.set("Poisoning.poisoningTimePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Poisoning.poisoningMaxLvl", 1);
-                databaseConfiguration.set("Poisoning.poisoningPercentagePerLvl", 1.0);
-                databaseConfiguration.set("Poisoning.poisoningTime", 1);
-                databaseConfiguration.set("Poisoning.poisoningTimePercentagePerLvl", 1.0);
+            databaseConfiguration.set("Nausea.nauseaMaxLvl", 1);
+            databaseConfiguration.set("Nausea.nauseaPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Nausea.nauseaTime", 1);
+            databaseConfiguration.set("Nausea.nauseaTimePercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Nausea.nauseaMaxLvl", 1);
-                databaseConfiguration.set("Nausea.nauseaPercentagePerLvl", 1.0);
-                databaseConfiguration.set("Nausea.nauseaTime", 1);
-                databaseConfiguration.set("Nausea.nauseaTimePercentagePerLvl", 1.0);
+            databaseConfiguration.set("Hook.hookMaxLvl", 1);
+            databaseConfiguration.set("Hook.hookPercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Hook.hookMaxLvl", 1);
-                databaseConfiguration.set("Hook.hookPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Multi-shooting.multi_shootingMaxLvl", 1);
+            databaseConfiguration.set("Multi-shooting.multi_shootingPercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Multi-shooting.multi_shootingMaxLvl", 1);
-                databaseConfiguration.set("Multi-shooting.multi_shootingPercentagePerLvl", 1.0);
+            databaseConfiguration.set("BowStun.bowStunMaxLvl", 1);
+            databaseConfiguration.set("BowStun.bowStunPercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("BowStun.bowStunMaxLvl", 1);
-                databaseConfiguration.set("BowStun.bowStunPercentagePerLvl", 1.0);
+            databaseConfiguration.set("Greed.greedMaxLvl", 1);
+            databaseConfiguration.set("Greed.greedPercentagePerLvl", 1.0);
 
-                databaseConfiguration.set("Greed.greedMaxLvl", 1);
-                databaseConfiguration.set("Greed.greedPercentagePerLvl", 1.0);
+            databaseConfiguration.save(file);
 
-                databaseConfiguration.save(file);
-
-            } catch (IOException e) {
-
-                throw new RuntimeException(e);
-
-            }
+        }
     }
 }

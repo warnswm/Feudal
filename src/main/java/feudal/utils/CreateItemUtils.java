@@ -4,7 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -22,11 +21,7 @@ public class CreateItemUtils {
         item.setItemMeta(itemMeta);
 
         return item;
-    }
 
-    @Contract(value = "_, _ -> new", pure = true)
-    public static @NotNull ItemStack createItem(Material material, int materialAmount) {
-        return new ItemStack(material, materialAmount);
     }
 
     public static @NotNull ItemStack createItem(Material material, Enchantment enchantment, int enchantmentLvl, int materialAmount) {
@@ -35,11 +30,10 @@ public class CreateItemUtils {
         ItemMeta itemMeta = item.getItemMeta();
 
         itemMeta.addEnchant(enchantment, enchantmentLvl, true);
-
         item.setItemMeta(itemMeta);
 
-
         return item;
+
     }
 
     public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName, @NotNull String lore) {
@@ -60,5 +54,6 @@ public class CreateItemUtils {
         item.setItemMeta(itemMeta);
 
         return item;
+
     }
 }

@@ -17,21 +17,20 @@ import java.util.Objects;
 public class LevitationListener implements Listener {
 
     @EventHandler
-    public void playerAttack(@NotNull EntityDamageByEntityEvent event) {
+    public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("levitation") ||
-                MathUtils.getRandomInt(1, 101) >
-                        Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("levitationLvl") *
-                                FeudalValuesUtils.levitationTimePercentagePerLvl) return;
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("levitationLvl") * FeudalValuesUtils.getLevitationPercentagePerLvl())
+            return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int levitation = FeudalValuesUtils.levitationTime;
+        int levitation = FeudalValuesUtils.getLevitationTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) (levitation + levitation / 100 * FeudalValuesUtils.levitationTimePercentagePerLvl), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, (int) (levitation + levitation / 100 * FeudalValuesUtils.getLevitationTimePercentagePerLvl()), 1, true, true));
 
     }
 
