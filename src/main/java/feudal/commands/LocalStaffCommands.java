@@ -4,9 +4,6 @@ import feudal.data.builder.FeudalKingdom;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.visual.menus.GCSelectionMenu;
-import feudal.visual.menus.GCUpMenu;
-import feudal.visual.menus.TravelingMerchantMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,7 +36,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
         switch (args[0].toLowerCase()) {
 
-            case "changegameclass":
+            case "changegc":
 
                 feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
                 feudalPlayer.setaClassID(Integer.parseInt(args[2]));
@@ -66,22 +63,6 @@ public class LocalStaffCommands implements CommandExecutor {
                 System.arraycopy(args, 2, text, 0, args.length - 2);
 
                 sendLetter(Bukkit.getPlayerExact(args[1]), text);
-
-                break;
-
-            case "test":
-
-                GCSelectionMenu.openClassSelection(player);
-                break;
-
-            case "test1":
-
-                GCUpMenu.upgradeGameClass(player);
-                break;
-
-            case "test2":
-
-                TravelingMerchantMenu.openTravelingMerchantMenu(player);
 
                 break;
 
