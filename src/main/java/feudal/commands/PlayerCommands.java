@@ -79,6 +79,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "leave":
+
+                leave(player);
+
+                break;
+
             case "mail":
 
                 MailMenu.openMailMenu(player);
@@ -306,6 +312,27 @@ public class PlayerCommands implements CommandExecutor {
         });
 
         CacheFeudalKingdoms.getKingdomInfo().remove(feudalPlayer.getKingdomName());
+
+    }
+
+    private void leave(@NotNull Player player) {
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
+        String kingdomName = feudalPlayer.getKingdomName();
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
+        if (kingdomName.equals("")) {
+
+            player.sendMessage("Вы не состоите в королевстве!");
+            return;
+
+        }
+
+        feudalKingdom.getMembersUUID().remove(player.getUniqueId().toString());
+        feudalPlayer.setKingdomName("");
+
+        player.sendMessage("Вы покинули королевство " + kingdomName);
 
     }
 }
