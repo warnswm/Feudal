@@ -8,12 +8,15 @@ import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.PlayerDBHandler;
+import feudal.generalListeners.PlayerListener;
+import feudal.utils.wrappers.PlacedBlockWrapper;
 import feudal.visual.ScoreBoardGeneralInfo;
 import lombok.AccessLevel;
 import lombok.SneakyThrows;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedWriter;
@@ -334,6 +337,41 @@ public class LoadAndSaveDataUtils {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
         fileWriter.write(new Gson().toJson(playerLetters));
+        fileWriter.flush();
+
+    }
+
+    @SneakyThrows
+    public static void loadPlacedBlocks() {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
+
+        if (!file.exists()) {
+
+            file.createNewFile();
+            return;
+
+        }
+
+        Type listType = new TypeToken<List<PlacedBlockWrapper>>() {
+        }.getType();
+        List<PlacedBlockWrapper> placedBlockWrapperList = new Gson().fromJson(new FileReader(file), listType);
+
+        placedBlockWrapperList.forEach(placedBlockWrapper -> PlacedBlockWrapper.placedBlockWrapperToBlock(placedBlockWrapper).setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true")));
+
+    }
+
+    @SneakyThrows
+    public static void savePlacedBlocks() {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
+
+        if (!file.exists())
+            file.createNewFile();
+
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
+
+        fileWriter.write(new Gson().toJson(PlayerListener.placedBlocks));
         fileWriter.flush();
 
     }

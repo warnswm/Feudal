@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class MinerListener implements Listener {
 
     private static boolean isPlaced(FeudalPlayer feudalPlayer, @NotNull Block block) {
-        return block.getState().isPlaced() ||
+        return block.hasMetadata("PLACED") ||
                 feudalPlayer.getAClassID() != GameClassesIDE.MINER.getId() ||
                 !block.getType().equals(Material.GOLD_ORE) &&
                         !block.getType().equals(Material.IRON_ORE);

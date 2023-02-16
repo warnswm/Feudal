@@ -51,7 +51,7 @@ public class BuilderListener implements Listener {
 
         block.getWorld().dropItemNaturally(block.getLocation(), CraftItemStack.asBukkitCopy(nmsItem));
 
-        System.out.println(block.getState().isPlaced());
+        System.out.println(block.hasMetadata("PLACED"));
 
     }
 

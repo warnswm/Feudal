@@ -3,8 +3,10 @@ package feudal.generalListeners;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
+import feudal.utils.enums.BlockToSaveE;
 import feudal.utils.enums.MoneyForMobsE;
 import feudal.utils.enums.gcEnums.GameClassesIDE;
+import feudal.utils.wrappers.PlacedBlockWrapper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.server.v1_12_R1.ChatMessageType;
@@ -13,6 +15,7 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -38,6 +41,7 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerListener implements Listener {
 
+    public static List<PlacedBlockWrapper> placedBlocks = new ArrayList<>();
     List<Integer> sleepingPlayersUUIDHashCode = new ArrayList<>();
 
     @EventHandler
@@ -200,6 +204,12 @@ public class PlayerListener implements Listener {
         if (item.getDurability() != 0 ||
                 MathUtils.getRandomInt(1, 26) == 25)
             item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));
+
+
+        Block block = event.getBlock();
+
+        if (BlockToSaveE.checkBlockMaterial(block.getType()))
+            placedBlocks.remove(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
 
     }
 }

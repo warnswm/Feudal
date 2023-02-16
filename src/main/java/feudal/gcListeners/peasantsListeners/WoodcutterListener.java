@@ -23,7 +23,7 @@ public class WoodcutterListener implements Listener {
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
         Block block = event.getBlock();
 
-        if (block.getState().isPlaced() ||
+        if (block.hasMetadata("PLACED") ||
                 feudalPlayer.getAClassID() != GameClassesIDE.WOODCUTTER.getId()) return;
 
 

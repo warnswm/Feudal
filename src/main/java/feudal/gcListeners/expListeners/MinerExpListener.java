@@ -16,7 +16,7 @@ public class MinerExpListener implements Listener {
     public final void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         Block block = event.getBlock();
-        if (block.getState().isPlaced()) return;
+        if (block.hasMetadata("PLACED")) return;
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
