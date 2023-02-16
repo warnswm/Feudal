@@ -243,14 +243,14 @@ public class ConfigUtils {
 
             file.createNewFile();
 
-            databaseCfg = YamlConfiguration.loadConfiguration(file);
+            kingdomTaxCfg = YamlConfiguration.loadConfiguration(file);
 
             kingdomTaxCfg.set("KingdomTax.land", 1500);
             kingdomTaxCfg.set("KingdomTax.residents", 300);
             kingdomTaxCfg.set("KingdomTax.treasury", 3);
             kingdomTaxCfg.set("KingdomTax.time", 432000);
 
-            databaseCfg.save(file);
+            kingdomTaxCfg.save(file);
 
         }
 
