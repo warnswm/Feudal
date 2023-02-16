@@ -119,6 +119,13 @@ public class FeudalValuesUtils {
     private static int moneyForEnderDragon;
     private static int moneyForWither;
 
+    private static float strengthPercentageCost;
+    private static float staminaPercentageCost;
+    private static float luckPercentageCost;
+    private static float survivabilityPercentageCost;
+    private static float speedPercentageCost;
+
+
     public static MongoClient getMongoClient() {
         return mongoClient;
     }
@@ -647,12 +654,12 @@ public class FeudalValuesUtils {
         FeudalValuesUtils.moneyForCaveSpider = moneyForCaveSpider;
     }
 
-    public static int getMoneyForEnderMan() {
+    public static int getMoneyForEnderman() {
         return moneyForEnderman;
     }
 
-    public static void setMoneyForEnderMan(int moneyForEnderMan) {
-        FeudalValuesUtils.moneyForEnderman = moneyForEnderMan;
+    public static void setMoneyForEnderman(int moneyForEnderman) {
+        FeudalValuesUtils.moneyForEnderman = moneyForEnderman;
     }
 
     public static int getMoneyForIronGolem() {
@@ -861,5 +868,45 @@ public class FeudalValuesUtils {
 
     public static void setMoneyForWither(int moneyForWither) {
         FeudalValuesUtils.moneyForWither = moneyForWither;
+    }
+
+    public static float getStrengthPercentageCost() {
+        return strengthPercentageCost;
+    }
+
+    public static void setStrengthPercentageCost(float strengthPercentageCost) {
+        FeudalValuesUtils.strengthPercentageCost = strengthPercentageCost;
+    }
+
+    public static float getStaminaPercentageCost() {
+        return staminaPercentageCost;
+    }
+
+    public static void setStaminaPercentageCost(float staminaPercentageCost) {
+        FeudalValuesUtils.staminaPercentageCost = staminaPercentageCost;
+    }
+
+    public static float getLuckPercentageCost() {
+        return luckPercentageCost;
+    }
+
+    public static void setLuckPercentageCost(float luckPercentageCost) {
+        FeudalValuesUtils.luckPercentageCost = luckPercentageCost;
+    }
+
+    public static float getSurvivabilityPercentageCost() {
+        return survivabilityPercentageCost;
+    }
+
+    public static void setSurvivabilityPercentageCost(float survivabilityPercentageCost) {
+        FeudalValuesUtils.survivabilityPercentageCost = survivabilityPercentageCost;
+    }
+
+    public static float getSpeedPercentageCost() {
+        return speedPercentageCost;
+    }
+
+    public static void setSpeedPercentageCost(float speedPercentageCost) {
+        FeudalValuesUtils.speedPercentageCost = speedPercentageCost;
     }
 }

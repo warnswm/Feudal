@@ -2,6 +2,7 @@ package feudal.interactListeners;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
+import feudal.utils.FeudalValuesUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,31 +27,31 @@ public class GCUpMenuL implements Listener {
 
             case "Сила":
 
-                attributesUpMenu(player, feudalPlayer.getStrengthLvl(), "силы", 5);
+                attributesUpMenu(player, feudalPlayer.getStrengthLvl(), "силы", FeudalValuesUtils.getStrengthPercentageCost());
 
                 break;
 
             case "Выносливость":
 
-                attributesUpMenu(player, feudalPlayer.getStaminaLvl(), "выносливости", 5);
+                attributesUpMenu(player, feudalPlayer.getStaminaLvl(), "выносливости", FeudalValuesUtils.getStaminaPercentageCost());
 
                 break;
 
             case "Удача":
 
-                attributesUpMenu(player, feudalPlayer.getLuckLvl(), "удачи", 7);
+                attributesUpMenu(player, feudalPlayer.getLuckLvl(), "удачи", FeudalValuesUtils.getLuckPercentageCost());
 
                 break;
 
             case "Живучесть":
 
-                attributesUpMenu(player, feudalPlayer.getSurvivabilityLvl(), "живучести", 5);
+                attributesUpMenu(player, feudalPlayer.getSurvivabilityLvl(), "живучести", FeudalValuesUtils.getSurvivabilityPercentageCost());
 
                 break;
 
             case "Скорость":
 
-                attributesUpMenu(player, feudalPlayer.getSpeedLvl(), "скорости", 5);
+                attributesUpMenu(player, feudalPlayer.getSpeedLvl(), "скорости", FeudalValuesUtils.getSpeedPercentageCost());
 
                 break;
 

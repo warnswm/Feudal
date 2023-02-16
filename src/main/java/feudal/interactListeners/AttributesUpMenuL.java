@@ -2,6 +2,7 @@ package feudal.interactListeners;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
+import feudal.utils.FeudalValuesUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,7 +26,7 @@ public class AttributesUpMenuL implements Listener {
 
             case "Прокачать уровень силы":
 
-                feudalPlayer.takeExperience((int) (Math.pow(1 + 0.05, feudalPlayer.getStrengthLvl()) * 100));
+                feudalPlayer.takeExperience((int) (Math.pow(1 + (FeudalValuesUtils.getStrengthPercentageCost() / 100), feudalPlayer.getStrengthLvl()) * 100));
                 feudalPlayer.addStrengthLvl(1);
 
                 player.closeInventory();
@@ -34,7 +35,7 @@ public class AttributesUpMenuL implements Listener {
 
             case "Прокачать уровень выносливости":
 
-                feudalPlayer.takeExperience((int) (Math.pow(1 + 0.05, feudalPlayer.getStaminaLvl()) * 100));
+                feudalPlayer.takeExperience((int) (Math.pow(1 + (FeudalValuesUtils.getStaminaPercentageCost() / 100), feudalPlayer.getStaminaLvl()) * 100));
                 feudalPlayer.addStaminaLvl(1);
 
                 player.closeInventory();
@@ -43,7 +44,7 @@ public class AttributesUpMenuL implements Listener {
 
             case "Прокачать уровень удачи":
 
-                feudalPlayer.takeExperience((int) (Math.pow(1 + 0.05, feudalPlayer.getLuckLvl()) * 100));
+                feudalPlayer.takeExperience((int) (Math.pow(1 + (FeudalValuesUtils.getLuckPercentageCost() / 100), feudalPlayer.getLuckLvl()) * 100));
                 feudalPlayer.addLuckLvl(1);
 
                 player.closeInventory();
@@ -52,7 +53,7 @@ public class AttributesUpMenuL implements Listener {
 
             case "Прокачать уровень живучести":
 
-                feudalPlayer.takeExperience((int) (Math.pow(1 + 0.05, feudalPlayer.getSurvivabilityLvl()) * 100));
+                feudalPlayer.takeExperience((int) (Math.pow(1 + (FeudalValuesUtils.getSurvivabilityPercentageCost() / 100), feudalPlayer.getSurvivabilityLvl()) * 100));
                 feudalPlayer.addSurvivabilityLvl(1);
 
                 float tmpHealth = feudalPlayer.getSurvivabilityLvl();
@@ -64,7 +65,7 @@ public class AttributesUpMenuL implements Listener {
 
             case "Прокачать уровень скорости":
 
-                feudalPlayer.takeExperience((int) (Math.pow(1 + 0.05, feudalPlayer.getSpeedLvl()) * 100));
+                feudalPlayer.takeExperience((int) (Math.pow(1 + (FeudalValuesUtils.getSpeedPercentageCost() / 100), feudalPlayer.getSpeedLvl()) * 100));
                 feudalPlayer.addSpeedLvl(1);
 
                 float tmpSpeed = feudalPlayer.getSpeedLvl();

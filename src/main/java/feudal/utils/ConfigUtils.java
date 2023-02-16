@@ -15,6 +15,7 @@ public class ConfigUtils {
     private static @NonNls FileConfiguration enchantmentsCfg;
     private static @NonNls FileConfiguration kingdomTaxCfg;
     private static @NonNls FileConfiguration moneyForMobsCfg;
+    private static @NonNls FileConfiguration attributesCfg;
 
     public static void readDatabaseConfig() {
 
@@ -217,7 +218,7 @@ public class ConfigUtils {
 
         FeudalValuesUtils.setLandTax((int) kingdomTaxCfg.get("KingdomTax.land"));
         FeudalValuesUtils.setTaxOnResidents((int) kingdomTaxCfg.get("KingdomTax.residents"));
-        FeudalValuesUtils.setTaxTreasuryPercent((int) kingdomTaxCfg.get("KingdomTax.treasury"));
+        FeudalValuesUtils.setTaxTreasuryPercent((float) kingdomTaxCfg.get("KingdomTax.treasury"));
         FeudalValuesUtils.setTimeTaxCollection((int) kingdomTaxCfg.get("KingdomTax.time"));
 
     }
@@ -278,7 +279,7 @@ public class ConfigUtils {
         FeudalValuesUtils.setMoneyForSquiq((int) moneyForMobsCfg.get("MoneyForMobs.squiq"));
         FeudalValuesUtils.setMoneyForVillager((int) moneyForMobsCfg.get("MoneyForMobs.villager"));
         FeudalValuesUtils.setMoneyForCaveSpider((int) moneyForMobsCfg.get("MoneyForMobs.caveSpider"));
-        FeudalValuesUtils.setMoneyForEnderMan((int) moneyForMobsCfg.get("MoneyForMobs.enderMan"));
+        FeudalValuesUtils.setMoneyForEnderman((int) moneyForMobsCfg.get("MoneyForMobs.enderMan"));
         FeudalValuesUtils.setMoneyForIronGolem((int) moneyForMobsCfg.get("MoneyForMobs.ironGolem"));
         FeudalValuesUtils.setMoneyForLlama((int) moneyForMobsCfg.get("MoneyForMobs.llama"));
         FeudalValuesUtils.setMoneyForSpider((int) moneyForMobsCfg.get("MoneyForMobs.spider"));
@@ -379,4 +380,56 @@ public class ConfigUtils {
         }
 
     }
+
+    public static void readAttributesConfig() {
+
+        File file = new File(path, "attributes.yml");
+        createKingdomTaxConfig();
+
+        attributesCfg = YamlConfiguration.loadConfiguration(file);
+
+        FeudalValuesUtils.setStrengthPercentageCost((float) attributesCfg.get("Attributes.strength"));
+        FeudalValuesUtils.setStaminaPercentageCost((float) attributesCfg.get("Attributes.stamina"));
+        FeudalValuesUtils.setLuckPercentageCost((float) attributesCfg.get("Attributes.luck"));
+        FeudalValuesUtils.setSurvivabilityPercentageCost((float) attributesCfg.get("Attributes.survivability"));
+        FeudalValuesUtils.setSpeedPercentageCost((float) attributesCfg.get("Attributes.speed"));
+
+    }
+
+
+    @SneakyThrows
+    public static void saveAttributesConfig() {
+
+        File file = new File(path, "attributes.yml");
+        createKingdomTaxConfig();
+
+        YamlConfiguration.loadConfiguration(file).save(file);
+
+    }
+
+    @SneakyThrows
+    public static void createAttributesConfig() {
+
+        if (!path.exists())
+            path.mkdir();
+
+        File file = new File(path, "attributes.yml");
+        if (!file.exists()) {
+
+            file.createNewFile();
+
+            attributesCfg = YamlConfiguration.loadConfiguration(file);
+
+            attributesCfg.set("Attributes.strength", 5);
+            attributesCfg.set("Attributes.stamina", 5);
+            attributesCfg.set("Attributes.luck", 7);
+            attributesCfg.set("Attributes.survivability", 5);
+            attributesCfg.set("Attributes.speed", 5);
+
+            attributesCfg.save(file);
+
+        }
+
+    }
+
 }
