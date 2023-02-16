@@ -210,9 +210,10 @@ public class PlayerListener implements Listener {
 
 
         Block block = event.getBlock();
+        PlacedBlockWrapper placedBlockWrapper = PlacedBlockWrapper.blockToPlacedBlockWrapper(block);
 
         if (BlockToSaveE.checkBlockMaterial(block.getType()))
-            placedBlocks.remove(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
+            placedBlocks.remove(placedBlockWrapper);
 
     }
 
