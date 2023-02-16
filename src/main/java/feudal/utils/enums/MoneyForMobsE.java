@@ -17,7 +17,7 @@ public enum MoneyForMobsE {
     PARROT(EntityType.PARROT, getMoneyForParrot()), POLAR_BEAR(EntityType.POLAR_BEAR, getMoneyForPolarBear()), PIG(EntityType.PIG, getMoneyForPig()),
     RABBIT(EntityType.RABBIT, getMoneyForRabbit()), SHEEP(EntityType.SHEEP, getMoneyForSheep()), SNOW_MAN(EntityType.SNOWMAN, getMoneyForSnowMan()),
     SQUID(EntityType.SQUID, getMoneyForSquiq()), VILLAGER(EntityType.VILLAGER, getMoneyForVillager()), CAVE_SPIDER(EntityType.CAVE_SPIDER, getMoneyForCaveSpider()),
-    ENDERMAN(EntityType.ENDERMAN, getMoneyForEnderMan()), IRON_GOLEM(EntityType.IRON_GOLEM, getMoneyForIronGolem()), LLAMA(EntityType.LLAMA, getMoneyForLlama()),
+    ENDERMAN(EntityType.ENDERMAN, getMoneyForEnderman()), IRON_GOLEM(EntityType.IRON_GOLEM, getMoneyForIronGolem()), LLAMA(EntityType.LLAMA, getMoneyForLlama()),
     SPIDER(EntityType.SPIDER, getMoneyForSpider()), WOLF(EntityType.WOLF, getMoneyForWolf()), BLAZE(EntityType.BLAZE, getMoneyForBlaze()),
     CREEPER(EntityType.CREEPER, getMoneyForCreeper()), ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, getMoneyForElderGuardian()), ENDERMITE(EntityType.ENDERMITE, getMoneyForEndermite()),
     EVOKER(EntityType.EVOKER, getMoneyForEvolker()), GHAST(EntityType.GHAST, getMoneyForGhast()), GUARDIAN(EntityType.GUARDIAN, getMoneyForGuardian()),
