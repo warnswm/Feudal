@@ -5,13 +5,9 @@ import com.mongodb.MongoCommandException;
 import com.mongodb.client.ClientSession;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import feudal.utils.FeudalValuesUtils;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.experimental.FieldDefaults;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
@@ -23,15 +19,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-@Getter
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomDBHandler {
 
     private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
 
-    static MongoClient mongoClient = feudalValuesUtils.getMongoClient();
-    static MongoDatabase database = feudalValuesUtils.getDatabase();
-    static MongoCollection<Document> collection = feudalValuesUtils.getKingdomsCollection();
+    private static final MongoClient mongoClient = feudalValuesUtils.getMongoClient();
+    private static final MongoCollection<Document> collection = feudalValuesUtils.getKingdomsCollection();
 
 
     public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<Integer> privateTerritory, List<String> baronsUUID) {

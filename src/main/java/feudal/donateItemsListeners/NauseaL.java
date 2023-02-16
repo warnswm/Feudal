@@ -16,6 +16,8 @@ import java.util.Objects;
 
 public class NauseaL implements Listener {
 
+    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
+
     @EventHandler
     public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
@@ -24,13 +26,13 @@ public class NauseaL implements Listener {
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("nausea") ||
-                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("nauseaLvl") * FeudalValuesUtils.getNauseaPercentagePerLvl())
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("nauseaLvl") * feudalValuesUtils.getNauseaPercentagePerLvl())
             return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int nausea = FeudalValuesUtils.getNauseaTime();
+        int nausea = feudalValuesUtils.getNauseaTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (int) (nausea + nausea / 100 * FeudalValuesUtils.getNauseaTimePercentagePerLvl()), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, (int) (nausea + nausea / 100 * feudalValuesUtils.getNauseaTimePercentagePerLvl()), 1, true, true));
 
     }
 

@@ -16,6 +16,8 @@ import java.util.Objects;
 
 public class BlindnessL implements Listener {
 
+    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
+
     @EventHandler
     public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
@@ -24,13 +26,13 @@ public class BlindnessL implements Listener {
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("blindness") ||
-                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("blindnessLvl") * FeudalValuesUtils.getBlindnessPercentagePerLvl())
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("blindnessLvl") * feudalValuesUtils.getBlindnessPercentagePerLvl())
             return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int blindness = FeudalValuesUtils.getBlindnessTime();
+        int blindness = feudalValuesUtils.getBlindnessTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (blindness + blindness / 100 * FeudalValuesUtils.getBlindnessTimePercentagePerLvl()), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (blindness + blindness / 100 * feudalValuesUtils.getBlindnessTimePercentagePerLvl()), 1, true, true));
 
     }
 
