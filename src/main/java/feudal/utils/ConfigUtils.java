@@ -218,7 +218,7 @@ public class ConfigUtils {
 
         FeudalValuesUtils.setLandTax((int) kingdomTaxCfg.get("KingdomTax.land"));
         FeudalValuesUtils.setTaxOnResidents((int) kingdomTaxCfg.get("KingdomTax.residents"));
-        FeudalValuesUtils.setTaxTreasuryPercent((float) kingdomTaxCfg.get("KingdomTax.treasury"));
+        FeudalValuesUtils.setTaxTreasuryPercent((double) kingdomTaxCfg.get("KingdomTax.treasury"));
         FeudalValuesUtils.setTimeTaxCollection((int) kingdomTaxCfg.get("KingdomTax.time"));
 
     }
@@ -248,7 +248,7 @@ public class ConfigUtils {
 
             kingdomTaxCfg.set("KingdomTax.land", 1500);
             kingdomTaxCfg.set("KingdomTax.residents", 300);
-            kingdomTaxCfg.set("KingdomTax.treasury", 3);
+            kingdomTaxCfg.set("KingdomTax.treasury", 3.0);
             kingdomTaxCfg.set("KingdomTax.time", 432000);
 
             kingdomTaxCfg.save(file);
@@ -384,15 +384,15 @@ public class ConfigUtils {
     public static void readAttributesConfig() {
 
         File file = new File(path, "attributes.yml");
-        createKingdomTaxConfig();
+        createAttributesConfig();
 
         attributesCfg = YamlConfiguration.loadConfiguration(file);
 
-        FeudalValuesUtils.setStrengthPercentageCost((float) attributesCfg.get("Attributes.strength"));
-        FeudalValuesUtils.setStaminaPercentageCost((float) attributesCfg.get("Attributes.stamina"));
-        FeudalValuesUtils.setLuckPercentageCost((float) attributesCfg.get("Attributes.luck"));
-        FeudalValuesUtils.setSurvivabilityPercentageCost((float) attributesCfg.get("Attributes.survivability"));
-        FeudalValuesUtils.setSpeedPercentageCost((float) attributesCfg.get("Attributes.speed"));
+        FeudalValuesUtils.setStrengthPercentageCost((double) attributesCfg.get("Attributes.strength"));
+        FeudalValuesUtils.setStaminaPercentageCost((double) attributesCfg.get("Attributes.stamina"));
+        FeudalValuesUtils.setLuckPercentageCost((double) attributesCfg.get("Attributes.luck"));
+        FeudalValuesUtils.setSurvivabilityPercentageCost((double) attributesCfg.get("Attributes.survivability"));
+        FeudalValuesUtils.setSpeedPercentageCost((double) attributesCfg.get("Attributes.speed"));
 
     }
 
@@ -420,11 +420,11 @@ public class ConfigUtils {
 
             attributesCfg = YamlConfiguration.loadConfiguration(file);
 
-            attributesCfg.set("Attributes.strength", 5);
-            attributesCfg.set("Attributes.stamina", 5);
-            attributesCfg.set("Attributes.luck", 7);
-            attributesCfg.set("Attributes.survivability", 5);
-            attributesCfg.set("Attributes.speed", 5);
+            attributesCfg.set("Attributes.strength", 5.0);
+            attributesCfg.set("Attributes.stamina", 5.0);
+            attributesCfg.set("Attributes.luck", 7.0);
+            attributesCfg.set("Attributes.survivability", 5.0);
+            attributesCfg.set("Attributes.speed", 5.0);
 
             attributesCfg.save(file);
 

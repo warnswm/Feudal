@@ -71,7 +71,7 @@ public class FeudalValuesUtils {
     private static int taxOnResidents;
     private static int landRemovingReputation;
     private static int residentsRemovingReputation;
-    private static float taxTreasuryPercent;
+    private static double taxTreasuryPercent;
     private static int timeTaxCollection;
 
     private static int timeRestart;
@@ -119,11 +119,11 @@ public class FeudalValuesUtils {
     private static int moneyForEnderDragon;
     private static int moneyForWither;
 
-    private static float strengthPercentageCost;
-    private static float staminaPercentageCost;
-    private static float luckPercentageCost;
-    private static float survivabilityPercentageCost;
-    private static float speedPercentageCost;
+    private static double strengthPercentageCost;
+    private static double staminaPercentageCost;
+    private static double luckPercentageCost;
+    private static double survivabilityPercentageCost;
+    private static double speedPercentageCost;
 
 
     public static MongoClient getMongoClient() {
@@ -510,11 +510,11 @@ public class FeudalValuesUtils {
         FeudalValuesUtils.residentsRemovingReputation = residentsRemovingReputation;
     }
 
-    public static float getTaxTreasuryPercent() {
+    public static double getTaxTreasuryPercent() {
         return taxTreasuryPercent;
     }
 
-    public static void setTaxTreasuryPercent(float taxTreasuryPercent) {
+    public static void setTaxTreasuryPercent(double taxTreasuryPercent) {
         FeudalValuesUtils.taxTreasuryPercent = taxTreasuryPercent;
     }
 
@@ -870,43 +870,43 @@ public class FeudalValuesUtils {
         FeudalValuesUtils.moneyForWither = moneyForWither;
     }
 
-    public static float getStrengthPercentageCost() {
+    public static double getStrengthPercentageCost() {
         return strengthPercentageCost;
     }
 
-    public static void setStrengthPercentageCost(float strengthPercentageCost) {
+    public static void setStrengthPercentageCost(double strengthPercentageCost) {
         FeudalValuesUtils.strengthPercentageCost = strengthPercentageCost;
     }
 
-    public static float getStaminaPercentageCost() {
+    public static double getStaminaPercentageCost() {
         return staminaPercentageCost;
     }
 
-    public static void setStaminaPercentageCost(float staminaPercentageCost) {
+    public static void setStaminaPercentageCost(double staminaPercentageCost) {
         FeudalValuesUtils.staminaPercentageCost = staminaPercentageCost;
     }
 
-    public static float getLuckPercentageCost() {
+    public static double getLuckPercentageCost() {
         return luckPercentageCost;
     }
 
-    public static void setLuckPercentageCost(float luckPercentageCost) {
+    public static void setLuckPercentageCost(double luckPercentageCost) {
         FeudalValuesUtils.luckPercentageCost = luckPercentageCost;
     }
 
-    public static float getSurvivabilityPercentageCost() {
+    public static double getSurvivabilityPercentageCost() {
         return survivabilityPercentageCost;
     }
 
-    public static void setSurvivabilityPercentageCost(float survivabilityPercentageCost) {
+    public static void setSurvivabilityPercentageCost(double survivabilityPercentageCost) {
         FeudalValuesUtils.survivabilityPercentageCost = survivabilityPercentageCost;
     }
 
-    public static float getSpeedPercentageCost() {
+    public static double getSpeedPercentageCost() {
         return speedPercentageCost;
     }
 
-    public static void setSpeedPercentageCost(float speedPercentageCost) {
+    public static void setSpeedPercentageCost(double speedPercentageCost) {
         FeudalValuesUtils.speedPercentageCost = speedPercentageCost;
     }
 }

@@ -10,7 +10,7 @@ import org.bukkit.inventory.Inventory;
 
 public class AttributesUpMenu {
 
-    public static void attributesUpMenu(Player player, int attributeLvl, String attributeName, float percent) {
+    public static void attributesUpMenu(Player player, int attributeLvl, String attributeName, double percent) {
 
         Inventory strengthPumpingMenuInv = Bukkit.createInventory(player, 9, "Прокачка атрибутов");
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
