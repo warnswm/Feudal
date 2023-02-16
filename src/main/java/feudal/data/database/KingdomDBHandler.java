@@ -27,9 +27,11 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class KingdomDBHandler {
 
-    static MongoClient mongoClient = FeudalValuesUtils.getMongoClient();
-    static MongoDatabase database = FeudalValuesUtils.getDatabase();
-    static MongoCollection<Document> collection = FeudalValuesUtils.getKingdomsCollection();
+    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
+
+    static MongoClient mongoClient = feudalValuesUtils.getMongoClient();
+    static MongoDatabase database = feudalValuesUtils.getDatabase();
+    static MongoCollection<Document> collection = feudalValuesUtils.getKingdomsCollection();
 
 
     public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<Integer> privateTerritory, List<String> baronsUUID) {
