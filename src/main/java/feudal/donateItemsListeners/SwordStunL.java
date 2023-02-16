@@ -23,6 +23,8 @@ public class SwordStunL implements Listener {
 
         Player player = (Player) event.getDamager();
 
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
+
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("swordStun") ||
                 MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("swordStunLvl") * FeudalValuesUtils.getSwordStunPercentagePerLvl())
             return;

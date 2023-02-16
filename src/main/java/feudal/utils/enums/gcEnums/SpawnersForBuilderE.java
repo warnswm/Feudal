@@ -20,10 +20,8 @@ public enum SpawnersForBuilderE {
     public static boolean canBreak(EntityType entity, int gameClassLvl) {
 
         for (SpawnersForBuilderE spawnersForBuilderE : values())
-            if (spawnersForBuilderE.getEntity() ==
-                    entity &&
-                    gameClassLvl >=
-                            spawnersForBuilderE.getGameClassLvl())
+            if (spawnersForBuilderE.getEntity() == entity &&
+                    gameClassLvl >= spawnersForBuilderE.getGameClassLvl())
                 return true;
 
         return false;

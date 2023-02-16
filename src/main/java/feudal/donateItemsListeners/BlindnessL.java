@@ -23,6 +23,8 @@ public class BlindnessL implements Listener {
 
         Player player = (Player) event.getDamager();
 
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
+
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("blindness") ||
                 MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("blindnessLvl") * FeudalValuesUtils.getBlindnessPercentagePerLvl())
             return;

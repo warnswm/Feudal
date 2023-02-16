@@ -19,9 +19,8 @@ public class WoodcutterExpListener implements Listener {
         Block block = event.getBlock();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
-        if (block.hasMetadata("PLACED") ||
-                feudalPlayer.getAClassID() !=
-                        GameClassesIDE.WOODCUTTER.getId() ||
+        if (block.getState().isPlaced() ||
+                feudalPlayer.getAClassID() != GameClassesIDE.WOODCUTTER.getId() ||
                 !block.getType().equals(LOG)) return;
 
         feudalPlayer.addExperience(2);

@@ -23,6 +23,8 @@ public class NauseaL implements Listener {
 
         Player player = (Player) event.getDamager();
 
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
+
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("nausea") ||
                 MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("nauseaLvl") * FeudalValuesUtils.getNauseaPercentagePerLvl())
             return;
