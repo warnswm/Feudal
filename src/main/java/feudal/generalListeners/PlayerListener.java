@@ -3,10 +3,8 @@ package feudal.generalListeners;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
-import feudal.utils.enums.BlockToSaveE;
 import feudal.utils.enums.MoneyForMobsE;
 import feudal.utils.enums.gcEnums.GameClassesIDE;
-import feudal.utils.wrappers.PlacedBlockWrapper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import net.minecraft.server.v1_12_R1.ChatMessageType;
@@ -15,7 +13,6 @@ import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
@@ -41,8 +38,7 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerListener implements Listener {
 
-    public static List<PlacedBlockWrapper> placedBlocks = new ArrayList<>();
-    List<String> sleepingPlayers = new ArrayList<>();
+    List<Integer> sleepingPlayersUUIDHashCode = new ArrayList<>();
 
     @EventHandler
     public final void playerTeleport(@NotNull PlayerTeleportEvent event) {
@@ -86,10 +82,10 @@ public class PlayerListener implements Listener {
         player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 400, 0, true, true));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 240, 1, true, true));
 
-        if (!sleepingPlayers.contains(player.getUniqueId().toString()))
-            sleepingPlayers.add(player.getUniqueId().toString());
+        if (!sleepingPlayersUUIDHashCode.contains(player.getUniqueId().hashCode()))
+            sleepingPlayersUUIDHashCode.add(player.getUniqueId().hashCode());
 
-        if (sleepingPlayers.size() / Bukkit.getOnlinePlayers().size() > 2) return;
+        if (sleepingPlayersUUIDHashCode.size() / Bukkit.getOnlinePlayers().size() > 2) return;
 
         World world = player.getWorld();
 
@@ -101,7 +97,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void playerBedLeave(@NotNull PlayerBedLeaveEvent event) {
-        sleepingPlayers.remove(event.getPlayer().getUniqueId().toString());
+        sleepingPlayersUUIDHashCode.remove(event.getPlayer().getUniqueId().hashCode());
     }
 
     @EventHandler
@@ -191,21 +187,8 @@ public class PlayerListener implements Listener {
 
         event.setDamage(defaultDamage * (strengthLvl / 200) + defaultDamage);
 
-        if (!(entity instanceof Player)) return;
-
-        event.setDamage(defaultDamage - defaultDamage / 100 * (CacheFeudalPlayers.getFeudalPlayer((Player) entity).getStaminaLvl() * 0.2));
-
-    }
-
-    @EventHandler
-    public final void playerBreakBlock(@NotNull BlockBreakEvent event) {
-
-        Block block = event.getBlock();
-
-        if (!BlockToSaveE.checkBlockMaterial(block.getType()) ||
-                !placedBlocks.contains(PlacedBlockWrapper.blockToPlacedBlockWrapper(block))) return;
-
-        placedBlocks.remove(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
+        if (entity instanceof Player)
+            event.setDamage(defaultDamage - defaultDamage / 100 * (CacheFeudalPlayers.getFeudalPlayer((Player) entity).getStaminaLvl() * 0.2));
 
     }
 
@@ -213,9 +196,10 @@ public class PlayerListener implements Listener {
     public final void playerBlockBreak(@NotNull BlockBreakEvent event) {
 
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
-        if (item.getDurability() == 0 || MathUtils.getRandomInt(1, 26) != 25) return;
 
-        item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));
+        if (item.getDurability() != 0 ||
+                MathUtils.getRandomInt(1, 26) == 25)
+            item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));
 
     }
 }
