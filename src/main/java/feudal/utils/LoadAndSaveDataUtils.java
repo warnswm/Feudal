@@ -238,6 +238,7 @@ public class LoadAndSaveDataUtils {
 
         ConfigUtils.readDatabaseConfig();
         ConfigUtils.readEnchantmentsConfig();
+        ConfigUtils.readKingdomTaxConfig();
 
     }
 
@@ -245,6 +246,7 @@ public class LoadAndSaveDataUtils {
 
         ConfigUtils.saveDatabaseConfig();
         ConfigUtils.saveEnchantmentsConfig();
+        ConfigUtils.saveKingdomTaxConfig();
 
     }
 
