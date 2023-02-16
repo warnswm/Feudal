@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class FishermanListener implements Listener {
+public class FishermanL implements Listener {
 
     @EventHandler
     public final void playerFishing(@NotNull PlayerFishEvent event) {

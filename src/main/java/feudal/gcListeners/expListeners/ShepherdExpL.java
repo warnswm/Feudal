@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityBreedEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class ShepherdExpListener implements Listener {
+public class ShepherdExpL implements Listener {
 
     @EventHandler
     public final void playerBreed(@NotNull EntityBreedEvent event) {

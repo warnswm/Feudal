@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class CraftItemsListener implements Listener {
+public class CraftItemsL implements Listener {
 
     @EventHandler
     public final void playerCrafting(@NotNull PrepareItemCraftEvent event) {

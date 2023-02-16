@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class HunterListener implements Listener {
+public class HunterL implements Listener {
 
     @EventHandler
     public final void playerHunted(@NotNull EntityDeathEvent event) {

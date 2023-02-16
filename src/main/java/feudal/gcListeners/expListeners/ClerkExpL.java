@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class ClerkExpListener implements Listener {
+public class ClerkExpL implements Listener {
 
     @EventHandler
     public final void playerItemEnchant(@NotNull EnchantItemEvent event) {

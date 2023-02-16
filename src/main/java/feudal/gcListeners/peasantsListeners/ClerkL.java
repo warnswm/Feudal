@@ -14,7 +14,7 @@ import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class ClerkListener implements Listener {
+public class ClerkL implements Listener {
 
     private static boolean isaBoolean(@NotNull PlayerInteractEvent event, Player player, FeudalPlayer feudalPlayer) {
         return event.getClickedBlock() == null ||

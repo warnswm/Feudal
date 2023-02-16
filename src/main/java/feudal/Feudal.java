@@ -8,11 +8,11 @@ import feudal.donateItemsListeners.*;
 import feudal.fishing.PlayerCaughtFish;
 import feudal.gcListeners.expListeners.*;
 import feudal.gcListeners.peasantsListeners.*;
-import feudal.generalListeners.ArmorListener;
-import feudal.generalListeners.MobListener;
-import feudal.generalListeners.PlayerJoinAndQuitListener;
-import feudal.generalListeners.PlayerListener;
-import feudal.generalListeners.craftItems.CraftItemsListener;
+import feudal.generalListeners.ArmorL;
+import feudal.generalListeners.MobL;
+import feudal.generalListeners.PlayerJoinAndQuitL;
+import feudal.generalListeners.PlayerL;
+import feudal.generalListeners.craftItems.CraftItemsL;
 import feudal.interactListeners.*;
 import feudal.possessions.territoryListeners.BlocksListener;
 import feudal.possessions.territoryListeners.InteractListener;
@@ -64,23 +64,23 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new GeneralMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkMenuL(), this);
 
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuitListener(), this);
-        Bukkit.getPluginManager().registerEvents(new CraftItemsListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuitL(), this);
+        Bukkit.getPluginManager().registerEvents(new CraftItemsL(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerL(), this);
 
-        Bukkit.getPluginManager().registerEvents(new BuilderListener(), this);
-        Bukkit.getPluginManager().registerEvents(new ClerkListener(), this);
-        Bukkit.getPluginManager().registerEvents(new FishermanListener(), this);
-        Bukkit.getPluginManager().registerEvents(new MinerListener(), this);
-        Bukkit.getPluginManager().registerEvents(new WoodcutterListener(), this);
-        Bukkit.getPluginManager().registerEvents(new HunterListener(), this);
-        Bukkit.getPluginManager().registerEvents(new FarmerListener(), this);
-        Bukkit.getPluginManager().registerEvents(new CookListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BuilderL(), this);
+        Bukkit.getPluginManager().registerEvents(new ClerkL(), this);
+        Bukkit.getPluginManager().registerEvents(new FishermanL(), this);
+        Bukkit.getPluginManager().registerEvents(new MinerL(), this);
+        Bukkit.getPluginManager().registerEvents(new WoodcutterL(), this);
+        Bukkit.getPluginManager().registerEvents(new HunterL(), this);
+        Bukkit.getPluginManager().registerEvents(new FarmerL(), this);
+        Bukkit.getPluginManager().registerEvents(new CookL(), this);
 
-        Bukkit.getPluginManager().registerEvents(new MobListener(), this);
+        Bukkit.getPluginManager().registerEvents(new MobL(), this);
         Bukkit.getPluginManager().registerEvents(new BlocksListener(), this);
         Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
-        Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ArmorL(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
 
         Bukkit.getPluginManager().registerEvents(new BlindnessL(), this);
@@ -93,13 +93,13 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SwordStunL(), this);
         Bukkit.getPluginManager().registerEvents(new VampirismL(), this);
 
-        Bukkit.getPluginManager().registerEvents(new FarmerExpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new ClerkExpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new FishermanExpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new HunterExpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new MinerExpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new ShepherdExpListener(), this);
-        Bukkit.getPluginManager().registerEvents(new WoodcutterExpListener(), this);
+        Bukkit.getPluginManager().registerEvents(new FarmerExpL(), this);
+        Bukkit.getPluginManager().registerEvents(new ClerkExpL(), this);
+        Bukkit.getPluginManager().registerEvents(new FishermanExpL(), this);
+        Bukkit.getPluginManager().registerEvents(new HunterExpL(), this);
+        Bukkit.getPluginManager().registerEvents(new MinerExpL(), this);
+        Bukkit.getPluginManager().registerEvents(new ShepherdExpL(), this);
+        Bukkit.getPluginManager().registerEvents(new WoodcutterExpL(), this);
 
     }
 

@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class FishermanExpListener implements Listener {
+public class FishermanExpL implements Listener {
 
     @EventHandler
     public final void playerFishing(@NotNull PlayerFishEvent event) {

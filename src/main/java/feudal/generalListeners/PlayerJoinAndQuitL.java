@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class PlayerJoinAndQuitListener implements Listener {
+public class PlayerJoinAndQuitL implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public final void playerJoin(@NotNull PlayerJoinEvent event) {
 

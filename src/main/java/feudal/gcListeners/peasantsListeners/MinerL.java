@@ -12,7 +12,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class MinerListener implements Listener {
+public class MinerL implements Listener {
 
     private static boolean isPlaced(FeudalPlayer feudalPlayer, @NotNull Block block) {
         return block.hasMetadata("PLACED") ||

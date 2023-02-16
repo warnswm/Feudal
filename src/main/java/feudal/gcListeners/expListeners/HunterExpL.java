@@ -10,7 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class HunterExpListener implements Listener {
+public class HunterExpL implements Listener {
 
     @EventHandler
     public final void playerHunted(@NotNull EntityDeathEvent event) {

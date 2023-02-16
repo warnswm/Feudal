@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class PlayerListener implements Listener {
+public class PlayerL implements Listener {
 
     public static List<PlacedBlockWrapper> placedBlocks = new ArrayList<>();
     List<Integer> sleepingPlayersUUIDHashCode = new ArrayList<>();

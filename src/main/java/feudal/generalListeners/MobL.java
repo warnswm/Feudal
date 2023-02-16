@@ -7,7 +7,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class MobListener implements Listener {
+public class MobL implements Listener {
 
     @EventHandler
     public final void mobSpawn(@NotNull CreatureSpawnEvent event) {

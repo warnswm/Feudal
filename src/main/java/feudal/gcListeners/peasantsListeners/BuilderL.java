@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class BuilderListener implements Listener {
+public class BuilderL implements Listener {
 
     private static boolean isBlockEntity(@NotNull BlockPlaceEvent event, @NotNull FeudalPlayer feudalPlayer, Block block) {
         return feudalPlayer.getAClassID() != GameClassesIDE.BUILDER.getId() ||
@@ -34,8 +34,10 @@ public class BuilderListener implements Listener {
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
         Block block = event.getBlock();
 
-        if (feudalPlayer.getAClassID() != GameClassesIDE.BUILDER.getId() ||
-                !block.getType().equals(Material.MOB_SPAWNER)) return;
+//        if (feudalPlayer.getAClassID() != GameClassesIDE.BUILDER.getId() ||
+//                !block.getType().equals(Material.MOB_SPAWNER)) return;
+
+        if (!block.getType().equals(Material.MOB_SPAWNER)) return;
 
         CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
 
@@ -51,8 +53,6 @@ public class BuilderListener implements Listener {
 
         block.getWorld().dropItemNaturally(block.getLocation(), CraftItemStack.asBukkitCopy(nmsItem));
 
-        System.out.println(block.hasMetadata("PLACED"));
-
     }
 
     @EventHandler
@@ -63,7 +63,10 @@ public class BuilderListener implements Listener {
 
         if (isBlockEntity(event, feudalPlayer, block)) return;
 
-        ((CreatureSpawner) block.getState()).setSpawnedType(EntityType.valueOf(Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItemInHand()).getTag()).getString("BlockEntity")));
+        CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
+        creatureSpawner.setSpawnedType(EntityType.valueOf(Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItemInHand()).getTag()).getString("BlockEntity")));
+
+        block.setData(creatureSpawner.getData().getData());
 
     }
 }

@@ -8,7 +8,7 @@ import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.PlayerDBHandler;
-import feudal.generalListeners.PlayerListener;
+import feudal.generalListeners.PlayerL;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import feudal.visual.ScoreBoardGeneralInfo;
 import lombok.AccessLevel;
@@ -371,7 +371,7 @@ public class LoadAndSaveDataUtils {
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-        fileWriter.write(new Gson().toJson(PlayerListener.placedBlocks));
+        fileWriter.write(new Gson().toJson(PlayerL.placedBlocks));
         fileWriter.flush();
 
     }

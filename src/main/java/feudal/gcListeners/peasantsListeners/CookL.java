@@ -10,7 +10,7 @@ import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.jetbrains.annotations.NotNull;
 
 
-public class CookListener implements Listener {
+public class CookL implements Listener {
 
     @EventHandler
     public final void playerExtractFurnace(@NotNull FurnaceExtractEvent event) {

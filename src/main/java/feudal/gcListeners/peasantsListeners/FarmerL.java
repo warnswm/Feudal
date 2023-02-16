@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-public class FarmerListener implements Listener {
+public class FarmerL implements Listener {
 
     private static boolean isaBoolean(@NotNull PlayerInteractEvent event, Block block, ItemStack mainHand) {
         return !event.getAction().equals(Action.RIGHT_CLICK_BLOCK) ||

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
 
-public class WoodcutterListener implements Listener {
+public class WoodcutterL implements Listener {
 
     @EventHandler
     public final void playerBreakBlock(@NotNull BlockBreakEvent event) {

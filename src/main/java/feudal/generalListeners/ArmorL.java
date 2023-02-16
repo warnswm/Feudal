@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static feudal.utils.enums.ArmorE.getArmorAttributeByItemMaterial;
 
-public class ArmorListener implements Listener {
+public class ArmorL implements Listener {
 
     @EventHandler
     public void playerArmorChange(@NotNull PlayerArmorChangeEvent event) {
