@@ -14,8 +14,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.UUID;
-
 
 public class MailMenuL implements Listener {
 
@@ -54,7 +52,7 @@ public class MailMenuL implements Listener {
             feudalPlayer.setKingdomName(kingdomName);
             feudalPlayer.clearInvitations();
 
-            Bukkit.getPlayer(UUID.fromString(feudalKingdom.getKingUUID())).sendMessage("Игрок " + player.getDisplayName() + " принял ваше приглашение!");
+            Bukkit.getPlayer(feudalKingdom.getKingUUID()).sendMessage("Игрок " + player.getDisplayName() + " принял ваше приглашение!");
 
             player.sendMessage("Вы вступили в королевство: " + kingdomName);
             player.closeInventory();

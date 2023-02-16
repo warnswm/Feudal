@@ -160,6 +160,9 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
+        List<UUID> membersUUIDStr = new ArrayList<>();
+        membersUUID.forEach(member -> membersUUIDStr.add(UUID.fromString(member)));
+
         KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
@@ -167,7 +170,7 @@ public class PlayerCommands implements CommandExecutor {
                 .setKing(player)
                 .setBalance(10000)
                 .setReputation(1000)
-                .setMembers(membersUUID)
+                .setMembers(membersUUIDStr)
                 .setMaxNumberMembers(5)
                 .setBarons(new ArrayList<>())
                 .setTerritory(new ArrayList<>())
@@ -284,7 +287,7 @@ public class PlayerCommands implements CommandExecutor {
         feudalKingdom.deleteInvitation(player);
         feudalPlayer.deleteInvitations(kingdomName);
 
-        Bukkit.getPlayerExact(feudalKingdom.getKingUUID()).sendMessage("Игрок " +
+        Bukkit.getPlayer(feudalKingdom.getKingUUID()).sendMessage("Игрок " +
                 player.getDisplayName() +
                 ", отклонил ваше приглашение.");
         player.sendMessage("Вы отклонили приграшение в королевство: " +
@@ -316,10 +319,10 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.getMembersUUID().forEach(member -> {
 
-            FeudalPlayer feudalMember = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(UUID.fromString(member)));
+            FeudalPlayer feudalMember = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(member));
             feudalMember.setKingdomName("");
 
-            Bukkit.getPlayer(UUID.fromString(member)).sendMessage("Ваше королевство расформировано!");
+            Bukkit.getPlayer(member).sendMessage("Ваше королевство расформировано!");
 
         });
 
