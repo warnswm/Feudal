@@ -38,15 +38,19 @@ public class LoadAndSaveDataUtils {
         String kingdomName = getPlayerKingdom(player);
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
-        List<String> members = getList(kingdomName, "members");
-        List<String> barons = getList(kingdomName, "barons");
+        List<UUID> membersUUID = new ArrayList<>();
+        getList(kingdomName, "members").forEach(member -> membersUUID.add(UUID.fromString(member.toString())));
+
+        List<UUID> baronsUUID = new ArrayList<>();
+        getList(kingdomName, "baron").forEach(baron -> baronsUUID.add(UUID.fromString(baron.toString())));
+
         List<Integer> territory = getList(kingdomName, "territory");
         List<Integer> privateTerritory = getList(kingdomName, "privateTerritory");
 
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(player)
-                .setMembers(members)
-                .setBarons(barons)
+                .setMembers(membersUUID)
+                .setBarons(baronsUUID)
                 .setReputation(getIntegerField(kingdomName, "reputation"))
                 .setBalance(getIntegerField(kingdomName, "balance"))
                 .setMaxNumberMembers(getIntegerField(kingdomName, "maxNumberMembers"))
@@ -132,7 +136,7 @@ public class LoadAndSaveDataUtils {
             PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
 
-            CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
+            CacheFeudalPlayers.getFeudalPlayerInfo().remove(player.getUniqueId());
 
         }).start());
 
@@ -183,7 +187,7 @@ public class LoadAndSaveDataUtils {
                 .setKingdomName(PlayerDBHandler.getStringField(player, "kingdomName"))
                 .setSurvivabilityLvl(survivabilityLvl);
 
-        CacheFeudalPlayers.getFeudalPlayerInfo().put(player.getUniqueId().toString(), feudalPlayer);
+        CacheFeudalPlayers.getFeudalPlayerInfo().put(player.getUniqueId(), feudalPlayer);
 
         loadPlayerAttributes(player, speedLvl, survivabilityLvl);
 
@@ -225,7 +229,7 @@ public class LoadAndSaveDataUtils {
 
             savePlayerMail(player);
 
-            CacheFeudalPlayers.getFeudalPlayerInfo().remove(player);
+            CacheFeudalPlayers.getFeudalPlayerInfo().remove(player.getUniqueId());
 
         }).start();
 

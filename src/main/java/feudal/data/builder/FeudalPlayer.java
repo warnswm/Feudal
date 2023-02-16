@@ -23,16 +23,17 @@ import java.util.UUID;
 public class FeudalPlayer {
 
     final List<String> invitations = new ArrayList<>();
-    String playerUUID, kingdomName;
+    UUID playerUUID;
+    String kingdomName;
     List<String> letters = new ArrayList<>();
     int aClassID, experience, balance, deaths, kills, strengthLvl, survivabilityLvl, speedLvl, staminaLvl, luckLvl, gameClassLvl, gameClassExperience;
 
     public FeudalPlayer(@NotNull Player player) {
-        playerUUID = player.getUniqueId().toString();
+        playerUUID = player.getUniqueId();
     }
 
     public final FeudalPlayer setPlayer(@NotNull Player player) {
-        playerUUID = player.getUniqueId().toString();
+        playerUUID = player.getUniqueId();
         return this;
     }
 
@@ -106,7 +107,7 @@ public class FeudalPlayer {
 
         experience += value;
 
-        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
+        Player player = Bukkit.getPlayer(playerUUID);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " опыта атрибутов");
@@ -119,7 +120,7 @@ public class FeudalPlayer {
 
         balance += value;
 
-        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
+        Player player = Bukkit.getPlayer(playerUUID);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("+" + value + " денег");
@@ -172,7 +173,7 @@ public class FeudalPlayer {
 
         gameClassExperience += value;
 
-        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
+        Player player = Bukkit.getPlayer(playerUUID);
 
         if (gameClassLvl <= 100 && gameClassExperience >= (int) (Math.pow(1 + 0.05, gameClassLvl) * 100)) {
 
@@ -195,7 +196,7 @@ public class FeudalPlayer {
 
         experience -= value;
 
-        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
+        Player player = Bukkit.getPlayer(playerUUID);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " опыта атрибутов");
@@ -208,7 +209,7 @@ public class FeudalPlayer {
 
         balance -= value;
 
-        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
+        Player player = Bukkit.getPlayer(playerUUID);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " денег");
@@ -260,7 +261,7 @@ public class FeudalPlayer {
 
         gameClassExperience -= value;
 
-        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
+        Player player = Bukkit.getPlayer(playerUUID);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.sendMessage("-" + value + " опыта класса");
@@ -295,7 +296,7 @@ public class FeudalPlayer {
 
         String shortLetter = letter.length() < 10 ? letter : letter.substring(0, 10);
 
-        CraftPlayer player = (CraftPlayer) Bukkit.getPlayer(UUID.fromString(playerUUID));
+        CraftPlayer player = (CraftPlayer) Bukkit.getPlayer(playerUUID);
         player.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + "§lНовое письмо от игрока " + sender.getName() + " - §n" + shortLetter + "..." + "\"}"), ChatMessageType.GAME_INFO));
 
         return this;
