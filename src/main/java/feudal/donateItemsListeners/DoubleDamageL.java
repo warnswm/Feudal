@@ -13,8 +13,6 @@ import java.util.Objects;
 
 public class DoubleDamageL implements Listener {
 
-    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
-
     @EventHandler
     public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
@@ -23,7 +21,7 @@ public class DoubleDamageL implements Listener {
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("doubleDamage") ||
-                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") * feudalValuesUtils.getDoubleDamagePercentagePerLvl())
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") * FeudalValuesUtils.getDoubleDamagePercentagePerLvl())
             return;
 
 

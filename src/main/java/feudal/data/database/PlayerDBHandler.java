@@ -13,11 +13,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerDBHandler {
-
-    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
-
-    private static final MongoClient mongoClient = feudalValuesUtils.getMongoClient();
-    private static final MongoCollection<Document> collection = feudalValuesUtils.getPlayersCollection();
+    private static final MongoClient mongoClient = FeudalValuesUtils.getMongoClient();
+    private static final MongoCollection<Document> collection = FeudalValuesUtils.getPlayersCollection();
 
     public static boolean checkPlayer(@NotNull Player player) {
 

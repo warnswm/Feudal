@@ -47,7 +47,7 @@ public final class Feudal extends JavaPlugin {
         LoadAndSaveDataUtils.loadPlacedBlocks();
 
         PlannedActivitiesUtils.taxCollection();
-        PlannedActivitiesUtils.restart();
+//        PlannedActivitiesUtils.restart();
 
     }
 

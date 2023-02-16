@@ -23,8 +23,8 @@ public class KingdomDBHandler {
 
     private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
 
-    private static final MongoClient mongoClient = feudalValuesUtils.getMongoClient();
-    private static final MongoCollection<Document> collection = feudalValuesUtils.getKingdomsCollection();
+    private static final MongoClient mongoClient = FeudalValuesUtils.getMongoClient();
+    private static final MongoCollection<Document> collection = FeudalValuesUtils.getKingdomsCollection();
 
 
     public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<Integer> privateTerritory, List<String> baronsUUID) {

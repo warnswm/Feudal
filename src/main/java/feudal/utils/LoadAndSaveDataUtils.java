@@ -233,9 +233,6 @@ public class LoadAndSaveDataUtils {
 
     public static void loadAllConfigs() {
 
-        Feudal.getPlugin().getConfig().options().copyDefaults(true);
-        Feudal.getPlugin().saveDefaultConfig();
-
         ConfigUtils.readDatabaseConfig();
         ConfigUtils.readEnchantmentsConfig();
         ConfigUtils.readKingdomTaxConfig();

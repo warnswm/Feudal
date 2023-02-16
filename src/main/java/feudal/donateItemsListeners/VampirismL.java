@@ -14,8 +14,6 @@ import java.util.Objects;
 
 public class VampirismL implements Listener {
 
-    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
-
     @EventHandler
     public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
@@ -25,11 +23,11 @@ public class VampirismL implements Listener {
 
         if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
                 !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("vampirism") ||
-                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("vampirismLvl") * feudalValuesUtils.getVampirismMaxLvl())
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("vampirismLvl") * FeudalValuesUtils.getVampirismMaxLvl())
             return;
 
 
-        double vampirismLvl = feudalValuesUtils.getVampirismMaxLvl() * Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("vampirismEnchantmentLvl");
+        double vampirismLvl = FeudalValuesUtils.getVampirismMaxLvl() * Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("vampirismEnchantmentLvl");
 
         double health = player.getMaxHealth() < player.getHealth() + event.getDamage() / 100 * vampirismLvl ?
                 20 : player.getHealth() + event.getDamage() / 100 * vampirismLvl;

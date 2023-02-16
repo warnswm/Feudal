@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NonNls;
 import java.io.File;
 
 public class ConfigUtils {
-    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
     private static final File path = Feudal.getPlugin().getDataFolder();
     private static @NonNls FileConfiguration databaseCfg;
     private static @NonNls FileConfiguration enchantmentsCfg;
@@ -23,10 +22,10 @@ public class ConfigUtils {
 
         databaseCfg = YamlConfiguration.loadConfiguration(file);
 
-        feudalValuesUtils.setMongoClient(MongoClients.create((String) databaseCfg.get("Mongo.address")));
-        feudalValuesUtils.setDatabase(feudalValuesUtils.getMongoClient().getDatabase((String) databaseCfg.get("Mongo.name")));
-        feudalValuesUtils.setPlayersCollection(feudalValuesUtils.getDatabase().getCollection((String) databaseCfg.get("Mongo.playersCollection")));
-        feudalValuesUtils.setKingdomsCollection(feudalValuesUtils.getDatabase().getCollection((String) databaseCfg.get("Mongo.kingdomsCollection")));
+        FeudalValuesUtils.setMongoClient(MongoClients.create((String) databaseCfg.get("Mongo.address")));
+        FeudalValuesUtils.setDatabase(FeudalValuesUtils.getMongoClient().getDatabase((String) databaseCfg.get("Mongo.name")));
+        FeudalValuesUtils.setPlayersCollection(FeudalValuesUtils.getDatabase().getCollection((String) databaseCfg.get("Mongo.playersCollection")));
+        FeudalValuesUtils.setKingdomsCollection(FeudalValuesUtils.getDatabase().getCollection((String) databaseCfg.get("Mongo.kingdomsCollection")));
 
     }
 
@@ -71,58 +70,58 @@ public class ConfigUtils {
 
         enchantmentsCfg = YamlConfiguration.loadConfiguration(file);
 
-        feudalValuesUtils.setVampirismMaxLvl((int) enchantmentsCfg.get("Vampirism.vampirismMaxLvl"));
-        feudalValuesUtils.setVampirismPercentagePerLvl((double) enchantmentsCfg.get("Vampirism.vampirismPercentagePerLvl"));
+        FeudalValuesUtils.setVampirismMaxLvl((int) enchantmentsCfg.get("Vampirism.vampirismMaxLvl"));
+        FeudalValuesUtils.setVampirismPercentagePerLvl((double) enchantmentsCfg.get("Vampirism.vampirismPercentagePerLvl"));
 
-        feudalValuesUtils.setDoubleDamageMaxLvl((int) enchantmentsCfg.get("DoubleDamage.doubleDamageMaxLvl"));
-        feudalValuesUtils.setDoubleDamagePercentagePerLvl((double) enchantmentsCfg.get("DoubleDamage.doubleDamagePercentagePerLvl"));
+        FeudalValuesUtils.setDoubleDamageMaxLvl((int) enchantmentsCfg.get("DoubleDamage.doubleDamageMaxLvl"));
+        FeudalValuesUtils.setDoubleDamagePercentagePerLvl((double) enchantmentsCfg.get("DoubleDamage.doubleDamagePercentagePerLvl"));
 
-        feudalValuesUtils.setBlindnessMaxLvl((int) enchantmentsCfg.get("Blindness.blindnessMaxLvl"));
-        feudalValuesUtils.setBlindnessPercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessPercentagePerLvl"));
-        feudalValuesUtils.setBlindnessTime((int) enchantmentsCfg.get("Blindness.blindnessTime"));
-        feudalValuesUtils.setBlindnessTimePercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessTimePercentagePerLvl"));
+        FeudalValuesUtils.setBlindnessMaxLvl((int) enchantmentsCfg.get("Blindness.blindnessMaxLvl"));
+        FeudalValuesUtils.setBlindnessPercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessPercentagePerLvl"));
+        FeudalValuesUtils.setBlindnessTime((int) enchantmentsCfg.get("Blindness.blindnessTime"));
+        FeudalValuesUtils.setBlindnessTimePercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessTimePercentagePerLvl"));
 
-        feudalValuesUtils.setSlowdownMaxLvl((int) enchantmentsCfg.get("Slowdown.slowdownMaxLvl"));
-        feudalValuesUtils.setSlowdownPercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownPercentagePerLvl"));
-        feudalValuesUtils.setSlowdownTime((int) enchantmentsCfg.get("Slowdown.slowdownTime"));
-        feudalValuesUtils.setSlowdownTimePercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownTimePercentagePerLvl"));
+        FeudalValuesUtils.setSlowdownMaxLvl((int) enchantmentsCfg.get("Slowdown.slowdownMaxLvl"));
+        FeudalValuesUtils.setSlowdownPercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownPercentagePerLvl"));
+        FeudalValuesUtils.setSlowdownTime((int) enchantmentsCfg.get("Slowdown.slowdownTime"));
+        FeudalValuesUtils.setSlowdownTimePercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownTimePercentagePerLvl"));
 
-        feudalValuesUtils.setDesiccationMaxLvl((int) enchantmentsCfg.get("Desiccation.desiccationMaxLvl"));
-        feudalValuesUtils.setDesiccationPercentagePerLvl((double) enchantmentsCfg.get("Desiccation.desiccationPercentagePerLvl"));
-        feudalValuesUtils.setDesiccationTime((int) enchantmentsCfg.get("Desiccation.slowdownTime"));
-        feudalValuesUtils.setDesiccationTimePercentagePerLvl((double) enchantmentsCfg.get("Desiccation.slowdownTimePercentagePerLvl"));
+        FeudalValuesUtils.setDesiccationMaxLvl((int) enchantmentsCfg.get("Desiccation.desiccationMaxLvl"));
+        FeudalValuesUtils.setDesiccationPercentagePerLvl((double) enchantmentsCfg.get("Desiccation.desiccationPercentagePerLvl"));
+        FeudalValuesUtils.setDesiccationTime((int) enchantmentsCfg.get("Desiccation.slowdownTime"));
+        FeudalValuesUtils.setDesiccationTimePercentagePerLvl((double) enchantmentsCfg.get("Desiccation.slowdownTimePercentagePerLvl"));
 
-        feudalValuesUtils.setSwordStunMaxLvl((int) enchantmentsCfg.get("SwordStun.swordStunMaxLvl"));
-        feudalValuesUtils.setSwordStunPercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunPercentagePerLvl"));
-        feudalValuesUtils.setSwordStunTime((int) enchantmentsCfg.get("SwordStun.swordStunTime"));
-        feudalValuesUtils.setSwordStunTimePercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunTimePercentagePerLvl"));
+        FeudalValuesUtils.setSwordStunMaxLvl((int) enchantmentsCfg.get("SwordStun.swordStunMaxLvl"));
+        FeudalValuesUtils.setSwordStunPercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunPercentagePerLvl"));
+        FeudalValuesUtils.setSwordStunTime((int) enchantmentsCfg.get("SwordStun.swordStunTime"));
+        FeudalValuesUtils.setSwordStunTimePercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunTimePercentagePerLvl"));
 
-        feudalValuesUtils.setLevitationMaxLvl((int) enchantmentsCfg.get("Levitation.levitationMaxLvl"));
-        feudalValuesUtils.setLevitationPercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationPercentagePerLvl"));
-        feudalValuesUtils.setLevitationTime((int) enchantmentsCfg.get("Levitation.levitationTime"));
-        feudalValuesUtils.setLevitationTimePercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationTimePercentagePerLvl"));
+        FeudalValuesUtils.setLevitationMaxLvl((int) enchantmentsCfg.get("Levitation.levitationMaxLvl"));
+        FeudalValuesUtils.setLevitationPercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationPercentagePerLvl"));
+        FeudalValuesUtils.setLevitationTime((int) enchantmentsCfg.get("Levitation.levitationTime"));
+        FeudalValuesUtils.setLevitationTimePercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationTimePercentagePerLvl"));
 
-        feudalValuesUtils.setPoisoningMaxLvl((int) enchantmentsCfg.get("Poisoning.poisoningMaxLvl"));
-        feudalValuesUtils.setPoisoningPercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningPercentagePerLvl"));
-        feudalValuesUtils.setPoisoningTime((int) enchantmentsCfg.get("Poisoning.poisoningTime"));
-        feudalValuesUtils.setPoisoningTimePercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningTimePercentagePerLvl"));
+        FeudalValuesUtils.setPoisoningMaxLvl((int) enchantmentsCfg.get("Poisoning.poisoningMaxLvl"));
+        FeudalValuesUtils.setPoisoningPercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningPercentagePerLvl"));
+        FeudalValuesUtils.setPoisoningTime((int) enchantmentsCfg.get("Poisoning.poisoningTime"));
+        FeudalValuesUtils.setPoisoningTimePercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningTimePercentagePerLvl"));
 
-        feudalValuesUtils.setNauseaMaxLvl((int) enchantmentsCfg.get("Nausea.nauseaMaxLvl"));
-        feudalValuesUtils.setNauseaTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaPercentagePerLvl"));
-        feudalValuesUtils.setNauseaTime((int) enchantmentsCfg.get("Nausea.nauseaTime"));
-        feudalValuesUtils.setNauseaTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaTimePercentagePerLvl"));
+        FeudalValuesUtils.setNauseaMaxLvl((int) enchantmentsCfg.get("Nausea.nauseaMaxLvl"));
+        FeudalValuesUtils.setNauseaTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaPercentagePerLvl"));
+        FeudalValuesUtils.setNauseaTime((int) enchantmentsCfg.get("Nausea.nauseaTime"));
+        FeudalValuesUtils.setNauseaTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaTimePercentagePerLvl"));
 
-        feudalValuesUtils.setHookMaxLvl((int) enchantmentsCfg.get("Hook.hookMaxLvl"));
-        feudalValuesUtils.setHookPercentagePerLvl((double) enchantmentsCfg.get("Hook.hookPercentagePerLvl"));
+        FeudalValuesUtils.setHookMaxLvl((int) enchantmentsCfg.get("Hook.hookMaxLvl"));
+        FeudalValuesUtils.setHookPercentagePerLvl((double) enchantmentsCfg.get("Hook.hookPercentagePerLvl"));
 
-        feudalValuesUtils.setMulti_shootingMaxLvl((int) enchantmentsCfg.get("Multi-shooting.multi_shootingMaxLvl"));
-        feudalValuesUtils.setMulti_shootingPercentagePerLvl((double) enchantmentsCfg.get("Multi-shooting.multi_shootingPercentagePerLvl"));
+        FeudalValuesUtils.setMulti_shootingMaxLvl((int) enchantmentsCfg.get("Multi-shooting.multi_shootingMaxLvl"));
+        FeudalValuesUtils.setMulti_shootingPercentagePerLvl((double) enchantmentsCfg.get("Multi-shooting.multi_shootingPercentagePerLvl"));
 
-        feudalValuesUtils.setBowStunMaxLvl((int) enchantmentsCfg.get("BowStun.bowStunMaxLvl"));
-        feudalValuesUtils.setBowStunPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunPercentagePerLvl"));
+        FeudalValuesUtils.setBowStunMaxLvl((int) enchantmentsCfg.get("BowStun.bowStunMaxLvl"));
+        FeudalValuesUtils.setBowStunPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunPercentagePerLvl"));
 
-        feudalValuesUtils.setGreedMaxLvl((int) enchantmentsCfg.get("Greed.greedMaxLvl"));
-        feudalValuesUtils.setGreedPercentagePerLvl((double) enchantmentsCfg.get("Greed.greedPercentagePerLvl"));
+        FeudalValuesUtils.setGreedMaxLvl((int) enchantmentsCfg.get("Greed.greedMaxLvl"));
+        FeudalValuesUtils.setGreedPercentagePerLvl((double) enchantmentsCfg.get("Greed.greedPercentagePerLvl"));
 
     }
 
@@ -215,10 +214,10 @@ public class ConfigUtils {
 
         kingdomTaxCfg = YamlConfiguration.loadConfiguration(file);
 
-        feudalValuesUtils.setLandTax((int) kingdomTaxCfg.get("KingdomTax.land"));
-        feudalValuesUtils.setTaxOnResidents((int) kingdomTaxCfg.get("KingdomTax.residents"));
-        feudalValuesUtils.setTaxTreasuryPercent((int) kingdomTaxCfg.get("KingdomTax.treasury"));
-        feudalValuesUtils.setTimeTaxCollection((int) kingdomTaxCfg.get("KingdomTax.time"));
+        FeudalValuesUtils.setLandTax((int) kingdomTaxCfg.get("KingdomTax.land"));
+        FeudalValuesUtils.setTaxOnResidents((int) kingdomTaxCfg.get("KingdomTax.residents"));
+        FeudalValuesUtils.setTaxTreasuryPercent((int) kingdomTaxCfg.get("KingdomTax.treasury"));
+        FeudalValuesUtils.setTimeTaxCollection((int) kingdomTaxCfg.get("KingdomTax.time"));
 
     }
 

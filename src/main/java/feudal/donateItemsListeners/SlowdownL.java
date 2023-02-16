@@ -16,8 +16,6 @@ import java.util.Objects;
 
 public class SlowdownL implements Listener {
 
-    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
-
     @EventHandler
     public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
@@ -26,14 +24,14 @@ public class SlowdownL implements Listener {
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("slowdown") ||
-                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("slowdownLvl") * feudalValuesUtils.getSlowdownPercentagePerLvl())
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("slowdownLvl") * FeudalValuesUtils.getSlowdownPercentagePerLvl())
             return;
 
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int slowdown = feudalValuesUtils.getSlowdownTime();
+        int slowdown = FeudalValuesUtils.getSlowdownTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (slowdown + slowdown / 100 * feudalValuesUtils.getSlowdownTimePercentagePerLvl()), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (slowdown + slowdown / 100 * FeudalValuesUtils.getSlowdownTimePercentagePerLvl()), 1, true, true));
 
     }
 

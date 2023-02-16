@@ -16,8 +16,6 @@ import java.util.Objects;
 
 public class DesiccationL implements Listener {
 
-    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
-
     @EventHandler
     public final void playerAttack(@NotNull EntityDamageByEntityEvent event) {
 
@@ -26,14 +24,14 @@ public class DesiccationL implements Listener {
         Player player = (Player) event.getDamager();
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("desiccation") ||
-                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("desiccationLvl") * feudalValuesUtils.getDesiccationPercentagePerLvl())
+                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("desiccationLvl") * FeudalValuesUtils.getDesiccationPercentagePerLvl())
             return;
 
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int desiccation = feudalValuesUtils.getDesiccationTime();
+        int desiccation = FeudalValuesUtils.getDesiccationTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, (int) (desiccation + desiccation / 100 * feudalValuesUtils.getDesiccationTimePercentagePerLvl()), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, (int) (desiccation + desiccation / 100 * FeudalValuesUtils.getDesiccationTimePercentagePerLvl()), 1, true, true));
 
     }
 
