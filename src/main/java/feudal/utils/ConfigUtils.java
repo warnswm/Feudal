@@ -14,6 +14,7 @@ public class ConfigUtils {
     private static @NonNls FileConfiguration databaseCfg;
     private static @NonNls FileConfiguration enchantmentsCfg;
     private static @NonNls FileConfiguration kingdomTaxCfg;
+    private static @NonNls FileConfiguration moneyForMobsCfg;
 
     public static void readDatabaseConfig() {
 
@@ -250,6 +251,130 @@ public class ConfigUtils {
             kingdomTaxCfg.set("KingdomTax.time", 432000);
 
             kingdomTaxCfg.save(file);
+
+        }
+
+    }
+
+    public static void readMoneyForMobsConfig() {
+
+        File file = new File(path, "moneyForMobs.yml");
+        createMoneyForMobsConfig();
+
+        moneyForMobsCfg = YamlConfiguration.loadConfiguration(file);
+
+        FeudalValuesUtils.setMoneyForBat((int) moneyForMobsCfg.get("MoneyForMobs.bat"));
+        FeudalValuesUtils.setMoneyForChicken((int) moneyForMobsCfg.get("MoneyForMobs.chicken"));
+        FeudalValuesUtils.setMoneyForCow((int) moneyForMobsCfg.get("MoneyForMobs.cow"));
+        FeudalValuesUtils.setMoneyForMushroomCow((int) moneyForMobsCfg.get("MoneyForMobs.mushroomCow"));
+        FeudalValuesUtils.setMoneyForHorse((int) moneyForMobsCfg.get("MoneyForMobs.horse"));
+        FeudalValuesUtils.setMoneyForOcelot((int) moneyForMobsCfg.get("MoneyForMobs.ocelot"));
+        FeudalValuesUtils.setMoneyForParrot((int) moneyForMobsCfg.get("MoneyForMobs.parrot"));
+        FeudalValuesUtils.setMoneyForPolarBear((int) moneyForMobsCfg.get("MoneyForMobs.polarBear"));
+        FeudalValuesUtils.setMoneyForPig((int) moneyForMobsCfg.get("MoneyForMobs.pig"));
+        FeudalValuesUtils.setMoneyForRabbit((int) moneyForMobsCfg.get("MoneyForMobs.rabbit"));
+        FeudalValuesUtils.setMoneyForSheep((int) moneyForMobsCfg.get("MoneyForMobs.sheep"));
+        FeudalValuesUtils.setMoneyForSnowMan((int) moneyForMobsCfg.get("MoneyForMobs.snowMan"));
+        FeudalValuesUtils.setMoneyForSquiq((int) moneyForMobsCfg.get("MoneyForMobs.squiq"));
+        FeudalValuesUtils.setMoneyForVillager((int) moneyForMobsCfg.get("MoneyForMobs.villager"));
+        FeudalValuesUtils.setMoneyForCaveSpider((int) moneyForMobsCfg.get("MoneyForMobs.caveSpider"));
+        FeudalValuesUtils.setMoneyForEnderMan((int) moneyForMobsCfg.get("MoneyForMobs.enderMan"));
+        FeudalValuesUtils.setMoneyForIronGolem((int) moneyForMobsCfg.get("MoneyForMobs.ironGolem"));
+        FeudalValuesUtils.setMoneyForLlama((int) moneyForMobsCfg.get("MoneyForMobs.llama"));
+        FeudalValuesUtils.setMoneyForSpider((int) moneyForMobsCfg.get("MoneyForMobs.spider"));
+        FeudalValuesUtils.setMoneyForWolf((int) moneyForMobsCfg.get("MoneyForMobs.wolf"));
+        FeudalValuesUtils.setMoneyForBlaze((int) moneyForMobsCfg.get("MoneyForMobs.blaze"));
+        FeudalValuesUtils.setMoneyForCreeper((int) moneyForMobsCfg.get("MoneyForMobs.creeper"));
+        FeudalValuesUtils.setMoneyForElderGuardian((int) moneyForMobsCfg.get("MoneyForMobs.elderGuardian"));
+        FeudalValuesUtils.setMoneyForEndermite((int) moneyForMobsCfg.get("MoneyForMobs.endermite"));
+        FeudalValuesUtils.setMoneyForEvolker((int) moneyForMobsCfg.get("MoneyForMobs.evolker"));
+        FeudalValuesUtils.setMoneyForGhast((int) moneyForMobsCfg.get("MoneyForMobs.ghast"));
+        FeudalValuesUtils.setMoneyForGuardian((int) moneyForMobsCfg.get("MoneyForMobs.guardian"));
+        FeudalValuesUtils.setMoneyForHask((int) moneyForMobsCfg.get("MoneyForMobs.hask"));
+        FeudalValuesUtils.setMoneyForMagmaCube((int) moneyForMobsCfg.get("MoneyForMobs.magmaCube"));
+        FeudalValuesUtils.setMoneyForShulker((int) moneyForMobsCfg.get("MoneyForMobs.shulker"));
+        FeudalValuesUtils.setMoneyForSilverfish((int) moneyForMobsCfg.get("MoneyForMobs.silverfish"));
+        FeudalValuesUtils.setMoneyForSkeleton((int) moneyForMobsCfg.get("MoneyForMobs.skeleton"));
+        FeudalValuesUtils.setMoneyForSlime((int) moneyForMobsCfg.get("MoneyForMobs.slime"));
+        FeudalValuesUtils.setMoneyForStray((int) moneyForMobsCfg.get("MoneyForMobs.stray"));
+        FeudalValuesUtils.setMoneyForVex((int) moneyForMobsCfg.get("MoneyForMobs.vex"));
+        FeudalValuesUtils.setMoneyForVindicator((int) moneyForMobsCfg.get("MoneyForMobs.vindicator"));
+        FeudalValuesUtils.setMoneyForWitch((int) moneyForMobsCfg.get("MoneyForMobs.witch"));
+        FeudalValuesUtils.setMoneyForWitherSkeleton((int) moneyForMobsCfg.get("MoneyForMobs.witherSkeleton"));
+        FeudalValuesUtils.setMoneyForZombie((int) moneyForMobsCfg.get("MoneyForMobs.zombie"));
+        FeudalValuesUtils.setMoneyForZombieVillager((int) moneyForMobsCfg.get("MoneyForMobs.zombieVillager"));
+        FeudalValuesUtils.setMoneyForEnderDragon((int) moneyForMobsCfg.get("MoneyForMobs.enderDragon"));
+        FeudalValuesUtils.setMoneyForWither((int) moneyForMobsCfg.get("MoneyForMobs.Wither"));
+
+    }
+
+    @SneakyThrows
+    public static void saveMoneyForMobsConfig() {
+
+        File file = new File(path, "moneyForMobs.yml");
+        createMoneyForMobsConfig();
+
+        YamlConfiguration.loadConfiguration(file).save(file);
+
+    }
+
+    @SneakyThrows
+    public static void createMoneyForMobsConfig() {
+
+        if (!path.exists())
+            path.mkdir();
+
+        File file = new File(path, "moneyForMobs.yml");
+        if (!file.exists()) {
+
+            file.createNewFile();
+
+            moneyForMobsCfg = YamlConfiguration.loadConfiguration(file);
+
+            moneyForMobsCfg.set("MoneyForMobs.bat", 1);
+            moneyForMobsCfg.set("MoneyForMobs.chicken", 3);
+            moneyForMobsCfg.set("MoneyForMobs.cow", 5);
+            moneyForMobsCfg.set("MoneyForMobs.mushroomCow", 5);
+            moneyForMobsCfg.set("MoneyForMobs.horse", 7);
+            moneyForMobsCfg.set("MoneyForMobs.ocelot", 5);
+            moneyForMobsCfg.set("MoneyForMobs.parrot", 5);
+            moneyForMobsCfg.set("MoneyForMobs.polarBear", 8);
+            moneyForMobsCfg.set("MoneyForMobs.pig", 5);
+            moneyForMobsCfg.set("MoneyForMobs.rabbit", 7);
+            moneyForMobsCfg.set("MoneyForMobs.sheep", 5);
+            moneyForMobsCfg.set("MoneyForMobs.snowMan", 1);
+            moneyForMobsCfg.set("MoneyForMobs.squiq", 3);
+            moneyForMobsCfg.set("MoneyForMobs.villager", 10);
+            moneyForMobsCfg.set("MoneyForMobs.caveSpider", 20);
+            moneyForMobsCfg.set("MoneyForMobs.enderMan", 27);
+            moneyForMobsCfg.set("MoneyForMobs.ironGolem", 45);
+            moneyForMobsCfg.set("MoneyForMobs.llama", 7);
+            moneyForMobsCfg.set("MoneyForMobs.spider", 17);
+            moneyForMobsCfg.set("MoneyForMobs.wolf", 15);
+            moneyForMobsCfg.set("MoneyForMobs.blaze", 20);
+            moneyForMobsCfg.set("MoneyForMobs.creeper", 23);
+            moneyForMobsCfg.set("MoneyForMobs.elderGuardian", 5000);
+            moneyForMobsCfg.set("MoneyForMobs.endermite", 1);
+            moneyForMobsCfg.set("MoneyForMobs.evolker", 17);
+            moneyForMobsCfg.set("MoneyForMobs.ghast", 15);
+            moneyForMobsCfg.set("MoneyForMobs.guardian", 30);
+            moneyForMobsCfg.set("MoneyForMobs.hask", 17);
+            moneyForMobsCfg.set("MoneyForMobs.magmaCube", 23);
+            moneyForMobsCfg.set("MoneyForMobs.shulker", 27);
+            moneyForMobsCfg.set("MoneyForMobs.silverfish", 1);
+            moneyForMobsCfg.set("MoneyForMobs.skeleton", 17);
+            moneyForMobsCfg.set("MoneyForMobs.slime", 23);
+            moneyForMobsCfg.set("MoneyForMobs.stray", 20);
+            moneyForMobsCfg.set("MoneyForMobs.vex", 5);
+            moneyForMobsCfg.set("MoneyForMobs.vindicator", 23);
+            moneyForMobsCfg.set("MoneyForMobs.witch", 13);
+            moneyForMobsCfg.set("MoneyForMobs.witherSkeleton", 30);
+            moneyForMobsCfg.set("MoneyForMobs.zombie", 15);
+            moneyForMobsCfg.set("MoneyForMobs.zombieVillager", 15);
+            moneyForMobsCfg.set("MoneyForMobs.enderDragon", 10000);
+            moneyForMobsCfg.set("MoneyForMobs.Wither", 7000);
+
+            moneyForMobsCfg.save(file);
 
         }
 

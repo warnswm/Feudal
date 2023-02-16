@@ -6,24 +6,26 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.EntityType;
 
+import static feudal.utils.FeudalValuesUtils.*;
+
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum MoneyForMobsE {
-    BAT(EntityType.BAT, 1), CHICKEN(EntityType.CHICKEN, 3), COW(EntityType.COW, 5),
-    MUSHROOM_COW(EntityType.MUSHROOM_COW, 5), HORSE(EntityType.HORSE, 7), OCELOT(EntityType.OCELOT, 5),
-    PARROT(EntityType.PARROT, 5), POLAR_BEAR(EntityType.POLAR_BEAR, 8), PIG(EntityType.PIG, 5),
-    RABBIT(EntityType.RABBIT, 7), SHEEP(EntityType.SHEEP, 5), SNOW_MAN(EntityType.SNOWMAN, 1),
-    SQUID(EntityType.SQUID, 3), VILLAGER(EntityType.VILLAGER, 10), CAVE_SPIDER(EntityType.CAVE_SPIDER, 20),
-    ENDERMAN(EntityType.ENDERMAN, 27), IRON_GOLEM(EntityType.IRON_GOLEM, 45), LLAMA(EntityType.LLAMA, 7),
-    SPIDER(EntityType.SPIDER, 17), WOLF(EntityType.WOLF, 15), BLAZE(EntityType.BLAZE, 20),
-    CREEPER(EntityType.CREEPER, 23), ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, 5000), ENDERMITE(EntityType.ENDERMITE, 1),
-    EVOKER(EntityType.EVOKER, 17), GHAST(EntityType.GHAST, 15), GUARDIAN(EntityType.GUARDIAN, 30),
-    HUSK(EntityType.HUSK, 17), MAGMA_CUBE(EntityType.MAGMA_CUBE, 23), SHULKER(EntityType.SHULKER, 27),
-    SILVERFISH(EntityType.SILVERFISH, 1), SKELETON(EntityType.SKELETON, 17), SLIME(EntityType.SLIME, 23),
-    STRAY(EntityType.STRAY, 20), VEX(EntityType.VEX, 5), VINDICATOR(EntityType.VINDICATOR, 23),
-    WITCH(EntityType.WITCH, 13), WITHER_SKELETON(EntityType.WITHER_SKELETON, 30), ZOMBIE(EntityType.ZOMBIE, 15),
-    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER, 15), ENDER_DRAGON(EntityType.ENDER_DRAGON, 10000), WITHER(EntityType.WITHER, 7000);
+    BAT(EntityType.BAT, getMoneyForBat()), CHICKEN(EntityType.CHICKEN, getMoneyForChicken()), COW(EntityType.COW, getMoneyForCow()),
+    MUSHROOM_COW(EntityType.MUSHROOM_COW, getMoneyForMushroomCow()), HORSE(EntityType.HORSE, getMoneyForHorse()), OCELOT(EntityType.OCELOT, getMoneyForOcelot()),
+    PARROT(EntityType.PARROT, getMoneyForParrot()), POLAR_BEAR(EntityType.POLAR_BEAR, getMoneyForPolarBear()), PIG(EntityType.PIG, getMoneyForPig()),
+    RABBIT(EntityType.RABBIT, getMoneyForRabbit()), SHEEP(EntityType.SHEEP, getMoneyForSheep()), SNOW_MAN(EntityType.SNOWMAN, getMoneyForSnowMan()),
+    SQUID(EntityType.SQUID, getMoneyForSquiq()), VILLAGER(EntityType.VILLAGER, getMoneyForVillager()), CAVE_SPIDER(EntityType.CAVE_SPIDER, getMoneyForCaveSpider()),
+    ENDERMAN(EntityType.ENDERMAN, getMoneyForEnderMan()), IRON_GOLEM(EntityType.IRON_GOLEM, getMoneyForIronGolem()), LLAMA(EntityType.LLAMA, getMoneyForLlama()),
+    SPIDER(EntityType.SPIDER, getMoneyForSpider()), WOLF(EntityType.WOLF, getMoneyForWolf()), BLAZE(EntityType.BLAZE, getMoneyForBlaze()),
+    CREEPER(EntityType.CREEPER, getMoneyForCreeper()), ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, getMoneyForElderGuardian()), ENDERMITE(EntityType.ENDERMITE, getMoneyForEndermite()),
+    EVOKER(EntityType.EVOKER, getMoneyForEvolker()), GHAST(EntityType.GHAST, getMoneyForGhast()), GUARDIAN(EntityType.GUARDIAN, getMoneyForGuardian()),
+    HUSK(EntityType.HUSK, getMoneyForHask()), MAGMA_CUBE(EntityType.MAGMA_CUBE, getMoneyForMagmaCube()), SHULKER(EntityType.SHULKER, getMoneyForShulker()),
+    SILVERFISH(EntityType.SILVERFISH, getMoneyForSilverfish()), SKELETON(EntityType.SKELETON, getMoneyForSkeleton()), SLIME(EntityType.SLIME, getMoneyForSlime()),
+    STRAY(EntityType.STRAY, getMoneyForStray()), VEX(EntityType.VEX, getMoneyForVex()), VINDICATOR(EntityType.VINDICATOR, getMoneyForVindicator()),
+    WITCH(EntityType.WITCH, getMoneyForWitch()), WITHER_SKELETON(EntityType.WITHER_SKELETON, getMoneyForWitherSkeleton()), ZOMBIE(EntityType.ZOMBIE, getMoneyForZombie()),
+    ZOMBIE_VILLAGER(EntityType.ZOMBIE_VILLAGER, getMoneyForZombieVillager()), ENDER_DRAGON(EntityType.ENDER_DRAGON, getMoneyForEnderDragon()), WITHER(EntityType.WITHER, getMoneyForWither());
 
     EntityType entity;
     int money;

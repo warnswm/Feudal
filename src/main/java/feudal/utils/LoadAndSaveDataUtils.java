@@ -236,6 +236,7 @@ public class LoadAndSaveDataUtils {
         ConfigUtils.readDatabaseConfig();
         ConfigUtils.readEnchantmentsConfig();
         ConfigUtils.readKingdomTaxConfig();
+        ConfigUtils.readMoneyForMobsConfig();
 
     }
 
@@ -244,6 +245,7 @@ public class LoadAndSaveDataUtils {
         ConfigUtils.saveDatabaseConfig();
         ConfigUtils.saveEnchantmentsConfig();
         ConfigUtils.saveKingdomTaxConfig();
+        ConfigUtils.saveMoneyForMobsConfig();
 
     }
 

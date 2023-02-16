@@ -76,6 +76,49 @@ public class FeudalValuesUtils {
 
     private static int timeRestart;
 
+    private static int moneyForBat;
+    private static int moneyForChicken;
+    private static int moneyForCow;
+    private static int moneyForMushroomCow;
+    private static int moneyForHorse;
+    private static int moneyForOcelot;
+    private static int moneyForParrot;
+    private static int moneyForPolarBear;
+    private static int moneyForPig;
+    private static int moneyForRabbit;
+    private static int moneyForSheep;
+    private static int moneyForSnowMan;
+    private static int moneyForSquiq;
+    private static int moneyForVillager;
+    private static int moneyForCaveSpider;
+    private static int moneyForEnderman;
+    private static int moneyForIronGolem;
+    private static int moneyForLlama;
+    private static int moneyForSpider;
+    private static int moneyForWolf;
+    private static int moneyForBlaze;
+    private static int moneyForCreeper;
+    private static int moneyForElderGuardian;
+    private static int moneyForEndermite;
+    private static int moneyForEvolker;
+    private static int moneyForGhast;
+    private static int moneyForGuardian;
+    private static int moneyForHask;
+    private static int moneyForMagmaCube;
+    private static int moneyForShulker;
+    private static int moneyForSilverfish;
+    private static int moneyForSkeleton;
+    private static int moneyForSlime;
+    private static int moneyForStray;
+    private static int moneyForVex;
+    private static int moneyForVindicator;
+    private static int moneyForWitch;
+    private static int moneyForWitherSkeleton;
+    private static int moneyForZombie;
+    private static int moneyForZombieVillager;
+    private static int moneyForEnderDragon;
+    private static int moneyForWither;
+
     public static MongoClient getMongoClient() {
         return mongoClient;
     }
@@ -482,5 +525,341 @@ public class FeudalValuesUtils {
 
     public static void setTimeRestart(int timeRestart) {
         FeudalValuesUtils.timeRestart = timeRestart;
+    }
+
+    public static int getMoneyForBat() {
+        return moneyForBat;
+    }
+
+    public static void setMoneyForBat(int moneyForBat) {
+        FeudalValuesUtils.moneyForBat = moneyForBat;
+    }
+
+    public static int getMoneyForChicken() {
+        return moneyForChicken;
+    }
+
+    public static void setMoneyForChicken(int moneyForChicken) {
+        FeudalValuesUtils.moneyForChicken = moneyForChicken;
+    }
+
+    public static int getMoneyForCow() {
+        return moneyForCow;
+    }
+
+    public static void setMoneyForCow(int moneyForCow) {
+        FeudalValuesUtils.moneyForCow = moneyForCow;
+    }
+
+    public static int getMoneyForMushroomCow() {
+        return moneyForMushroomCow;
+    }
+
+    public static void setMoneyForMushroomCow(int moneyForMushroomCow) {
+        FeudalValuesUtils.moneyForMushroomCow = moneyForMushroomCow;
+    }
+
+    public static int getMoneyForHorse() {
+        return moneyForHorse;
+    }
+
+    public static void setMoneyForHorse(int moneyForHorse) {
+        FeudalValuesUtils.moneyForHorse = moneyForHorse;
+    }
+
+    public static int getMoneyForOcelot() {
+        return moneyForOcelot;
+    }
+
+    public static void setMoneyForOcelot(int moneyForOcelot) {
+        FeudalValuesUtils.moneyForOcelot = moneyForOcelot;
+    }
+
+    public static int getMoneyForParrot() {
+        return moneyForParrot;
+    }
+
+    public static void setMoneyForParrot(int moneyForParrot) {
+        FeudalValuesUtils.moneyForParrot = moneyForParrot;
+    }
+
+    public static int getMoneyForPolarBear() {
+        return moneyForPolarBear;
+    }
+
+    public static void setMoneyForPolarBear(int moneyForPolarBear) {
+        FeudalValuesUtils.moneyForPolarBear = moneyForPolarBear;
+    }
+
+    public static int getMoneyForPig() {
+        return moneyForPig;
+    }
+
+    public static void setMoneyForPig(int moneyForPig) {
+        FeudalValuesUtils.moneyForPig = moneyForPig;
+    }
+
+    public static int getMoneyForRabbit() {
+        return moneyForRabbit;
+    }
+
+    public static void setMoneyForRabbit(int moneyForRabbit) {
+        FeudalValuesUtils.moneyForRabbit = moneyForRabbit;
+    }
+
+    public static int getMoneyForSheep() {
+        return moneyForSheep;
+    }
+
+    public static void setMoneyForSheep(int moneyForSheep) {
+        FeudalValuesUtils.moneyForSheep = moneyForSheep;
+    }
+
+    public static int getMoneyForSnowMan() {
+        return moneyForSnowMan;
+    }
+
+    public static void setMoneyForSnowMan(int moneyForSnowMan) {
+        FeudalValuesUtils.moneyForSnowMan = moneyForSnowMan;
+    }
+
+    public static int getMoneyForSquiq() {
+        return moneyForSquiq;
+    }
+
+    public static void setMoneyForSquiq(int moneyForSquiq) {
+        FeudalValuesUtils.moneyForSquiq = moneyForSquiq;
+    }
+
+    public static int getMoneyForVillager() {
+        return moneyForVillager;
+    }
+
+    public static void setMoneyForVillager(int moneyForVillager) {
+        FeudalValuesUtils.moneyForVillager = moneyForVillager;
+    }
+
+    public static int getMoneyForCaveSpider() {
+        return moneyForCaveSpider;
+    }
+
+    public static void setMoneyForCaveSpider(int moneyForCaveSpider) {
+        FeudalValuesUtils.moneyForCaveSpider = moneyForCaveSpider;
+    }
+
+    public static int getMoneyForEnderMan() {
+        return moneyForEnderman;
+    }
+
+    public static void setMoneyForEnderMan(int moneyForEnderMan) {
+        FeudalValuesUtils.moneyForEnderman = moneyForEnderMan;
+    }
+
+    public static int getMoneyForIronGolem() {
+        return moneyForIronGolem;
+    }
+
+    public static void setMoneyForIronGolem(int moneyForIronGolem) {
+        FeudalValuesUtils.moneyForIronGolem = moneyForIronGolem;
+    }
+
+    public static int getMoneyForLlama() {
+        return moneyForLlama;
+    }
+
+    public static void setMoneyForLlama(int moneyForLlama) {
+        FeudalValuesUtils.moneyForLlama = moneyForLlama;
+    }
+
+    public static int getMoneyForSpider() {
+        return moneyForSpider;
+    }
+
+    public static void setMoneyForSpider(int moneyForSpider) {
+        FeudalValuesUtils.moneyForSpider = moneyForSpider;
+    }
+
+    public static int getMoneyForWolf() {
+        return moneyForWolf;
+    }
+
+    public static void setMoneyForWolf(int moneyForWolf) {
+        FeudalValuesUtils.moneyForWolf = moneyForWolf;
+    }
+
+    public static int getMoneyForBlaze() {
+        return moneyForBlaze;
+    }
+
+    public static void setMoneyForBlaze(int moneyForBlaze) {
+        FeudalValuesUtils.moneyForBlaze = moneyForBlaze;
+    }
+
+    public static int getMoneyForCreeper() {
+        return moneyForCreeper;
+    }
+
+    public static void setMoneyForCreeper(int moneyForCreeper) {
+        FeudalValuesUtils.moneyForCreeper = moneyForCreeper;
+    }
+
+    public static int getMoneyForElderGuardian() {
+        return moneyForElderGuardian;
+    }
+
+    public static void setMoneyForElderGuardian(int moneyForElderGuardian) {
+        FeudalValuesUtils.moneyForElderGuardian = moneyForElderGuardian;
+    }
+
+    public static int getMoneyForEndermite() {
+        return moneyForEndermite;
+    }
+
+    public static void setMoneyForEndermite(int moneyForEndermite) {
+        FeudalValuesUtils.moneyForEndermite = moneyForEndermite;
+    }
+
+    public static int getMoneyForEvolker() {
+        return moneyForEvolker;
+    }
+
+    public static void setMoneyForEvolker(int moneyForEvolker) {
+        FeudalValuesUtils.moneyForEvolker = moneyForEvolker;
+    }
+
+    public static int getMoneyForGhast() {
+        return moneyForGhast;
+    }
+
+    public static void setMoneyForGhast(int moneyForGhast) {
+        FeudalValuesUtils.moneyForGhast = moneyForGhast;
+    }
+
+    public static int getMoneyForGuardian() {
+        return moneyForGuardian;
+    }
+
+    public static void setMoneyForGuardian(int moneyForGuardian) {
+        FeudalValuesUtils.moneyForGuardian = moneyForGuardian;
+    }
+
+    public static int getMoneyForHask() {
+        return moneyForHask;
+    }
+
+    public static void setMoneyForHask(int moneyForHask) {
+        FeudalValuesUtils.moneyForHask = moneyForHask;
+    }
+
+    public static int getMoneyForMagmaCube() {
+        return moneyForMagmaCube;
+    }
+
+    public static void setMoneyForMagmaCube(int moneyForMagmaCube) {
+        FeudalValuesUtils.moneyForMagmaCube = moneyForMagmaCube;
+    }
+
+    public static int getMoneyForShulker() {
+        return moneyForShulker;
+    }
+
+    public static void setMoneyForShulker(int moneyForShulker) {
+        FeudalValuesUtils.moneyForShulker = moneyForShulker;
+    }
+
+    public static int getMoneyForSilverfish() {
+        return moneyForSilverfish;
+    }
+
+    public static void setMoneyForSilverfish(int moneyForSilverfish) {
+        FeudalValuesUtils.moneyForSilverfish = moneyForSilverfish;
+    }
+
+    public static int getMoneyForSkeleton() {
+        return moneyForSkeleton;
+    }
+
+    public static void setMoneyForSkeleton(int moneyForSkeleton) {
+        FeudalValuesUtils.moneyForSkeleton = moneyForSkeleton;
+    }
+
+    public static int getMoneyForSlime() {
+        return moneyForSlime;
+    }
+
+    public static void setMoneyForSlime(int moneyForSlime) {
+        FeudalValuesUtils.moneyForSlime = moneyForSlime;
+    }
+
+    public static int getMoneyForStray() {
+        return moneyForStray;
+    }
+
+    public static void setMoneyForStray(int moneyForStray) {
+        FeudalValuesUtils.moneyForStray = moneyForStray;
+    }
+
+    public static int getMoneyForVex() {
+        return moneyForVex;
+    }
+
+    public static void setMoneyForVex(int moneyForVex) {
+        FeudalValuesUtils.moneyForVex = moneyForVex;
+    }
+
+    public static int getMoneyForVindicator() {
+        return moneyForVindicator;
+    }
+
+    public static void setMoneyForVindicator(int moneyForVindicator) {
+        FeudalValuesUtils.moneyForVindicator = moneyForVindicator;
+    }
+
+    public static int getMoneyForWitch() {
+        return moneyForWitch;
+    }
+
+    public static void setMoneyForWitch(int moneyForWitch) {
+        FeudalValuesUtils.moneyForWitch = moneyForWitch;
+    }
+
+    public static int getMoneyForWitherSkeleton() {
+        return moneyForWitherSkeleton;
+    }
+
+    public static void setMoneyForWitherSkeleton(int moneyForWitherSkeleton) {
+        FeudalValuesUtils.moneyForWitherSkeleton = moneyForWitherSkeleton;
+    }
+
+    public static int getMoneyForZombie() {
+        return moneyForZombie;
+    }
+
+    public static void setMoneyForZombie(int moneyForZombie) {
+        FeudalValuesUtils.moneyForZombie = moneyForZombie;
+    }
+
+    public static int getMoneyForZombieVillager() {
+        return moneyForZombieVillager;
+    }
+
+    public static void setMoneyForZombieVillager(int moneyForZombieVillager) {
+        FeudalValuesUtils.moneyForZombieVillager = moneyForZombieVillager;
+    }
+
+    public static int getMoneyForEnderDragon() {
+        return moneyForEnderDragon;
+    }
+
+    public static void setMoneyForEnderDragon(int moneyForEnderDragon) {
+        FeudalValuesUtils.moneyForEnderDragon = moneyForEnderDragon;
+    }
+
+    public static int getMoneyForWither() {
+        return moneyForWither;
+    }
+
+    public static void setMoneyForWither(int moneyForWither) {
+        FeudalValuesUtils.moneyForWither = moneyForWither;
     }
 }

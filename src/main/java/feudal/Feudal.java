@@ -27,27 +27,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class Feudal extends JavaPlugin {
 
-    static Plugin plugin;
+    private static Plugin plugin;
 
     public static Plugin getPlugin() {
 
         return plugin;
-
-    }
-
-    @Override
-    public void onEnable() {
-
-        plugin = this;
-
-        registerCommands();
-        registerEvents();
-
-        LoadAndSaveDataUtils.loadAllConfigs();
-        LoadAndSaveDataUtils.loadPlacedBlocks();
-
-        PlannedActivitiesUtils.taxCollection();
-//        PlannedActivitiesUtils.restart();
 
     }
 
@@ -119,4 +103,25 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new WoodcutterExpListener(), this);
 
     }
+
+    public static void setPlugin(Plugin plugin) {
+        Feudal.plugin = plugin;
+    }
+
+    @Override
+    public void onEnable() {
+
+        setPlugin(this);
+
+        registerCommands();
+        registerEvents();
+
+        LoadAndSaveDataUtils.loadAllConfigs();
+        LoadAndSaveDataUtils.loadPlacedBlocks();
+
+        PlannedActivitiesUtils.taxCollection();
+//        PlannedActivitiesUtils.restart();
+
+    }
+
 }
