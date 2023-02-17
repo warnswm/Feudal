@@ -103,7 +103,7 @@ public class FeudalKingdom {
     }
 
 
-    public final FeudalKingdom takeMember(@NotNull Player player) {
+    public final FeudalKingdom removeMember(@NotNull Player player) {
         membersUUID.remove(player.getUniqueId());
         return this;
     }

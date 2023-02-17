@@ -81,6 +81,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "kick":
+
+                kickPlayer(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
+
+                break;
+
             case "reject":
 
                 reject(player, args[1]);
@@ -315,6 +321,39 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
+    private void kickPlayer(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+
+        Player invitedPlayer = Bukkit.getPlayerExact(nick);
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
+        if (kingdomName.equals("") || feudalKingdom == null) {
+
+            playerInviting.sendMessage("Вы не состоите в королевстве!");
+            return;
+
+        } else if (invitedPlayer == playerInviting) {
+
+            playerInviting.sendMessage("Вы не можете кикнуть самого себя!");
+            return;
+
+        } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId())) {
+
+            playerInviting.sendMessage("Вы не лидер королевства!");
+            return;
+
+        } else if (!feudalKingdom.getMembersUUID().contains(invitedPlayer.getUniqueId())) {
+
+            playerInviting.sendMessage("Игрок не состоит в вашем королевстве!");
+            return;
+
+        }
+
+        feudalKingdom.removeMember(playerInviting);
+
+        feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(member).sendMessage("Игрок " + invitedPlayer.getName() + " был кикнут из вашего королевства!"));
+
+    }
+
     private void reject(@NotNull Player player, String kingdomName) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
@@ -388,12 +427,14 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        feudalKingdom.getMembersUUID().remove(player.getUniqueId().toString());
+        feudalKingdom.getMembersUUID().remove(player.getUniqueId());
         feudalPlayer.setKingdomName("");
 
+        feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(member).sendMessage("Игрок " + player.getName() + " покинул ваше королевство!"));
         player.sendMessage("Вы покинули королевство " + kingdomName);
 
     }
+
 
     private void addBaron(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
 
