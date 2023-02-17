@@ -74,31 +74,20 @@
 
 
         <dependency>
-
         <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.26</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-
         <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
-            <version>3.12.10</version>
+            <version>3.12.11</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
-
-        <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.9.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-
         <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>23.1.0</version>
@@ -106,7 +95,6 @@
         </dependency>
 
         <dependency>
-
         <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>4.8.0</version>
@@ -114,26 +102,9 @@
         </dependency>
 
         <dependency>
-
         <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
-        </dependency>
-
-        <dependency>
-
-        <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>4.11.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-
-        <groupId>com.github.seeseemelk</groupId>
-            <artifactId>MockBukkit-v1.19</artifactId>
-            <version>2.138.0</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
