@@ -204,7 +204,7 @@ public class PlayerL implements Listener {
 
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
-        if (item.getDurability() != 0 ||
+        if (item.getDurability() != 0 &&
                 MathUtils.getRandomInt(1, 26) == 25)
             item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));
 

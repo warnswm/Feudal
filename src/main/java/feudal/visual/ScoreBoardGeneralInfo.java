@@ -19,21 +19,26 @@ public class ScoreBoardGeneralInfo {
         objective.setDisplayName("Feudal");
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        String kingdomName = feudalPlayer.getKingdomName().equals("") ? "N/A" : feudalPlayer.getKingdomName();
 
-        Score name = objective.getScore("Имя: " + player.getName());
-        Score kingdom = objective.getScore("Королевство: " + feudalPlayer.getKingdomName());
-        Score profession = objective.getScore("Класс: " + ProfessionIDE.getNameByID(feudalPlayer.getProfessionID()));
-        Score professionExp = objective.getScore("Опыта класса: " + feudalPlayer.getProfessionExperience());
-        Score attributeExp = objective.getScore("Опыта атрибутов: " + feudalPlayer.getExperience());
-        Score balance = objective.getScore("Баланс: " + feudalPlayer.getBalance());
+        Score playerScore = objective.getScore("§bИгрок");
+        Score kingdom = objective.getScore("Королевство ➡ " + kingdomName);
+        Score profession = objective.getScore("Профессия ➡ §a" + ProfessionIDE.getNameByID(feudalPlayer.getProfessionID()));
+        Score professionExp = objective.getScore("Уровень класса ➡ " + feudalPlayer.getProfessionLvl());
+        Score attributeExp = objective.getScore("Опыт атрибутов ➡ " + feudalPlayer.getExperience());
+        Score air = objective.getScore("");
+        Score playerStatistics = objective.getScore("§bСтатистика");
+        Score balance = objective.getScore("Баланс ➡ " + feudalPlayer.getBalance());
 
 
-        name.setScore(7);
+        playerScore.setScore(7);
         kingdom.setScore(6);
         profession.setScore(5);
         professionExp.setScore(4);
         attributeExp.setScore(3);
-        balance.setScore(2);
+        air.setScore(2);
+        playerStatistics.setScore(1);
+        balance.setScore(0);
 
         player.setScoreboard(scoreboard);
 

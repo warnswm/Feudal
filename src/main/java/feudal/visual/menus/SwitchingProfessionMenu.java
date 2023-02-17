@@ -1,5 +1,6 @@
 package feudal.visual.menus;
 
+import feudal.data.database.PlayerDBHandler;
 import feudal.utils.CreateItemUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -24,6 +25,8 @@ public class SwitchingProfessionMenu {
         switchingProfession.setItem(49, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Дровосек"));
 
         player.openInventory(switchingProfession);
+
+        PlayerDBHandler.addField(player, "upProfession", PlayerDBHandler.getIntegerField(player, "upProfession") + 1);
 
     }
 
