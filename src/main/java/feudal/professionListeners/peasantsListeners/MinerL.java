@@ -16,7 +16,7 @@ public class MinerL implements Listener {
 
     private static boolean isPlaced(FeudalPlayer feudalPlayer, @NotNull Block block) {
         return block.hasMetadata("PLACED") ||
-                feudalPlayer.getAClassID() != ProfessionIDE.MINER.getId() ||
+                feudalPlayer.getProfessionID() != ProfessionIDE.MINER.getId() ||
                 !block.getType().equals(Material.GOLD_ORE) &&
                         !block.getType().equals(Material.IRON_ORE);
     }
@@ -30,10 +30,10 @@ public class MinerL implements Listener {
         if (isPlaced(feudalPlayer, block)) return;
 
         block.getWorld().dropItemNaturally(block.getLocation(), block.getType().equals(Material.GOLD_ORE) ?
-                feudalPlayer.getGameClassLvl() >= 25 ?
+                feudalPlayer.getProfessionLvl() >= 25 ?
                         new ItemStack(Material.GOLD_INGOT, MathUtils.getRandomInt(1, 4)) :
                         new ItemStack(Material.GOLD_INGOT) :
-                feudalPlayer.getGameClassLvl() >= 25 ? new ItemStack(Material.GOLD_INGOT, MathUtils.getRandomInt(1, 4)) :
+                feudalPlayer.getProfessionLvl() >= 25 ? new ItemStack(Material.GOLD_INGOT, MathUtils.getRandomInt(1, 4)) :
                         new ItemStack(Material.IRON_INGOT));
 
     }

@@ -20,11 +20,11 @@ public class WoodcutterExpL implements Listener {
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
         if (block.hasMetadata("PLACED") ||
-                feudalPlayer.getAClassID() != ProfessionIDE.WOODCUTTER.getId() ||
+                feudalPlayer.getProfessionID() != ProfessionIDE.WOODCUTTER.getId() ||
                 !block.getType().equals(LOG)) return;
 
         feudalPlayer.addExperience(2);
-        feudalPlayer.addGameClassExperience(8);
+        feudalPlayer.addProfessionExperience(8);
 
     }
 }

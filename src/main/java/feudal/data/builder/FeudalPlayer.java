@@ -26,7 +26,7 @@ public class FeudalPlayer {
     UUID playerUUID;
     String kingdomName;
     List<String> letters = new ArrayList<>();
-    int aClassID, experience, balance, deaths, kills, strengthLvl, survivabilityLvl, speedLvl, staminaLvl, luckLvl, gameClassLvl, gameClassExperience;
+    int professionID, experience, balance, deaths, kills, strengthLvl, survivabilityLvl, speedLvl, staminaLvl, luckLvl, professionLvl, professionExperience;
 
     public FeudalPlayer(@NotNull Player player) {
         playerUUID = player.getUniqueId();
@@ -37,8 +37,8 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer setaClassID(int value) {
-        aClassID = value;
+    public final FeudalPlayer setProfessionID(int value) {
+        professionID = value;
         return this;
     }
 
@@ -87,13 +87,13 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer setGameClassLvl(int gameClassLvl) {
-        this.gameClassLvl = gameClassLvl;
+    public final FeudalPlayer setProfessionLvl(int value) {
+        professionLvl = value;
         return this;
     }
 
-    public final FeudalPlayer setGameClassExperience(int value) {
-        gameClassExperience = value;
+    public final FeudalPlayer setProfessionExperience(int value) {
+        professionExperience = value;
         return this;
     }
 
@@ -164,21 +164,21 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer addGameClassLvl(int value) {
-        gameClassLvl += value;
+    public final FeudalPlayer addProfessionLvl(int value) {
+        professionLvl += value;
         return this;
     }
 
-    public final FeudalPlayer addGameClassExperience(int value) {
+    public final FeudalPlayer addProfessionExperience(int value) {
 
-        gameClassExperience += value;
+        professionExperience += value;
 
         Player player = Bukkit.getPlayer(playerUUID);
 
-        if (gameClassLvl <= 100 && gameClassExperience >= (int) (Math.pow(1 + 0.05, gameClassLvl) * 100)) {
+        if (professionLvl <= 100 && professionExperience >= (int) (Math.pow(1 + 0.05, professionLvl) * 100)) {
 
-            addGameClassLvl(1);
-            takeGameClassExperience((int) (Math.pow(1 + 0.05, gameClassLvl) * 100));
+            addProfessionLvl(1);
+            takeProfessionExperience((int) (Math.pow(1 + 0.05, professionLvl) * 100));
 
             player.sendMessage("+1 уровень класса");
 
@@ -252,14 +252,14 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer takeGameClassLvl(int value) {
-        gameClassLvl -= value;
+    public final FeudalPlayer takeProfessionLvl(int value) {
+        professionLvl -= value;
         return this;
     }
 
-    public final FeudalPlayer takeGameClassExperience(int value) {
+    public final FeudalPlayer takeProfessionExperience(int value) {
 
-        gameClassExperience -= value;
+        professionExperience -= value;
 
         Player player = Bukkit.getPlayer(playerUUID);
 

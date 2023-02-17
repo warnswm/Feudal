@@ -17,8 +17,8 @@ public class FishermanL implements Listener {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
-        if (feudalPlayer.getAClassID() != ProfessionIDE.FISHERMAN.getId() ||
-                feudalPlayer.getGameClassLvl() < 25 ||
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.FISHERMAN.getId() ||
+                feudalPlayer.getProfessionLvl() < 25 ||
                 event.getState() != PlayerFishEvent.State.CAUGHT_FISH) return;
 
         int item = MathUtils.getRandomInt(1, 6), random = MathUtils.getRandomInt(1, 8);

@@ -29,10 +29,10 @@ public class PlayerDBHandler {
                     .hasNext()) return true;
 
             collection.insertOne(new Document("_id", player.getUniqueId().hashCode())
-                    .append("classID", 0)
+                    .append("professionID", 0)
                     .append("experience", 0)
-                    .append("gameClassLvl", 0)
-                    .append("gameClassExperience", 0)
+                    .append("professionLvl", 0)
+                    .append("professionExperience", 0)
                     .append("balance", 1000)
                     .append("deaths", 0)
                     .append("kills", 0)
@@ -201,10 +201,10 @@ public class PlayerDBHandler {
 
             collection.findOneAndReplace(Filters.eq("_id", uuid),
                     new Document("_id", uuid)
-                            .append("classID", 0)
+                            .append("professionID", 0)
                             .append("experience", 0)
-                            .append("gameClassLvl", 0)
-                            .append("gameClassExperience", 0)
+                            .append("professionLvl", 0)
+                            .append("professionExperience", 0)
                             .append("balance", 1000)
                             .append("deaths", 0)
                             .append("kills", 0)

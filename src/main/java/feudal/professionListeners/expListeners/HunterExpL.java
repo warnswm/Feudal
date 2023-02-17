@@ -20,12 +20,12 @@ public class HunterExpL implements Listener {
         Player player = event.getEntity().getKiller();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        if (feudalPlayer.getAClassID() != ProfessionIDE.HUNTER.getId()) return;
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.HUNTER.getId()) return;
 
         int exp = AnimalsForHuntedE.getAttributeExpByEntity(event.getEntityType());
 
         feudalPlayer.addExperience(exp);
-        feudalPlayer.addGameClassExperience(4 * exp);
+        feudalPlayer.addProfessionExperience(4 * exp);
 
     }
 }

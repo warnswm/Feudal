@@ -21,7 +21,7 @@ public class ClerkL implements Listener {
                 !event.getClickedBlock().getType().equals(Material.ENCHANTMENT_TABLE) ||
                 !player.isSneaking() ||
                 !event.getAction().equals(Action.LEFT_CLICK_BLOCK) ||
-                feudalPlayer.getAClassID() != ProfessionIDE.CLERK.getId();
+                feudalPlayer.getProfessionID() != ProfessionIDE.CLERK.getId();
     }
 
     @EventHandler
@@ -29,18 +29,18 @@ public class ClerkL implements Listener {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getEnchanter());
 
-        if (event.getItem().getType().equals(Material.BOOK) && feudalPlayer.getAClassID() != ProfessionIDE.CLERK.getId()) {
+        if (event.getItem().getType().equals(Material.BOOK) && feudalPlayer.getProfessionID() != ProfessionIDE.CLERK.getId()) {
 
             event.setCancelled(true);
             return;
 
         }
 
-        int classLvl = feudalPlayer.getGameClassLvl();
-        if (classLvl < 75) return;
+        int professionLvl = feudalPlayer.getProfessionLvl();
+        if (professionLvl < 75) return;
 
 
-        if (classLvl == 100)
+        if (professionLvl == 100)
             event.getItem().addUnsafeEnchantment(EnchantmentE.getRandomEnchantment(), 1);
 
         else

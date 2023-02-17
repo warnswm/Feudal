@@ -22,7 +22,7 @@ import java.util.Objects;
 public class BuilderL implements Listener {
 
     private static boolean isBlockEntity(@NotNull BlockPlaceEvent event, @NotNull FeudalPlayer feudalPlayer, Block block) {
-        return feudalPlayer.getAClassID() != ProfessionIDE.BUILDER.getId() ||
+        return feudalPlayer.getProfessionID() != ProfessionIDE.BUILDER.getId() ||
                 !block.getType().equals(Material.MOB_SPAWNER) ||
                 CraftItemStack.asNMSCopy(event.getItemInHand()).getTag() == null ||
                 Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItemInHand()).getTag()).getString("BlockEntity") == null;
@@ -34,14 +34,14 @@ public class BuilderL implements Listener {
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
         Block block = event.getBlock();
 
-//        if (feudalPlayer.getAClassID() != GameClassesIDE.BUILDER.getId() ||
-//                !block.getType().equals(Material.MOB_SPAWNER)) return;
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.BUILDER.getId() ||
+                !block.getType().equals(Material.MOB_SPAWNER)) return;
 
         if (!block.getType().equals(Material.MOB_SPAWNER)) return;
 
         CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
 
-        if (!SpawnersForBuilderE.canBreak(creatureSpawner.getSpawnedType(), feudalPlayer.getGameClassLvl())) return;
+        if (!SpawnersForBuilderE.canBreak(creatureSpawner.getSpawnedType(), feudalPlayer.getProfessionLvl())) return;
 
 
         net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(new ItemStack(Material.MOB_SPAWNER, 1));

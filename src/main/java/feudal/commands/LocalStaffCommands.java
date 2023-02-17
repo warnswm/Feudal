@@ -39,7 +39,7 @@ public class LocalStaffCommands implements CommandExecutor {
             case "changegc":
 
                 feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
-                feudalPlayer.setaClassID(Integer.parseInt(args[2]));
+                feudalPlayer.setProfessionID(Integer.parseInt(args[2]));
 
                 break;
 

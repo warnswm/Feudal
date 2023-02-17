@@ -20,12 +20,12 @@ public class ShepherdExpL implements Listener {
         Player player = (Player) event.getBreeder();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        if (feudalPlayer.getAClassID() != ProfessionIDE.SHEPHERD.getId()) return;
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.SHEPHERD.getId()) return;
 
         int exp = AnimalsForShepherdE.getAttributeExpByEntity(event.getEntityType());
 
         feudalPlayer.addExperience(exp);
-        feudalPlayer.addGameClassExperience(4 * exp);
+        feudalPlayer.addProfessionExperience(4 * exp);
 
     }
 }

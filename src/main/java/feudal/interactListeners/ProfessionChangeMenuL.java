@@ -22,7 +22,7 @@ public class ProfessionChangeMenuL implements Listener {
         Player player = (Player) event.getView().getPlayer();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        feudalPlayer.setaClassID(ProfessionIDE.getIDByString(event.getCurrentItem().getItemMeta().getDisplayName()));
+        feudalPlayer.setProfessionID(ProfessionIDE.getIDByString(event.getCurrentItem().getItemMeta().getDisplayName()));
         player.closeInventory();
 
     }

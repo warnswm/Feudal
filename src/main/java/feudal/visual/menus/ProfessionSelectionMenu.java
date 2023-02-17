@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ProfessionSelectionMenu {
 
-    public static void openClassSelection(@NotNull Player player) {
+    public static void openProfessionSelection(@NotNull Player player) {
 
         Inventory inventory = Bukkit.createInventory(player, 54, "Выберите класс");
 

@@ -122,10 +122,10 @@ public class LoadAndSaveDataUtils {
 
             feudalPlayer.clearInvitations();
 
-            PlayerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
+            PlayerDBHandler.setField(player, "professionID", feudalPlayer.getProfessionID());
             PlayerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
-            PlayerDBHandler.setField(player, "gameClassLvl", feudalPlayer.getGameClassLvl());
-            PlayerDBHandler.setField(player, "gameClassExperience", feudalPlayer.getGameClassExperience());
+            PlayerDBHandler.setField(player, "professionLvl", feudalPlayer.getProfessionLvl());
+            PlayerDBHandler.setField(player, "professionExperience", feudalPlayer.getProfessionExperience());
             PlayerDBHandler.setField(player, "balance", feudalPlayer.getBalance());
             PlayerDBHandler.setField(player, "deaths", feudalPlayer.getDeaths());
             PlayerDBHandler.setField(player, "kills", feudalPlayer.getKills());
@@ -160,11 +160,11 @@ public class LoadAndSaveDataUtils {
         if (!PlayerDBHandler.hasPlayer(player)) {
 
             feudalPlayer = new FeudalPlayer(player);
-            feudalPlayer.setaClassID(0).setExperience(0).setGameClassExperience(0)
+            feudalPlayer.setProfessionID(0).setExperience(0).setProfessionExperience(0)
                     .setBalance(1000).setDeaths(0).setKills(0)
                     .setLuckLvl(0).setSpeedLvl(0).setStaminaLvl(0)
                     .setStrengthLvl(0).setKingdomName("").setSurvivabilityLvl(0)
-                    .setGameClassLvl(0);
+                    .setProfessionLvl(0);
 
             return;
 
@@ -173,10 +173,10 @@ public class LoadAndSaveDataUtils {
         int speedLvl = PlayerDBHandler.getIntegerField(player, "speedLvl"), survivabilityLvl = PlayerDBHandler.getIntegerField(player, "survivabilityLvl");
 
         feudalPlayer = new FeudalPlayer(player);
-        feudalPlayer.setaClassID(PlayerDBHandler.getIntegerField(player, "classID"))
+        feudalPlayer.setProfessionID(PlayerDBHandler.getIntegerField(player, "professionID"))
                 .setExperience(PlayerDBHandler.getIntegerField(player, "experience"))
-                .setGameClassLvl(PlayerDBHandler.getIntegerField(player, "gameClassLvl"))
-                .setGameClassExperience(PlayerDBHandler.getIntegerField(player, "gameClassExperience"))
+                .setProfessionLvl(PlayerDBHandler.getIntegerField(player, "professionLvl"))
+                .setProfessionExperience(PlayerDBHandler.getIntegerField(player, "professionExperience"))
                 .setBalance(PlayerDBHandler.getIntegerField(player, "balance"))
                 .setDeaths(PlayerDBHandler.getIntegerField(player, "deaths"))
                 .setKills(PlayerDBHandler.getIntegerField(player, "kills"))
@@ -213,10 +213,10 @@ public class LoadAndSaveDataUtils {
 
             FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-            PlayerDBHandler.setField(player, "classID", feudalPlayer.getAClassID());
+            PlayerDBHandler.setField(player, "professionID", feudalPlayer.getProfessionID());
             PlayerDBHandler.setField(player, "experience", feudalPlayer.getExperience());
-            PlayerDBHandler.setField(player, "gameClassLvl", feudalPlayer.getGameClassLvl());
-            PlayerDBHandler.setField(player, "gameClassExperience", feudalPlayer.getGameClassExperience());
+            PlayerDBHandler.setField(player, "professionLvl", feudalPlayer.getProfessionLvl());
+            PlayerDBHandler.setField(player, "professionExperience", feudalPlayer.getProfessionExperience());
             PlayerDBHandler.setField(player, "balance", feudalPlayer.getBalance());
             PlayerDBHandler.setField(player, "deaths", feudalPlayer.getDeaths());
             PlayerDBHandler.setField(player, "kills", feudalPlayer.getKills());

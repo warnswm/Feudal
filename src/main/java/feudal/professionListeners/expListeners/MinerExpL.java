@@ -20,12 +20,12 @@ public class MinerExpL implements Listener {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
-        if (feudalPlayer.getAClassID() != ProfessionIDE.MINER.getId()) return;
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.MINER.getId()) return;
 
         int exp = BlocksForMinerE.getAttributeExpByMaterial(block.getType());
 
         feudalPlayer.addExperience(exp);
-        feudalPlayer.addGameClassExperience(4 * exp);
+        feudalPlayer.addProfessionExperience(4 * exp);
 
     }
 }

@@ -16,7 +16,7 @@ public class ClerkExpL implements Listener {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getEnchanter());
 
-        if (event.getItem().getType().equals(Material.BOOK) && feudalPlayer.getAClassID() != ProfessionIDE.CLERK.getId()) {
+        if (event.getItem().getType().equals(Material.BOOK) && feudalPlayer.getProfessionID() != ProfessionIDE.CLERK.getId()) {
 
             event.setCancelled(true);
             return;
@@ -28,17 +28,17 @@ public class ClerkExpL implements Listener {
         if (expLevelCost > 20) {
 
             feudalPlayer.addExperience(17);
-            feudalPlayer.addGameClassExperience(68);
+            feudalPlayer.addProfessionExperience(68);
 
         } else if (expLevelCost > 10) {
 
             feudalPlayer.addExperience(10);
-            feudalPlayer.addGameClassExperience(40);
+            feudalPlayer.addProfessionExperience(40);
 
         } else if (expLevelCost > 2) {
 
             feudalPlayer.addExperience(5);
-            feudalPlayer.addGameClassExperience(20);
+            feudalPlayer.addProfessionExperience(20);
 
         }
 

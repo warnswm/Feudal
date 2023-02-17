@@ -24,10 +24,10 @@ public class WoodcutterL implements Listener {
         Block block = event.getBlock();
 
         if (block.hasMetadata("PLACED") ||
-                feudalPlayer.getAClassID() != ProfessionIDE.WOODCUTTER.getId()) return;
+                feudalPlayer.getProfessionID() != ProfessionIDE.WOODCUTTER.getId()) return;
 
 
-        if (feudalPlayer.getGameClassLvl() >= 75 && MathUtils.getRandomInt(1, 4) == 3)
+        if (feudalPlayer.getProfessionLvl() >= 75 && MathUtils.getRandomInt(1, 4) == 3)
             cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
 
     }

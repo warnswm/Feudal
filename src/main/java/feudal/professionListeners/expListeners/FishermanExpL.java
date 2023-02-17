@@ -15,11 +15,11 @@ public class FishermanExpL implements Listener {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
 
-        if (feudalPlayer.getAClassID() != ProfessionIDE.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH)
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.FISHERMAN.getId() || event.getState() != PlayerFishEvent.State.CAUGHT_FISH)
             return;
 
         feudalPlayer.addExperience(20);
-        feudalPlayer.addGameClassExperience(80);
+        feudalPlayer.addProfessionExperience(80);
 
     }
 }

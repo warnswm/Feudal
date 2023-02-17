@@ -15,13 +15,13 @@ public enum SpawnersForBuilderE {
     CAVE_SPIDER(EntityType.CAVE_SPIDER, 25);
 
     EntityType entity;
-    int gameClassLvl;
+    int professionLvl;
 
-    public static boolean canBreak(EntityType entity, int gameClassLvl) {
+    public static boolean canBreak(EntityType entity, int professionLvl) {
 
         for (SpawnersForBuilderE spawnersForBuilderE : values())
             if (spawnersForBuilderE.getEntity() == entity &&
-                    gameClassLvl >= spawnersForBuilderE.getGameClassLvl())
+                    professionLvl >= spawnersForBuilderE.getProfessionLvl())
                 return true;
 
         return false;

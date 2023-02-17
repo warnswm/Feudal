@@ -16,12 +16,12 @@ public enum ProfessionIDE {
     CLERK(12, "Писарь");
 
     int id;
-    String gameClassName;
+    String professionName;
 
-    public static int getIDByString(String gameClassName) {
+    public static int getIDByString(String professionName) {
 
         for (ProfessionIDE professionIDE : values())
-            if (professionIDE.getGameClassName().equals(gameClassName))
+            if (professionIDE.getProfessionName().equals(professionName))
                 return professionIDE.getId();
 
         return 0;
@@ -32,9 +32,9 @@ public enum ProfessionIDE {
 
         for (ProfessionIDE professionIDE : values())
             if (professionIDE.getId() == id)
-                return professionIDE.getGameClassName();
+                return professionIDE.getProfessionName();
 
-        return "Не выбран";
+        return "Не выбрана";
 
     }
 }

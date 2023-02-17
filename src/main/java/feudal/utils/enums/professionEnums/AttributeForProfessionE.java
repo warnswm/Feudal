@@ -14,13 +14,13 @@ public enum AttributeForProfessionE {
     STRENGTH_AND_LUCK(6, "Сила", "Удача"), STAMINA_AND_SURVIVABILITY(7, "Выносливость", "Живучесть"),
     STRENGTH_AND_SURVIVABILITY(9, "Сила", "Живучесть");
 
-    final int oneClassID;
+    final int oneProfessionID;
     final String oneAttributeName;
     final String secondAttributeName;
-    int secondClassID;
+    int secondProfessionID;
 
-    AttributeForProfessionE(int oneClassID, String oneAttributeName, String secondAttributeName) {
-        this.oneClassID = oneClassID;
+    AttributeForProfessionE(int oneProfessionID, String oneAttributeName, String secondAttributeName) {
+        this.oneProfessionID = oneProfessionID;
         this.oneAttributeName = oneAttributeName;
         this.secondAttributeName = secondAttributeName;
     }
@@ -28,8 +28,8 @@ public enum AttributeForProfessionE {
     public static String getOneAttributeNameByID(int id) {
 
         for (AttributeForProfessionE attributeForProfessionE : values())
-            if (attributeForProfessionE.getOneClassID() == id ||
-                    attributeForProfessionE.getSecondClassID() == id)
+            if (attributeForProfessionE.getOneProfessionID() == id ||
+                    attributeForProfessionE.getSecondProfessionID() == id)
                 return attributeForProfessionE.getOneAttributeName();
 
         return "";
@@ -39,8 +39,8 @@ public enum AttributeForProfessionE {
     public static String getSecondAttributeNameByID(int id) {
 
         for (AttributeForProfessionE attributeForProfessionE : values())
-            if (attributeForProfessionE.getOneClassID() == id ||
-                    attributeForProfessionE.getSecondClassID() == id)
+            if (attributeForProfessionE.getOneProfessionID() == id ||
+                    attributeForProfessionE.getSecondProfessionID() == id)
                 return attributeForProfessionE.getSecondAttributeName();
 
         return "";

@@ -15,14 +15,14 @@ public class CookL implements Listener {
     @EventHandler
     public final void playerExtractFurnace(@NotNull FurnaceExtractEvent event) {
 
-        if (CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()).getAClassID()
+        if (CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()).getProfessionID()
                 != ProfessionIDE.COOK.getId()) return;
 
         net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(event.getPlayer().getItemOnCursor());
 
         NBTTagCompound tag = nmsItem.getTag() != null ? nmsItem.getTag() : new NBTTagCompound();
         tag.setBoolean("cookedByChef", true);
-        tag.setByte("chefLvl", (byte) CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()).getGameClassLvl());
+        tag.setByte("chefLvl", (byte) CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()).getProfessionLvl());
 
         nmsItem.setTag(tag);
         event.getPlayer().setItemOnCursor(CraftItemStack.asBukkitCopy(nmsItem));

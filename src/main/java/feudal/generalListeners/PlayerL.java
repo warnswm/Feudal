@@ -120,7 +120,7 @@ public class PlayerL implements Listener {
                 "-=[Короролевство: " +
                 kingdomName +
                 ", класс: " +
-                ProfessionIDE.getNameByID(feudalPlayer.getAClassID()) +
+                ProfessionIDE.getNameByID(feudalPlayer.getProfessionID()) +
                 ", убийств: " + feudalPlayer.getKills() +
                 ", смертей: " + feudalPlayer.getDeaths() +
                 "]=-" +

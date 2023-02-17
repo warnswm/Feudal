@@ -23,8 +23,8 @@ public class HunterL implements Listener {
         if (player == null) return;
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-        if (feudalPlayer.getAClassID() != ProfessionIDE.HUNTER.getId() ||
-                feudalPlayer.getGameClassLvl() < 25) return;
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.HUNTER.getId() ||
+                feudalPlayer.getProfessionLvl() < 25) return;
 
         List<ItemStack> drops = event.getDrops();
 
