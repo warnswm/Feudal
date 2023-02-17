@@ -6,8 +6,6 @@ import feudal.commands.PlayerCommands;
 import feudal.commands.StaffCommands;
 import feudal.donateItemsListeners.*;
 import feudal.fishing.PlayerCaughtFish;
-import feudal.gcListeners.expListeners.*;
-import feudal.gcListeners.peasantsListeners.*;
 import feudal.generalListeners.ArmorL;
 import feudal.generalListeners.MobL;
 import feudal.generalListeners.PlayerJoinAndQuitL;
@@ -16,6 +14,8 @@ import feudal.generalListeners.craftItems.CraftItemsL;
 import feudal.interactListeners.*;
 import feudal.possessions.territoryListeners.BlocksListener;
 import feudal.possessions.territoryListeners.InteractListener;
+import feudal.professionListeners.expListeners.*;
+import feudal.professionListeners.peasantsListeners.*;
 import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.PlannedActivitiesUtils;
 import lombok.AccessLevel;
@@ -57,9 +57,9 @@ public final class Feudal extends JavaPlugin {
 
     private void registerEvents() {
 
-        Bukkit.getPluginManager().registerEvents(new GCChangeMenuL(), this);
+        Bukkit.getPluginManager().registerEvents(new ProfessionChangeMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new AttributesUpMenuL(), this);
-        Bukkit.getPluginManager().registerEvents(new GCUpMenuL(), this);
+        Bukkit.getPluginManager().registerEvents(new ProfessionUpMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new MailMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new GeneralMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkMenuL(), this);

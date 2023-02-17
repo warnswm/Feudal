@@ -1,7 +1,7 @@
 package feudal.interactListeners;
 
 import feudal.utils.CreateItemUtils;
-import feudal.utils.enums.gcEnums.ClerkTakeExpE;
+import feudal.utils.enums.professionEnums.ClerkTakeExpE;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

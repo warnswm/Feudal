@@ -6,7 +6,7 @@ import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.MathUtils;
 import feudal.utils.enums.BlockToSaveE;
 import feudal.utils.enums.MoneyForMobsE;
-import feudal.utils.enums.gcEnums.GameClassesIDE;
+import feudal.utils.enums.professionEnums.ProfessionIDE;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -120,7 +120,7 @@ public class PlayerL implements Listener {
                 "-=[Короролевство: " +
                 kingdomName +
                 ", класс: " +
-                GameClassesIDE.getNameByID(feudalPlayer.getAClassID()) +
+                ProfessionIDE.getNameByID(feudalPlayer.getAClassID()) +
                 ", убийств: " + feudalPlayer.getKills() +
                 ", смертей: " + feudalPlayer.getDeaths() +
                 "]=-" +
