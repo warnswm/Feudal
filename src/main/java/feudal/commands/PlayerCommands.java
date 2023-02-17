@@ -57,9 +57,23 @@ public class PlayerCommands implements CommandExecutor {
 
                 }
 
-                withdrawMoneyFromTheTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
+                withdrawMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
 
                 break;
+
+            case "replenish":
+
+                if (args[1].length() > 10) {
+
+                    player.sendMessage("Слишком большая сумма для пополнения");
+                    break;
+
+                }
+
+                replenishMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
+
+                break;
+
 
             case "invite":
 
@@ -184,7 +198,7 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void withdrawMoneyFromTheTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
+    private void withdrawMoneyFromTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
 
         FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
 
@@ -193,10 +207,10 @@ public class PlayerCommands implements CommandExecutor {
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId().toString()) &&
+        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId()) &&
                 !feudalKingdom.getKingUUID().equals(player.getUniqueId().toString())) {
 
-            player.sendMessage("Недостаточно прав для снаятия денег с казны!");
+            player.sendMessage("Недостаточно прав для снятия денег с казны!");
             return;
 
         }
@@ -210,6 +224,36 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.takeBalance(colum);
         CacheFeudalPlayers.getFeudalPlayer(player).addBalance(colum - colum / 100 * 5);
+
+    }
+
+    private void replenishMoneyFromTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
+
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
+        if (kingdomName.equals("")) {
+
+            player.sendMessage("Вы не состоите в королевстве!");
+            return;
+
+        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId()) &&
+                !feudalKingdom.getKingUUID().equals(player.getUniqueId().toString())) {
+
+            player.sendMessage("Недостаточно прав для пополнения казны!");
+            return;
+
+        }
+
+        if (feudalPlayer.getBalance() < colum) {
+
+            player.sendMessage("Недостаточно средств!");
+            return;
+
+        }
+
+        feudalPlayer.takeBalance(colum);
+        feudalKingdom.addBalance(colum - colum / 100 * 5);
 
     }
 

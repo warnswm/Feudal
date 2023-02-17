@@ -35,6 +35,10 @@ public final class Feudal extends JavaPlugin {
 
     }
 
+    public static void setPlugin(Plugin plugin) {
+        Feudal.plugin = plugin;
+    }
+
     @Override
     public void onDisable() {
 
@@ -101,10 +105,6 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ShepherdExpL(), this);
         Bukkit.getPluginManager().registerEvents(new WoodcutterExpL(), this);
 
-    }
-
-    public static void setPlugin(Plugin plugin) {
-        Feudal.plugin = plugin;
     }
 
     @Override

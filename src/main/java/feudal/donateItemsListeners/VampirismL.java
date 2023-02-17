@@ -2,7 +2,6 @@ package feudal.donateItemsListeners;
 
 import feudal.utils.FeudalValuesUtils;
 import feudal.utils.MathUtils;
-import org.bukkit.Particle;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +34,6 @@ public class VampirismL implements Listener {
                 20 : player.getHealth() + event.getDamage() / 100 * vampirismLvl;
 
         player.setHealth(health);
-        player.spawnParticle(Particle.REDSTONE, player.getLocation(), 0, 1, 0, 0);
 
     }
 
