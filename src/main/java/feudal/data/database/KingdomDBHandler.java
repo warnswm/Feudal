@@ -192,6 +192,41 @@ public class KingdomDBHandler {
         }
 
         return 0;
+
+    }
+
+    public static String getStringField(String kingdomName, String fieldName) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .hasNext()) return "";
+
+            Document document = collection.find(new BasicDBObject("_id", kingdomName))
+                    .iterator()
+                    .next();
+
+            if (document.get(fieldName) != null)
+                return (String) document.get(fieldName);
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+
+            session.abortTransaction();
+
+        } finally {
+
+            session.close();
+
+        }
+
+        return "";
     }
 
     public static void setField(String kingdomName, String fieldName, Object value) {
