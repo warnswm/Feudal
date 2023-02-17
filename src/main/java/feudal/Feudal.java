@@ -4,18 +4,18 @@ import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
 import feudal.commands.StaffCommands;
-import feudal.donateItemsListeners.*;
 import feudal.fishing.PlayerCaughtFish;
-import feudal.generalListeners.ArmorL;
-import feudal.generalListeners.MobL;
-import feudal.generalListeners.PlayerJoinAndQuitL;
-import feudal.generalListeners.PlayerL;
-import feudal.generalListeners.craftItems.CraftItemsL;
-import feudal.interactListeners.*;
-import feudal.possessions.territoryListeners.BlocksListener;
-import feudal.possessions.territoryListeners.InteractListener;
-import feudal.professionListeners.expListeners.*;
-import feudal.professionListeners.peasantsListeners.*;
+import feudal.listeners.donateItemsListeners.*;
+import feudal.listeners.generalListeners.ArmorL;
+import feudal.listeners.generalListeners.MobL;
+import feudal.listeners.generalListeners.PlayerJoinAndQuitL;
+import feudal.listeners.generalListeners.PlayerL;
+import feudal.listeners.generalListeners.craftItems.CraftItemsL;
+import feudal.listeners.interactListeners.*;
+import feudal.listeners.professionListeners.expListeners.*;
+import feudal.listeners.professionListeners.peasantsListeners.*;
+import feudal.listeners.territoryListeners.BlocksL;
+import feudal.listeners.territoryListeners.InteractL;
 import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.PlannedActivitiesUtils;
 import lombok.AccessLevel;
@@ -67,6 +67,8 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MailMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new GeneralMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkMenuL(), this);
+        Bukkit.getPluginManager().registerEvents(new AuctionMenuL(), this);
+        Bukkit.getPluginManager().registerEvents(new SwitchingProfessionMenuL(), this);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuitL(), this);
         Bukkit.getPluginManager().registerEvents(new CraftItemsL(), this);
@@ -82,8 +84,8 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CookL(), this);
 
         Bukkit.getPluginManager().registerEvents(new MobL(), this);
-        Bukkit.getPluginManager().registerEvents(new BlocksListener(), this);
-        Bukkit.getPluginManager().registerEvents(new InteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlocksL(), this);
+        Bukkit.getPluginManager().registerEvents(new InteractL(), this);
         Bukkit.getPluginManager().registerEvents(new ArmorL(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
 

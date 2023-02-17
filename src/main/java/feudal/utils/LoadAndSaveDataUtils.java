@@ -8,7 +8,7 @@ import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.PlayerDBHandler;
-import feudal.generalListeners.PlayerL;
+import feudal.listeners.generalListeners.PlayerL;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import feudal.visual.ScoreBoardGeneralInfo;
 import lombok.AccessLevel;
