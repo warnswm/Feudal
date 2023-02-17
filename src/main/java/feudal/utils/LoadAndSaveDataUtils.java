@@ -38,24 +38,23 @@ public class LoadAndSaveDataUtils {
         String kingdomName = getPlayerKingdom(player);
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
+        List<String> membersString = getList(kingdomName, "members");
         List<UUID> membersUUID = new ArrayList<>();
-        getList(kingdomName, "members").forEach(member -> membersUUID.add(UUID.fromString((String) member)));
+        membersString.forEach(member -> membersUUID.add(UUID.fromString(member)));
 
+        List<String> baronsString = getList(kingdomName, "baron");
         List<UUID> baronsUUID = new ArrayList<>();
-        getList(kingdomName, "baron").forEach(baron -> baronsUUID.add(UUID.fromString((String) baron)));
-
-        List<Integer> territory = getList(kingdomName, "territory");
-        List<Integer> privateTerritory = getList(kingdomName, "privateTerritory");
+        baronsString.forEach(baron -> baronsUUID.add(UUID.fromString(baron)));
 
         feudalKingdom.setKingdomName(kingdomName)
-                .setKing(Bukkit.getPlayer(getStringField(kingdomName, "king")))
+                .setKing(UUID.fromString(getStringField(kingdomName, "king")))
                 .setMembers(membersUUID)
                 .setBarons(baronsUUID)
                 .setReputation(getIntegerField(kingdomName, "reputation"))
                 .setBalance(getIntegerField(kingdomName, "balance"))
                 .setMaxNumberMembers(getIntegerField(kingdomName, "maxNumberMembers"))
-                .setTerritory(Objects.requireNonNull(territory))
-                .setPrivateTerritory(Objects.requireNonNull(privateTerritory));
+                .setTerritory(getList(kingdomName, "territory"))
+                .setPrivateTerritory(getList(kingdomName, "privateTerritory"));
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
@@ -94,34 +93,6 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void saveKingdom(Player player) {
-
-        new Thread(() -> {
-
-            String kingdomName = getPlayerKingdom(player);
-            if (kingdomName.equals("")) return;
-
-            FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
-
-            List<String> membersUUID = new ArrayList<>();
-            feudalKingdom.getMembersUUID().forEach(member -> membersUUID.add(member.toString()));
-
-            List<String> baronsUUID = new ArrayList<>();
-            feudalKingdom.getBaronsUUID().forEach(baron -> baronsUUID.add(baron.toString()));
-
-
-            setField(kingdomName, "members", membersUUID);
-            setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
-            setField(kingdomName, "barons", baronsUUID);
-            setField(kingdomName, "territory", feudalKingdom.getTerritory());
-            setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
-            setField(kingdomName, "balance", feudalKingdom.getBalance());
-            setField(kingdomName, "reputation", feudalKingdom.getReputation());
-
-        }).start();
-
-    }
-
     public static void saveAllPlayers() {
 
         Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
@@ -153,8 +124,6 @@ public class LoadAndSaveDataUtils {
     public static void loadPlayer(@NotNull Player player) {
 
         FeudalPlayer feudalPlayer;
-
-        player.sendMessage("Подождите, ваши данные загружаются!");
 
         if (!PlayerDBHandler.checkPlayer(player)) {
 

@@ -21,10 +21,11 @@ public class PlayerJoinAndQuitL implements Listener {
     public final void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
+        player.sendMessage("Подождите, ваши данные загружаются!");
 
         TasksQueueUtils queue = new TasksQueueUtils()
 
-                .sleep(1, TimeUnit.SECONDS)
+                .sleep(2, TimeUnit.SECONDS)
                 .action(() -> {
 
                     if (player.isOnline()) {
@@ -53,11 +54,10 @@ public class PlayerJoinAndQuitL implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public final void playerQuit(@NotNull PlayerQuitEvent event) {
 
-        if (CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()) == null) return;
-
         Player player = event.getPlayer();
-        LoadAndSaveDataUtils.savePlayer(player);
-        LoadAndSaveDataUtils.saveKingdom(player);
+
+        if (CacheFeudalPlayers.getFeudalPlayer(player) != null)
+            LoadAndSaveDataUtils.savePlayer(player);
 
     }
 }

@@ -36,8 +36,8 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom setKing(@NotNull Player player) {
-        kingUUID = player.getUniqueId();
+    public final FeudalKingdom setKing(@NotNull UUID player) {
+        kingUUID = player;
         return this;
     }
 

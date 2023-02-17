@@ -203,7 +203,7 @@ public class PlayerCommands implements CommandExecutor {
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
         feudalKingdom.setKingdomName(kingdomName)
-                .setKing(player)
+                .setKing(player.getUniqueId())
                 .setBalance(10000)
                 .setReputation(1000)
                 .setMembers(membersUUIDStr)
@@ -215,7 +215,6 @@ public class PlayerCommands implements CommandExecutor {
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
         feudalPlayer.setKingdomName(kingdomName);
-
         player.sendMessage("Вы успешно создали королевство: " + kingdomName);
 
     }
@@ -476,6 +475,8 @@ public class PlayerCommands implements CommandExecutor {
 
         for (int x = (firstLocation.getBlockX() >> 4); x <= (secondLocation.getBlockX() >> 4); x++)
             for (int z = (firstLocation.getBlockZ() >> 4); z <= (secondLocation.getBlockZ() >> 4); z++) {
+
+                System.out.println("x: " + x + " z: " + z);
 
                 if (feudalKingdom.getTerritory().contains(ChunkWrapper.chunkToChunkWrapper(world.getChunkAt(x, z)).hashCode()))
                     canCapture = true;
