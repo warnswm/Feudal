@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
-import java.util.UUID;
 
 public class PlannedActivitiesUtils {
 
@@ -56,7 +55,7 @@ public class PlannedActivitiesUtils {
 
                 }
 
-                for (UUID ignored : kingdom.getValue().getMembersUUID()) {
+                for (String ignored : kingdom.getValue().getMembersUUID()) {
 
                     if (balance < taxOnResidents) {
 

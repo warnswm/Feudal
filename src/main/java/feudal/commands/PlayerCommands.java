@@ -16,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class PlayerCommands implements CommandExecutor {
 
@@ -196,9 +195,6 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        List<UUID> membersUUIDStr = new ArrayList<>();
-        membersUUID.forEach(member -> membersUUIDStr.add(UUID.fromString(member)));
-
         KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
@@ -206,7 +202,7 @@ public class PlayerCommands implements CommandExecutor {
                 .setKing(player.getUniqueId())
                 .setBalance(10000)
                 .setReputation(1000)
-                .setMembers(membersUUIDStr)
+                .setMembers(membersUUID)
                 .setMaxNumberMembers(5)
                 .setBarons(new ArrayList<>())
                 .setTerritory(new ArrayList<>())

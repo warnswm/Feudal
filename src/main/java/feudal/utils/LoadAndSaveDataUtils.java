@@ -38,18 +38,11 @@ public class LoadAndSaveDataUtils {
         String kingdomName = getPlayerKingdom(player);
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
 
-        List<String> membersString = getList(kingdomName, "members");
-        List<UUID> membersUUID = new ArrayList<>();
-        membersString.forEach(member -> membersUUID.add(UUID.fromString(member)));
-
-        List<String> baronsString = getList(kingdomName, "baron");
-        List<UUID> baronsUUID = new ArrayList<>();
-        baronsString.forEach(baron -> baronsUUID.add(UUID.fromString(baron)));
 
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(UUID.fromString(getStringField(kingdomName, "king")))
-                .setMembers(membersUUID)
-                .setBarons(baronsUUID)
+                .setMembers(getList(kingdomName, "members"))
+                .setBarons(getList(kingdomName, "baron"))
                 .setReputation(getIntegerField(kingdomName, "reputation"))
                 .setBalance(getIntegerField(kingdomName, "balance"))
                 .setMaxNumberMembers(getIntegerField(kingdomName, "maxNumberMembers"))
@@ -71,10 +64,10 @@ public class LoadAndSaveDataUtils {
 
 
                 List<String> membersUUID = new ArrayList<>();
-                feudalKingdom.getMembersUUID().forEach(member -> membersUUID.add(member.toString()));
+                feudalKingdom.getMembersUUID().forEach(member -> membersUUID.add(member));
 
                 List<String> baronsUUID = new ArrayList<>();
-                feudalKingdom.getBaronsUUID().forEach(baron -> baronsUUID.add(baron.toString()));
+                feudalKingdom.getBaronsUUID().forEach(baron -> baronsUUID.add(baron));
 
 
                 setField(kingdomName, "members", membersUUID);
