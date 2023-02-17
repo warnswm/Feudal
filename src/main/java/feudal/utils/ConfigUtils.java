@@ -121,6 +121,8 @@ public class ConfigUtils {
 
         FeudalValuesUtils.setBowStunMaxLvl((int) enchantmentsCfg.get("BowStun.bowStunMaxLvl"));
         FeudalValuesUtils.setBowStunPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunPercentagePerLvl"));
+        FeudalValuesUtils.setBowStunTime((int) enchantmentsCfg.get("BowStun.bowStunTime"));
+        FeudalValuesUtils.setBowStunPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunTimePercentagePerLvl"));
 
         FeudalValuesUtils.setGreedMaxLvl((int) enchantmentsCfg.get("Greed.greedMaxLvl"));
         FeudalValuesUtils.setGreedPercentagePerLvl((double) enchantmentsCfg.get("Greed.greedPercentagePerLvl"));
@@ -200,6 +202,8 @@ public class ConfigUtils {
 
             enchantmentsCfg.set("BowStun.bowStunMaxLvl", 1);
             enchantmentsCfg.set("BowStun.bowStunPercentagePerLvl", 1.0);
+            enchantmentsCfg.set("BowStun.bowStunTime", 1);
+            enchantmentsCfg.set("BowStun.bowStunTimePercentagePerLvl", 1.0);
 
             enchantmentsCfg.set("Greed.greedMaxLvl", 1);
             enchantmentsCfg.set("Greed.greedPercentagePerLvl", 1.0);

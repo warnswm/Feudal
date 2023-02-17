@@ -63,6 +63,8 @@ public class FeudalValuesUtils {
 
     private static int bowStunMaxLvl;
     private static double bowStunPercentagePerLvl;
+    private static int bowStunTime;
+    private static double bowStunTimePercentagePerLvl;
 
     private static int greedMaxLvl;
     private static double greedPercentagePerLvl;
@@ -124,7 +126,6 @@ public class FeudalValuesUtils {
     private static double luckPercentageCost;
     private static double survivabilityPercentageCost;
     private static double speedPercentageCost;
-
 
     public static MongoClient getMongoClient() {
         return mongoClient;
@@ -460,6 +461,22 @@ public class FeudalValuesUtils {
 
     public static void setBowStunPercentagePerLvl(double bowStunPercentagePerLvl) {
         FeudalValuesUtils.bowStunPercentagePerLvl = bowStunPercentagePerLvl;
+    }
+
+    public static int getBowStunTime() {
+        return bowStunTime;
+    }
+
+    public static void setBowStunTime(int bowStunTime) {
+        FeudalValuesUtils.bowStunTime = bowStunTime;
+    }
+
+    public static double getBowStunTimePercentagePerLvl() {
+        return bowStunTimePercentagePerLvl;
+    }
+
+    public static void setBowStunTimePercentagePerLvl(double bowStunTimePercentagePerLvl) {
+        FeudalValuesUtils.bowStunTimePercentagePerLvl = bowStunTimePercentagePerLvl;
     }
 
     public static int getGreedMaxLvl() {
