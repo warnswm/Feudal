@@ -21,8 +21,6 @@ import java.util.List;
 
 public class KingdomDBHandler {
 
-    private static final FeudalValuesUtils feudalValuesUtils = new FeudalValuesUtils();
-
     private static final MongoClient mongoClient = FeudalValuesUtils.getMongoClient();
     private static final MongoCollection<Document> collection = FeudalValuesUtils.getKingdomsCollection();
 

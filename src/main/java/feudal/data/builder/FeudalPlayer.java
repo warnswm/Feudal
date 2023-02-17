@@ -313,4 +313,13 @@ public class FeudalPlayer {
         return this;
     }
 
+    public final FeudalPlayer addUpProfession(int value) {
+        upProfession += value;
+        return this;
+    }
+
+    public final FeudalPlayer setUpProfession(int value) {
+        upProfession = value;
+        return this;
+    }
 }

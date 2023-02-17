@@ -38,7 +38,7 @@ public class PlayerCommands implements CommandExecutor {
 
             case "create":
 
-                if (args[1] == null) {
+                if (args.length < 2) {
 
                     player.sendMessage("Пожалуйста укажите желаемое имя королевства!");
                     break;
@@ -50,7 +50,12 @@ public class PlayerCommands implements CommandExecutor {
 
             case "withdraw":
 
-                if (args[1].length() > 10) {
+                if (args.length < 2) {
+
+                    player.sendMessage("Пожалуйста укажите сумму!");
+                    break;
+
+                } else if (args[1].length() > 10) {
 
                     player.sendMessage("Слишком большая сумма для снятия");
                     break;
@@ -63,7 +68,12 @@ public class PlayerCommands implements CommandExecutor {
 
             case "replenish":
 
-                if (args[1].length() > 10) {
+                if (args.length < 2) {
+
+                    player.sendMessage("Пожалуйста укажите сумму!");
+                    break;
+
+                } else if (args[1].length() > 10) {
 
                     player.sendMessage("Слишком большая сумма для пополнения");
                     break;
@@ -443,7 +453,6 @@ public class PlayerCommands implements CommandExecutor {
 
     private void claim(String kingdomName, @NotNull Player player) {
 
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
         FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
 
         if (kingdomName.equals("")) {
@@ -460,7 +469,7 @@ public class PlayerCommands implements CommandExecutor {
 
         World world = Bukkit.getWorld(player.getWorld().getUID());
         Chunk playerChunk = world.getChunkAt(player.getLocation());
-        boolean canCapture = false;
+        boolean canCapture = feudalKingdom.getTerritory().isEmpty();
 
         Location firstLocation = new Location(world, playerChunk.getX() + 1, 64, playerChunk.getZ() + 1);
         Location secondLocation = new Location(world, playerChunk.getX() - 1, 64, playerChunk.getZ() - 1);
@@ -472,7 +481,6 @@ public class PlayerCommands implements CommandExecutor {
                     canCapture = true;
 
             }
-
 
         if (!canCapture) {
 

@@ -101,7 +101,7 @@ public class LoadAndSaveDataUtils {
 
             feudalKingdom.clearInvitation();
 
-            setField(kingdomName, "king", feudalKingdom.getKingUUID());
+            setField(kingdomName, "king", feudalKingdom.getKingUUID().toString());
             setField(kingdomName, "members", feudalKingdom.getMembersUUID());
             setField(kingdomName, "barons", feudalKingdom.getBaronsUUID());
             setField(kingdomName, "territory", feudalKingdom.getTerritory());
@@ -164,7 +164,7 @@ public class LoadAndSaveDataUtils {
                     .setBalance(1000).setDeaths(0).setKills(0)
                     .setLuckLvl(0).setSpeedLvl(0).setStaminaLvl(0)
                     .setStrengthLvl(0).setKingdomName("").setSurvivabilityLvl(0)
-                    .setProfessionLvl(0);
+                    .setProfessionLvl(0).addUpProfession(0);
 
             return;
 
@@ -185,7 +185,8 @@ public class LoadAndSaveDataUtils {
                 .setStaminaLvl(PlayerDBHandler.getIntegerField(player, "staminaLvl"))
                 .setStrengthLvl(PlayerDBHandler.getIntegerField(player, "strengthLvl"))
                 .setKingdomName(PlayerDBHandler.getStringField(player, "kingdomName"))
-                .setSurvivabilityLvl(survivabilityLvl);
+                .setSurvivabilityLvl(survivabilityLvl)
+                .setUpProfession(PlayerDBHandler.getIntegerField(player, "upProfession"));
 
         CacheFeudalPlayers.getFeudalPlayerInfo().put(player.getUniqueId(), feudalPlayer);
 
@@ -226,6 +227,7 @@ public class LoadAndSaveDataUtils {
             PlayerDBHandler.setField(player, "strengthLvl", feudalPlayer.getStrengthLvl());
             PlayerDBHandler.setField(player, "survivabilityLvl", feudalPlayer.getSurvivabilityLvl());
             PlayerDBHandler.setField(player, "kingdomName", feudalPlayer.getKingdomName());
+            PlayerDBHandler.setField(player, "upProfession", feudalPlayer.getUpProfession());
 
             savePlayerMail(player);
 
