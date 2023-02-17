@@ -11,19 +11,19 @@ public class ProfessionSelectionMenu {
 
     public static void openProfessionSelection(@NotNull Player player) {
 
-        Inventory inventory = Bukkit.createInventory(player, 54, "Выберите класс");
+        Inventory professionSelection = Bukkit.createInventory(player, 54, "Выберите класс");
 
-        inventory.setItem(10, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Строитель"));
-        inventory.setItem(12, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Повар"));
-        inventory.setItem(14, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Фермер"));
-        inventory.setItem(16, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Рыболов"));
-        inventory.setItem(28, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Охотник"));
-        inventory.setItem(30, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Шахтёр"));
-        inventory.setItem(32, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Пастух"));
-        inventory.setItem(34, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Торговец"));
-        inventory.setItem(49, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Дровосек"));
+        professionSelection.setItem(10, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Строитель"));
+        professionSelection.setItem(12, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Повар"));
+        professionSelection.setItem(14, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Фермер"));
+        professionSelection.setItem(16, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Рыболов"));
+        professionSelection.setItem(28, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Охотник"));
+        professionSelection.setItem(30, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Шахтёр"));
+        professionSelection.setItem(32, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Пастух"));
+        professionSelection.setItem(34, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Торговец"));
+        professionSelection.setItem(49, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Дровосек"));
 
-        player.openInventory(inventory);
+        player.openInventory(professionSelection);
 
     }
 }

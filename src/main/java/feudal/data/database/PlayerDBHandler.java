@@ -185,6 +185,38 @@ public class PlayerDBHandler {
         }
     }
 
+    public static void addField(@NotNull Player player, String fieldName, Object value) {
+
+        ClientSession session = mongoClient.startSession();
+
+        try {
+
+            int uuid = player.getUniqueId().hashCode();
+
+            session.startTransaction();
+
+            if (!collection.find(new BasicDBObject("_id", uuid))
+                    .iterator()
+                    .hasNext()) return;
+
+            collection.replaceOne(Filters.eq("_id", uuid), collection.find(new BasicDBObject("_id", uuid))
+                    .iterator()
+                    .next()
+                    .append(fieldName, value));
+
+            session.commitTransaction();
+
+        } catch (MongoCommandException e) {
+
+            session.abortTransaction();
+
+        } finally {
+
+            session.close();
+
+        }
+    }
+
     public static void resetAPlayer(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();

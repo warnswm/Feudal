@@ -26,7 +26,7 @@ public class FeudalPlayer {
     UUID playerUUID;
     String kingdomName;
     List<String> letters = new ArrayList<>();
-    int professionID, experience, balance, deaths, kills, strengthLvl, survivabilityLvl, speedLvl, staminaLvl, luckLvl, professionLvl, professionExperience;
+    int professionID, experience, balance, deaths, kills, strengthLvl, survivabilityLvl, speedLvl, staminaLvl, luckLvl, professionLvl, professionExperience, upProfession;
 
     public FeudalPlayer(@NotNull Player player) {
         playerUUID = player.getUniqueId();
