@@ -12,7 +12,8 @@ import org.bukkit.Material;
 public enum BlockToSaveE {
 
     COAL_ORE(Material.COAL_ORE), IRON_ORE(Material.IRON_ORE), GOLD_ORE(Material.GOLD_ORE),
-    DIAMOND_ORE(Material.DIAMOND_ORE), EMERALD_ORE(Material.EMERALD_ORE), LOG(Material.LOG);
+    DIAMOND_ORE(Material.DIAMOND_ORE), EMERALD_ORE(Material.EMERALD_ORE), LAPIS_ORE(Material.LAPIS_ORE),
+    REDSTONE_ORE(Material.REDSTONE_ORE), LOG(Material.LOG);
 
     Material blockMaterial;
 
