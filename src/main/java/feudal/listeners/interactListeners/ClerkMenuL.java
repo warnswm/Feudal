@@ -15,7 +15,9 @@ public class ClerkMenuL implements Listener {
     @EventHandler
     public final void playerInteractClerkMenu(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenuL.isaBoolean(event)) return;
+        if (event.getCurrentItem() == null ||
+                event.getCurrentItem().getItemMeta() == null ||
+                !event.getView().getTitle().equals("Выберите зачарование для снятия")) return;
 
         event.setCancelled(true);
 

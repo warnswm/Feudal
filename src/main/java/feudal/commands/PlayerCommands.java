@@ -139,6 +139,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "up":
+
+                up(player);
+
+                break;
+
             default:
                 player.sendMessage("Неизвестная команда! Введите /f help, чтобы посмотреть доступные команды");
 
@@ -173,6 +179,10 @@ public class PlayerCommands implements CommandExecutor {
 
         createKingdom(kingdomName, player, membersUUID);
 
+    }
+
+    private void up(@NotNull Player player) {
+        new Menus(player).upgradeProfession();
     }
 
     private boolean checkKingdomName(@NotNull String kingdomName) {

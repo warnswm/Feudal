@@ -61,7 +61,7 @@ public class Menus {
 
     public void switchingProfessionOneStage() {
 
-        Inventory switchingProfession = Bukkit.createInventory(player, 9, "Смена класса");
+        Inventory switchingProfession = Bukkit.createInventory(player, 9, "Смена профессии");
 
         int i = 0;
 
@@ -82,7 +82,7 @@ public class Menus {
 
     public void upgradeProfession() {
 
-        Inventory upgradeProfessionInv = Bukkit.createInventory(player, 9, "Прокачка класса");
+        Inventory upgradeProfessionInv = Bukkit.createInventory(player, 9, "Прокачка профессии");
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         if (feudalPlayer.getProfessionLvl() >= 50)
@@ -97,7 +97,7 @@ public class Menus {
 
     public void openProfessionSelection() {
 
-        Inventory professionSelection = Bukkit.createInventory(player, 54, "Выберите класс");
+        Inventory professionSelection = Bukkit.createInventory(player, 54, "Выберите профессию");
 
         professionSelection.setItem(10, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Строитель"));
         professionSelection.setItem(12, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Повар"));

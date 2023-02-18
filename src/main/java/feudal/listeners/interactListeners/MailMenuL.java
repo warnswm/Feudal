@@ -20,7 +20,9 @@ public class MailMenuL implements Listener {
     @EventHandler
     public final void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (GeneralMenuL.isaBoolean(event)) return;
+        if (event.getCurrentItem() == null ||
+                event.getCurrentItem().getItemMeta() == null ||
+                !event.getView().getTitle().equals("Почта")) return;
 
         event.setCancelled(true);
 
