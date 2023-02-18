@@ -2,6 +2,7 @@ package feudal.listeners.territoryListeners;
 
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.utils.wrappers.ChunkWrapper;
+import org.bukkit.Chunk;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -15,7 +16,9 @@ public class BlocksL implements Listener {
     @EventHandler
     public void playerBreakBlock(@NotNull BlockBreakEvent event) {
 
-        if (CacheFeudalKingdoms.checkPrivate(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk()).hashCode(), event.getPlayer()))
+        Chunk chunk = event.getBlock().getChunk();
+
+        if (CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode(), event.getPlayer()))
             event.setCancelled(true);
 
     }
@@ -23,7 +26,9 @@ public class BlocksL implements Listener {
     @EventHandler
     public void playerPlaceBlock(@NotNull BlockPlaceEvent event) {
 
-        if (CacheFeudalKingdoms.checkPrivate(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk()).hashCode(), event.getPlayer()))
+        Chunk chunk = event.getBlock().getChunk();
+
+        if (CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode(), event.getPlayer()))
             event.setCancelled(true);
 
     }
@@ -31,7 +36,9 @@ public class BlocksL implements Listener {
     @EventHandler
     public void playerBlockDamage(@NotNull BlockDamageEvent event) {
 
-        if (CacheFeudalKingdoms.checkPrivate(ChunkWrapper.chunkToChunkWrapper(event.getBlock().getChunk()).hashCode(), event.getPlayer()))
+        Chunk chunk = event.getBlock().getChunk();
+
+        if (CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode(), event.getPlayer()))
             event.setCancelled(true);
 
     }

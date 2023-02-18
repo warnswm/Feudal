@@ -78,12 +78,12 @@ public class FeudalKingdom {
     }
 
     public final FeudalKingdom addTerritory(@NotNull Chunk chunk) {
-        territory.add(ChunkWrapper.chunkToChunkWrapper(chunk).hashCode());
+        territory.add(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode());
         return this;
     }
 
     public final FeudalKingdom addPrivateTerritory(@NotNull Chunk chunk) {
-        privateTerritory.add(ChunkWrapper.chunkToChunkWrapper(chunk).hashCode());
+        privateTerritory.add(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode());
         return this;
     }
 
@@ -129,7 +129,7 @@ public class FeudalKingdom {
     }
 
     public final FeudalKingdom removeBaron(@NotNull Player player) {
-        baronsUUID.remove(player.getUniqueId());
+        baronsUUID.remove(player.getUniqueId().toString());
         return this;
     }
 

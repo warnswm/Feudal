@@ -125,8 +125,6 @@ public class LoadAndSaveDataUtils {
 
         }
 
-        player.sendMessage("Ваши данные успешно загружены! Удачной игры");
-
         if (!PlayerDBHandler.hasPlayer(player)) {
 
             feudalPlayer = new FeudalPlayer(player);
@@ -161,7 +159,6 @@ public class LoadAndSaveDataUtils {
         CacheFeudalPlayers.getFeudalPlayerInfo().put(player.getUniqueId(), feudalPlayer);
 
         loadPlayerAttributes(player, speedLvl, survivabilityLvl);
-
         loadPlayerMail(player);
 
     }
@@ -173,7 +170,7 @@ public class LoadAndSaveDataUtils {
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
 
 
-        if (!getPlayerKingdom(player).equalsIgnoreCase(""))
+        if (!getPlayerKingdom(player).equals(""))
             player.setDisplayName(player.getDisplayName() + " [" + getPlayerKingdom(player) + "]");
 
     }
@@ -333,7 +330,8 @@ public class LoadAndSaveDataUtils {
         }.getType();
         List<PlacedBlockWrapper> placedBlockWrapperList = new Gson().fromJson(new FileReader(file), listType);
 
-        placedBlockWrapperList.forEach(placedBlockWrapper -> PlacedBlockWrapper.placedBlockWrapperToBlock(placedBlockWrapper).setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true")));
+        placedBlockWrapperList.forEach(placedBlockWrapper -> Bukkit.getWorld(placedBlockWrapper.getWorldName()).getBlockAt(placedBlockWrapper.getX(), placedBlockWrapper.getY(), placedBlockWrapper.getZ()).
+                setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true")));
 
     }
 

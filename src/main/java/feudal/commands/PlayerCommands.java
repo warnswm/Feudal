@@ -224,7 +224,7 @@ public class PlayerCommands implements CommandExecutor {
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId()) &&
+        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId().toString()) &&
                 !feudalKingdom.getKingUUID().equals(player.getUniqueId())) {
 
             player.sendMessage("Недостаточно прав для снятия денег с казны!");
@@ -254,7 +254,7 @@ public class PlayerCommands implements CommandExecutor {
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId()) &&
+        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId().toString()) &&
                 !feudalKingdom.getKingUUID().equals(player.getUniqueId())) {
 
             player.sendMessage("Недостаточно прав для пополнения казны!");
@@ -352,7 +352,7 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
 
-        } else if (!feudalKingdom.getMembersUUID().contains(invitedPlayer.getUniqueId())) {
+        } else if (!feudalKingdom.getMembersUUID().contains(invitedPlayer.getUniqueId().toString())) {
 
             playerInviting.sendMessage("Игрок не состоит в вашем королевстве!");
             return;
@@ -438,7 +438,7 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        feudalKingdom.getMembersUUID().remove(player.getUniqueId());
+        feudalKingdom.getMembersUUID().remove(player.getUniqueId().toString());
         feudalPlayer.setKingdomName("");
 
         feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(member).sendMessage("Игрок " + player.getName() + " покинул ваше королевство!"));
@@ -474,7 +474,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 System.out.println("x: " + x + " z: " + z);
 
-                if (feudalKingdom.getTerritory().contains(ChunkWrapper.chunkToChunkWrapper(world.getChunkAt(x, z)).hashCode()))
+                if (feudalKingdom.getTerritory().contains(new ChunkWrapper(world.getName(), x, z).hashCode()))
                     canCapture = true;
 
             }
@@ -521,7 +521,7 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("В королевстве максимальное количество баронов!");
             return;
 
-        } else if (feudalKingdom.getBaronsUUID().contains(baron.getUniqueId())) {
+        } else if (feudalKingdom.getBaronsUUID().contains(baron.getUniqueId().toString())) {
 
             playerInviting.sendMessage("Игрок уже назначен бароном!");
             return;
@@ -558,7 +558,7 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
 
-        } else if (!feudalKingdom.getBaronsUUID().contains(baron.getUniqueId())) {
+        } else if (!feudalKingdom.getBaronsUUID().contains(baron.getUniqueId().toString())) {
 
             playerInviting.sendMessage("Игрок не назначен бароном!");
             return;

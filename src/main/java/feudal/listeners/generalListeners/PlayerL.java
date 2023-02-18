@@ -210,7 +210,7 @@ public class PlayerL implements Listener {
 
 
         Block block = event.getBlock();
-        PlacedBlockWrapper placedBlockWrapper = PlacedBlockWrapper.blockToPlacedBlockWrapper(block);
+        PlacedBlockWrapper placedBlockWrapper = new PlacedBlockWrapper(block.getWorld().getName(), block.getX(), block.getY(), block.getZ());
 
         if (BlockToSaveE.checkBlockMaterial(block.getType()))
             placedBlocks.remove(placedBlockWrapper);
@@ -225,7 +225,7 @@ public class PlayerL implements Listener {
         if (!BlockToSaveE.checkBlockMaterial(block.getType())) return;
 
         block.setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true"));
-        placedBlocks.add(PlacedBlockWrapper.blockToPlacedBlockWrapper(block));
+        placedBlocks.add(new PlacedBlockWrapper(block.getWorld().getName(), block.getX(), block.getY(), block.getZ()));
 
     }
 }

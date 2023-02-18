@@ -20,7 +20,7 @@ public class AddStartTerritory {
 
         for (Chunk chunk : startTerritory) {
 
-            if (KingdomDBHandler.chunkInKingdom(ChunkWrapper.chunkToChunkWrapper(chunk).hashCode()))
+            if (KingdomDBHandler.chunkInKingdom(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode()))
                 return false;
 
             FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);

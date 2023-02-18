@@ -21,7 +21,6 @@ public class PlayerJoinAndQuitL implements Listener {
     public final void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
-        player.sendMessage("Подождите, ваши данные загружаются!");
 
         TasksQueueUtils queue = new TasksQueueUtils()
 
