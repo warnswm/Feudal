@@ -2,9 +2,9 @@ package feudal.visual;
 
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.data.database.PlayerDBHandler;
 import feudal.utils.CreateItemUtils;
 import feudal.utils.enums.professionEnums.AttributeForProfessionE;
+import feudal.utils.enums.professionEnums.ProfessionIDE;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -59,23 +59,23 @@ public class Menus {
 
     }
 
-    public void switchingProfession() {
+    public void switchingProfessionOneStage() {
 
-        Inventory switchingProfession = Bukkit.createInventory(player, 54, "Смена класса");
+        Inventory switchingProfession = Bukkit.createInventory(player, 9, "Смена класса");
 
-        switchingProfession.setItem(10, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Строитель"));
-        switchingProfession.setItem(12, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Повар"));
-        switchingProfession.setItem(14, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Фермер"));
-        switchingProfession.setItem(16, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Рыболов"));
-        switchingProfession.setItem(28, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Охотник"));
-        switchingProfession.setItem(30, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Шахтёр"));
-        switchingProfession.setItem(32, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Пастух"));
-        switchingProfession.setItem(34, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Торговец"));
-        switchingProfession.setItem(49, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Дровосек"));
+        int i = 0;
+
+        for (ProfessionIDE value : ProfessionIDE.values()) {
+
+            if (value.getId() == CacheFeudalPlayers.getFeudalPlayer(player).getProfessionID() ||
+                    value.getId() > 9) continue;
+
+            switchingProfession.setItem(i, CreateItemUtils.createItem(Material.CLAY_BALL, 1, value.getProfessionName()));
+            i++;
+
+        }
 
         player.openInventory(switchingProfession);
-
-        PlayerDBHandler.addField(player, "upProfession", PlayerDBHandler.getIntegerField(player, "upProfession") + 1);
 
     }
 

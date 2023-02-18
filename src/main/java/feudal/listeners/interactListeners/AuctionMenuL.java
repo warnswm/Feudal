@@ -30,7 +30,7 @@ public class AuctionMenuL implements Listener {
 
             confirmationMenu(player, event.getCurrentItem());
 
-        } else if (event.getView().getTitle().equals("Подтверждение")) {
+        } else if (event.getView().getTitle().equals("Подтверждение покупки")) {
 
 //            feudalPlayer.takeBalance();
         }
@@ -38,7 +38,7 @@ public class AuctionMenuL implements Listener {
 
     private void confirmationMenu(Player player, ItemStack itemStack) {
 
-        Inventory inventory = Bukkit.createInventory(player, 9, "Подтверждение");
+        Inventory inventory = Bukkit.createInventory(player, 9, "Подтверждение покупки");
 
         inventory.setItem(1, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Подтвердить"));
         inventory.setItem(4, itemStack);

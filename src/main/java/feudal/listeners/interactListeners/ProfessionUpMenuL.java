@@ -58,7 +58,7 @@ public class ProfessionUpMenuL implements Listener {
 
             case "Смена класса":
 
-                menus.switchingProfession();
+                menus.switchingProfessionOneStage();
 
                 break;
 
