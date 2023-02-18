@@ -1,10 +1,10 @@
 package feudal.listeners.generalListeners;
 
 import feudal.Feudal;
+import feudal.data.SpyPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.PlayerDBHandler;
 import feudal.utils.LoadAndSaveDataUtils;
-import feudal.utils.TabUtils;
 import feudal.utils.TasksQueueUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,7 +40,7 @@ public class PlayerJoinAndQuitL implements Listener {
                         LoadAndSaveDataUtils.loadPlayer(player);
                         LoadAndSaveDataUtils.loadKingdom(player);
 
-                        TabUtils.updateHidePlayers();
+                        new SpyPlayer().load();
 
                     }
 

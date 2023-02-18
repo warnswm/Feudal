@@ -1,6 +1,6 @@
 package feudal.possessions;
 
-import feudal.data.builder.FeudalKingdom;
+import feudal.data.FeudalKingdom;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.database.KingdomDBHandler;
 import feudal.utils.wrappers.ChunkWrapper;

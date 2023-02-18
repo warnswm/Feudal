@@ -1,6 +1,6 @@
 package feudal.listeners.professionListeners.expListeners;
 
-import feudal.data.builder.FeudalPlayer;
+import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
 import org.bukkit.block.Block;

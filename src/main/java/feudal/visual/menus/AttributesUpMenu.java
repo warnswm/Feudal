@@ -1,6 +1,6 @@
 package feudal.visual.menus;
 
-import feudal.data.builder.FeudalPlayer;
+import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.CreateItemUtils;
 import org.bukkit.Bukkit;

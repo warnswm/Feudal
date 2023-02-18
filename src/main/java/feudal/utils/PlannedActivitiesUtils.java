@@ -1,7 +1,7 @@
 package feudal.utils;
 
 import feudal.Feudal;
-import feudal.data.builder.FeudalKingdom;
+import feudal.data.FeudalKingdom;
 import feudal.data.cache.CacheFeudalKingdoms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

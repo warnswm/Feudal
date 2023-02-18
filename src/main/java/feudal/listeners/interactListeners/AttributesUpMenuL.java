@@ -1,6 +1,6 @@
 package feudal.listeners.interactListeners;
 
-import feudal.data.builder.FeudalPlayer;
+import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.FeudalValuesUtils;
 import org.bukkit.entity.Player;

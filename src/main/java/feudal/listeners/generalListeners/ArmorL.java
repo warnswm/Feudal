@@ -1,7 +1,7 @@
 package feudal.listeners.generalListeners;
 
 import com.destroystokyo.paper.event.player.PlayerArmorChangeEvent;
-import feudal.data.builder.FeudalPlayer;
+import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

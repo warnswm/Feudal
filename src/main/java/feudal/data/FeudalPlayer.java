@@ -1,4 +1,4 @@
-package feudal.data.builder;
+package feudal.data;
 
 import feudal.visual.ScoreBoardGeneralInfo;
 import lombok.AccessLevel;

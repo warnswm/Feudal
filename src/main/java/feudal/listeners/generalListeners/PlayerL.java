@@ -1,7 +1,7 @@
 package feudal.listeners.generalListeners;
 
 import feudal.Feudal;
-import feudal.data.builder.FeudalPlayer;
+import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.BlockToSaveE;
 import feudal.utils.enums.MoneyForMobsE;

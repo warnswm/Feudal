@@ -1,6 +1,6 @@
 package feudal.listeners.professionListeners.peasantsListeners;
 
-import feudal.data.builder.FeudalPlayer;
+import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.professionEnums.FishermanLootTableE;
 import feudal.utils.enums.professionEnums.ProfessionIDE;

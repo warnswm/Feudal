@@ -1,4 +1,4 @@
-package feudal.data.builder;
+package feudal.data;
 
 import feudal.utils.wrappers.ChunkWrapper;
 import lombok.AccessLevel;
