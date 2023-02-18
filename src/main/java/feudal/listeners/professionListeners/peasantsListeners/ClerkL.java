@@ -4,7 +4,7 @@ import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.EnchantmentE;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
-import feudal.visual.menus.ClerkMenu;
+import feudal.visual.Menus;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -56,7 +56,7 @@ public class ClerkL implements Listener {
 
         if (isaBoolean(event, player, feudalPlayer)) return;
 
-        ClerkMenu.openClerkMenu(player);
+        new Menus(player).openClerkMenu();
 
     }
 }

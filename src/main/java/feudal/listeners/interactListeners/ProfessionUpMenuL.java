@@ -3,14 +3,12 @@ package feudal.listeners.interactListeners;
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.FeudalValuesUtils;
-import feudal.visual.menus.SwitchingProfessionMenu;
+import feudal.visual.Menus;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
-
-import static feudal.visual.menus.AttributesUpMenu.attributesUpMenu;
 
 public class ProfessionUpMenuL implements Listener {
 
@@ -24,41 +22,43 @@ public class ProfessionUpMenuL implements Listener {
         Player player = (Player) event.getView().getPlayer();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
+        Menus menus = new Menus(player);
+
         switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
 
             case "Сила":
 
-                attributesUpMenu(player, feudalPlayer.getStrengthLvl(), "силы", FeudalValuesUtils.getStrengthPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getStrengthLvl(), "силы", FeudalValuesUtils.getStrengthPercentageCost());
 
                 break;
 
             case "Выносливость":
 
-                attributesUpMenu(player, feudalPlayer.getStaminaLvl(), "выносливости", FeudalValuesUtils.getStaminaPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getStaminaLvl(), "выносливости", FeudalValuesUtils.getStaminaPercentageCost());
 
                 break;
 
             case "Удача":
 
-                attributesUpMenu(player, feudalPlayer.getLuckLvl(), "удачи", FeudalValuesUtils.getLuckPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getLuckLvl(), "удачи", FeudalValuesUtils.getLuckPercentageCost());
 
                 break;
 
             case "Живучесть":
 
-                attributesUpMenu(player, feudalPlayer.getSurvivabilityLvl(), "живучести", FeudalValuesUtils.getSurvivabilityPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getSurvivabilityLvl(), "живучести", FeudalValuesUtils.getSurvivabilityPercentageCost());
 
                 break;
 
             case "Скорость":
 
-                attributesUpMenu(player, feudalPlayer.getSpeedLvl(), "скорости", FeudalValuesUtils.getSpeedPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getSpeedLvl(), "скорости", FeudalValuesUtils.getSpeedPercentageCost());
 
                 break;
 
             case "Смена класса":
 
-                SwitchingProfessionMenu.switchingProfession(player);
+                menus.switchingProfession();
 
                 break;
 

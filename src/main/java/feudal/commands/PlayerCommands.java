@@ -6,7 +6,7 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.utils.wrappers.ChunkWrapper;
-import feudal.visual.menus.MailMenu;
+import feudal.visual.Menus;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -128,7 +128,7 @@ public class PlayerCommands implements CommandExecutor {
 
             case "mail":
 
-                MailMenu.openMailMenu(player);
+                new Menus(player).openMailMenu();
 
                 break;
 
