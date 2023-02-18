@@ -445,7 +445,7 @@ public class ConfigUtils {
         generalCfg = YamlConfiguration.loadConfiguration(file);
 
         FeudalValuesUtils.setTimeRestart((int) generalCfg.get("Time.restart"));
-        FeudalValuesUtils.setTimeRestart((int) generalCfg.get("Time.clearMail"));
+        FeudalValuesUtils.setTimeClearMail((int) generalCfg.get("Time.clearMail"));
 
     }
 
@@ -473,7 +473,7 @@ public class ConfigUtils {
 
             generalCfg = YamlConfiguration.loadConfiguration(file);
 
-            generalCfg.set("Time.restart", 576000);
+            generalCfg.set("Time.restart", 8);
             generalCfg.set("Time.clearMail", 72);
 
             generalCfg.save(file);
