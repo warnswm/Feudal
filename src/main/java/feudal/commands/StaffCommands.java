@@ -25,6 +25,8 @@ public class StaffCommands implements CommandExecutor {
 
             if (player.getGameMode().equals(GameMode.SPECTATOR)) {
 
+                if (CacheSpyPlayers.getSpyPlayer(player) == null) return false;
+
                 CacheSpyPlayers.getSpyPlayer(player).show();
 
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
