@@ -2,7 +2,6 @@ package feudal.listeners.professionListeners.peasantsListeners;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.utils.MathUtils;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedList;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class WoodcutterL implements Listener {
 
@@ -27,7 +27,7 @@ public class WoodcutterL implements Listener {
                 feudalPlayer.getProfessionID() != ProfessionIDE.WOODCUTTER.getId()) return;
 
 
-        if (feudalPlayer.getProfessionLvl() >= 75 && MathUtils.getRandomInt(1, 4) == 3)
+        if (feudalPlayer.getProfessionLvl() >= 75 && ThreadLocalRandom.current().nextInt(1, 4) == 3)
             cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
 
     }

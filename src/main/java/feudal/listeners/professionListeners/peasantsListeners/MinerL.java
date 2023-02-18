@@ -2,7 +2,6 @@ package feudal.listeners.professionListeners.peasantsListeners;
 
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.utils.MathUtils;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,6 +10,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MinerL implements Listener {
 
@@ -31,9 +32,9 @@ public class MinerL implements Listener {
 
         block.getWorld().dropItemNaturally(block.getLocation(), block.getType().equals(Material.GOLD_ORE) ?
                 feudalPlayer.getProfessionLvl() >= 25 ?
-                        new ItemStack(Material.GOLD_INGOT, MathUtils.getRandomInt(1, 4)) :
+                        new ItemStack(Material.GOLD_INGOT, ThreadLocalRandom.current().nextInt(1, 4)) :
                         new ItemStack(Material.GOLD_INGOT) :
-                feudalPlayer.getProfessionLvl() >= 25 ? new ItemStack(Material.GOLD_INGOT, MathUtils.getRandomInt(1, 4)) :
+                feudalPlayer.getProfessionLvl() >= 25 ? new ItemStack(Material.GOLD_INGOT, ThreadLocalRandom.current().nextInt(1, 4)) :
                         new ItemStack(Material.IRON_INGOT));
 
     }

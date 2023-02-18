@@ -3,7 +3,6 @@ package feudal.listeners.generalListeners;
 import feudal.Feudal;
 import feudal.data.builder.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.utils.MathUtils;
 import feudal.utils.enums.BlockToSaveE;
 import feudal.utils.enums.MoneyForMobsE;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
@@ -40,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class PlayerL implements Listener {
@@ -73,10 +73,10 @@ public class PlayerL implements Listener {
         feudalPlayer.addKills(1);
 
         FeudalPlayer feudalPlayerDeath = CacheFeudalPlayers.getFeudalPlayer((Player) event.getEntity());
-        int balance = feudalPlayerDeath.getBalance() / 100 * MathUtils.getRandomInt(3, 6);
+        int balance = feudalPlayerDeath.getBalance() / 100 * ThreadLocalRandom.current().nextInt(3, 6);
 
         feudalPlayer.addBalance(balance);
-        feudalPlayerDeath.takeBalance(balance + MathUtils.getRandomInt(1, 4));
+        feudalPlayerDeath.takeBalance(balance + ThreadLocalRandom.current().nextInt(1, 4));
         feudalPlayerDeath.addDeaths(1);
 
     }
@@ -205,8 +205,8 @@ public class PlayerL implements Listener {
         ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
         if (item.getDurability() != 0 &&
-                MathUtils.getRandomInt(1, 26) == 25)
-            item.setDurability((short) (item.getDurability() + MathUtils.getRandomInt(2, 6)));
+                ThreadLocalRandom.current().nextInt(1, 26) == 25)
+            item.setDurability((short) (item.getDurability() + ThreadLocalRandom.current().nextInt(2, 6)));
 
 
         Block block = event.getBlock();

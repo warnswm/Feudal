@@ -163,7 +163,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
+    private static void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
 
         player.setMaxHealth(16 * (survivabilityLvl / 100.0F) + 16);
         player.setWalkSpeed(0.2f * speedLvl / 100 + 0.2f);
@@ -225,7 +225,7 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    public static void loadPlayerMail(Player player) {
+    private static void loadPlayerMail(Player player) {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
 

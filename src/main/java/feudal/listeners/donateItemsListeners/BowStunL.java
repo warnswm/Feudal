@@ -1,7 +1,6 @@
 package feudal.listeners.donateItemsListeners;
 
 import feudal.utils.FeudalValuesUtils;
-import feudal.utils.MathUtils;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
@@ -14,6 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BowStunL implements Listener {
 
@@ -28,7 +28,7 @@ public class BowStunL implements Listener {
         if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
 
         if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("bowStun") ||
-                MathUtils.getRandomInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("bowStunLvl") * FeudalValuesUtils.getBowStunPercentagePerLvl())
+                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("bowStunLvl") * FeudalValuesUtils.getBowStunPercentagePerLvl())
             return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
