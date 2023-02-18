@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class PlayerCommands implements CommandExecutor {
 
@@ -472,8 +473,6 @@ public class PlayerCommands implements CommandExecutor {
         for (int x = (firstLocation.getBlockX() >> 4); x <= (secondLocation.getBlockX() >> 4); x++)
             for (int z = (firstLocation.getBlockZ() >> 4); z <= (secondLocation.getBlockZ() >> 4); z++) {
 
-                System.out.println("x: " + x + " z: " + z);
-
                 if (feudalKingdom.getTerritory().contains(new ChunkWrapper(world.getName(), x, z).hashCode()))
                     canCapture = true;
 
@@ -487,7 +486,7 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         feudalKingdom.addTerritory(world.getChunkAt(player.getLocation()));
-        feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(member).sendMessage("Ваш король захватил новые земли!"));
+        feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(UUID.fromString(member)).sendMessage("Ваш король захватил новые земли!"));
 
     }
 

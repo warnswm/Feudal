@@ -46,8 +46,8 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom setTerritory(@NotNull List<Integer> territory) {
-        this.territory = territory;
+    public final FeudalKingdom setTerritory(@NotNull List<Integer> territoryHashCode) {
+        territory = territoryHashCode;
         return this;
     }
 
@@ -104,7 +104,7 @@ public class FeudalKingdom {
 
 
     public final FeudalKingdom removeMember(@NotNull Player player) {
-        membersUUID.remove(player.getUniqueId());
+        membersUUID.remove(player.getUniqueId().toString());
         return this;
     }
 

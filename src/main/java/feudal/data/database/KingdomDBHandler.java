@@ -142,7 +142,7 @@ public class KingdomDBHandler {
                     .next();
 
             if (document.get(fieldName) != null)
-                return Collections.singletonList(document.get(fieldName));
+                return (List) document.get(fieldName);
 
             session.commitTransaction();
 
