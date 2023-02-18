@@ -3,106 +3,122 @@ package feudal.utils;
 import feudal.Feudal;
 import feudal.data.FeudalKingdom;
 import feudal.data.cache.CacheFeudalKingdoms;
+import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class PlannedActivitiesUtils {
 
     public static void taxCollection() {
 
-        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
+        TasksQueueUtils tasks = new TasksQueueUtils()
 
-            if (CacheFeudalKingdoms.getKingdomInfo().isEmpty()) return;
+                .sleep(FeudalValuesUtils.getTimeTaxCollection(), TimeUnit.HOURS)
+                .action(() -> {
 
-            for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
+                    if (CacheFeudalKingdoms.getKingdomInfo().isEmpty()) return;
 
-                FeudalKingdom cacheFeudalKingdom = kingdom.getValue();
-                int reputation = kingdom.getValue().getReputation();
+                    for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
-                if (reputation <= 0) {
+                        FeudalKingdom cacheFeudalKingdom = kingdom.getValue();
+                        int reputation = kingdom.getValue().getReputation();
 
-                    cacheFeudalKingdom.takeAllTerritory();
-                    cacheFeudalKingdom.takeAllPrivateTerritory();
-                    cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getLandRemovingReputation());
+                        if (reputation <= 0) {
 
-                    return;
+                            cacheFeudalKingdom.takeAllTerritory();
+                            cacheFeudalKingdom.takeAllPrivateTerritory();
+                            cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getLandRemovingReputation());
 
-                }
+                            return;
 
-                int balance = kingdom.getValue().getBalance();
-                int landTaxCfg = FeudalValuesUtils.getLandTax();
-                int residentsTaxCfg = FeudalValuesUtils.getTaxOnResidents();
+                        }
 
-                int landTax = reputation == 1000 ? landTaxCfg : landTaxCfg * (1000 - reputation) / 1000 + landTaxCfg;
-                int taxOnResidents = reputation == 1000 ? residentsTaxCfg : residentsTaxCfg * (1000 - reputation) / 1000 + residentsTaxCfg;
+                        int balance = kingdom.getValue().getBalance();
+                        int landTaxCfg = FeudalValuesUtils.getLandTax();
+                        int residentsTaxCfg = FeudalValuesUtils.getTaxOnResidents();
+
+                        int landTax = reputation == 1000 ? landTaxCfg : landTaxCfg * (1000 - reputation) / 1000 + landTaxCfg;
+                        int taxOnResidents = reputation == 1000 ? residentsTaxCfg : residentsTaxCfg * (1000 - reputation) / 1000 + residentsTaxCfg;
 
 
-                cacheFeudalKingdom.takeBalance((int) (balance / 100 * FeudalValuesUtils.getTaxTreasuryPercent()));
+                        cacheFeudalKingdom.takeBalance((int) (balance / 100 * FeudalValuesUtils.getTaxTreasuryPercent()));
 
-                for (Integer chunkHashCode : kingdom.getValue().getTerritory()) {
+                        for (Integer chunkHashCode : kingdom.getValue().getTerritory()) {
 
-                    if (balance < landTax) {
+                            if (balance < landTax) {
 
-                        cacheFeudalKingdom.takeTerritory(chunkHashCode);
-                        cacheFeudalKingdom.takePrivateTerritory(chunkHashCode);
-                        continue;
+                                cacheFeudalKingdom.takeTerritory(chunkHashCode);
+                                cacheFeudalKingdom.takePrivateTerritory(chunkHashCode);
+                                continue;
+
+                            }
+
+                            cacheFeudalKingdom.takeBalance(landTax);
+
+                        }
+
+                        for (String ignored : kingdom.getValue().getMembersUUID()) {
+
+                            if (balance < taxOnResidents) {
+
+                                cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getResidentsRemovingReputation());
+                                continue;
+
+                            }
+
+                            cacheFeudalKingdom.takeBalance(taxOnResidents);
+
+                        }
 
                     }
 
-                    cacheFeudalKingdom.takeBalance(landTax);
+                });
 
-                }
-
-                for (String ignored : kingdom.getValue().getMembersUUID()) {
-
-                    if (balance < taxOnResidents) {
-
-                        cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getResidentsRemovingReputation());
-                        continue;
-
-                    }
-
-                    cacheFeudalKingdom.takeBalance(taxOnResidents);
-
-                }
-
-            }
-
-        }, 0L), FeudalValuesUtils.getTimeTaxCollection());
+        tasks.start(Feudal.getPlugin());
 
     }
 
-    public static void eventCall() {
+    public static void restart() {
 
-        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
+        TasksQueueUtils tasks = new TasksQueueUtils()
 
+                .sleep(FeudalValuesUtils.getTimeRestart(), TimeUnit.HOURS)
+                .action(() -> {
 
-        }, 0L), ThreadLocalRandom.current().nextInt(72000, 360001));
+                    Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Рестарт!"));
+
+                    LoadAndSaveDataUtils.saveAllKingdoms();
+                    LoadAndSaveDataUtils.saveAllConfigs();
+
+                    CacheFeudalPlayers.getFeudalPlayerInfo().clear();
+                    CacheFeudalKingdoms.getKingdomInfo().clear();
+
+                });
+
+        tasks.start(Feudal.getPlugin());
 
     }
 
-//    public static void restart() {
-//
-//        scheduleRepeatAtTime(Feudal.getPlugin(), () -> Bukkit.getScheduler().runTaskLater(Feudal.getPlugin(), () -> {
-//
-//            Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Рестарт!"));
-//
-//            LoadAndSaveDataUtils.saveAllKingdoms();
-//            LoadAndSaveDataUtils.saveAllConfigs();
-//
-//            CacheFeudalPlayers.getFeudalPlayerInfo().clear();
-//            CacheFeudalKingdoms.getKingdomInfo().clear();
-//
-//        }, 0L), FeudalValuesUtils.getTimeRestart());
-//
-//    }
+    public static void clearMail() {
 
-    public static void scheduleRepeatAtTime(Plugin plugin, Runnable task, long period) {
+        TasksQueueUtils tasks = new TasksQueueUtils()
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 0L, period);
+                .sleep(FeudalValuesUtils.getTimeClearMail(), TimeUnit.HOURS)
+                .action(() -> {
+
+                    Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Рестарт!"));
+
+                    LoadAndSaveDataUtils.saveAllKingdoms();
+                    LoadAndSaveDataUtils.saveAllConfigs();
+
+                    CacheFeudalPlayers.getFeudalPlayerInfo().clear();
+                    CacheFeudalKingdoms.getKingdomInfo().clear();
+
+                });
+
+        tasks.start(Feudal.getPlugin());
 
     }
 }

@@ -211,6 +211,7 @@ public class LoadAndSaveDataUtils {
         ConfigUtils.readKingdomTaxConfig();
         ConfigUtils.readMoneyForMobsConfig();
         ConfigUtils.readAttributesConfig();
+        ConfigUtils.readGeneralConfig();
 
     }
 
@@ -221,6 +222,7 @@ public class LoadAndSaveDataUtils {
         ConfigUtils.saveKingdomTaxConfig();
         ConfigUtils.saveMoneyForMobsConfig();
         ConfigUtils.saveAttributesConfig();
+        ConfigUtils.saveGeneralConfig();
 
     }
 

@@ -16,6 +16,7 @@ public class ConfigUtils {
     private static @NonNls FileConfiguration kingdomTaxCfg;
     private static @NonNls FileConfiguration moneyForMobsCfg;
     private static @NonNls FileConfiguration attributesCfg;
+    private static @NonNls FileConfiguration generalCfg;
 
     public static void readDatabaseConfig() {
 
@@ -253,7 +254,7 @@ public class ConfigUtils {
             kingdomTaxCfg.set("KingdomTax.land", 1500);
             kingdomTaxCfg.set("KingdomTax.residents", 300);
             kingdomTaxCfg.set("KingdomTax.treasury", 3.0);
-            kingdomTaxCfg.set("KingdomTax.time", 432000);
+            kingdomTaxCfg.set("KingdomTax.time", 6);
 
             kingdomTaxCfg.save(file);
 
@@ -431,6 +432,51 @@ public class ConfigUtils {
             attributesCfg.set("Attributes.speed", 5.0);
 
             attributesCfg.save(file);
+
+        }
+
+    }
+
+    public static void readGeneralConfig() {
+
+        File file = new File(path, "general.yml");
+        createGeneralConfig();
+
+        generalCfg = YamlConfiguration.loadConfiguration(file);
+
+        FeudalValuesUtils.setTimeRestart((int) generalCfg.get("Time.restart"));
+        FeudalValuesUtils.setTimeRestart((int) generalCfg.get("Time.clearMail"));
+
+    }
+
+
+    @SneakyThrows
+    public static void saveGeneralConfig() {
+
+        File file = new File(path, "general.yml");
+        createKingdomTaxConfig();
+
+        YamlConfiguration.loadConfiguration(file).save(file);
+
+    }
+
+    @SneakyThrows
+    public static void createGeneralConfig() {
+
+        if (!path.exists())
+            path.mkdir();
+
+        File file = new File(path, "general.yml");
+        if (!file.exists()) {
+
+            file.createNewFile();
+
+            generalCfg = YamlConfiguration.loadConfiguration(file);
+
+            generalCfg.set("Time.restart", 576000);
+            generalCfg.set("Time.clearMail", 72);
+
+            generalCfg.save(file);
 
         }
 

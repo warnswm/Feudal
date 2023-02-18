@@ -77,6 +77,7 @@ public class FeudalValuesUtils {
     private static int timeTaxCollection;
 
     private static int timeRestart;
+    private static int timeClearMail;
 
     private static int moneyForBat;
     private static int moneyForChicken;
@@ -549,6 +550,14 @@ public class FeudalValuesUtils {
 
     public static void setTimeRestart(int timeRestart) {
         FeudalValuesUtils.timeRestart = timeRestart;
+    }
+
+    public static int getTimeClearMail() {
+        return timeClearMail;
+    }
+
+    public static void setTimeClearMail(int timeClearMail) {
+        FeudalValuesUtils.timeClearMail = timeClearMail;
     }
 
     public static int getMoneyForBat() {
