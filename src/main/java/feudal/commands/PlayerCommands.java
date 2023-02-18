@@ -48,6 +48,18 @@ public class PlayerCommands implements CommandExecutor {
                 createKingdomCommand(player, args[1]);
                 break;
 
+            case "prof":
+
+                if (CacheFeudalPlayers.getFeudalPlayer(player).getProfessionID() != 0) {
+
+                    player.sendMessage("У вас уже есть профессия!");
+                    break;
+
+                }
+
+                new Menus(player).openProfessionSelection();
+                break;
+
             case "withdraw":
 
                 if (args.length < 2) {
