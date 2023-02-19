@@ -353,7 +353,7 @@ public class PlayerCommands implements CommandExecutor {
         feudalKingdom.addInvitation(invitedPlayer);
         feudalInvitedPlayer.addInvitations(kingdomName);
 
-        feudalInvitedPlayer.addLetter(playerInviting, "Игрок " +
+        feudalInvitedPlayer.addLetter(playerInviting.getName(), "Игрок " +
                 playerInviting.getName() +
                 " приглашает вас вступить в королевство - " +
                 kingdomName);

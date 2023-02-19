@@ -73,6 +73,6 @@ public class LocalStaffCommands implements CommandExecutor {
     }
 
     private void sendLetter(Player player, String[] text) {
-        CacheFeudalPlayers.getFeudalPlayer(player).addLetter(player, String.join(" ", text));
+        CacheFeudalPlayers.getFeudalPlayer(player).addLetter(player.getName(), String.join(" ", text));
     }
 }

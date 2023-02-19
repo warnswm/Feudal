@@ -290,14 +290,14 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer addLetter(@NotNull Player sender, String letter) {
+    public final FeudalPlayer addLetter(@NotNull String sender, String letter) {
 
         letters.add(letter);
 
         String shortLetter = letter.length() < 10 ? letter : letter.substring(0, 10);
 
         CraftPlayer player = (CraftPlayer) Bukkit.getPlayer(playerUUID);
-        player.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + "§lНовое письмо от игрока " + sender.getName() + " - §n" + shortLetter + "..." + "\"}"), ChatMessageType.GAME_INFO));
+        player.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + "§lНовое письмо от отправителя " + sender + " - §n" + shortLetter + "..." + "\"}"), ChatMessageType.GAME_INFO));
 
         return this;
 

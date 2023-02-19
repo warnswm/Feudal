@@ -28,7 +28,7 @@ public class ScoreBoardGeneralInfo {
         Score attributeExp = objective.getScore("Опыт атрибутов ➡ " + feudalPlayer.getExperience());
         Score air = objective.getScore("");
         Score playerStatistics = objective.getScore("§bСтатистика");
-        Score balance = objective.getScore("Баланс ➡ " + feudalPlayer.getBalance());
+        Score balance = objective.getScore("Золота ➡ " + feudalPlayer.getBalance());
 
 
         playerScore.setScore(7);
