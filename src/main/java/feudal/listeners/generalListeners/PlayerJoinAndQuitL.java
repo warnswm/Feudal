@@ -3,9 +3,11 @@ package feudal.listeners.generalListeners;
 import feudal.Feudal;
 import feudal.data.SpyPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
+import feudal.data.cache.CacheSpyPlayers;
 import feudal.data.database.PlayerDBHandler;
 import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.TasksQueueUtils;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,9 +24,13 @@ public class PlayerJoinAndQuitL implements Listener {
 
         Player player = event.getPlayer();
 
+        if (CacheSpyPlayers.getSpyPlayer(player) == null ||
+                !player.hasPermission("feudal.ls"))
+            player.setGameMode(GameMode.ADVENTURE);
+
         TasksQueueUtils queue = new TasksQueueUtils()
 
-                .sleep(2, TimeUnit.SECONDS)
+                .sleep(1, TimeUnit.SECONDS)
                 .action(() -> {
 
                     if (player.isOnline()) {
@@ -37,10 +43,14 @@ public class PlayerJoinAndQuitL implements Listener {
 
                         }
 
+                        new SpyPlayer().load();
+
                         LoadAndSaveDataUtils.loadPlayer(player);
                         LoadAndSaveDataUtils.loadKingdom(player);
 
-                        new SpyPlayer().load();
+                        if (CacheSpyPlayers.getSpyPlayer(player) == null ||
+                                !player.hasPermission("feudal.ls"))
+                            player.setGameMode(GameMode.SURVIVAL);
 
                     }
 
