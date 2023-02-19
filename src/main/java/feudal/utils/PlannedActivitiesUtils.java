@@ -39,8 +39,8 @@ public class PlannedActivitiesUtils {
                         int landTaxCfg = FeudalValuesUtils.getLandTax();
                         int residentsTaxCfg = FeudalValuesUtils.getTaxOnResidents();
 
-                        int landTax = reputation == 1000 ? landTaxCfg : landTaxCfg * (1000 - reputation) / 1000 + landTaxCfg;
-                        int taxOnResidents = reputation == 1000 ? residentsTaxCfg : residentsTaxCfg * (1000 - reputation) / 1000 + residentsTaxCfg;
+                        int landTax = reputation >= 1000 ? landTaxCfg : landTaxCfg * (1000 - reputation) / 1000 + landTaxCfg;
+                        int taxOnResidents = reputation >= 1000 ? residentsTaxCfg : residentsTaxCfg * (1000 - reputation) / 1000 + residentsTaxCfg;
 
 
                         cacheFeudalKingdom.takeBalance((int) (balance / 100 * FeudalValuesUtils.getTaxTreasuryPercent()));

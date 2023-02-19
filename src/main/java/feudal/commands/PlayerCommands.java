@@ -5,6 +5,7 @@ import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
+import feudal.utils.RTPUtils;
 import feudal.utils.wrappers.ChunkWrapper;
 import feudal.visual.Menus;
 import org.bukkit.*;
@@ -157,6 +158,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "rtp":
+
+                player.teleport(RTPUtils.rtpCalc(player, 10, 1000, 10, 1000));
+
+                break;
+
             default:
                 player.sendMessage("Неизвестная команда! Введите /f help, чтобы посмотреть доступные команды");
 
@@ -263,7 +270,7 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         feudalKingdom.takeBalance(colum);
-        CacheFeudalPlayers.getFeudalPlayer(player).addBalance(colum - colum / 100 * 5);
+        CacheFeudalPlayers.getFeudalPlayer(player).takeBalance(colum - colum / 100 * 5);
 
     }
 

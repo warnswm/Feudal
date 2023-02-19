@@ -97,7 +97,7 @@ public class Menus {
 
     public void openProfessionSelection() {
 
-        Inventory professionSelection = Bukkit.createInventory(player, 54, "Выберите профессию");
+        Inventory professionSelection = Bukkit.createInventory(player, 54, "Выбор профессии");
 
         professionSelection.setItem(10, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Строитель"));
         professionSelection.setItem(12, CreateItemUtils.createItem(Material.CLAY_BALL, 1, "Повар"));

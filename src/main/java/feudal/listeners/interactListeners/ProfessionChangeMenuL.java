@@ -16,7 +16,7 @@ public class ProfessionChangeMenuL implements Listener {
 
         if (event.getCurrentItem() == null ||
                 event.getCurrentItem().getItemMeta() == null ||
-                !event.getView().getTitle().equals("Смена профессии")) return;
+                !event.getView().getTitle().equals("Выбор профессии")) return;
 
         event.setCancelled(true);
 
