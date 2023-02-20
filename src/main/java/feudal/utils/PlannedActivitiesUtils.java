@@ -6,9 +6,12 @@ import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class PlannedActivitiesUtils {
 
@@ -130,6 +133,28 @@ public class PlannedActivitiesUtils {
             }
 
         }.runTaskTimer(Feudal.getPlugin(), FeudalValuesUtils.getTimeClearMail() * 1728000L, FeudalValuesUtils.getTimeClearMail() * 1728000L);
+
+    }
+
+    public static void secretOrder() {
+
+        List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
+
+        if (onlinePlayers.isEmpty()) return;
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+
+                Player player = onlinePlayers.get(ThreadLocalRandom.current().nextInt(0, onlinePlayers.size()));
+                FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+
+                feudalPlayer.addLetter("Таинсвенный незнакомец", "Здаствуй " + player.getName() + ", ты, наверное, не помнишь меня... Но я отлично тебя помню. Могу пожелать тебе удачи, за твою голову назначена большая награда!");
+
+            }
+
+        }.runTaskTimer(Feudal.getPlugin(), 30000, 30000);
 
     }
 }
