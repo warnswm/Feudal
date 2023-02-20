@@ -97,6 +97,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SlowdownL(), this);
         Bukkit.getPluginManager().registerEvents(new SwordStunL(), this);
         Bukkit.getPluginManager().registerEvents(new VampirismL(), this);
+        Bukkit.getPluginManager().registerEvents(new ItemEnchantmentL(), this);
 
         Bukkit.getPluginManager().registerEvents(new FarmerExpL(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkExpL(), this);

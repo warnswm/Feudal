@@ -34,7 +34,16 @@ public class PlayerCommands implements CommandExecutor {
 
             case "help":
 
-                helpCommand(player);
+                player.sendMessage("/f claim - захватить чанк\n"
+                        + "/f create - создать королевство\n" +
+                        "/f help - меню коамнд\n" +
+                        "/f invite - добавить игрока в королевство\n" +
+                        "/f kick - удалить игрока из королевства\n" +
+                        "/f m - меню королевства\n" + "/f map - soon\n" +
+                        "/f shield - soon\n" +
+                        "/f location - указать локацию королевства\n" +
+                        "/f ah - открыть аукцион\n");
+
                 break;
 
             case "create":
@@ -170,18 +179,6 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         return false;
-    }
-
-    private void helpCommand(@NotNull Player player) {
-        player.sendMessage("/f claim - захватить чанк\n"
-                + "/f create - создать королевство\n" +
-                "/f help - меню коамнд\n" +
-                "/f invite - добавить игрока в королевство\n" +
-                "/f kick - удалить игрока из королевства\n" +
-                "/f m - меню королевства\n" + "/f map - soon\n" +
-                "/f shield - soon\n" +
-                "/f location - указать локацию королевства\n" +
-                "/f ah - открыть аукцион\n");
     }
 
     private void createKingdomCommand(@NotNull Player player, String kingdomName) {
