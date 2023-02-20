@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class CacheSpyPlayers {
-    static HashMap<UUID, SpyPlayer> spyPlayerCache = new HashMap<>();
+    private final static HashMap<UUID, SpyPlayer> spyPlayerCache = new HashMap<>();
 
     public static HashMap<UUID, SpyPlayer> getSpyPlayerCache() {
         return spyPlayerCache;

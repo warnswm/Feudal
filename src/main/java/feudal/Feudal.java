@@ -4,6 +4,10 @@ import feudal.commands.AdminCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
 import feudal.commands.StaffCommands;
+import feudal.data.cache.CacheAuction;
+import feudal.data.cache.CacheFeudalKingdoms;
+import feudal.data.cache.CacheFeudalPlayers;
+import feudal.data.cache.CacheSpyPlayers;
 import feudal.fishing.PlayerCaughtFish;
 import feudal.listeners.donateItemsListeners.*;
 import feudal.listeners.generalListeners.ArmorL;
@@ -47,6 +51,11 @@ public final class Feudal extends JavaPlugin {
         LoadAndSaveDataUtils.savePlacedBlocks();
         LoadAndSaveDataUtils.saveAllConfigs();
         LoadAndSaveDataUtils.saveAllPlayerMail();
+
+        CacheFeudalPlayers.getFeudalPlayerInfo().clear();
+        CacheFeudalKingdoms.getKingdomInfo().clear();
+        CacheSpyPlayers.getSpyPlayerCache().clear();
+        CacheAuction.getPlayersProduct().clear();
 
     }
 
