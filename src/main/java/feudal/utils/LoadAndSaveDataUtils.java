@@ -408,7 +408,7 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    public void savePlayerProducts(Player player) {
+    public void saveAllPlayersProducts() {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerProducts.json");
 

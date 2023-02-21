@@ -1,6 +1,5 @@
 package feudal.data;
 
-import feudal.data.cache.CacheAuction;
 import feudal.utils.wrappers.ItemStackWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,6 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ import java.util.Map;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class Auction {
     @Getter
-    private final static Map<String, List<ItemStackWrapper>> playersProducts = CacheAuction.getPlayersProduct();
+    private final static Map<String, List<ItemStackWrapper>> playersProducts = new HashMap<>();
     @Setter
     @Getter
     private static List<ItemStackWrapper> products = new ArrayList<>();

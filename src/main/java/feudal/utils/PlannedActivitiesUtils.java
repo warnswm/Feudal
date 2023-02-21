@@ -3,7 +3,10 @@ package feudal.utils;
 import feudal.Feudal;
 import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
-import feudal.data.cache.*;
+import feudal.data.cache.CacheFeudalKingdoms;
+import feudal.data.cache.CacheFeudalPlayers;
+import feudal.data.cache.CacheFeudalValues;
+import feudal.data.cache.CacheSpyPlayers;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -109,7 +112,6 @@ public class PlannedActivitiesUtils {
                 CacheFeudalPlayers.getFeudalPlayerInfo().clear();
                 CacheFeudalKingdoms.getKingdomInfo().clear();
                 CacheSpyPlayers.getSpyPlayerCache().clear();
-                CacheAuction.getPlayersProduct().clear();
 
             }
         }.runTaskTimer(Feudal.getPlugin(), CacheFeudalValues.getTimeRestart() * 72000L, CacheFeudalValues.getTimeRestart() * 72000L);

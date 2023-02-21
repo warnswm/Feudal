@@ -46,12 +46,8 @@ public class PlayerJoinAndQuitL implements Listener {
 
         Player player = event.getPlayer();
 
-        if (CacheFeudalPlayers.getFeudalPlayer(player) != null) {
-
+        if (CacheFeudalPlayers.getFeudalPlayer(player) != null)
             LoadAndSaveDataUtils.savePlayer(player);
-            LoadAndSaveDataUtils.savePlayerProducts(player);
-
-        }
 
     }
 }
