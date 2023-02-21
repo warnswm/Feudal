@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
@@ -75,60 +76,74 @@ public class ConfigUtils {
 
         enchantmentsCfg = YamlConfiguration.loadConfiguration(file);
 
-        FeudalValuesUtils.setVampirismMaxLvl((int) enchantmentsCfg.get("Vampirism.vampirismMaxLvl"));
-        FeudalValuesUtils.setVampirismPercentagePerLvl((double) enchantmentsCfg.get("Vampirism.vampirismPercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("vampirism")
+                .setMaxLvl((int) enchantmentsCfg.get("Vampirism.vampirismMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Vampirism.vampirismPercentagePerLvl")));
 
-        FeudalValuesUtils.setDoubleDamageMaxLvl((int) enchantmentsCfg.get("DoubleDamage.doubleDamageMaxLvl"));
-        FeudalValuesUtils.setDoubleDamagePercentagePerLvl((double) enchantmentsCfg.get("DoubleDamage.doubleDamagePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("doubleDamage")
+                .setMaxLvl((int) enchantmentsCfg.get("DoubleDamage.doubleDamageMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("DoubleDamage.doubleDamagePercentagePerLvl")));
 
-        FeudalValuesUtils.setBlindnessMaxLvl((int) enchantmentsCfg.get("Blindness.blindnessMaxLvl"));
-        FeudalValuesUtils.setBlindnessPercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessPercentagePerLvl"));
-        FeudalValuesUtils.setBlindnessTime((int) enchantmentsCfg.get("Blindness.blindnessTime"));
-        FeudalValuesUtils.setBlindnessTimePercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessTimePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("multi-shooting")
+                .setMaxLvl((int) enchantmentsCfg.get("Greed.greedMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Greed.greedPercentagePerLvl")));
 
-        FeudalValuesUtils.setSlowdownMaxLvl((int) enchantmentsCfg.get("Slowdown.slowdownMaxLvl"));
-        FeudalValuesUtils.setSlowdownPercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownPercentagePerLvl"));
-        FeudalValuesUtils.setSlowdownTime((int) enchantmentsCfg.get("Slowdown.slowdownTime"));
-        FeudalValuesUtils.setSlowdownTimePercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownTimePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("hook")
+                .setMaxLvl((int) enchantmentsCfg.get("Hook.hookMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Hook.hookPercentagePerLvl")));
 
-        FeudalValuesUtils.setDesiccationMaxLvl((int) enchantmentsCfg.get("Desiccation.desiccationMaxLvl"));
-        FeudalValuesUtils.setDesiccationPercentagePerLvl((double) enchantmentsCfg.get("Desiccation.desiccationPercentagePerLvl"));
-        FeudalValuesUtils.setDesiccationTime((int) enchantmentsCfg.get("Desiccation.slowdownTime"));
-        FeudalValuesUtils.setDesiccationTimePercentagePerLvl((double) enchantmentsCfg.get("Desiccation.slowdownTimePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("multi-shooting")
+                .setMaxLvl((int) enchantmentsCfg.get("Multi-shooting.multi_shootingMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Multi-shooting.multi_shootingPercentagePerLvl")));
 
-        FeudalValuesUtils.setSwordStunMaxLvl((int) enchantmentsCfg.get("SwordStun.swordStunMaxLvl"));
-        FeudalValuesUtils.setSwordStunPercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunPercentagePerLvl"));
-        FeudalValuesUtils.setSwordStunTime((int) enchantmentsCfg.get("SwordStun.swordStunTime"));
-        FeudalValuesUtils.setSwordStunTimePercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunTimePercentagePerLvl"));
 
-        FeudalValuesUtils.setLevitationMaxLvl((int) enchantmentsCfg.get("Levitation.levitationMaxLvl"));
-        FeudalValuesUtils.setLevitationPercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationPercentagePerLvl"));
-        FeudalValuesUtils.setLevitationTime((int) enchantmentsCfg.get("Levitation.levitationTime"));
-        FeudalValuesUtils.setLevitationTimePercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationTimePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("blindness")
+                .setMaxLvl((int) enchantmentsCfg.get("Blindness.blindnessMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("Blindness.blindnessTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessTimePercentagePerLvl")));
 
-        FeudalValuesUtils.setPoisoningMaxLvl((int) enchantmentsCfg.get("Poisoning.poisoningMaxLvl"));
-        FeudalValuesUtils.setPoisoningPercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningPercentagePerLvl"));
-        FeudalValuesUtils.setPoisoningTime((int) enchantmentsCfg.get("Poisoning.poisoningTime"));
-        FeudalValuesUtils.setPoisoningTimePercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningTimePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("slowdown")
+                .setMaxLvl((int) enchantmentsCfg.get("Slowdown.slowdownMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("Slowdown.slowdownTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownTimePercentagePerLvl")));
 
-        FeudalValuesUtils.setNauseaMaxLvl((int) enchantmentsCfg.get("Nausea.nauseaMaxLvl"));
-        FeudalValuesUtils.setNauseaTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaPercentagePerLvl"));
-        FeudalValuesUtils.setNauseaTime((int) enchantmentsCfg.get("Nausea.nauseaTime"));
-        FeudalValuesUtils.setNauseaTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaTimePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("desiccation")
+                .setMaxLvl((int) enchantmentsCfg.get("Desiccation.desiccationMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Desiccation.desiccationPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("Desiccation.slowdownTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Desiccation.slowdownTimePercentagePerLvl")));
 
-        FeudalValuesUtils.setHookMaxLvl((int) enchantmentsCfg.get("Hook.hookMaxLvl"));
-        FeudalValuesUtils.setHookPercentagePerLvl((double) enchantmentsCfg.get("Hook.hookPercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("swordStun")
+                .setMaxLvl((int) enchantmentsCfg.get("SwordStun.swordStunMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("SwordStun.swordStunTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunTimePercentagePerLvl")));
 
-        FeudalValuesUtils.setMulti_shootingMaxLvl((int) enchantmentsCfg.get("Multi-shooting.multi_shootingMaxLvl"));
-        FeudalValuesUtils.setMulti_shootingPercentagePerLvl((double) enchantmentsCfg.get("Multi-shooting.multi_shootingPercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("levitation")
+                .setMaxLvl((int) enchantmentsCfg.get("Levitation.levitationMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("Levitation.levitationTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationTimePercentagePerLvl")));
 
-        FeudalValuesUtils.setBowStunMaxLvl((int) enchantmentsCfg.get("BowStun.bowStunMaxLvl"));
-        FeudalValuesUtils.setBowStunPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunPercentagePerLvl"));
-        FeudalValuesUtils.setBowStunTime((int) enchantmentsCfg.get("BowStun.bowStunTime"));
-        FeudalValuesUtils.setBowStunPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunTimePercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("poisoning")
+                .setMaxLvl((int) enchantmentsCfg.get("Poisoning.poisoningMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("Poisoning.poisoningTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningTimePercentagePerLvl")));
 
-        FeudalValuesUtils.setGreedMaxLvl((int) enchantmentsCfg.get("Greed.greedMaxLvl"));
-        FeudalValuesUtils.setGreedPercentagePerLvl((double) enchantmentsCfg.get("Greed.greedPercentagePerLvl"));
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("nausea")
+                .setMaxLvl((int) enchantmentsCfg.get("Nausea.nauseaMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("Nausea.nauseaTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaTimePercentagePerLvl")));
+
+        FeudalValuesUtils.getDonatEnchantment().add(new DonatEnchantmentUtils("bowStun")
+                .setMaxLvl((int) enchantmentsCfg.get("BowStun.bowStunMaxLvl"))
+                .setPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunPercentagePerLvl"))
+                .setTime((int) enchantmentsCfg.get("BowStun.bowStunTime"))
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunTimePercentagePerLvl")));
 
     }
 
@@ -271,48 +286,44 @@ public class ConfigUtils {
 
         moneyForMobsCfg = YamlConfiguration.loadConfiguration(file);
 
-        FeudalValuesUtils.setMoneyForBat((int) moneyForMobsCfg.get("MoneyForMobs.bat"));
-        FeudalValuesUtils.setMoneyForChicken((int) moneyForMobsCfg.get("MoneyForMobs.chicken"));
-        FeudalValuesUtils.setMoneyForCow((int) moneyForMobsCfg.get("MoneyForMobs.cow"));
-        FeudalValuesUtils.setMoneyForMushroomCow((int) moneyForMobsCfg.get("MoneyForMobs.mushroomCow"));
-        FeudalValuesUtils.setMoneyForHorse((int) moneyForMobsCfg.get("MoneyForMobs.horse"));
-        FeudalValuesUtils.setMoneyForOcelot((int) moneyForMobsCfg.get("MoneyForMobs.ocelot"));
-        FeudalValuesUtils.setMoneyForParrot((int) moneyForMobsCfg.get("MoneyForMobs.parrot"));
-        FeudalValuesUtils.setMoneyForPolarBear((int) moneyForMobsCfg.get("MoneyForMobs.polarBear"));
-        FeudalValuesUtils.setMoneyForPig((int) moneyForMobsCfg.get("MoneyForMobs.pig"));
-        FeudalValuesUtils.setMoneyForRabbit((int) moneyForMobsCfg.get("MoneyForMobs.rabbit"));
-        FeudalValuesUtils.setMoneyForSheep((int) moneyForMobsCfg.get("MoneyForMobs.sheep"));
-        FeudalValuesUtils.setMoneyForSnowMan((int) moneyForMobsCfg.get("MoneyForMobs.snowMan"));
-        FeudalValuesUtils.setMoneyForSquiq((int) moneyForMobsCfg.get("MoneyForMobs.squiq"));
-        FeudalValuesUtils.setMoneyForVillager((int) moneyForMobsCfg.get("MoneyForMobs.villager"));
-        FeudalValuesUtils.setMoneyForCaveSpider((int) moneyForMobsCfg.get("MoneyForMobs.caveSpider"));
-        FeudalValuesUtils.setMoneyForEnderman((int) moneyForMobsCfg.get("MoneyForMobs.enderMan"));
-        FeudalValuesUtils.setMoneyForIronGolem((int) moneyForMobsCfg.get("MoneyForMobs.ironGolem"));
-        FeudalValuesUtils.setMoneyForLlama((int) moneyForMobsCfg.get("MoneyForMobs.llama"));
-        FeudalValuesUtils.setMoneyForSpider((int) moneyForMobsCfg.get("MoneyForMobs.spider"));
-        FeudalValuesUtils.setMoneyForWolf((int) moneyForMobsCfg.get("MoneyForMobs.wolf"));
-        FeudalValuesUtils.setMoneyForBlaze((int) moneyForMobsCfg.get("MoneyForMobs.blaze"));
-        FeudalValuesUtils.setMoneyForCreeper((int) moneyForMobsCfg.get("MoneyForMobs.creeper"));
-        FeudalValuesUtils.setMoneyForElderGuardian((int) moneyForMobsCfg.get("MoneyForMobs.elderGuardian"));
-        FeudalValuesUtils.setMoneyForEndermite((int) moneyForMobsCfg.get("MoneyForMobs.endermite"));
-        FeudalValuesUtils.setMoneyForEvolker((int) moneyForMobsCfg.get("MoneyForMobs.evolker"));
-        FeudalValuesUtils.setMoneyForGhast((int) moneyForMobsCfg.get("MoneyForMobs.ghast"));
-        FeudalValuesUtils.setMoneyForGuardian((int) moneyForMobsCfg.get("MoneyForMobs.guardian"));
-        FeudalValuesUtils.setMoneyForHask((int) moneyForMobsCfg.get("MoneyForMobs.hask"));
-        FeudalValuesUtils.setMoneyForMagmaCube((int) moneyForMobsCfg.get("MoneyForMobs.magmaCube"));
-        FeudalValuesUtils.setMoneyForShulker((int) moneyForMobsCfg.get("MoneyForMobs.shulker"));
-        FeudalValuesUtils.setMoneyForSilverfish((int) moneyForMobsCfg.get("MoneyForMobs.silverfish"));
-        FeudalValuesUtils.setMoneyForSkeleton((int) moneyForMobsCfg.get("MoneyForMobs.skeleton"));
-        FeudalValuesUtils.setMoneyForSlime((int) moneyForMobsCfg.get("MoneyForMobs.slime"));
-        FeudalValuesUtils.setMoneyForStray((int) moneyForMobsCfg.get("MoneyForMobs.stray"));
-        FeudalValuesUtils.setMoneyForVex((int) moneyForMobsCfg.get("MoneyForMobs.vex"));
-        FeudalValuesUtils.setMoneyForVindicator((int) moneyForMobsCfg.get("MoneyForMobs.vindicator"));
-        FeudalValuesUtils.setMoneyForWitch((int) moneyForMobsCfg.get("MoneyForMobs.witch"));
-        FeudalValuesUtils.setMoneyForWitherSkeleton((int) moneyForMobsCfg.get("MoneyForMobs.witherSkeleton"));
-        FeudalValuesUtils.setMoneyForZombie((int) moneyForMobsCfg.get("MoneyForMobs.zombie"));
-        FeudalValuesUtils.setMoneyForZombieVillager((int) moneyForMobsCfg.get("MoneyForMobs.zombieVillager"));
-        FeudalValuesUtils.setMoneyForEnderDragon((int) moneyForMobsCfg.get("MoneyForMobs.enderDragon"));
-        FeudalValuesUtils.setMoneyForWither((int) moneyForMobsCfg.get("MoneyForMobs.Wither"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.BAT, (int) moneyForMobsCfg.get("MoneyForMobs.bat"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.CHICKEN, (int) moneyForMobsCfg.get("MoneyForMobs.chicken"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.COW, (int) moneyForMobsCfg.get("MoneyForMobs.cow"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.MUSHROOM_COW, (int) moneyForMobsCfg.get("MoneyForMobs.mushroomCow"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.OCELOT, (int) moneyForMobsCfg.get("MoneyForMobs.ocelot"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.POLAR_BEAR, (int) moneyForMobsCfg.get("MoneyForMobs.polarBear"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.PIG, (int) moneyForMobsCfg.get("MoneyForMobs.pig"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.RABBIT, (int) moneyForMobsCfg.get("MoneyForMobs.rabbit"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.SNOWMAN, (int) moneyForMobsCfg.get("MoneyForMobs.snowMan"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.VILLAGER, (int) moneyForMobsCfg.get("MoneyForMobs.villager"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.CAVE_SPIDER, (int) moneyForMobsCfg.get("MoneyForMobs.caveSpider"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.ENDERMAN, (int) moneyForMobsCfg.get("MoneyForMobs.enderMan"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.IRON_GOLEM, (int) moneyForMobsCfg.get("MoneyForMobs.ironGolem"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.LLAMA, (int) moneyForMobsCfg.get("MoneyForMobs.llama"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.SPIDER, (int) moneyForMobsCfg.get("MoneyForMobs.spider"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.WOLF, (int) moneyForMobsCfg.get("MoneyForMobs.wolf"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.BLAZE, (int) moneyForMobsCfg.get("MoneyForMobs.blaze"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.CREEPER, (int) moneyForMobsCfg.get("MoneyForMobs.creeper"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.ELDER_GUARDIAN, (int) moneyForMobsCfg.get("MoneyForMobs.elderGuardian"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.ENDERMITE, (int) moneyForMobsCfg.get("MoneyForMobs.endermite"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.EVOKER, (int) moneyForMobsCfg.get("MoneyForMobs.evolker"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.GHAST, (int) moneyForMobsCfg.get("MoneyForMobs.ghast"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.GUARDIAN, (int) moneyForMobsCfg.get("MoneyForMobs.guardian"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.HUSK, (int) moneyForMobsCfg.get("MoneyForMobs.husk"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.MAGMA_CUBE, (int) moneyForMobsCfg.get("MoneyForMobs.magmaCube"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.SHULKER, (int) moneyForMobsCfg.get("MoneyForMobs.shulker"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.SILVERFISH, (int) moneyForMobsCfg.get("MoneyForMobs.silverfish"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.SKELETON, (int) moneyForMobsCfg.get("MoneyForMobs.skeleton"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.SLIME, (int) moneyForMobsCfg.get("MoneyForMobs.slime"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.STRAY, (int) moneyForMobsCfg.get("MoneyForMobs.stray"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.VEX, (int) moneyForMobsCfg.get("MoneyForMobs.vex"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.VINDICATOR, (int) moneyForMobsCfg.get("MoneyForMobs.vindicator"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.WITCH, (int) moneyForMobsCfg.get("MoneyForMobs.witch"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.WITHER_SKELETON, (int) moneyForMobsCfg.get("MoneyForMobs.witherSkeleton"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.ZOMBIE, (int) moneyForMobsCfg.get("MoneyForMobs.zombie"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.ZOMBIE_VILLAGER, (int) moneyForMobsCfg.get("MoneyForMobs.zombieVillager"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.ENDER_DRAGON, (int) moneyForMobsCfg.get("MoneyForMobs.enderDragon"));
+        FeudalValuesUtils.getMoneyForMobs().put(EntityType.WITHER, (int) moneyForMobsCfg.get("MoneyForMobs.Wither"));
 
     }
 
@@ -366,7 +377,7 @@ public class ConfigUtils {
             moneyForMobsCfg.set("MoneyForMobs.evolker", 17);
             moneyForMobsCfg.set("MoneyForMobs.ghast", 15);
             moneyForMobsCfg.set("MoneyForMobs.guardian", 30);
-            moneyForMobsCfg.set("MoneyForMobs.hask", 17);
+            moneyForMobsCfg.set("MoneyForMobs.husk", 17);
             moneyForMobsCfg.set("MoneyForMobs.magmaCube", 23);
             moneyForMobsCfg.set("MoneyForMobs.shulker", 27);
             moneyForMobsCfg.set("MoneyForMobs.silverfish", 1);
@@ -380,7 +391,7 @@ public class ConfigUtils {
             moneyForMobsCfg.set("MoneyForMobs.zombie", 15);
             moneyForMobsCfg.set("MoneyForMobs.zombieVillager", 15);
             moneyForMobsCfg.set("MoneyForMobs.enderDragon", 10000);
-            moneyForMobsCfg.set("MoneyForMobs.Wither", 7000);
+            moneyForMobsCfg.set("MoneyForMobs.wither", 7000);
 
             moneyForMobsCfg.save(file);
 
