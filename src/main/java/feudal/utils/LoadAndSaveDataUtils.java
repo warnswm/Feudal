@@ -3,12 +3,14 @@ package feudal.utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import feudal.Feudal;
+import feudal.data.Auction;
 import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.PlayerDBHandler;
 import feudal.listeners.general.PlayerL;
+import feudal.utils.wrappers.ItemStackWrapper;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import feudal.visual.ScoreBoardGeneralInfo;
 import lombok.SneakyThrows;
@@ -347,6 +349,75 @@ public class LoadAndSaveDataUtils {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
         fileWriter.write(new Gson().toJson(PlayerL.getPlacedBlocks()));
+        fileWriter.flush();
+
+    }
+
+    @SneakyThrows
+    public void loadAuction() {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "auctionProduct.json");
+
+        if (!file.exists()) {
+
+            file.createNewFile();
+            return;
+
+        }
+
+        Type listType = new TypeToken<List<ItemStackWrapper>>() {
+        }.getType();
+
+        Auction.setProducts(new Gson().fromJson(new FileReader(file), listType));
+
+    }
+
+    @SneakyThrows
+    public void saveAuction() {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "auctionProduct.json");
+
+        if (!file.exists())
+            file.createNewFile();
+
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
+
+        fileWriter.write(new Gson().toJson(Auction.getProducts()));
+        fileWriter.flush();
+
+    }
+
+
+    @SneakyThrows
+    public void loadPlayerProducts(Player player) {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playerProducts.json");
+
+        if (!file.exists()) {
+
+            file.createNewFile();
+            return;
+
+        }
+
+        Type listType = new TypeToken<List<ItemStackWrapper>>() {
+        }.getType();
+
+        Auction.getPlayersProducts().put(player.getUniqueId().toString(), new Gson().fromJson(new FileReader(file), listType));
+
+    }
+
+    @SneakyThrows
+    public void savePlayerProducts(Player player) {
+
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playerProducts.json");
+
+        if (!file.exists())
+            file.createNewFile();
+
+        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
+
+        fileWriter.write(new Gson().toJson(Auction.getPlayersProducts()));
         fileWriter.flush();
 
     }

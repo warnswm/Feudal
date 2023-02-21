@@ -4,6 +4,7 @@ import feudal.data.cache.CacheAuction;
 import feudal.utils.wrappers.ItemStackWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -14,13 +15,15 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class Auction {
-
-    final Map<String, List<ItemStackWrapper>> playersProducts = CacheAuction.getPlayersProduct();
-    final int quantityProducts = playersProducts.values().size();
-    final int quantityPlayers = playersProducts.size();
-
+    @Getter
+    private final static Map<String, List<ItemStackWrapper>> playersProducts = CacheAuction.getPlayersProduct();
+    @Setter
+    @Getter
+    private static List<ItemStackWrapper> products = new ArrayList<>();
+    int quantityProducts = playersProducts.values().size();
+    int quantityPlayers = playersProducts.size();
 
     public void addPlayerProduct(@NotNull Player player, @NotNull ItemStack product, int price) {
 
@@ -40,6 +43,10 @@ public class Auction {
 
         playersProducts.get(uuid).add(itemStackWrapper);
 
+    }
+
+    public void addProduct(@NotNull ItemStack product, int price) {
+        products.add(new ItemStackWrapper(product.getType(), product.getDurability(), product.getAmount(), product.getItemMeta().getDisplayName(), product.getItemMeta().getLore(), product.getEnchantments(), price));
     }
 
 }
