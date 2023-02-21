@@ -118,14 +118,14 @@ public class PlannedActivitiesUtils {
 
     public void clearMail() {
 
+        if (Bukkit.getOnlinePlayers().isEmpty()) return;
+
         new BukkitRunnable() {
 
             @Override
             public void run() {
 
-
-//
-//
+                Bukkit.getOnlinePlayers().forEach(player -> CacheFeudalPlayers.getFeudalPlayer(player).clearLetters());
 
             }
 
@@ -135,9 +135,9 @@ public class PlannedActivitiesUtils {
 
     public void secretOrder() {
 
-        List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
+        if (Bukkit.getOnlinePlayers().isEmpty()) return;
 
-        if (onlinePlayers.isEmpty()) return;
+        List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
 
         new BukkitRunnable() {
 
@@ -151,7 +151,7 @@ public class PlannedActivitiesUtils {
 
             }
 
-        }.runTaskTimer(Feudal.getPlugin(), 30000, 30000);
+        }.runTaskTimer(Feudal.getPlugin(), 20, 20);
 
     }
 }

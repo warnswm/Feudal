@@ -339,7 +339,7 @@ public class ConfigUtils {
         CacheFeudalValues.getMoneyForMobs().put(EntityType.ZOMBIE, (int) moneyForMobsCfg.get("MoneyForMobs.zombie"));
         CacheFeudalValues.getMoneyForMobs().put(EntityType.ZOMBIE_VILLAGER, (int) moneyForMobsCfg.get("MoneyForMobs.zombieVillager"));
         CacheFeudalValues.getMoneyForMobs().put(EntityType.ENDER_DRAGON, (int) moneyForMobsCfg.get("MoneyForMobs.enderDragon"));
-        CacheFeudalValues.getMoneyForMobs().put(EntityType.WITHER, (int) moneyForMobsCfg.get("MoneyForMobs.Wither"));
+        CacheFeudalValues.getMoneyForMobs().put(EntityType.WITHER, (int) moneyForMobsCfg.get("MoneyForMobs.wither"));
 
     }
 
