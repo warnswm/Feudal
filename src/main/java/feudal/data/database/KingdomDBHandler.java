@@ -7,7 +7,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-import feudal.utils.FeudalValuesUtils;
+import feudal.data.cache.CacheFeudalValues;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
@@ -21,8 +21,8 @@ import java.util.List;
 
 public class KingdomDBHandler {
 
-    private static final MongoClient mongoClient = FeudalValuesUtils.getMongoClient();
-    private static final MongoCollection<Document> collection = FeudalValuesUtils.getKingdomsCollection();
+    private static final MongoClient mongoClient = CacheFeudalValues.getMongoClient();
+    private static final MongoCollection<Document> collection = CacheFeudalValues.getKingdomsCollection();
 
 
     public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<Integer> privateTerritory, List<String> baronsUUID) {

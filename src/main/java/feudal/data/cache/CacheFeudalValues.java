@@ -1,8 +1,9 @@
-package feudal.utils;
+package feudal.data.cache;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import feudal.data.DonatEnchantment;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,14 +12,12 @@ import lombok.experimental.UtilityClass;
 import org.bson.Document;
 import org.bukkit.entity.EntityType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @UtilityClass
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class FeudalValuesUtils {
+public class CacheFeudalValues {
 
     @Getter
     @Setter
@@ -39,7 +38,7 @@ public class FeudalValuesUtils {
 
     @Getter
     @Setter
-    List<DonatEnchantmentUtils> donatEnchantment = new ArrayList<>();
+    Map<String, DonatEnchantment> donatEnchantment = new HashMap<>();
 
     @Getter
     @Setter

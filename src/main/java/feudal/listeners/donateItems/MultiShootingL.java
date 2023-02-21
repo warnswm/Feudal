@@ -1,6 +1,7 @@
 package feudal.listeners.donateItems;
 
-import feudal.utils.FeudalValuesUtils;
+import feudal.data.DonatEnchantment;
+import feudal.data.cache.CacheFeudalValues;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -22,10 +23,11 @@ public class MultiShootingL implements Listener {
         Arrow arrow = (Arrow) event.getDamager();
         Player player = (Player) arrow.getShooter();
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
+        DonatEnchantment donatEnchantment = CacheFeudalValues.getDonatEnchantment().get("multi-shooting");
 
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("multi-shooting") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("multi-shootingLvl") * FeudalValuesUtils.getMulti_shootingPercentagePerLvl())
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
+                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("multi-shooting") ||
+                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("multi-shootingLvl") * donatEnchantment.getPercentagePerLvl())
             return;
 
         double damage = 2 * event.getDamage();

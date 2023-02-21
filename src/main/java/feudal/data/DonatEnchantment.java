@@ -1,39 +1,41 @@
-package feudal.utils;
+package feudal.data;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Getter
 @ToString
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DonatEnchantmentUtils {
+public class DonatEnchantment {
 
     final String name;
     int maxLvl, time;
     double percentagePerLvl, timePercentagePerLvl;
 
-    public DonatEnchantmentUtils(String name) {
+    public DonatEnchantment(String name) {
         this.name = name;
     }
 
-    public DonatEnchantmentUtils setMaxLvl(int value) {
+    public DonatEnchantment setMaxLvl(int value) {
         maxLvl = value;
         return this;
     }
 
-    public DonatEnchantmentUtils setTime(int value) {
+    public DonatEnchantment setTime(int value) {
         time = value;
         return this;
     }
 
-    public DonatEnchantmentUtils setPercentagePerLvl(double value) {
+    public DonatEnchantment setPercentagePerLvl(double value) {
         percentagePerLvl = value;
         return this;
     }
 
-    public DonatEnchantmentUtils setTimePercentagePerLvl(double value) {
+    public DonatEnchantment setTimePercentagePerLvl(double value) {
         timePercentagePerLvl = value;
         return this;
     }

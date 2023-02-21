@@ -3,10 +3,7 @@ package feudal.utils;
 import feudal.Feudal;
 import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
-import feudal.data.cache.CacheAuction;
-import feudal.data.cache.CacheFeudalKingdoms;
-import feudal.data.cache.CacheFeudalPlayers;
-import feudal.data.cache.CacheSpyPlayers;
+import feudal.data.cache.*;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -46,14 +43,14 @@ public class PlannedActivitiesUtils {
 
                     }
 
-                    int landTaxCfg = FeudalValuesUtils.getLandTax();
-                    int residentsTaxCfg = FeudalValuesUtils.getTaxOnResidents();
+                    int landTaxCfg = CacheFeudalValues.getLandTax();
+                    int residentsTaxCfg = CacheFeudalValues.getTaxOnResidents();
 
                     int landTax = reputation >= 1000 ? landTaxCfg : landTaxCfg * (1000 - reputation) / 1000 + landTaxCfg;
                     int taxOnResidents = reputation >= 1000 ? residentsTaxCfg : residentsTaxCfg * (1000 - reputation) / 1000 + residentsTaxCfg;
 
 
-                    cacheFeudalKingdom.takeBalance((int) (oldBalance / 100 * FeudalValuesUtils.getTaxTreasuryPercent()));
+                    cacheFeudalKingdom.takeBalance((int) (oldBalance / 100 * CacheFeudalValues.getTaxTreasuryPercent()));
 
                     for (Integer chunkHashCode : kingdom.getValue().getTerritory()) {
 
@@ -61,7 +58,7 @@ public class PlannedActivitiesUtils {
 
                             cacheFeudalKingdom.takeTerritory(chunkHashCode);
                             cacheFeudalKingdom.takePrivateTerritory(chunkHashCode);
-                            cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getLandRemovingReputation());
+                            cacheFeudalKingdom.takeReputation(CacheFeudalValues.getLandRemovingReputation());
 
                             continue;
 
@@ -75,7 +72,7 @@ public class PlannedActivitiesUtils {
 
                         if (oldBalance < taxOnResidents) {
 
-                            cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getResidentsRemovingReputation());
+                            cacheFeudalKingdom.takeReputation(CacheFeudalValues.getResidentsRemovingReputation());
                             continue;
 
                         }
@@ -93,7 +90,7 @@ public class PlannedActivitiesUtils {
                 }
 
             }
-        }.runTaskTimer(Feudal.getPlugin(), FeudalValuesUtils.getTimeTaxCollection() * 72000L, FeudalValuesUtils.getTimeTaxCollection() * 72000L);
+        }.runTaskTimer(Feudal.getPlugin(), CacheFeudalValues.getTimeTaxCollection() * 72000L, CacheFeudalValues.getTimeTaxCollection() * 72000L);
 
     }
 
@@ -115,7 +112,7 @@ public class PlannedActivitiesUtils {
                 CacheAuction.getPlayersProduct().clear();
 
             }
-        }.runTaskTimer(Feudal.getPlugin(), FeudalValuesUtils.getTimeRestart() * 72000L, FeudalValuesUtils.getTimeRestart() * 72000L);
+        }.runTaskTimer(Feudal.getPlugin(), CacheFeudalValues.getTimeRestart() * 72000L, CacheFeudalValues.getTimeRestart() * 72000L);
 
     }
 
@@ -132,7 +129,7 @@ public class PlannedActivitiesUtils {
 
             }
 
-        }.runTaskTimer(Feudal.getPlugin(), FeudalValuesUtils.getTimeClearMail() * 1728000L, FeudalValuesUtils.getTimeClearMail() * 1728000L);
+        }.runTaskTimer(Feudal.getPlugin(), CacheFeudalValues.getTimeClearMail() * 1728000L, CacheFeudalValues.getTimeClearMail() * 1728000L);
 
     }
 

@@ -1,6 +1,7 @@
 package feudal.listeners.donateItems;
 
-import feudal.utils.FeudalValuesUtils;
+import feudal.data.DonatEnchantment;
+import feudal.data.cache.CacheFeudalValues;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -22,17 +23,17 @@ public class SwordStunL implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
+        DonatEnchantment donatEnchantment = CacheFeudalValues.getDonatEnchantment().get("swordStun");
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
-
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("swordStun") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("swordStunLvl") * FeudalValuesUtils.getSwordStunPercentagePerLvl())
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
+                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("swordStun") ||
+                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("swordStunLvl") * donatEnchantment.getPercentagePerLvl())
             return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
-        int swordStun = FeudalValuesUtils.getSwordStunTime();
+        int swordStun = donatEnchantment.getTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (swordStun + swordStun / 100 * FeudalValuesUtils.getSwordStunPercentagePerLvl()), 255, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (swordStun + swordStun / 100 * donatEnchantment.getTimePercentagePerLvl()), 255, true, true));
 
     }
 

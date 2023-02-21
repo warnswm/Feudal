@@ -1,6 +1,7 @@
 package feudal.listeners.donateItems;
 
-import feudal.utils.FeudalValuesUtils;
+import feudal.data.DonatEnchantment;
+import feudal.data.cache.CacheFeudalValues;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
@@ -25,17 +26,19 @@ public class BowStunL implements Listener {
         Arrow arrow = (Arrow) event.getDamager();
         Player player = (Player) arrow.getShooter();
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
+        DonatEnchantment donatEnchantment = CacheFeudalValues.getDonatEnchantment().get("bowStun");
 
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("bowStun") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("bowStunLvl") * FeudalValuesUtils.getBowStunPercentagePerLvl())
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
+                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("bowStun") ||
+                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("bowStunLvl") * donatEnchantment.getPercentagePerLvl())
             return;
 
-        LivingEntity entity = (LivingEntity) event.getEntity();
-        int effectTime = FeudalValuesUtils.getBowStunTime();
 
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (effectTime + effectTime / 100 * FeudalValuesUtils.getBowStunTimePercentagePerLvl()), 1, true, true));
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (effectTime + effectTime / 100 * FeudalValuesUtils.getBowStunTimePercentagePerLvl()), 1, true, true));
+        LivingEntity entity = (LivingEntity) event.getEntity();
+        int effectTime = donatEnchantment.getTime();
+
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (effectTime + effectTime / 100 * donatEnchantment.getTimePercentagePerLvl()), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (effectTime + effectTime / 100 * donatEnchantment.getTimePercentagePerLvl()), 1, true, true));
 
     }
 

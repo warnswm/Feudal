@@ -1,6 +1,7 @@
 package feudal.listeners.donateItems;
 
-import feudal.utils.FeudalValuesUtils;
+import feudal.data.DonatEnchantment;
+import feudal.data.cache.CacheFeudalValues;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,13 +20,12 @@ public class DoubleDamageL implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
+        DonatEnchantment donatEnchantment = CacheFeudalValues.getDonatEnchantment().get("doubleDamage");
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
-
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("doubleDamage") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") * FeudalValuesUtils.getDoubleDamagePercentagePerLvl())
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
+                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("doubleDamage") ||
+                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("doubleDamageLvl") * donatEnchantment.getPercentagePerLvl())
             return;
-
 
         event.setDamage(event.getDamage() * 2);
 

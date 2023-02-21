@@ -1,6 +1,7 @@
 package feudal.listeners.donateItems;
 
-import feudal.utils.FeudalValuesUtils;
+import feudal.data.DonatEnchantment;
+import feudal.data.cache.CacheFeudalValues;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -22,10 +23,11 @@ public class HookL implements Listener {
         Arrow arrow = (Arrow) event.getDamager();
         Player player = (Player) arrow.getShooter();
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null) return;
+        DonatEnchantment donatEnchantment = CacheFeudalValues.getDonatEnchantment().get("hook");
 
-        if (!Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("hook") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("hookLvl") * FeudalValuesUtils.getHookPercentagePerLvl())
+        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
+                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("hook") ||
+                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("hookLvl") * donatEnchantment.getPercentagePerLvl())
             return;
 
         event.getEntity().teleport(player);

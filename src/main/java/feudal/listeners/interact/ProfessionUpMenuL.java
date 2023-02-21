@@ -2,7 +2,7 @@ package feudal.listeners.interact;
 
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
-import feudal.utils.FeudalValuesUtils;
+import feudal.data.cache.CacheFeudalValues;
 import feudal.visual.Menus;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -30,31 +30,31 @@ public class ProfessionUpMenuL implements Listener {
 
             case "Сила":
 
-                menus.attributesUpMenu(feudalPlayer.getStrengthLvl(), "силы", FeudalValuesUtils.getStrengthPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getStrengthLvl(), "силы", CacheFeudalValues.getStrengthPercentageCost());
 
                 break;
 
             case "Выносливость":
 
-                menus.attributesUpMenu(feudalPlayer.getStaminaLvl(), "выносливости", FeudalValuesUtils.getStaminaPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getStaminaLvl(), "выносливости", CacheFeudalValues.getStaminaPercentageCost());
 
                 break;
 
             case "Удача":
 
-                menus.attributesUpMenu(feudalPlayer.getLuckLvl(), "удачи", FeudalValuesUtils.getLuckPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getLuckLvl(), "удачи", CacheFeudalValues.getLuckPercentageCost());
 
                 break;
 
             case "Живучесть":
 
-                menus.attributesUpMenu(feudalPlayer.getSurvivabilityLvl(), "живучести", FeudalValuesUtils.getSurvivabilityPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getSurvivabilityLvl(), "живучести", CacheFeudalValues.getSurvivabilityPercentageCost());
 
                 break;
 
             case "Скорость":
 
-                menus.attributesUpMenu(feudalPlayer.getSpeedLvl(), "скорости", FeudalValuesUtils.getSpeedPercentageCost());
+                menus.attributesUpMenu(feudalPlayer.getSpeedLvl(), "скорости", CacheFeudalValues.getSpeedPercentageCost());
 
                 break;
 
