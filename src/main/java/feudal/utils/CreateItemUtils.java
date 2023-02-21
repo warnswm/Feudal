@@ -45,7 +45,7 @@ public class CreateItemUtils {
 
         itemMeta.setDisplayName(displayName);
 
-        String[] loreS = lore.split("!.\\?");
+        String[] loreS = lore.split("\\?!\\.");
         List<String> loreT = new ArrayList<>();
 
         Collections.addAll(loreT, loreS);

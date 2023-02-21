@@ -13,7 +13,10 @@ public enum ProfessionIDE {
     BUILDER(1, "Строитель"), COOK(2, "Повар"), FARMER(3, "Фермер"),
     FISHERMAN(4, "Рыболов"), HUNTER(5, "Охотник"), MINER(6, "Шахтёр"),
     SHEPHERD(7, "Пастух"), TRADER(8, "Торговец"), WOODCUTTER(9, "Дровосек"),
-    CLERK(12, "Писарь");
+    ALCHEMIST(10, "Алхимик"), BLACKSMITH(11, "Кузнец"), CLERK(12, "Писарь"),
+    GUARD(13, "Стражник"), HEALER(14, "Лекарь"), KILLER(15, "Убийца"),
+    BARON(16, "Барон"), KING(17, "Король"), KNIGHT(18, "Рыцарь"),
+    SQUIRE(19, "Оруженосец");
 
     int id;
     String professionName;
