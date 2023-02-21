@@ -8,12 +8,11 @@ import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.PlayerDBHandler;
-import feudal.listeners.generalListeners.PlayerL;
+import feudal.listeners.general.PlayerL;
 import feudal.utils.wrappers.PlacedBlockWrapper;
 import feudal.visual.ScoreBoardGeneralInfo;
-import lombok.AccessLevel;
 import lombok.SneakyThrows;
-import lombok.experimental.FieldDefaults;
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -28,10 +27,10 @@ import java.util.*;
 
 import static feudal.data.database.KingdomDBHandler.*;
 
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@UtilityClass
 public class LoadAndSaveDataUtils {
 
-    public static void loadKingdom(Player player) {
+    public void loadKingdom(Player player) {
 
         if (!playerInKingdom(player)) return;
 
@@ -53,7 +52,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void saveAllKingdoms() {
+    public void saveAllKingdoms() {
 
         new Thread(() -> {
 
@@ -86,7 +85,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void saveAllPlayers() {
+    public void saveAllPlayers() {
 
         Bukkit.getOnlinePlayers().forEach(player -> new Thread(() -> {
 
@@ -114,7 +113,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void loadPlayer(@NotNull Player player) {
+    public void loadPlayer(@NotNull Player player) {
 
         FeudalPlayer feudalPlayer;
 
@@ -163,7 +162,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    private static void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
+    private void loadPlayerAttributes(@NotNull Player player, int speedLvl, int survivabilityLvl) {
 
         player.setMaxHealth(16 * (survivabilityLvl / 100.0F) + 16);
         player.setWalkSpeed(0.2f * speedLvl / 100 + 0.2f);
@@ -175,7 +174,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void savePlayer(Player player) {
+    public void savePlayer(Player player) {
 
         new Thread(() -> {
 
@@ -204,7 +203,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void loadAllConfigs() {
+    public void loadAllConfigs() {
 
         ConfigUtils.readDatabaseConfig();
         ConfigUtils.readEnchantmentsConfig();
@@ -215,7 +214,7 @@ public class LoadAndSaveDataUtils {
 
     }
 
-    public static void saveAllConfigs() {
+    public void saveAllConfigs() {
 
         ConfigUtils.saveDatabaseConfig();
         ConfigUtils.saveEnchantmentsConfig();
@@ -227,7 +226,7 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    private static void loadPlayerMail(Player player) {
+    private void loadPlayerMail(Player player) {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
 
@@ -262,7 +261,7 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    public static void savePlayerMail(Player player) {
+    public void savePlayerMail(Player player) {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
 
@@ -288,7 +287,7 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    public static void saveAllPlayerMail() {
+    public void saveAllPlayersMail() {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playerMail.json");
 
@@ -317,7 +316,7 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    public static void loadPlacedBlocks() {
+    public void loadPlacedBlocks() {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
 
@@ -338,7 +337,7 @@ public class LoadAndSaveDataUtils {
     }
 
     @SneakyThrows
-    public static void savePlacedBlocks() {
+    public void savePlacedBlocks() {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
 
@@ -347,7 +346,7 @@ public class LoadAndSaveDataUtils {
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-        fileWriter.write(new Gson().toJson(PlayerL.placedBlocks));
+        fileWriter.write(new Gson().toJson(PlayerL.getPlacedBlocks()));
         fileWriter.flush();
 
     }

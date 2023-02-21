@@ -8,21 +8,23 @@ import feudal.data.cache.CacheAuction;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.cache.CacheSpyPlayers;
-import feudal.fishing.PlayerCaughtFish;
-import feudal.listeners.donateItemsListeners.*;
-import feudal.listeners.generalListeners.ArmorL;
-import feudal.listeners.generalListeners.MobL;
-import feudal.listeners.generalListeners.PlayerJoinAndQuitL;
-import feudal.listeners.generalListeners.PlayerL;
-import feudal.listeners.generalListeners.craftItems.CraftItemsL;
-import feudal.listeners.interactListeners.*;
-import feudal.listeners.professionListeners.expListeners.*;
-import feudal.listeners.professionListeners.peasantsListeners.*;
-import feudal.listeners.territoryListeners.BlocksL;
-import feudal.listeners.territoryListeners.InteractL;
+import feudal.listeners.donateItems.*;
+import feudal.listeners.fishing.PlayerCaughtFish;
+import feudal.listeners.general.ArmorL;
+import feudal.listeners.general.MobL;
+import feudal.listeners.general.PlayerJoinAndQuitL;
+import feudal.listeners.general.PlayerL;
+import feudal.listeners.general.craftItems.CraftItemsL;
+import feudal.listeners.interact.*;
+import feudal.listeners.profession.expListeners.*;
+import feudal.listeners.profession.peasantsListeners.*;
+import feudal.listeners.territory.BlocksL;
+import feudal.listeners.territory.InteractL;
 import feudal.utils.LoadAndSaveDataUtils;
 import feudal.utils.PlannedActivitiesUtils;
 import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -31,16 +33,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class Feudal extends JavaPlugin {
 
+    @Getter
+    @Setter
     private static Plugin plugin;
 
-    public static Plugin getPlugin() {
+    @Override
+    public void onEnable() {
 
-        return plugin;
+        setPlugin(this);
 
-    }
+        registerCommands();
+        registerListeners();
 
-    public static void setPlugin(Plugin plugin) {
-        Feudal.plugin = plugin;
+        LoadAndSaveDataUtils.loadAllConfigs();
+        LoadAndSaveDataUtils.loadPlacedBlocks();
+
+        PlannedActivitiesUtils.taxCollection();
+        PlannedActivitiesUtils.restart();
+        PlannedActivitiesUtils.clearMail();
+        PlannedActivitiesUtils.secretOrder();
+
     }
 
     @Override
@@ -50,7 +62,7 @@ public final class Feudal extends JavaPlugin {
         LoadAndSaveDataUtils.saveAllKingdoms();
         LoadAndSaveDataUtils.savePlacedBlocks();
         LoadAndSaveDataUtils.saveAllConfigs();
-        LoadAndSaveDataUtils.saveAllPlayerMail();
+        LoadAndSaveDataUtils.saveAllPlayersMail();
 
         CacheFeudalPlayers.getFeudalPlayerInfo().clear();
         CacheFeudalKingdoms.getKingdomInfo().clear();
@@ -68,7 +80,7 @@ public final class Feudal extends JavaPlugin {
 
     }
 
-    private void registerEvents() {
+    private void registerListeners() {
 
         Bukkit.getPluginManager().registerEvents(new ProfessionChangeMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new AttributesUpMenuL(), this);
@@ -115,24 +127,6 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MinerExpL(), this);
         Bukkit.getPluginManager().registerEvents(new ShepherdExpL(), this);
         Bukkit.getPluginManager().registerEvents(new WoodcutterExpL(), this);
-
-    }
-
-    @Override
-    public void onEnable() {
-
-        setPlugin(this);
-
-        registerCommands();
-        registerEvents();
-
-        LoadAndSaveDataUtils.loadAllConfigs();
-        LoadAndSaveDataUtils.loadPlacedBlocks();
-
-        PlannedActivitiesUtils.taxCollection();
-        PlannedActivitiesUtils.restart();
-        PlannedActivitiesUtils.clearMail();
-        PlannedActivitiesUtils.secretOrder();
 
     }
 

@@ -87,6 +87,7 @@ public class PlayerDBHandler {
         }
 
         return false;
+
     }
 
     public static int getIntegerField(@NotNull Player player, String fieldName) {
@@ -121,6 +122,7 @@ public class PlayerDBHandler {
         }
 
         return 0;
+
     }
 
     public static String getStringField(@NotNull Player player, String fieldName) {
@@ -183,6 +185,7 @@ public class PlayerDBHandler {
             session.close();
 
         }
+
     }
 
     public static void addField(@NotNull Player player, String fieldName, Object value) {
@@ -215,6 +218,7 @@ public class PlayerDBHandler {
             session.close();
 
         }
+
     }
 
     public static void resetAPlayer(@NotNull Player player) {
@@ -229,7 +233,12 @@ public class PlayerDBHandler {
 
             if (!collection.find(new BasicDBObject("_id", uuid))
                     .iterator()
-                    .hasNext()) return;
+                    .hasNext()) {
+
+                checkPlayer(player);
+                return;
+
+            }
 
             collection.findOneAndReplace(Filters.eq("_id", uuid),
                     new Document("_id", uuid)

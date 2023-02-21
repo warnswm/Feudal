@@ -58,6 +58,7 @@ public class KingdomDBHandler {
             session.close();
 
         }
+
     }
 
     public static void deleteKingdom(@NotNull String kingdomName) {
@@ -88,6 +89,7 @@ public class KingdomDBHandler {
             session.close();
 
         }
+
     }
 
     public static @Nullable Object getField(String kingdomName, String fieldName) {

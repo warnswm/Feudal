@@ -1,5 +1,6 @@
 package feudal.utils.wrappers;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -13,14 +14,14 @@ import java.util.Map;
 @Getter
 @ToString
 @AllArgsConstructor
-@FieldDefaults(makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ItemStackWrapper {
-    public Material type;
-    public short durability;
-    public int amount;
-    public String name;
-    public List<String> lore;
-    public Map<Enchantment, Integer> enchants;
-    public int price;
+    Material type;
+    short durability;
+    int amount;
+    String name;
+    List<String> lore;
+    Map<Enchantment, Integer> enchants;
+    int price;
 
 }

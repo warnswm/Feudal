@@ -1,5 +1,6 @@
 package feudal.utils;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
@@ -10,9 +11,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@UtilityClass
 public class CreateItemUtils {
 
-    public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName) {
+    public @NotNull ItemStack createItem(Material material, int materialAmount, String displayName) {
 
         ItemStack item = new ItemStack(material, materialAmount);
         ItemMeta itemMeta = item.getItemMeta();
@@ -24,7 +26,7 @@ public class CreateItemUtils {
 
     }
 
-    public static @NotNull ItemStack createItem(Material material, Enchantment enchantment, int enchantmentLvl, int materialAmount) {
+    public @NotNull ItemStack createItem(Material material, Enchantment enchantment, int enchantmentLvl, int materialAmount) {
 
         ItemStack item = new ItemStack(material, materialAmount);
         ItemMeta itemMeta = item.getItemMeta();
@@ -36,7 +38,7 @@ public class CreateItemUtils {
 
     }
 
-    public static @NotNull ItemStack createItem(Material material, int materialAmount, String displayName, @NotNull String lore) {
+    public @NotNull ItemStack createItem(Material material, int materialAmount, String displayName, @NotNull String lore) {
 
         ItemStack item = new ItemStack(material, materialAmount);
         ItemMeta itemMeta = item.getItemMeta();

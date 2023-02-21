@@ -3,8 +3,11 @@ package feudal.utils;
 import feudal.Feudal;
 import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
+import feudal.data.cache.CacheAuction;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
+import feudal.data.cache.CacheSpyPlayers;
+import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -13,9 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+@UtilityClass
 public class PlannedActivitiesUtils {
 
-    public static void taxCollection() {
+    public void taxCollection() {
 
         new BukkitRunnable() {
 
@@ -37,13 +41,11 @@ public class PlannedActivitiesUtils {
 
                         cacheFeudalKingdom.takeAllTerritory();
                         cacheFeudalKingdom.takeAllPrivateTerritory();
-                        cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getLandRemovingReputation());
 
                         return;
 
                     }
 
-                    int balance = kingdom.getValue().getBalance();
                     int landTaxCfg = FeudalValuesUtils.getLandTax();
                     int residentsTaxCfg = FeudalValuesUtils.getTaxOnResidents();
 
@@ -51,11 +53,11 @@ public class PlannedActivitiesUtils {
                     int taxOnResidents = reputation >= 1000 ? residentsTaxCfg : residentsTaxCfg * (1000 - reputation) / 1000 + residentsTaxCfg;
 
 
-                    cacheFeudalKingdom.takeBalance((int) (balance / 100 * FeudalValuesUtils.getTaxTreasuryPercent()));
+                    cacheFeudalKingdom.takeBalance((int) (oldBalance / 100 * FeudalValuesUtils.getTaxTreasuryPercent()));
 
                     for (Integer chunkHashCode : kingdom.getValue().getTerritory()) {
 
-                        if (balance < landTax) {
+                        if (oldBalance < landTax) {
 
                             cacheFeudalKingdom.takeTerritory(chunkHashCode);
                             cacheFeudalKingdom.takePrivateTerritory(chunkHashCode);
@@ -71,7 +73,7 @@ public class PlannedActivitiesUtils {
 
                     for (String ignored : kingdom.getValue().getMembersUUID()) {
 
-                        if (balance < taxOnResidents) {
+                        if (oldBalance < taxOnResidents) {
 
                             cacheFeudalKingdom.takeReputation(FeudalValuesUtils.getResidentsRemovingReputation());
                             continue;
@@ -95,7 +97,7 @@ public class PlannedActivitiesUtils {
 
     }
 
-    public static void restart() {
+    public void restart() {
 
         new BukkitRunnable() {
 
@@ -109,26 +111,24 @@ public class PlannedActivitiesUtils {
 
                 CacheFeudalPlayers.getFeudalPlayerInfo().clear();
                 CacheFeudalKingdoms.getKingdomInfo().clear();
+                CacheSpyPlayers.getSpyPlayerCache().clear();
+                CacheAuction.getPlayersProduct().clear();
 
             }
         }.runTaskTimer(Feudal.getPlugin(), FeudalValuesUtils.getTimeRestart() * 72000L, FeudalValuesUtils.getTimeRestart() * 72000L);
 
     }
 
-    public static void clearMail() {
+    public void clearMail() {
 
         new BukkitRunnable() {
 
             @Override
             public void run() {
 
-                Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Рестарт!"));
 
-                LoadAndSaveDataUtils.saveAllKingdoms();
-                LoadAndSaveDataUtils.saveAllConfigs();
-
-                CacheFeudalPlayers.getFeudalPlayerInfo().clear();
-                CacheFeudalKingdoms.getKingdomInfo().clear();
+//
+//
 
             }
 
@@ -136,7 +136,7 @@ public class PlannedActivitiesUtils {
 
     }
 
-    public static void secretOrder() {
+    public void secretOrder() {
 
         List<Player> onlinePlayers = (List<Player>) Bukkit.getOnlinePlayers();
 

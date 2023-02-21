@@ -39,5 +39,7 @@ public class Auction {
         }
 
         playersProducts.get(uuid).add(itemStackWrapper);
+
     }
+
 }

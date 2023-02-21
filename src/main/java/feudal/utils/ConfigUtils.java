@@ -3,22 +3,24 @@ package feudal.utils;
 import com.mongodb.client.MongoClients;
 import feudal.Feudal;
 import lombok.SneakyThrows;
+import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
 
+@UtilityClass
 public class ConfigUtils {
-    private static final File path = Feudal.getPlugin().getDataFolder();
-    private static @NonNls FileConfiguration databaseCfg;
-    private static @NonNls FileConfiguration enchantmentsCfg;
-    private static @NonNls FileConfiguration kingdomTaxCfg;
-    private static @NonNls FileConfiguration moneyForMobsCfg;
-    private static @NonNls FileConfiguration attributesCfg;
-    private static @NonNls FileConfiguration generalCfg;
+    private final File path = Feudal.getPlugin().getDataFolder();
+    private @NonNls FileConfiguration databaseCfg;
+    private @NonNls FileConfiguration enchantmentsCfg;
+    private @NonNls FileConfiguration kingdomTaxCfg;
+    private @NonNls FileConfiguration moneyForMobsCfg;
+    private @NonNls FileConfiguration attributesCfg;
+    private @NonNls FileConfiguration generalCfg;
 
-    public static void readDatabaseConfig() {
+    public void readDatabaseConfig() {
 
         File file = new File(path, "database.yml");
         createDatabaseConfig();
@@ -33,7 +35,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void saveDatabaseConfig() {
+    public void saveDatabaseConfig() {
 
         File file = new File(path, "database.yml");
         createDatabaseConfig();
@@ -43,7 +45,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void createDatabaseConfig() {
+    public void createDatabaseConfig() {
 
         if (!path.exists())
             path.mkdir();
@@ -66,7 +68,7 @@ public class ConfigUtils {
 
     }
 
-    public static void readEnchantmentsConfig() {
+    public void readEnchantmentsConfig() {
 
         File file = new File(path, "enchantments.yml");
         createEnchantmentsConfig();
@@ -131,7 +133,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void saveEnchantmentsConfig() {
+    public void saveEnchantmentsConfig() {
 
         File file = new File(path, "enchantments.yml");
         createEnchantmentsConfig();
@@ -141,7 +143,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void createEnchantmentsConfig() {
+    public void createEnchantmentsConfig() {
 
         if (!path.exists())
             path.mkdir();
@@ -214,7 +216,7 @@ public class ConfigUtils {
         }
     }
 
-    public static void readKingdomTaxConfig() {
+    public void readKingdomTaxConfig() {
 
         File file = new File(path, "kingdomTax.yml");
         createKingdomTaxConfig();
@@ -229,7 +231,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void saveKingdomTaxConfig() {
+    public void saveKingdomTaxConfig() {
 
         File file = new File(path, "kingdomTax.yml");
         createKingdomTaxConfig();
@@ -239,7 +241,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void createKingdomTaxConfig() {
+    public void createKingdomTaxConfig() {
 
         if (!path.exists())
             path.mkdir();
@@ -262,7 +264,7 @@ public class ConfigUtils {
 
     }
 
-    public static void readMoneyForMobsConfig() {
+    public void readMoneyForMobsConfig() {
 
         File file = new File(path, "moneyForMobs.yml");
         createMoneyForMobsConfig();
@@ -315,7 +317,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void saveMoneyForMobsConfig() {
+    public void saveMoneyForMobsConfig() {
 
         File file = new File(path, "moneyForMobs.yml");
         createMoneyForMobsConfig();
@@ -325,7 +327,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void createMoneyForMobsConfig() {
+    public void createMoneyForMobsConfig() {
 
         if (!path.exists())
             path.mkdir();
@@ -386,7 +388,7 @@ public class ConfigUtils {
 
     }
 
-    public static void readAttributesConfig() {
+    public void readAttributesConfig() {
 
         File file = new File(path, "attributes.yml");
         createAttributesConfig();
@@ -403,7 +405,7 @@ public class ConfigUtils {
 
 
     @SneakyThrows
-    public static void saveAttributesConfig() {
+    public void saveAttributesConfig() {
 
         File file = new File(path, "attributes.yml");
         createKingdomTaxConfig();
@@ -413,7 +415,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void createAttributesConfig() {
+    public void createAttributesConfig() {
 
         if (!path.exists())
             path.mkdir();
@@ -437,7 +439,7 @@ public class ConfigUtils {
 
     }
 
-    public static void readGeneralConfig() {
+    public void readGeneralConfig() {
 
         File file = new File(path, "general.yml");
         createGeneralConfig();
@@ -451,7 +453,7 @@ public class ConfigUtils {
 
 
     @SneakyThrows
-    public static void saveGeneralConfig() {
+    public void saveGeneralConfig() {
 
         File file = new File(path, "general.yml");
         createKingdomTaxConfig();
@@ -461,7 +463,7 @@ public class ConfigUtils {
     }
 
     @SneakyThrows
-    public static void createGeneralConfig() {
+    public void createGeneralConfig() {
 
         if (!path.exists())
             path.mkdir();

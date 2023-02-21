@@ -15,7 +15,6 @@ import java.util.UUID;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FeudalKingdom {
-
     final List<UUID> invitationUUID = new ArrayList<>();
     final List<String> kingdomLetters = new ArrayList<>();
     List<String> baronsUUID = new ArrayList<>();

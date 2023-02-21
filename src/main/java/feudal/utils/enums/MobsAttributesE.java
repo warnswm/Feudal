@@ -18,28 +18,11 @@ public enum MobsAttributesE {
     GHAST(EntityType.GHAST, 20), GUARDIAN(EntityType.GUARDIAN, 60), HUSK(EntityType.HUSK, 40),
     SHULKER(EntityType.SHULKER, 60), SILVERFISH(EntityType.SILVERFISH, 16), SKELETON(EntityType.SKELETON, 40),
     STRAY(EntityType.STRAY, 40), VEX(EntityType.VEX, 28), VINDICATOR(EntityType.VINDICATOR, 48),
-    ZOMBIE(EntityType.ZOMBIE, 40), WITHER_SKELETON(EntityType.WITHER_SKELETON, 40), ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, 20, 160),
-    WITHER(EntityType.WITHER, 25, 1200), ENDER_DRAGON(EntityType.ENDER_DRAGON, 30, 10000);
+    ZOMBIE(EntityType.ZOMBIE, 40), WITHER_SKELETON(EntityType.WITHER_SKELETON, 40), ELDER_GUARDIAN(EntityType.ELDER_GUARDIAN, 160),
+    WITHER(EntityType.WITHER, 1200), ENDER_DRAGON(EntityType.ENDER_DRAGON, 10000);
 
     EntityType entity;
-    int strength;
     int hp;
-
-    MobsAttributesE(EntityType entityType, int hp) {
-        entity = entityType;
-        this.hp = hp;
-        strength = 0;
-    }
-
-    public static int getStrengthByEntity(EntityType entity) {
-
-        for (MobsAttributesE mobsAttributesE : values())
-            if (mobsAttributesE.getEntity() == entity)
-                return mobsAttributesE.getStrength();
-
-        return 0;
-
-    }
 
     public static int getHPByEntity(EntityType entity) {
 

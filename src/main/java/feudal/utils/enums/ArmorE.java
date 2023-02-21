@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 @Getter
 @AllArgsConstructor
@@ -21,10 +22,12 @@ public enum ArmorE {
     Material armor;
     int attribute;
 
-    public static int getArmorAttributeByItemMaterial(Material item) {
+    public static int getArmorAttributeByItemMaterial(ItemStack item) {
+
+        if (item == null) return 0;
 
         for (ArmorE armorE : values())
-            if (armorE.getArmor() == item)
+            if (armorE.getArmor() == item.getType())
                 return armorE.getAttribute();
 
         return 0;
