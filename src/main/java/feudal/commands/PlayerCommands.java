@@ -85,7 +85,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 }
 
-                withdrawMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
+                withdrawMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1].replaceAll("[^0-9]", "")));
 
                 break;
 
@@ -103,7 +103,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 }
 
-                replenishMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1]));
+                replenishMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1].replaceAll("[^0-9]", "")));
 
                 break;
 
@@ -261,14 +261,14 @@ public class PlayerCommands implements CommandExecutor {
         } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId().toString()) &&
                 !feudalKingdom.getKingUUID().equals(player.getUniqueId())) {
 
-            player.sendMessage("Недостаточно прав для снятия денег с казны!");
+            player.sendMessage("Недостаточно прав для снятия золота с казны!");
             return;
 
         }
 
         if (feudalKingdom.getBalance() < colum) {
 
-            player.sendMessage("В казне недостаточно средств");
+            player.sendMessage("В казне недостаточно залота");
             return;
 
         }

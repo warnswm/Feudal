@@ -59,7 +59,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                feudalPlayerInt(player, Bukkit.getPlayerExact(args[1]), args[2], Integer.parseInt(args[3]));
+                feudalPlayerInt(player, Bukkit.getPlayerExact(args[1]), args[2], Integer.parseInt(args[3].replaceAll("[^0-9]", "")));
 
                 break;
 
@@ -119,7 +119,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                feudalKingdomInt(player, args[1], args[2], Integer.parseInt(args[3]));
+                feudalKingdomInt(player, args[1], args[2], Integer.parseInt(args[3].replaceAll("[^0-9]", "")));
 
                 break;
 

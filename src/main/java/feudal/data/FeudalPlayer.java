@@ -123,7 +123,7 @@ public class FeudalPlayer {
         Player player = Bukkit.getPlayer(playerUUID);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
-        player.sendMessage("+" + value + " денег");
+        player.sendMessage("+" + value + " золота");
 
         return this;
 
@@ -212,7 +212,7 @@ public class FeudalPlayer {
         Player player = Bukkit.getPlayer(playerUUID);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
-        player.sendMessage("-" + value + " денег");
+        player.sendMessage("-" + value + " золота");
 
         return this;
     }
