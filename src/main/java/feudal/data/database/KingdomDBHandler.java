@@ -10,8 +10,6 @@ import com.mongodb.client.model.Updates;
 import feudal.data.cache.CacheFeudalValues;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -292,7 +290,6 @@ public class KingdomDBHandler {
     public static void resetAllClanMembers(String kingdomName) {
 
         ClientSession session = mongoClient.startSession();
-        FileConfiguration config = Bukkit.getPluginManager().getPlugin("Feudal").getConfig();
 
         try {
 
@@ -310,7 +307,7 @@ public class KingdomDBHandler {
 
             if (document.get("members") == null) return;
 
-            List<Player> members = (List<Player>) document.get("members");
+            List<String> members = (List<String>) document.get("members");
             members.forEach(PlayerDBHandler::resetAPlayer);
 
             session.commitTransaction();

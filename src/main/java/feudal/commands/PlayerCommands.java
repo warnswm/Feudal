@@ -395,7 +395,12 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.removeMember(playerInviting);
 
-        feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(member).sendMessage("Игрок " + invitedPlayer.getName() + " был кикнут из вашего королевства!"));
+        feudalKingdom.getMembersUUID().forEach(member -> {
+
+            if (Bukkit.getPlayer(UUID.fromString(member)) != null)
+                Bukkit.getPlayer(member).sendMessage("Игрок " + invitedPlayer.getName() + " был кикнут из вашего королевства!");
+
+        });
 
     }
 
@@ -450,7 +455,8 @@ public class PlayerCommands implements CommandExecutor {
             FeudalPlayer feudalMember = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(member));
             feudalMember.setKingdomName("");
 
-            Bukkit.getPlayer(member).sendMessage("Ваше королевство расформировано!");
+            if (Bukkit.getPlayer(UUID.fromString(member)) != null)
+                Bukkit.getPlayer(member).sendMessage("Ваше королевство расформировано!");
 
         });
 
@@ -475,7 +481,12 @@ public class PlayerCommands implements CommandExecutor {
         feudalKingdom.getMembersUUID().remove(player.getUniqueId().toString());
         feudalPlayer.setKingdomName("");
 
-        feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(member).sendMessage("Игрок " + player.getName() + " покинул ваше королевство!"));
+        feudalKingdom.getMembersUUID().forEach(member -> {
+
+            if (Bukkit.getPlayer(UUID.fromString(member)) != null)
+                Bukkit.getPlayer(member).sendMessage("Игрок " + player.getName() + " покинул ваше королевство!");
+
+        });
         player.sendMessage("Вы покинули королевство " + kingdomName);
 
     }
@@ -533,7 +544,12 @@ public class PlayerCommands implements CommandExecutor {
         }
 
         feudalKingdom.addTerritory(world.getChunkAt(player.getLocation()));
-        feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(UUID.fromString(member)).sendMessage("Ваш король захватил новые земли!"));
+        feudalKingdom.getMembersUUID().forEach(member -> {
+
+            if (Bukkit.getPlayer(UUID.fromString(member)) != null)
+                Bukkit.getPlayer(UUID.fromString(member)).sendMessage("Ваш король захватил новые земли!");
+
+        });
 
     }
 

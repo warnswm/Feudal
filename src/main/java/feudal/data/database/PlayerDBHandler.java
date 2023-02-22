@@ -9,6 +9,7 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import feudal.data.cache.CacheFeudalValues;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -221,7 +222,7 @@ public class PlayerDBHandler {
 
     }
 
-    public static void resetAPlayer(@NotNull Player player) {
+    public static void resetAPlayer(@NotNull String uuidStr) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -229,13 +230,13 @@ public class PlayerDBHandler {
 
             session.startTransaction();
 
-            int uuid = player.getUniqueId().hashCode();
+            int uuid = uuidStr.hashCode();
 
             if (!collection.find(new BasicDBObject("_id", uuid))
                     .iterator()
                     .hasNext()) {
 
-                checkPlayer(player);
+                checkPlayer(Bukkit.getPlayer(uuidStr));
                 return;
 
             }

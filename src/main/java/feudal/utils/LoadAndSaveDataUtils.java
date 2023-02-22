@@ -64,11 +64,8 @@ public class LoadAndSaveDataUtils {
                 String kingdomName = feudalKingdom.getKingdomName();
 
 
-                List<String> membersUUID = new ArrayList<>();
-                feudalKingdom.getMembersUUID().forEach(member -> membersUUID.add(member));
-
-                List<String> baronsUUID = new ArrayList<>();
-                feudalKingdom.getBaronsUUID().forEach(baron -> baronsUUID.add(baron));
+                List<String> membersUUID = new ArrayList<>(feudalKingdom.getMembersUUID());
+                List<String> baronsUUID = new ArrayList<>(feudalKingdom.getBaronsUUID());
 
 
                 setField(kingdomName, "members", membersUUID);
