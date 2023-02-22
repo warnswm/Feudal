@@ -21,13 +21,9 @@ public class ItemEnchantmentL implements Listener {
         net.minecraft.server.v1_12_R1.ItemStack nmsCurrentItem = CraftItemStack.asNMSCopy(event.getCurrentItem());
         NBTTagCompound tag = nmsCurrentItem.getTag() != null ? nmsCurrentItem.getTag() : new NBTTagCompound();
 
-//        tag.setBoolean("cookedByChef", true);
-
         nmsCurrentItem.setTag(tag);
 //        event.setCurrentItem();
 
-
-        System.out.println(CraftItemStack.asBukkitCopy(nmsCurrentItem));
 
     }
 }

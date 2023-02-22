@@ -88,7 +88,7 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ProfessionUpMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new MailMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkMenuL(), this);
-//        Bukkit.getPluginManager().registerEvents(new AuctionMenuL(), this);
+        Bukkit.getPluginManager().registerEvents(new AuctionMenuL(), this);
         Bukkit.getPluginManager().registerEvents(new SwitchingProfessionMenuL(), this);
 
         Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuitL(), this);
