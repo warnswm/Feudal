@@ -17,12 +17,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class MailMenuL implements Listener {
 
+    private static boolean isaBoolean(@NotNull InventoryClickEvent event) {
+        return event.getCurrentItem() == null ||
+                event.getCurrentItem().getItemMeta() == null ||
+                !event.getView().getTitle().equals("Почта") &&
+                        !event.getView().getTitle().equals("Взаимодействие с приглашением");
+    }
+
     @EventHandler
     public final void interactInventory(@NotNull InventoryClickEvent event) {
 
-        if (event.getCurrentItem() == null ||
-                event.getCurrentItem().getItemMeta() == null ||
-                !event.getView().getTitle().equals("Почта")) return;
+        if (isaBoolean(event)) return;
 
         event.setCancelled(true);
 
@@ -35,11 +40,11 @@ public class MailMenuL implements Listener {
 
 
         if (lore.contains(" приглашает вас вступить в королевство - "))
-            menuInteractionInvitation(player, lore.substring(lore.lastIndexOf(" ") + 1), lore);
+            menuInteractionInvitation(player, lore.substring(lore.lastIndexOf(" ") + 1));
 
         if (displayName.contains("Вступить в королевство")) {
 
-            String kingdomName = displayName.substring(displayName.lastIndexOf(" " + 1)).substring(1);
+            String kingdomName = displayName.substring(displayName.lastIndexOf(" ") + 1);
 
             if (!feudalPlayer.getInvitations().contains(kingdomName)) {
 
@@ -63,11 +68,11 @@ public class MailMenuL implements Listener {
 
     }
 
-    private void menuInteractionInvitation(Player player, String kingdomName, String lore) {
+    private void menuInteractionInvitation(Player player, String kingdomName) {
 
         Inventory inventory = Bukkit.createInventory(player, 9, "Взаимодействие с приглашением");
 
-        inventory.setItem(1, CreateItemUtils.createItem(Material.GREEN_SHULKER_BOX, 1, "Вступить в королевство " + kingdomName, lore));
+        inventory.setItem(1, CreateItemUtils.createItem(Material.GREEN_SHULKER_BOX, 1, "Вступить в королевство " + kingdomName));
         inventory.setItem(7, CreateItemUtils.createItem(Material.BARRIER, 1, "Закрыть меню"));
 
         player.openInventory(inventory);
