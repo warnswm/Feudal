@@ -7,6 +7,7 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.cache.CacheFeudalValues;
 import feudal.data.cache.CacheSpyPlayers;
+import feudal.entity.TravelingMerchant;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -132,6 +133,23 @@ public class PlannedActivitiesUtils {
             }
 
         }.runTaskTimer(Feudal.getPlugin(), CacheFeudalValues.getTimeClearMail() * 1728000L, CacheFeudalValues.getTimeClearMail() * 1728000L);
+
+    }
+
+    public void spawnTravelingMerchant() {
+
+        if (Bukkit.getOnlinePlayers().isEmpty()) return;
+
+        new BukkitRunnable() {
+
+            @Override
+            public void run() {
+
+                TravelingMerchant.spawnTraveling();
+
+            }
+
+        }.runTaskTimer(Feudal.getPlugin(), 108000, 108000);
 
     }
 

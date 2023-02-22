@@ -31,4 +31,5 @@ public class SwitchingProfessionMenuL implements Listener {
         player.closeInventory();
 
     }
+
 }

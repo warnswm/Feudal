@@ -19,7 +19,7 @@ public class RTPUtils {
     public @NotNull Location rtpCalc(Player player, int minX, int maxX, int minZ, int maxZ) {
 
         World world = Bukkit.getWorld("world");
-        int xCord = ThreadLocalRandom.current().nextInt(minX, maxX), zCord = ThreadLocalRandom.current().nextInt(minZ, maxZ), yCord = 0;
+        int xCord = ThreadLocalRandom.current().nextInt(minX, maxX), zCord = ThreadLocalRandom.current().nextInt(minZ, maxZ), yCord;
 
         Chunk chunk = world.getChunkAt(xCord, zCord);
         if (CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode(), player))

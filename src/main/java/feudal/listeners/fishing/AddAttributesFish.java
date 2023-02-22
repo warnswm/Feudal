@@ -14,24 +14,38 @@ public class AddAttributesFish {
         net.minecraft.server.v1_12_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(fish);
         NBTTagCompound tag = nmsItem.getTag() != null ? nmsItem.getTag() : new NBTTagCompound();
 
-        if (ThreadLocalRandom.current().nextInt(1, 501) == 500)
+        if (ThreadLocalRandom.current().nextInt(1, 501) == 500) {
+
             tag.setString("rare", "Легендарная");
+            tag.setDouble("weight", ThreadLocalRandom.current().nextDouble(1, 12000));
+            tag.setDouble("size", ThreadLocalRandom.current().nextDouble(5, 6800));
 
-        else if (ThreadLocalRandom.current().nextInt(1, 151) == 150)
+        } else if (ThreadLocalRandom.current().nextInt(1, 151) == 150) {
+
             tag.setString("rare", "Мифическая");
+            tag.setDouble("weight", ThreadLocalRandom.current().nextDouble(1, 9000));
+            tag.setDouble("size", ThreadLocalRandom.current().nextDouble(5, 6800));
 
-        else if (ThreadLocalRandom.current().nextInt(1, 51) == 50)
+        } else if (ThreadLocalRandom.current().nextInt(1, 51) == 50) {
+
             tag.setString("rare", "Эпическая");
+            tag.setDouble("weight", ThreadLocalRandom.current().nextDouble(1, 6800));
+            tag.setDouble("size", ThreadLocalRandom.current().nextDouble(5, 6800));
 
-        else if (ThreadLocalRandom.current().nextInt(1, 16) == 15)
+        } else if (ThreadLocalRandom.current().nextInt(1, 16) == 15) {
+
             tag.setString("rare", "Редкая");
+            tag.setDouble("weight", ThreadLocalRandom.current().nextDouble(1, 680));
+            tag.setDouble("size", ThreadLocalRandom.current().nextDouble(5, 6800));
 
-        else
+        } else {
+
             tag.setString("rare", "Обычная");
+            tag.setDouble("weight", ThreadLocalRandom.current().nextDouble(1, 68));
+            tag.setDouble("size", ThreadLocalRandom.current().nextDouble(5, 680));
 
+        }
 
-        tag.setDouble("weight", ThreadLocalRandom.current().nextDouble(1, 34000));
-        tag.setDouble("size", ThreadLocalRandom.current().nextDouble(5, 1300));
 
         nmsItem.setTag(tag);
         return CraftItemStack.asBukkitCopy(nmsItem);
