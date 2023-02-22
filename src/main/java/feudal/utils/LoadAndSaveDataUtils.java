@@ -369,9 +369,9 @@ public class LoadAndSaveDataUtils {
         Type listType = new TypeToken<List<ItemStackWrapper>>() {
         }.getType();
 
-        List<ItemStackWrapper> list = new Gson().fromJson(new FileReader(file), listType);
-        if (list == null) return;
+        if (new Gson().fromJson(new FileReader(file), listType) == null) return;
 
+        List<ItemStackWrapper> list = new Gson().fromJson(new FileReader(file), listType);
         list.forEach(product -> Auction.getProducts().add(product));
 
     }
@@ -389,46 +389,6 @@ public class LoadAndSaveDataUtils {
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
         fileWriter.write(new Gson().toJson(Auction.getProducts()));
-        fileWriter.flush();
-
-    }
-
-
-    @SneakyThrows
-    public void loadPlayerProducts() {
-
-        File file = new File(Feudal.getPlugin().getDataFolder(), "playersProducts.json");
-
-        if (!file.exists()) {
-
-            file.createNewFile();
-            return;
-
-        }
-
-        Type listType = new TypeToken<List<ItemStackWrapper>>() {
-        }.getType();
-
-        Map<String, List<ItemStackWrapper>> list = new Gson().fromJson(new FileReader(file), listType);
-        if (list == null) return;
-
-        list.forEach((uuid, item) -> Auction.getPlayersProducts().put(uuid, item));
-
-    }
-
-    @SneakyThrows
-    public void saveAllPlayersProducts() {
-
-        if (Auction.getPlayersProducts().isEmpty()) return;
-
-        File file = new File(Feudal.getPlugin().getDataFolder(), "playersProducts.json");
-
-        if (!file.exists())
-            file.createNewFile();
-
-        BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
-
-        fileWriter.write(new Gson().toJson(Auction.getPlayersProducts()));
         fileWriter.flush();
 
     }

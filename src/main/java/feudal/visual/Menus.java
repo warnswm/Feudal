@@ -1,12 +1,10 @@
 package feudal.visual;
 
-import feudal.data.Auction;
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.CreateItemUtils;
 import feudal.utils.enums.professionEnums.AttributeForProfessionE;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
-import feudal.utils.wrappers.ItemStackWrapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -85,11 +83,15 @@ public class Menus {
 
         Inventory auction = Bukkit.createInventory(player, 54, "Аукцион");
 
-        int minItemIndex = 28 * page + 1;
-
-        for (int i = 10; i <= 37; i++)
-            if (Auction.getProducts().size() >= minItemIndex)
-                auction.setItem(i, ItemStackWrapper.itemStackWrapperToItemStack(Auction.getProducts().get(minItemIndex)));
+//        int listIndex = page == 1 ? 0 : 28 * page + 1;
+//
+//        for (int i = 10; i <= 37; i++)
+//            if (Auction.getProducts().size() > listIndex) {
+//
+//                auction.setItem(i, ItemStackWrapper.itemStackWrapperToItemStack(Auction.getProducts().get(listIndex)));
+//                listIndex++;
+//
+//            }
 
         player.openInventory(auction);
 

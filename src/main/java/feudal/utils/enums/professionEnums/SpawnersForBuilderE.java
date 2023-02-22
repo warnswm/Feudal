@@ -12,7 +12,11 @@ import org.bukkit.entity.EntityType;
 public enum SpawnersForBuilderE {
 
     SPIDER(EntityType.SPIDER, 25),
-    CAVE_SPIDER(EntityType.CAVE_SPIDER, 25);
+    CAVE_SPIDER(EntityType.CAVE_SPIDER, 25),
+    SILVERFISH(EntityType.SILVERFISH, 25),
+    ZOMBIE(EntityType.ZOMBIE, 50),
+    SKELETON(EntityType.SKELETON, 50),
+    BLAZE(EntityType.BLAZE, 100);
 
     EntityType entity;
     int professionLvl;

@@ -37,7 +37,6 @@ public class PlayerJoinAndQuitL implements Listener {
 
         LoadAndSaveDataUtils.loadPlayer(player);
         LoadAndSaveDataUtils.loadKingdom(player);
-        LoadAndSaveDataUtils.loadPlayerProducts();
 
     }
 

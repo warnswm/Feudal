@@ -1,5 +1,6 @@
 package feudal.commands;
 
+import feudal.data.Auction;
 import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
@@ -8,12 +9,14 @@ import feudal.data.database.KingdomDBHandler;
 import feudal.utils.RTPUtils;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
 import feudal.utils.wrappers.ChunkWrapper;
+import feudal.utils.wrappers.ItemStackWrapper;
 import feudal.visual.Menus;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -177,6 +180,24 @@ public class PlayerCommands implements CommandExecutor {
             case "ah":
 
                 ah(player);
+
+                break;
+
+            case "sell":
+
+                if (player.getInventory().getItemInMainHand() == null) {
+
+                    player.sendMessage("Возьмите предмет в основную руку!");
+                    break;
+
+                } else if (args.length < 2) {
+
+                    player.sendMessage("Укажите сумму!");
+                    break;
+
+                }
+
+                sell(player.getInventory().getItemInMainHand(), Integer.parseInt(args[1].replaceAll("[^0-9]", "")));
 
                 break;
 
@@ -401,6 +422,12 @@ public class PlayerCommands implements CommandExecutor {
                 Bukkit.getPlayer(member).sendMessage("Игрок " + invitedPlayer.getName() + " был кикнут из вашего королевства!");
 
         });
+
+    }
+
+    private void sell(@NotNull ItemStack itemStack, int price) {
+
+        Auction.getProducts().add(new ItemStackWrapper(itemStack.getType(), itemStack.getDurability(), itemStack.getAmount(), itemStack.getItemMeta().getDisplayName(), itemStack.getItemMeta().getLore(), itemStack.getEnchantments(), price));
 
     }
 

@@ -7,6 +7,7 @@ import feudal.utils.enums.professionEnums.SpawnersForBuilderE;
 import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.EntityType;
@@ -62,10 +63,18 @@ public class BuilderL implements Listener {
 
         if (isBlockEntity(event, feudalPlayer, block)) return;
 
-        CreatureSpawner creatureSpawner = (CreatureSpawner) block.getState();
-        creatureSpawner.setSpawnedType(EntityType.valueOf(Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItemInHand()).getTag()).getString("BlockEntity")));
+        setSpawner(block, EntityType.valueOf(Objects.requireNonNull(CraftItemStack.asNMSCopy(event.getItemInHand()).getTag()).getString("BlockEntity")));
 
-        block.setData(creatureSpawner.getData().getData());
+    }
+
+    private void setSpawner(@NotNull Block block, EntityType entityType) {
+
+        BlockState blockState = block.getState();
+
+        CreatureSpawner spawner = ((CreatureSpawner) blockState);
+        spawner.setSpawnedType(entityType);
+
+        blockState.update();
 
     }
 }
