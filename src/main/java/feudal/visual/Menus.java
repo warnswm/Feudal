@@ -23,10 +23,10 @@ public class Menus {
 
     Player player;
 
-    public void openTravelingMerchantMenu() {
+    public void travelingMerchantMenu() {
 
         Inventory travelingMerchantMenu = Bukkit.createInventory(player, 54, "Странствующий торговец");
-        int numberPurchaseSlots = 0, numberSaleSlots = 0;
+        byte numberPurchaseSlots = 0, numberSaleSlots = 0;
 
         for (int i = 10; i <= 39; i++) {
 
@@ -61,7 +61,7 @@ public class Menus {
 
     }
 
-    public void switchingProfessionOneStage() {
+    public void switchingProfessionOneStageMenu() {
 
         Inventory switchingProfession = Bukkit.createInventory(player, 9, "Смена профессии");
 
@@ -111,7 +111,7 @@ public class Menus {
 
     }
 
-    public void openProfessionSelection() {
+    public void professionSelectionMenu() {
 
         Inventory professionSelection = Bukkit.createInventory(player, 54, "Выбор профессии");
 
@@ -129,7 +129,7 @@ public class Menus {
 
     }
 
-    public void openMailMenu() {
+    public void mailMenu() {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
         Inventory mailMenu = Bukkit.createInventory(player, 54, "Почта");
@@ -149,7 +149,7 @@ public class Menus {
 
     }
 
-    public void openClerkMenu() {
+    public void clerkMenu() {
 
         ItemStack item = player.getInventory().getItemInMainHand();
 

@@ -68,7 +68,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 }
 
-                new Menus(player).openProfessionSelection();
+                new Menus(player).openProfessionSelectionMenu();
                 break;
 
             case "withdraw":
