@@ -1,10 +1,12 @@
 package feudal.visual;
 
+import feudal.data.Auction;
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.CreateItemUtils;
 import feudal.utils.enums.professionEnums.AttributeForProfessionE;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
+import feudal.utils.wrappers.ItemStackWrapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -79,8 +81,22 @@ public class Menus {
 
     }
 
+    public void auctionMenu(int page) {
 
-    public void upgradeProfession() {
+        Inventory auction = Bukkit.createInventory(player, 54, "Аукцион");
+
+        int minItemIndex = 28 * page - 29;
+
+        for (int i = 10; i <= 37; i++)
+            if (Auction.getProducts().get(minItemIndex) != null)
+                auction.setItem(i, ItemStackWrapper.itemStackWrapperToItemStack(Auction.getProducts().get(minItemIndex)));
+
+        player.openInventory(auction);
+
+    }
+
+
+    public void upgradeProfessionMenu() {
 
         Inventory upgradeProfessionInv = Bukkit.createInventory(player, 9, "Прокачка профессии");
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);

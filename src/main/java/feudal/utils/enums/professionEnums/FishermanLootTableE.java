@@ -1,7 +1,5 @@
 package feudal.utils.enums.professionEnums;
 
-import feudal.utils.CreateItemUtils;
-import feudal.utils.enums.EnchantmentE;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 public enum FishermanLootTableE {
 
     BOW(1, new ItemStack(Material.BOW)),
-    ENCHANTED_BOOK(2, CreateItemUtils.createItem(Material.ENCHANTED_BOOK, EnchantmentE.getRandomEnchantment(), 1, 1)),
     FISHING_ROD(3, new ItemStack(Material.FISHING_ROD)),
     NAME_TAG(4, new ItemStack(Material.NAME_TAG)),
     SADDLE(5, new ItemStack(Material.SADDLE));

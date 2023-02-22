@@ -22,8 +22,8 @@ public class Auction {
     @Setter
     @Getter
     private static List<ItemStackWrapper> products = new ArrayList<>();
-    int quantityProducts = playersProducts.values().size();
-    int quantityPlayers = playersProducts.size();
+    int quantityProducts = products.size();
+    int quantityPlayers = products.size();
 
     public void addPlayerProduct(@NotNull Player player, @NotNull ItemStack product, int price) {
 

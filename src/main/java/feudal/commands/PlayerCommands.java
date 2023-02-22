@@ -6,6 +6,7 @@ import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.utils.RTPUtils;
+import feudal.utils.enums.professionEnums.ProfessionIDE;
 import feudal.utils.wrappers.ChunkWrapper;
 import feudal.visual.Menus;
 import org.bukkit.*;
@@ -173,6 +174,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "ah":
+
+                ah(player);
+
+                break;
+
             default:
                 player.sendMessage("Неизвестная команда! Введите /f help, чтобы посмотреть доступные команды");
 
@@ -198,7 +205,7 @@ public class PlayerCommands implements CommandExecutor {
     }
 
     private void up(@NotNull Player player) {
-        new Menus(player).upgradeProfession();
+        new Menus(player).upgradeProfessionMenu();
     }
 
     private boolean checkKingdomName(@NotNull String kingdomName) {
@@ -470,6 +477,20 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.getMembersUUID().forEach(member -> Bukkit.getPlayer(member).sendMessage("Игрок " + player.getName() + " покинул ваше королевство!"));
         player.sendMessage("Вы покинули королевство " + kingdomName);
+
+    }
+
+    private void ah(@NotNull Player player) {
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.TRADER.getId()) {
+
+            player.sendMessage("Вы не торговец!");
+            return;
+
+        }
+
+        new Menus(player).auctionMenu(1);
 
     }
 

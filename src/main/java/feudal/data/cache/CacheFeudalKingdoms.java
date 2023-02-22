@@ -1,20 +1,22 @@
 package feudal.data.cache;
 
 import feudal.data.FeudalKingdom;
+import lombok.experimental.UtilityClass;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@UtilityClass
 public class CacheFeudalKingdoms {
-    private static final HashMap<String, FeudalKingdom> feudalKingdomCache = new HashMap<>();
+    private final HashMap<String, FeudalKingdom> feudalKingdomCache = new HashMap<>();
 
-    public static HashMap<String, FeudalKingdom> getKingdomInfo() {
+    public Map<String, FeudalKingdom> getKingdomInfo() {
         return feudalKingdomCache;
     }
 
-    public static boolean checkPrivate(int chunkHashCode, @NotNull Player player) {
+    public boolean checkPrivate(int chunkHashCode, @NotNull Player player) {
 
         for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
@@ -26,4 +28,5 @@ public class CacheFeudalKingdoms {
         return false;
 
     }
+
 }

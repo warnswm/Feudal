@@ -4,10 +4,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import feudal.data.DonatEnchantment;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import lombok.experimental.UtilityClass;
 import org.bson.Document;
 import org.bukkit.entity.EntityType;
@@ -16,70 +14,69 @@ import java.util.HashMap;
 import java.util.Map;
 
 @UtilityClass
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class CacheFeudalValues {
 
     @Getter
     @Setter
-    MongoClient mongoClient;
+    private MongoClient mongoClient;
     @Getter
     @Setter
-    MongoDatabase database;
+    private MongoDatabase database;
     @Getter
     @Setter
-    MongoCollection<Document> playersCollection;
+    private MongoCollection<Document> playersCollection;
     @Getter
     @Setter
-    MongoCollection<Document> kingdomsCollection;
+    private MongoCollection<Document> kingdomsCollection;
 
     @Getter
     @Setter
-    Map<EntityType, Integer> moneyForMobs = new HashMap<>();
+    private Map<EntityType, Integer> moneyForMobs = new HashMap<>();
 
     @Getter
     @Setter
-    Map<String, DonatEnchantment> donatEnchantment = new HashMap<>();
+    private Map<String, DonatEnchantment> donatEnchantment = new HashMap<>();
 
     @Getter
     @Setter
-    int landTax;
+    private int landTax;
     @Getter
     @Setter
-    int taxOnResidents;
+    private int taxOnResidents;
     @Getter
     @Setter
-    int landRemovingReputation;
+    private int landRemovingReputation;
     @Getter
     @Setter
-    int residentsRemovingReputation;
+    private int residentsRemovingReputation;
     @Getter
     @Setter
-    double taxTreasuryPercent;
+    private double taxTreasuryPercent;
     @Getter
     @Setter
-    int timeTaxCollection;
+    private int timeTaxCollection;
 
     @Getter
     @Setter
-    int timeRestart;
+    private int timeRestart;
     @Getter
     @Setter
-    int timeClearMail;
+    private int timeClearMail;
 
     @Getter
     @Setter
-    double strengthPercentageCost;
+    private double strengthPercentageCost;
     @Getter
     @Setter
-    double staminaPercentageCost;
+    private double staminaPercentageCost;
     @Getter
     @Setter
-    double luckPercentageCost;
+    private double luckPercentageCost;
     @Getter
     @Setter
-    double survivabilityPercentageCost;
+    private double survivabilityPercentageCost;
     @Getter
     @Setter
-    double speedPercentageCost;
+    private double speedPercentageCost;
 
 }

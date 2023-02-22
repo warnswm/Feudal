@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -40,6 +41,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
             case "feudalplayerint":
 
+
                 if (args.length < 4) {
 
                     player.sendMessage("Недостаточно аргументов!");
@@ -57,22 +59,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                try {
-
-                    FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
-                    feudalPlayer.getClass().getMethod(args[2], int.class).invoke(feudalPlayer, Integer.parseInt(args[3]));
-
-                    player.sendMessage("Метод был выполнен!");
-
-                } catch (NoSuchMethodException e) {
-
-                    player.sendMessage("Метод не найден!");
-
-                } catch (InvocationTargetException | IllegalAccessException e) {
-
-                    player.sendMessage("Не верные агрументы!");
-
-                }
+                feudalPlayerInt(player, Bukkit.getPlayerExact(args[1]), args[2], Integer.parseInt(args[3]));
 
                 break;
 
@@ -90,22 +77,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                try {
-
-                    FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
-                    feudalPlayer.getClass().getMethod(args[2], String.class).invoke(feudalPlayer, args[3]);
-
-                    player.sendMessage("Метод был выполнен!");
-
-                } catch (NoSuchMethodException e) {
-
-                    player.sendMessage("Метод не найден!");
-
-                } catch (InvocationTargetException | IllegalAccessException e) {
-
-                    player.sendMessage("Не верные агрументы!");
-
-                }
+                feudalPlayerString(player, Bukkit.getPlayerExact(args[1]), args[2], args[3]);
 
                 break;
 
@@ -124,22 +96,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                try {
-
-                    FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
-                    feudalPlayer.getClass().getMethod(args[2]).invoke(feudalPlayer);
-
-                    player.sendMessage("Метод был выполнен!");
-
-                } catch (NoSuchMethodException e) {
-
-                    player.sendMessage("Метод не найден!");
-
-                } catch (InvocationTargetException | IllegalAccessException e) {
-
-                    player.sendMessage("Не верные агрументы!");
-
-                }
+                feudalPlayer(player, Bukkit.getPlayerExact(args[1]), args[2]);
 
                 break;
 
@@ -162,22 +119,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                try {
-
-                    FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
-                    feudalKingdom.getClass().getMethod(args[2], int.class).invoke(Integer.parseInt(args[3]));
-
-                    player.sendMessage("Метод был выполнен!");
-
-                } catch (NoSuchMethodException e) {
-
-                    player.sendMessage("Метод не найден!");
-
-                } catch (InvocationTargetException | IllegalAccessException e) {
-
-                    player.sendMessage("Не верные агрументы!");
-
-                }
+                feudalKingdomInt(player, args[1], args[2], Integer.parseInt(args[3]));
 
                 break;
 
@@ -195,22 +137,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                try {
-
-                    FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
-                    feudalKingdom.getClass().getMethod(args[2], String.class).invoke(args[3]);
-
-                    player.sendMessage("Метод был выполнен!");
-
-                } catch (NoSuchMethodException e) {
-
-                    player.sendMessage("Метод не найден!");
-
-                } catch (InvocationTargetException | IllegalAccessException e) {
-
-                    player.sendMessage("Не верные агрументы!");
-
-                }
+                feudalKingdomString(player, args[1], args[2], args[3]);
 
                 break;
 
@@ -228,22 +155,7 @@ public class LocalStaffCommands implements CommandExecutor {
 
                 }
 
-                try {
-
-                    FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
-                    feudalKingdom.getClass().getMethod(args[2]).invoke(feudalKingdom);
-
-                    player.sendMessage("Метод был выполнен!");
-
-                } catch (NoSuchMethodException e) {
-
-                    player.sendMessage("Метод не найден!");
-
-                } catch (InvocationTargetException | IllegalAccessException e) {
-
-                    player.sendMessage("Не верные агрументы!");
-
-                }
+                feudalKingdom(player, args[1], args[2]);
 
                 break;
 
@@ -254,6 +166,132 @@ public class LocalStaffCommands implements CommandExecutor {
         }
 
         return false;
+
+    }
+
+    private void feudalPlayerInt(@NotNull Player sender, Player player, String methodName, int value) {
+
+        try {
+
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+            feudalPlayer.getClass().getMethod(methodName, int.class).invoke(feudalPlayer, value);
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
+
+    }
+
+    private void feudalPlayerString(@NotNull Player sender, Player player, String methodName, String value) {
+
+        try {
+
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+            feudalPlayer.getClass().getMethod(methodName, String.class).invoke(feudalPlayer, value);
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
+
+    }
+
+    private void feudalPlayer(@NotNull Player sender, Player player, String methodName) {
+
+        try {
+
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+            feudalPlayer.getClass().getMethod(methodName).invoke(feudalPlayer);
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
+
+    }
+
+    private void feudalKingdomInt(@NotNull Player sender, String kingdomName, String methodName, int value) {
+
+        try {
+
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+            feudalKingdom.getClass().getMethod(methodName, int.class).invoke(feudalKingdom, value);
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
+
+    }
+
+    private void feudalKingdomString(@NotNull Player sender, String kingdomName, String methodName, String value) {
+
+        try {
+
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+            feudalKingdom.getClass().getMethod(methodName, String.class).invoke(feudalKingdom, value);
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
+
+    }
+
+    private void feudalKingdom(@NotNull Player sender, String kingdomName, String methodName) {
+
+        try {
+
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+            feudalKingdom.getClass().getMethod(methodName).invoke(feudalKingdom);
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
 
     }
 }
