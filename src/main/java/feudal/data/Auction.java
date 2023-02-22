@@ -3,7 +3,6 @@ package feudal.data;
 import feudal.utils.wrappers.ItemStackWrapper;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,9 +18,8 @@ import java.util.Map;
 public class Auction {
     @Getter
     private final static Map<String, List<ItemStackWrapper>> playersProducts = new HashMap<>();
-    @Setter
     @Getter
-    private static List<ItemStackWrapper> products = new ArrayList<>();
+    private static final List<ItemStackWrapper> products = new ArrayList<>();
     int quantityProducts = products.size();
     int quantityPlayers = products.size();
 

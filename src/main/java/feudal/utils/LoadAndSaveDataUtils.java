@@ -283,6 +283,8 @@ public class LoadAndSaveDataUtils {
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
+        if (playerLetters.isEmpty()) return;
+
         fileWriter.write(new Gson().toJson(playerLetters));
         fileWriter.flush();
 
@@ -311,6 +313,8 @@ public class LoadAndSaveDataUtils {
         })).start();
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
+
+        if (playerLetters.isEmpty()) return;
 
         fileWriter.write(new Gson().toJson(playerLetters));
         fileWriter.flush();
@@ -341,6 +345,8 @@ public class LoadAndSaveDataUtils {
     @SneakyThrows
     public void savePlacedBlocks() {
 
+        if (PlayerL.getPlacedBlocks().isEmpty()) return;
+
         File file = new File(Feudal.getPlugin().getDataFolder(), "placedBlocks.json");
 
         if (!file.exists())
@@ -368,12 +374,15 @@ public class LoadAndSaveDataUtils {
         Type listType = new TypeToken<List<ItemStackWrapper>>() {
         }.getType();
 
-        Auction.setProducts(new Gson().fromJson(new FileReader(file), listType));
+        List<ItemStackWrapper> list = new Gson().fromJson(new FileReader(file), listType);
+        list.forEach(product -> Auction.getProducts().add(product));
 
     }
 
     @SneakyThrows
     public void saveAuction() {
+
+        if (Auction.getProducts().isEmpty()) return;
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "auctionProducts.json");
 
@@ -389,7 +398,7 @@ public class LoadAndSaveDataUtils {
 
 
     @SneakyThrows
-    public void loadPlayerProducts(Player player) {
+    public void loadPlayerProducts() {
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playersProducts.json");
 
@@ -403,12 +412,15 @@ public class LoadAndSaveDataUtils {
         Type listType = new TypeToken<List<ItemStackWrapper>>() {
         }.getType();
 
-        Auction.getPlayersProducts().put(player.getUniqueId().toString(), new Gson().fromJson(new FileReader(file), listType));
+        Map<String, List<ItemStackWrapper>> list = new Gson().fromJson(new FileReader(file), listType);
+        list.forEach((uuid, item) -> Auction.getPlayersProducts().put(uuid, item));
 
     }
 
     @SneakyThrows
     public void saveAllPlayersProducts() {
+
+        if (Auction.getPlayersProducts().isEmpty()) return;
 
         File file = new File(Feudal.getPlugin().getDataFolder(), "playersProducts.json");
 
