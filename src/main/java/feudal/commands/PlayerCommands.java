@@ -68,7 +68,7 @@ public class PlayerCommands implements CommandExecutor {
 
                 }
 
-                new Menus(player).openProfessionSelectionMenu();
+                new Menus(player).professionSelectionMenu();
                 break;
 
             case "withdraw":
@@ -152,7 +152,7 @@ public class PlayerCommands implements CommandExecutor {
 
             case "mail":
 
-                new Menus(player).openMailMenu();
+                new Menus(player).mailMenu();
 
                 break;
 

@@ -56,7 +56,7 @@ public class ClerkL implements Listener {
 
         if (isaBoolean(event, player, feudalPlayer)) return;
 
-        new Menus(player).openClerkMenu();
+        new Menus(player).clerkMenu();
 
     }
 }
