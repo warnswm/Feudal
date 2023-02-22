@@ -545,7 +545,15 @@ public class PlayerCommands implements CommandExecutor {
             player.sendMessage("Вы не лидер королевства!");
             return;
 
+        } else if (feudalKingdom.getTerritory().size() >= feudalKingdom.getMembersUUID().stream().map(member ->
+                CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(UUID.fromString(member)))).mapToInt(feudalPlayer ->
+                ProfessionIDE.getContainsLandBYID(feudalPlayer.getProfessionID())).sum()) {
+
+            player.sendMessage("Максимальное количество земель в королевстве!");
+            return;
+
         }
+
 
         World world = Bukkit.getWorld(player.getWorld().getUID());
         Chunk playerChunk = world.getChunkAt(player.getLocation());

@@ -24,7 +24,6 @@ public class FeudalKingdom {
     int maxNumberMembers, balance, reputation;
     List<Integer> territory = new ArrayList<>();
 
-
     public FeudalKingdom(String kingdomName) {
         this.kingdomName = kingdomName;
     }
