@@ -283,8 +283,6 @@ public class LoadAndSaveDataUtils {
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-        if (playerLetters.isEmpty()) return;
-
         fileWriter.write(new Gson().toJson(playerLetters));
         fileWriter.flush();
 
@@ -314,8 +312,6 @@ public class LoadAndSaveDataUtils {
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));
 
-        if (playerLetters.isEmpty()) return;
-
         fileWriter.write(new Gson().toJson(playerLetters));
         fileWriter.flush();
 
@@ -336,6 +332,8 @@ public class LoadAndSaveDataUtils {
         Type listType = new TypeToken<List<PlacedBlockWrapper>>() {
         }.getType();
         List<PlacedBlockWrapper> placedBlockWrapperList = new Gson().fromJson(new FileReader(file), listType);
+
+        if (placedBlockWrapperList == null) return;
 
         placedBlockWrapperList.forEach(placedBlockWrapper -> Bukkit.getWorld(placedBlockWrapper.getWorldName()).getBlockAt(placedBlockWrapper.getX(), placedBlockWrapper.getY(), placedBlockWrapper.getZ()).
                 setMetadata("PLACED", new FixedMetadataValue(Feudal.getPlugin(), "true")));
@@ -375,6 +373,8 @@ public class LoadAndSaveDataUtils {
         }.getType();
 
         List<ItemStackWrapper> list = new Gson().fromJson(new FileReader(file), listType);
+        if (list == null) return;
+
         list.forEach(product -> Auction.getProducts().add(product));
 
     }
@@ -413,6 +413,8 @@ public class LoadAndSaveDataUtils {
         }.getType();
 
         Map<String, List<ItemStackWrapper>> list = new Gson().fromJson(new FileReader(file), listType);
+        if (list == null) return;
+
         list.forEach((uuid, item) -> Auction.getPlayersProducts().put(uuid, item));
 
     }

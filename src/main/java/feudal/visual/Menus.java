@@ -85,10 +85,10 @@ public class Menus {
 
         Inventory auction = Bukkit.createInventory(player, 54, "Аукцион");
 
-        int minItemIndex = 28 * page - 29;
+        int minItemIndex = 28 * page + 1;
 
         for (int i = 10; i <= 37; i++)
-            if (Auction.getProducts().get(minItemIndex) != null)
+            if (Auction.getProducts().size() >= minItemIndex)
                 auction.setItem(i, ItemStackWrapper.itemStackWrapperToItemStack(Auction.getProducts().get(minItemIndex)));
 
         player.openInventory(auction);
