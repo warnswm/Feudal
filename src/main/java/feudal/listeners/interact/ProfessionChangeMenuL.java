@@ -3,6 +3,7 @@ package feudal.listeners.interact;
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
+import feudal.visual.ScoreBoardGeneralInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +26,8 @@ public class ProfessionChangeMenuL implements Listener {
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
         feudalPlayer.setProfessionID(ProfessionIDE.getIDByString(event.getCurrentItem().getItemMeta().getDisplayName()));
+
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.closeInventory();
 
     }

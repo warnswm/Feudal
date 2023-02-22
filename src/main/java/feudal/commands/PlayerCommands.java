@@ -250,7 +250,7 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>());
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
         feudalKingdom.setKingdomName(kingdomName)
@@ -260,8 +260,7 @@ public class PlayerCommands implements CommandExecutor {
                 .setMembers(membersUUID)
                 .setMaxNumberMembers(5)
                 .setBarons(new ArrayList<>())
-                .setTerritory(new ArrayList<>())
-                .setPrivateTerritory(new ArrayList<>());
+                .setTerritory(new ArrayList<>());
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 

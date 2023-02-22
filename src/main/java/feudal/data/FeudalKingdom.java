@@ -22,7 +22,7 @@ public class FeudalKingdom {
     String kingdomName;
     UUID kingUUID;
     int maxNumberMembers, balance, reputation;
-    List<Integer> territory = new ArrayList<>(), privateTerritory = new ArrayList<>();
+    List<Integer> territory = new ArrayList<>();
 
 
     public FeudalKingdom(String kingdomName) {
@@ -47,11 +47,6 @@ public class FeudalKingdom {
 
     public final FeudalKingdom setTerritory(@NotNull List<Integer> territoryHashCode) {
         territory = territoryHashCode;
-        return this;
-    }
-
-    public final FeudalKingdom setPrivateTerritory(@NotNull List<Integer> privateTerritory) {
-        this.privateTerritory = privateTerritory;
         return this;
     }
 
@@ -81,11 +76,6 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom addPrivateTerritory(@NotNull Chunk chunk) {
-        privateTerritory.add(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode());
-        return this;
-    }
-
     public final FeudalKingdom addBaron(@NotNull Player player) {
         baronsUUID.add(player.getUniqueId().toString());
         return this;
@@ -112,18 +102,8 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom takePrivateTerritory(int chunkHashCode) {
-        privateTerritory.remove(chunkHashCode);
-        return this;
-    }
-
     public final FeudalKingdom takeAllTerritory() {
         territory.clear();
-        return this;
-    }
-
-    public final FeudalKingdom takeAllPrivateTerritory() {
-        privateTerritory.clear();
         return this;
     }
 

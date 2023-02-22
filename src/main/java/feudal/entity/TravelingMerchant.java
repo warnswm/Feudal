@@ -1,7 +1,6 @@
 package feudal.entity;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
@@ -21,7 +20,6 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 @UtilityClass
-@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class TravelingMerchant {
 

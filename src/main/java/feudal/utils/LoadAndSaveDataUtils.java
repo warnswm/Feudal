@@ -47,8 +47,7 @@ public class LoadAndSaveDataUtils {
                 .setReputation(getIntegerField(kingdomName, "reputation"))
                 .setBalance(getIntegerField(kingdomName, "balance"))
                 .setMaxNumberMembers(getIntegerField(kingdomName, "maxNumberMembers"))
-                .setTerritory(getList(kingdomName, "territory"))
-                .setPrivateTerritory(getList(kingdomName, "privateTerritory"));
+                .setTerritory(getList(kingdomName, "territory"));
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
@@ -72,7 +71,6 @@ public class LoadAndSaveDataUtils {
                 setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
                 setField(kingdomName, "barons", baronsUUID);
                 setField(kingdomName, "territory", feudalKingdom.getTerritory());
-                setField(kingdomName, "privateTerritory", feudalKingdom.getPrivateTerritory());
                 setField(kingdomName, "balance", feudalKingdom.getBalance());
                 setField(kingdomName, "reputation", feudalKingdom.getReputation());
 

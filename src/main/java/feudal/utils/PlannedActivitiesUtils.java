@@ -41,8 +41,6 @@ public class PlannedActivitiesUtils {
                     if (reputation <= 0) {
 
                         cacheFeudalKingdom.takeAllTerritory();
-                        cacheFeudalKingdom.takeAllPrivateTerritory();
-
                         return;
 
                     }
@@ -61,7 +59,6 @@ public class PlannedActivitiesUtils {
                         if (oldBalance < landTax) {
 
                             cacheFeudalKingdom.takeTerritory(chunkHashCode);
-                            cacheFeudalKingdom.takePrivateTerritory(chunkHashCode);
                             cacheFeudalKingdom.takeReputation(CacheFeudalValues.getLandRemovingReputation());
 
                             continue;
