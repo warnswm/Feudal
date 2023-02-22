@@ -356,7 +356,7 @@ public class LoadAndSaveDataUtils {
     @SneakyThrows
     public void loadAuction() {
 
-        File file = new File(Feudal.getPlugin().getDataFolder(), "auctionProduct.json");
+        File file = new File(Feudal.getPlugin().getDataFolder(), "auctionProducts.json");
 
         if (!file.exists()) {
 
@@ -375,7 +375,7 @@ public class LoadAndSaveDataUtils {
     @SneakyThrows
     public void saveAuction() {
 
-        File file = new File(Feudal.getPlugin().getDataFolder(), "auctionProduct.json");
+        File file = new File(Feudal.getPlugin().getDataFolder(), "auctionProducts.json");
 
         if (!file.exists())
             file.createNewFile();
@@ -391,7 +391,7 @@ public class LoadAndSaveDataUtils {
     @SneakyThrows
     public void loadPlayerProducts(Player player) {
 
-        File file = new File(Feudal.getPlugin().getDataFolder(), "playerProducts.json");
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playersProducts.json");
 
         if (!file.exists()) {
 
@@ -410,7 +410,7 @@ public class LoadAndSaveDataUtils {
     @SneakyThrows
     public void saveAllPlayersProducts() {
 
-        File file = new File(Feudal.getPlugin().getDataFolder(), "playerProducts.json");
+        File file = new File(Feudal.getPlugin().getDataFolder(), "playersProducts.json");
 
         if (!file.exists())
             file.createNewFile();
