@@ -523,13 +523,20 @@ public class PlayerCommands implements CommandExecutor {
 
         World world = Bukkit.getWorld(player.getWorld().getUID());
         Chunk playerChunk = world.getChunkAt(player.getLocation());
+
+        if (feudalKingdom.getTerritory().contains(new ChunkWrapper(world.getName(), playerChunk.getX(), playerChunk.getZ()).hashCode())) {
+
+            player.sendMessage("Этот чанк уже есть в вашем королевстве!");
+            return;
+
+        }
         boolean canCapture = feudalKingdom.getTerritory().isEmpty();
 
-        Location firstLocation = new Location(world, playerChunk.getX() + 1, 64, playerChunk.getZ() + 1);
-        Location secondLocation = new Location(world, playerChunk.getX() - 1, 64, playerChunk.getZ() - 1);
+        Location firstLocation = new Location(world, playerChunk.getX() - 1, 64, playerChunk.getZ() - 1);
+        Location secondLocation = new Location(world, playerChunk.getX() + 1, 64, playerChunk.getZ() + 1);
 
-        for (int x = (firstLocation.getBlockX() >> 4); x <= (secondLocation.getBlockX() >> 4); x++)
-            for (int z = (firstLocation.getBlockZ() >> 4); z <= (secondLocation.getBlockZ() >> 4); z++) {
+        for (int x = firstLocation.getBlockX(); x <= secondLocation.getBlockX(); x++)
+            for (int z = firstLocation.getBlockZ(); z <= secondLocation.getBlockZ(); z++) {
 
                 if (feudalKingdom.getTerritory().contains(new ChunkWrapper(world.getName(), x, z).hashCode()))
                     canCapture = true;
