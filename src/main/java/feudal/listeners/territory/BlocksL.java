@@ -1,7 +1,6 @@
 package feudal.listeners.territory;
 
 import feudal.data.cache.CacheFeudalKingdoms;
-import feudal.utils.wrappers.ChunkWrapper;
 import org.bukkit.Chunk;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,7 +17,7 @@ public class BlocksL implements Listener {
 
         Chunk chunk = event.getBlock().getChunk();
 
-        if (CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode(), event.getPlayer()))
+        if (CacheFeudalKingdoms.checkPrivate(chunk, event.getPlayer()))
             event.setCancelled(true);
 
     }
@@ -28,7 +27,7 @@ public class BlocksL implements Listener {
 
         Chunk chunk = event.getBlock().getChunk();
 
-        if (CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode(), event.getPlayer()))
+        if (CacheFeudalKingdoms.checkPrivate(chunk, event.getPlayer()))
             event.setCancelled(true);
 
     }
@@ -38,7 +37,7 @@ public class BlocksL implements Listener {
 
         Chunk chunk = event.getBlock().getChunk();
 
-        if (CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode(), event.getPlayer()))
+        if (CacheFeudalKingdoms.checkPrivate(chunk, event.getPlayer()))
             event.setCancelled(true);
 
     }

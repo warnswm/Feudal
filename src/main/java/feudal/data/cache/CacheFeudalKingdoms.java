@@ -1,7 +1,9 @@
 package feudal.data.cache;
 
 import feudal.data.FeudalKingdom;
+import feudal.utils.wrappers.ChunkWrapper;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Chunk;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,11 +18,11 @@ public class CacheFeudalKingdoms {
         return feudalKingdomCache;
     }
 
-    public boolean checkPrivate(int chunkHashCode, @NotNull Player player) {
+    public boolean checkPrivate(Chunk chunk, @NotNull Player player) {
 
         for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
-            if (kingdom.getValue().chunkInKingdomCache(chunkHashCode))
+            if (kingdom.getValue().chunkInKingdomCache(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode()))
                 return !kingdom.getValue().getMembersUUID().contains(player.getUniqueId().toString());
 
         }

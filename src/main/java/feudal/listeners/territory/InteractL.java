@@ -2,7 +2,6 @@ package feudal.listeners.territory;
 
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.utils.enums.PrivateBlocksE;
-import feudal.utils.wrappers.ChunkWrapper;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -15,7 +14,7 @@ public class InteractL implements Listener {
     public void playerInteract(@NotNull PlayerInteractEvent event) {
 
         if (event.getClickedBlock() == null ||
-                !CacheFeudalKingdoms.checkPrivate(new ChunkWrapper(event.getClickedBlock().getChunk().getWorld().getName(), event.getClickedBlock().getChunk().getX(), event.getClickedBlock().getChunk().getZ()).hashCode(), event.getPlayer()) ||
+                !CacheFeudalKingdoms.checkPrivate(event.getClickedBlock().getChunk(), event.getPlayer()) ||
                 !PrivateBlocksE.checkMaterial(event.getClickedBlock().getType()))
             return;
 
