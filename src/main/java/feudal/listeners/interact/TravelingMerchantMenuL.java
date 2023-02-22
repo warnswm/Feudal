@@ -17,7 +17,7 @@ public class TravelingMerchantMenuL implements Listener {
         event.setCancelled(true);
 
 
-        player.closeInventory();
+//        player.closeInventory();
 
     }
 

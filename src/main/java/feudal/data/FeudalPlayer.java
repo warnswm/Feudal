@@ -38,18 +38,36 @@ public class FeudalPlayer {
     }
 
     public final FeudalPlayer setProfessionID(int value) {
+
         professionID = value;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
     public final FeudalPlayer setExperience(int value) {
+
         experience = value;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
     public final FeudalPlayer setBalance(int value) {
+
         balance = value;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
     public final FeudalPlayer setDeaths(int value) {
@@ -88,18 +106,36 @@ public class FeudalPlayer {
     }
 
     public final FeudalPlayer setProfessionLvl(int value) {
+
         professionLvl = value;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
     public final FeudalPlayer setProfessionExperience(int value) {
+
         professionExperience = value;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
     public final FeudalPlayer setKingdomName(String kingdomName) {
+
         this.kingdomName = kingdomName;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
 
@@ -165,8 +201,14 @@ public class FeudalPlayer {
     }
 
     public final FeudalPlayer addProfessionLvl(int value) {
+
         professionLvl += value;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
     public final FeudalPlayer addProfessionExperience(int value) {
@@ -253,8 +295,14 @@ public class FeudalPlayer {
     }
 
     public final FeudalPlayer takeProfessionLvl(int value) {
+
         professionLvl -= value;
+
+        Player player = Bukkit.getPlayer(playerUUID);
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
+
         return this;
+
     }
 
     public final FeudalPlayer takeProfessionExperience(int value) {
