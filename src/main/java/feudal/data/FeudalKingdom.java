@@ -19,7 +19,7 @@ public class FeudalKingdom {
     final List<String> kingdomLetters = new ArrayList<>();
     List<String> baronsUUID = new ArrayList<>();
     List<String> membersUUID = new ArrayList<>();
-    String kingdomName;
+    String kingdomName, flagGson;
     UUID kingUUID;
     int maxNumberMembers, balance, reputation;
     List<Integer> territory = new ArrayList<>();
@@ -143,6 +143,11 @@ public class FeudalKingdom {
 
     public final FeudalKingdom addMaxNumberMembers(int value) {
         maxNumberMembers += value;
+        return this;
+    }
+
+    public final FeudalKingdom setFlagGson(String value) {
+        flagGson = value;
         return this;
     }
 

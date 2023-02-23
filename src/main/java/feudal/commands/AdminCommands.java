@@ -17,7 +17,7 @@ public class AdminCommands implements CommandExecutor {
         assert sender instanceof Player;
         Player player = (Player) sender;
 
-        switch (args[1]) {
+        switch (args[0].toLowerCase()) {
 
             case "addls":
 
@@ -26,9 +26,8 @@ public class AdminCommands implements CommandExecutor {
 
             case "broadcast":
 
-                Bukkit.broadcastMessage(args[2]);
+                Bukkit.broadcastMessage(args[1]);
                 break;
-
 
         }
 

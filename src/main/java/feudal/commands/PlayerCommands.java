@@ -1,5 +1,6 @@
 package feudal.commands;
 
+import com.google.gson.Gson;
 import feudal.data.Auction;
 import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
@@ -9,6 +10,7 @@ import feudal.data.database.KingdomDBHandler;
 import feudal.utils.RTPUtils;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
 import feudal.utils.wrappers.ChunkWrapper;
+import feudal.utils.wrappers.FlagWrapper;
 import feudal.utils.wrappers.ItemStackWrapper;
 import feudal.visual.Menus;
 import feudal.visual.ScoreBoardGeneralInfo;
@@ -18,6 +20,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BannerMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -158,6 +161,12 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
+            case "flag":
+
+                flag(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player);
+
+                break;
+
             case "rtp":
 
                 player.teleport(RTPUtils.rtpCalc(player, 10, 1000, 10, 1000));
@@ -229,15 +238,23 @@ public class PlayerCommands implements CommandExecutor {
     private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<String> membersUUID) {
 
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        ItemStack itemInHand = player.getInventory().getItemInMainHand();
 
         if (!feudalPlayer.getKingdomName().equals("")) {
 
             player.sendMessage("Вы уже состоите в королевстве!");
             return;
 
+        } else if (itemInHand == null || !itemInHand.getType().equals(Material.BANNER)) {
+
+            player.sendMessage("Возьмите желаемый флаг королевства в руку!");
+            return;
+
         }
 
-        KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>());
+        String flagGson = new Gson().toJson(new FlagWrapper("Флаг королевства - " + kingdomName, ((BannerMeta) itemInHand.getItemMeta()).getPatterns()));
+
+        KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>(), flagGson);
 
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
         feudalKingdom.setKingdomName(kingdomName)
@@ -247,7 +264,8 @@ public class PlayerCommands implements CommandExecutor {
                 .setMembers(membersUUID)
                 .setMaxNumberMembers(5)
                 .setBarons(new ArrayList<>())
-                .setTerritory(new ArrayList<>());
+                .setTerritory(new ArrayList<>())
+                .setFlagGson(flagGson);
 
         CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
 
@@ -659,6 +677,28 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.removeBaron(baron);
         playerInviting.sendMessage("Игрок " + baron.getName() + " снят с поста барона!");
+
+    }
+
+    private void flag(String kingdomName, Player player) {
+
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+
+        if (kingdomName.equals("") || feudalKingdom == null) {
+
+            player.sendMessage("Вы не состоите в королевстве!");
+            return;
+
+        }
+        if (!feudalKingdom.getKingUUID().equals(player.getUniqueId()) &&
+                !feudalKingdom.getBaronsUUID().contains(player.getUniqueId().toString())) {
+
+            player.sendMessage("Вы не занимаете должность в королевстве!");
+            return;
+
+        }
+
+        player.getInventory().addItem(new Gson().fromJson(feudalKingdom.getFlagGson(), FlagWrapper.class).create());
 
     }
 

@@ -23,7 +23,7 @@ public class KingdomDBHandler {
     private static final MongoCollection<Document> collection = CacheFeudalValues.getKingdomsCollection();
 
 
-    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<String> baronsUUID) {
+    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<String> baronsUUID, String flagGson) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -42,7 +42,9 @@ public class KingdomDBHandler {
                     .append("territory", territory)
                     .append("reputation", 1000)
                     .append("balance", 10000)
-                    .append("barons", baronsUUID));
+                    .append("balance", 10000)
+                    .append("barons", baronsUUID)
+                    .append("flag", flagGson));
 
             session.commitTransaction();
 
