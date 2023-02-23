@@ -9,8 +9,7 @@ import org.bukkit.scoreboard.*;
 
 public class ScoreBoardGeneralInfo {
 
-    public static void createScoreBoard(Player player) {
-
+    public static void updateScoreBoardInfo(Player player) {
 
         ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
         Scoreboard scoreboard = scoreboardManager.getNewScoreboard();
@@ -42,26 +41,6 @@ public class ScoreBoardGeneralInfo {
         balance.setScore(0);
 
         player.setScoreboard(scoreboard);
-
-    }
-
-    public static void updateScoreBoardInfo(Player player) {
-
-        ScoreboardManager scoreboardManager = Bukkit.getScoreboardManager();
-        Scoreboard scoreboard = scoreboardManager.getNewScoreboard();
-        Objective objective = scoreboard.registerNewObjective("Feudal", "Feudal");
-
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.setDisplayName("Feudal");
-
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-        String kingdomName = feudalPlayer.getKingdomName().equals("") ? "N/A" : feudalPlayer.getKingdomName();
-
-        scoreboard.resetScores("Королевство ➡ " + kingdomName);
-        scoreboard.resetScores("Профессия ➡ §a" + ProfessionIDE.getNameByID(feudalPlayer.getProfessionID()));
-        scoreboard.resetScores("Уровень класса ➡ " + feudalPlayer.getProfessionLvl());
-        scoreboard.resetScores("Опыт атрибутов ➡ " + feudalPlayer.getExperience());
-        scoreboard.resetScores("Золота ➡ " + feudalPlayer.getBalance());
 
     }
 }

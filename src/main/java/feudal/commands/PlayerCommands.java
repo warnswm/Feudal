@@ -11,6 +11,7 @@ import feudal.utils.enums.professionEnums.ProfessionIDE;
 import feudal.utils.wrappers.ChunkWrapper;
 import feudal.utils.wrappers.ItemStackWrapper;
 import feudal.visual.Menus;
+import feudal.visual.ScoreBoardGeneralInfo;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -252,6 +253,8 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalPlayer.setKingdomName(kingdomName);
         player.sendMessage("Вы успешно создали королевство: " + kingdomName);
+
+        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
 
     }
 
