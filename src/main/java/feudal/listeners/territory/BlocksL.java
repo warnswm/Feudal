@@ -1,7 +1,9 @@
 package feudal.listeners.territory;
 
 import feudal.data.cache.CacheFeudalKingdoms;
+import feudal.data.cache.CacheFeudalPlayers;
 import org.bukkit.Chunk;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -27,8 +29,17 @@ public class BlocksL implements Listener {
 
         Chunk chunk = event.getBlock().getChunk();
 
-        if (CacheFeudalKingdoms.checkPrivate(chunk, event.getPlayer()))
+        if (CacheFeudalKingdoms.checkPrivate(chunk, event.getPlayer())) {
+
             event.setCancelled(true);
+
+            String[] args = event.getItemInHand().getItemMeta().getDisplayName().split(" ");
+
+            if (event.getItemInHand().getType().equals(Material.BANNER) &&
+                    args[args.length - 1].equals(CacheFeudalPlayers.getFeudalPlayer(event.getPlayer()).getKingdomName())) {
+
+            }
+        }
 
     }
 

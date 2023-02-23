@@ -25,10 +25,10 @@ public class SpyPlayer {
     GameMode spyPlayerGameMode;
     Location spyPlayerLocation;
 
-    public SpyPlayer(UUID spyPlayerUUID, GameMode spyPlayerGameMode, Location spyPlayerLocation) {
-        this.spyPlayerUUID = spyPlayerUUID;
-        this.spyPlayerGameMode = spyPlayerGameMode;
-        this.spyPlayerLocation = spyPlayerLocation;
+    public SpyPlayer(UUID player, GameMode gameMode, Location location) {
+        spyPlayerUUID = player;
+        spyPlayerGameMode = gameMode;
+        spyPlayerLocation = location;
     }
 
     public void hide() {

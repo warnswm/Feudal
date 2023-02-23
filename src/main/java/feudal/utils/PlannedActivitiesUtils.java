@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @UtilityClass
@@ -69,7 +70,7 @@ public class PlannedActivitiesUtils {
 
                     }
 
-                    for (String ignored : kingdom.getValue().getMembersUUID()) {
+                    for (UUID ignored : kingdom.getValue().getMembersUUID()) {
 
                         if (oldBalance < taxOnResidents) {
 

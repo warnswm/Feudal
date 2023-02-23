@@ -63,14 +63,9 @@ public class LoadAndSaveDataUtils {
                 FeudalKingdom feudalKingdom = kingdom.getValue();
                 String kingdomName = feudalKingdom.getKingdomName();
 
-
-                List<String> membersUUID = new ArrayList<>(feudalKingdom.getMembersUUID());
-                List<String> baronsUUID = new ArrayList<>(feudalKingdom.getBaronsUUID());
-
-
-                setField(kingdomName, "members", membersUUID);
+                setField(kingdomName, "members", CollectionUtils.uuidListToStringList(feudalKingdom.getMembersUUID()));
                 setField(kingdomName, "maxNumberMembers", feudalKingdom.getMaxNumberMembers());
-                setField(kingdomName, "barons", baronsUUID);
+                setField(kingdomName, "barons", CollectionUtils.uuidListToStringList(feudalKingdom.getBaronsUUID()));
                 setField(kingdomName, "territory", feudalKingdom.getTerritory());
                 setField(kingdomName, "balance", feudalKingdom.getBalance());
                 setField(kingdomName, "reputation", feudalKingdom.getReputation());
@@ -275,7 +270,8 @@ public class LoadAndSaveDataUtils {
 
         if (playerLetters.containsKey(player.getUniqueId().hashCode()))
             playerLetters.replace(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
-        else playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
+        else
+            playerLetters.put(player.getUniqueId().hashCode(), feudalPlayer.getLetters());
 
 
         BufferedWriter fileWriter = new BufferedWriter(new FileWriter(file));

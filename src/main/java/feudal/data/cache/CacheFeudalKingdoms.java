@@ -23,7 +23,7 @@ public class CacheFeudalKingdoms {
         for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
 
             if (kingdom.getValue().chunkInKingdomCache(new ChunkWrapper(chunk.getWorld().getName(), chunk.getX(), chunk.getZ()).hashCode()))
-                return !kingdom.getValue().getMembersUUID().contains(player.getUniqueId().toString());
+                return !kingdom.getValue().getMembersUUID().contains(player.getUniqueId());
 
         }
 

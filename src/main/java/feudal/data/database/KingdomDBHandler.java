@@ -8,14 +8,15 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import feudal.data.cache.CacheFeudalValues;
+import feudal.utils.CollectionUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class KingdomDBHandler {
 
@@ -23,7 +24,7 @@ public class KingdomDBHandler {
     private static final MongoCollection<Document> collection = CacheFeudalValues.getKingdomsCollection();
 
 
-    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<String> membersUUID, List<Integer> territory, List<String> baronsUUID, String flagGson) {
+    public static void createNewKingdom(@NotNull String kingdomName, Player king, List<UUID> membersUUID, List<Integer> territory, List<UUID> baronsUUID, String flagGson) {
 
         ClientSession session = mongoClient.startSession();
 
@@ -37,13 +38,13 @@ public class KingdomDBHandler {
 
             collection.insertOne(new Document("_id", kingdomName)
                     .append("king", king.getUniqueId().toString())
-                    .append("members", membersUUID)
+                    .append("members", CollectionUtils.uuidListToStringList(membersUUID))
                     .append("maxNumberMembers", 5)
                     .append("territory", territory)
                     .append("reputation", 1000)
                     .append("balance", 10000)
                     .append("balance", 10000)
-                    .append("barons", baronsUUID)
+                    .append("barons", CollectionUtils.uuidListToStringList(baronsUUID))
                     .append("flag", flagGson));
 
             session.commitTransaction();
@@ -88,41 +89,6 @@ public class KingdomDBHandler {
             session.close();
 
         }
-
-    }
-
-    public static @Nullable Object getField(String kingdomName, String fieldName) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            session.startTransaction();
-
-            if (!collection.find(new BasicDBObject("_id", kingdomName))
-                    .iterator()
-                    .hasNext()) return null;
-
-            Document document = collection.find(new BasicDBObject("_id", kingdomName))
-                    .iterator()
-                    .next();
-
-            if (document.get(fieldName) != null)
-                return document.get(fieldName);
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-
-            session.abortTransaction();
-
-        } finally {
-
-            session.close();
-
-        }
-
-        return "NoObject";
 
     }
 
@@ -260,71 +226,6 @@ public class KingdomDBHandler {
         }
     }
 
-    public static void resetTheKingdom(String kingdomName) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            session.startTransaction();
-
-            if (!collection.find(new BasicDBObject("_id", kingdomName))
-                    .iterator()
-                    .hasNext()) return;
-
-            collection.deleteOne(Filters.eq("_id", kingdomName));
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-
-            session.abortTransaction();
-
-        } finally {
-
-            session.close();
-
-        }
-
-    }
-
-    public static void resetAllClanMembers(String kingdomName) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            session.startTransaction();
-
-            if (!collection.find(new BasicDBObject("_id", kingdomName))
-                    .iterator()
-                    .hasNext()) return;
-
-
-            Document document = collection.find(new BasicDBObject("_id", kingdomName))
-                    .iterator()
-                    .next();
-
-
-            if (document.get("members") == null) return;
-
-            List<String> members = (List<String>) document.get("members");
-            members.forEach(PlayerDBHandler::resetAPlayer);
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-
-            session.abortTransaction();
-
-        } finally {
-
-            session.close();
-
-        }
-
-    }
-
     public static boolean playerInKingdom(@NotNull Player player) {
 
         ClientSession session = mongoClient.startSession();
@@ -334,34 +235,6 @@ public class KingdomDBHandler {
             session.startTransaction();
 
             if (collection.find(new BasicDBObject("members", player.getUniqueId().toString()))
-                    .iterator()
-                    .hasNext()) return true;
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-
-            session.abortTransaction();
-
-        } finally {
-
-            session.close();
-
-        }
-
-        return false;
-
-    }
-
-    public static boolean chunkInKingdom(int chunkHashCode) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            session.startTransaction();
-
-            if (collection.find(new BasicDBObject("territory", chunkHashCode))
                     .iterator()
                     .hasNext()) return true;
 

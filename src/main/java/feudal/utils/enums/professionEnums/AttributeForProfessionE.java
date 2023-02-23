@@ -19,10 +19,10 @@ public enum AttributeForProfessionE {
     final String secondAttributeName;
     int secondProfessionID;
 
-    AttributeForProfessionE(int oneProfessionID, String oneAttributeName, String secondAttributeName) {
-        this.oneProfessionID = oneProfessionID;
-        this.oneAttributeName = oneAttributeName;
-        this.secondAttributeName = secondAttributeName;
+    AttributeForProfessionE(int oneProfID, String oneAttName, String secondAttName) {
+        oneProfessionID = oneProfID;
+        oneAttributeName = oneAttName;
+        secondAttributeName = secondAttName;
     }
 
     public static String getOneAttributeNameByID(int id) {

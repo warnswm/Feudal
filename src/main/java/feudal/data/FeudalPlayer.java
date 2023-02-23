@@ -97,8 +97,8 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer setKingdomName(String kingdomName) {
-        this.kingdomName = kingdomName;
+    public final FeudalPlayer setKingdomName(String name) {
+        kingdomName = name;
         return this;
     }
 
@@ -223,52 +223,6 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer takeDeaths(int value) {
-        deaths -= value;
-        return this;
-    }
-
-    public final FeudalPlayer takeKills(int value) {
-        kills -= value;
-        return this;
-    }
-
-    public final FeudalPlayer takeStrengthLvl(int value) {
-        strengthLvl -= value;
-        return this;
-    }
-
-    public final FeudalPlayer takeSurvivabilityLvl(int value) {
-        survivabilityLvl -= value;
-        return this;
-    }
-
-    public final FeudalPlayer takeSpeedLvl(int value) {
-        speedLvl -= value;
-        return this;
-    }
-
-    public final FeudalPlayer takeStaminaLvl(int value) {
-        staminaLvl -= value;
-        return this;
-    }
-
-    public final FeudalPlayer takeLuckLvl(int value) {
-        luckLvl -= value;
-        return this;
-    }
-
-    public final FeudalPlayer takeProfessionLvl(int value) {
-
-        professionLvl -= value;
-
-        Player player = Bukkit.getPlayer(playerUUID);
-        ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
-
-        return this;
-
-    }
-
     public final FeudalPlayer takeProfessionExperience(int value) {
 
         professionExperience -= value;
@@ -282,8 +236,8 @@ public class FeudalPlayer {
 
     }
 
-    public final FeudalPlayer addInvitations(String kingdomName) {
-        invitations.add(kingdomName);
+    public final FeudalPlayer addInvitations(String name) {
+        invitations.add(name);
         return this;
     }
 
@@ -292,13 +246,13 @@ public class FeudalPlayer {
         return this;
     }
 
-    public final FeudalPlayer deleteInvitations(String kingdomName) {
-        invitations.remove(kingdomName);
+    public final FeudalPlayer deleteInvitations(String name) {
+        invitations.remove(name);
         return this;
     }
 
-    public final FeudalPlayer setLetters(List<String> letters) {
-        this.letters = letters;
+    public final FeudalPlayer setLetters(List<String> lettersList) {
+        letters = lettersList;
         return this;
     }
 
@@ -317,11 +271,6 @@ public class FeudalPlayer {
 
     public final FeudalPlayer clearLetters() {
         letters.clear();
-        return this;
-    }
-
-    public final FeudalPlayer deleteLetter(String letter) {
-        letters.remove(kingdomName);
         return this;
     }
 

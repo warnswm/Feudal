@@ -17,20 +17,20 @@ import java.util.UUID;
 public class FeudalKingdom {
     final List<UUID> invitationUUID = new ArrayList<>();
     final List<String> kingdomLetters = new ArrayList<>();
-    List<String> baronsUUID = new ArrayList<>();
-    List<String> membersUUID = new ArrayList<>();
+    List<UUID> baronsUUID = new ArrayList<>();
+    List<UUID> membersUUID = new ArrayList<>();
     String kingdomName, flagGson;
     UUID kingUUID;
     int maxNumberMembers, balance, reputation;
     List<Integer> territory = new ArrayList<>();
 
-    public FeudalKingdom(String kingdomName) {
-        this.kingdomName = kingdomName;
+    public FeudalKingdom(String name) {
+        kingdomName = name;
     }
 
 
-    public final FeudalKingdom setKingdomName(String kingdomName) {
-        this.kingdomName = kingdomName;
+    public final FeudalKingdom setKingdomName(String name) {
+        kingdomName = name;
         return this;
     }
 
@@ -39,8 +39,8 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom setMembers(List<String> membersUUID) {
-        this.membersUUID = membersUUID;
+    public final FeudalKingdom setMembers(List<UUID> members) {
+        membersUUID = members;
         return this;
     }
 
@@ -49,24 +49,24 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom setBarons(List<String> barons) {
+    public final FeudalKingdom setBarons(List<UUID> barons) {
         baronsUUID = barons;
         return this;
     }
 
-    public final FeudalKingdom setBalance(int balance) {
-        this.balance = balance;
+    public final FeudalKingdom setBalance(int value) {
+        balance = value;
         return this;
     }
 
-    public final FeudalKingdom setReputation(int reputation) {
-        this.reputation = reputation;
+    public final FeudalKingdom setReputation(int value) {
+        reputation = value;
         return this;
     }
 
 
     public final FeudalKingdom addMember(@NotNull Player player) {
-        membersUUID.add(player.getUniqueId().toString());
+        membersUUID.add(player.getUniqueId());
         return this;
     }
 
@@ -76,7 +76,7 @@ public class FeudalKingdom {
     }
 
     public final FeudalKingdom addBaron(@NotNull Player player) {
-        baronsUUID.add(player.getUniqueId().toString());
+        baronsUUID.add(player.getUniqueId());
         return this;
     }
 
@@ -85,14 +85,8 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom addReputation(int value) {
-        reputation += value;
-        return this;
-    }
-
-
     public final FeudalKingdom removeMember(@NotNull Player player) {
-        membersUUID.remove(player.getUniqueId().toString());
+        membersUUID.remove(player.getUniqueId());
         return this;
     }
 
@@ -107,7 +101,7 @@ public class FeudalKingdom {
     }
 
     public final FeudalKingdom removeBaron(@NotNull Player player) {
-        baronsUUID.remove(player.getUniqueId().toString());
+        baronsUUID.remove(player.getUniqueId());
         return this;
     }
 
@@ -126,11 +120,6 @@ public class FeudalKingdom {
         return this;
     }
 
-    public final FeudalKingdom clearInvitation() {
-        invitationUUID.clear();
-        return this;
-    }
-
     public final FeudalKingdom deleteInvitation(@NotNull Player player) {
         invitationUUID.remove(player.getUniqueId());
         return this;
@@ -138,11 +127,6 @@ public class FeudalKingdom {
 
     public final FeudalKingdom setMaxNumberMembers(int value) {
         maxNumberMembers = value;
-        return this;
-    }
-
-    public final FeudalKingdom addMaxNumberMembers(int value) {
-        maxNumberMembers += value;
         return this;
     }
 

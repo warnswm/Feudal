@@ -9,7 +9,6 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import feudal.data.cache.CacheFeudalValues;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -189,85 +188,4 @@ public class PlayerDBHandler {
 
     }
 
-    public static void addField(@NotNull Player player, String fieldName, Object value) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            int uuid = player.getUniqueId().hashCode();
-
-            session.startTransaction();
-
-            if (!collection.find(new BasicDBObject("_id", uuid))
-                    .iterator()
-                    .hasNext()) return;
-
-            collection.replaceOne(Filters.eq("_id", uuid), collection.find(new BasicDBObject("_id", uuid))
-                    .iterator()
-                    .next()
-                    .append(fieldName, value));
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-
-            session.abortTransaction();
-
-        } finally {
-
-            session.close();
-
-        }
-
-    }
-
-    public static void resetAPlayer(@NotNull String uuidStr) {
-
-        ClientSession session = mongoClient.startSession();
-
-        try {
-
-            session.startTransaction();
-
-            int uuid = uuidStr.hashCode();
-
-            if (!collection.find(new BasicDBObject("_id", uuid))
-                    .iterator()
-                    .hasNext()) {
-
-                checkPlayer(Bukkit.getPlayer(uuidStr));
-                return;
-
-            }
-
-            collection.findOneAndReplace(Filters.eq("_id", uuid),
-                    new Document("_id", uuid)
-                            .append("professionID", 0)
-                            .append("experience", 0)
-                            .append("professionLvl", 0)
-                            .append("professionExperience", 0)
-                            .append("balance", 1000)
-                            .append("deaths", 0)
-                            .append("kills", 0)
-                            .append("luckLvl", 0)
-                            .append("speedLvl", 0)
-                            .append("staminaLvl", 0)
-                            .append("strengthLvl", 0)
-                            .append("survivabilityLvl", 0)
-                            .append("kingdomName", ""));
-
-            session.commitTransaction();
-
-        } catch (MongoCommandException e) {
-
-            session.abortTransaction();
-
-        } finally {
-
-            session.close();
-
-        }
-
-    }
 }

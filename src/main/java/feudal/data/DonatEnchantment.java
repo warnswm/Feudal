@@ -16,8 +16,8 @@ public class DonatEnchantment {
     int maxLvl, time;
     double percentagePerLvl, timePercentagePerLvl;
 
-    public DonatEnchantment(String name) {
-        this.name = name;
+    public DonatEnchantment(String displayName) {
+        name = displayName;
     }
 
     public DonatEnchantment setMaxLvl(int value) {
