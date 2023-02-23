@@ -4,177 +4,162 @@ import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
+import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LocalStaffCommands implements CommandExecutor {
+
+    private final Map<String, Method> commands = new HashMap<>();
+
+    {
+
+        try {
+
+            commands.put("help", LocalStaffCommands.class.getDeclaredMethod("help", CommandSender.class, String[].class));
+            commands.put("feudalplayerint", LocalStaffCommands.class.getDeclaredMethod("feudalPlayerInt", CommandSender.class, String[].class));
+            commands.put("feudalplayerstr", LocalStaffCommands.class.getDeclaredMethod("feudalPlayerString", CommandSender.class, String[].class));
+            commands.put("feudalplayer", LocalStaffCommands.class.getDeclaredMethod("feudalPlayer", CommandSender.class, String[].class));
+            commands.put("feudalkingdomint", LocalStaffCommands.class.getDeclaredMethod("feudalKingdomInt", CommandSender.class, String[].class));
+            commands.put("feudalkingdomstr", LocalStaffCommands.class.getDeclaredMethod("feudalKingdomString", CommandSender.class, String[].class));
+            commands.put("feudalkingdom", LocalStaffCommands.class.getDeclaredMethod("feudalKingdom", CommandSender.class, String[].class));
+
+        } catch (NoSuchMethodException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
     private static boolean isLs(CommandSender sender, String[] args) {
         return !(sender instanceof Player) && !sender.hasPermission("feudal.ls") && !args[0].equals("ls");
     }
 
+    @SneakyThrows
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (isLs(sender, args)) return false;
 
-        assert sender instanceof Player;
-        Player player = (Player) sender;
-
-        switch (args[0].toLowerCase()) {
-
-            case "help":
-
-                player.sendMessage("/ls feudalplayerint [nick] [methodName] [int] \n (methodName: setExperience, setProfessionID, setBalance, setDeaths, setKills, setStrengthLvl, setSurvivabilityLvl, setSpeedLvl, setStaminaLvl, setLuckLvl, setProfessionLvl, setProfessionExperience, addExperience, addBalance, addDeaths, addKills, addStrengthLvl, addSurvivabilityLvl, addSpeedLvl, addStaminaLvl, addLuckLvl, addProfessionLvl, addProfessionExperience, takeExperience, takeBalance, takeDeaths, takeKills, takeStrengthLvl, takeSurvivabilityLvl, takeSpeedLvl, takeStaminaLvl, takeLuckLvl, takeProfessionLvl, takeProfessionExperience, addUpProfession, setUpProfession) \n" +
-                        " \n /ls feudalplayerstr [nick] [methodName] [str] \n (methodName: setKingdomName, addInvitations, deleteInvitations, deleteLetter) \n" +
-                        " \n /ls feudalplayer [nick] [methodName] \n (methodName: clearInvitations, clearLetters) \n" +
-                        " \n /ls feudalkingdomint [kingdomName] [methodName] [int] \n (methodName: setBalance, setReputation, addTerritory, addBalance, addReputation, takeTerritory, takeBalance, takeReputation, setMaxNumberMembers, addMaxNumberMembers)" +
-                        " \n /ls feudalkingdomstr [kingdomName] [methodName] [str] \n (methodName: setKingdomName)" +
-                        " \n /ls feudalkingdom [kingdomName] [methodName] \n (methodName: takeAllTerritory, clearInvitation)");
-
-                break;
-
-            case "feudalplayerint":
-
-
-                if (args.length < 4) {
-
-                    player.sendMessage("Недостаточно аргументов!");
-                    break;
-
-                } else if (Bukkit.getPlayerExact(args[1]) == null) {
-
-                    player.sendMessage("Игрок не найден!");
-                    break;
-
-                } else if (args[3].length() > 10) {
-
-                    player.sendMessage("Слишком большое число!");
-                    break;
-
-                }
-
-                feudalPlayerInt(player, Bukkit.getPlayerExact(args[1]), args[2], Integer.parseInt(args[3].replaceAll("[^0-9]", "")));
-
-                break;
-
-            case "feudalplayerstr":
-
-                if (args.length < 4) {
-
-                    player.sendMessage("Недостаточно аргументов!");
-                    break;
-
-                } else if (Bukkit.getPlayerExact(args[1]) == null) {
-
-                    player.sendMessage("Игрок не найден!");
-                    break;
-
-                }
-
-                feudalPlayerString(player, Bukkit.getPlayerExact(args[1]), args[2], args[3]);
-
-                break;
-
-
-            case "feudalplayer":
-
-                if (args.length < 3) {
-
-                    player.sendMessage("Недостаточно аргументов!");
-                    break;
-
-                } else if (Bukkit.getPlayerExact(args[1]) == null) {
-
-                    player.sendMessage("Игрок не найден!");
-                    break;
-
-                }
-
-                feudalPlayer(player, Bukkit.getPlayerExact(args[1]), args[2]);
-
-                break;
-
-            case "feudalkingdomint":
-
-                if (args.length < 4) {
-
-                    player.sendMessage("Недостаточно аргументов!");
-                    break;
-
-                } else if (CacheFeudalKingdoms.getKingdomInfo().get(args[1]) == null) {
-
-                    player.sendMessage("Королевство не найдено!");
-                    break;
-
-                } else if (args[3].length() > 10) {
-
-                    player.sendMessage("Слишком большое число!");
-                    break;
-
-                }
-
-                feudalKingdomInt(player, args[1], args[2], Integer.parseInt(args[3].replaceAll("[^0-9]", "")));
-
-                break;
-
-            case "feudalkingdomstr":
-
-                if (args.length < 4) {
-
-                    player.sendMessage("Недостаточно аргументов!");
-                    break;
-
-                } else if (CacheFeudalKingdoms.getKingdomInfo().get(args[1]) == null) {
-
-                    player.sendMessage("Королевство не найдено!");
-                    break;
-
-                }
-
-                feudalKingdomString(player, args[1], args[2], args[3]);
-
-                break;
-
-            case "feudalkingdom":
-
-                if (args.length < 3) {
-
-                    player.sendMessage("Недостаточно аргументов!");
-                    break;
-
-                } else if (CacheFeudalKingdoms.getKingdomInfo().get(args[1]) == null) {
-
-                    player.sendMessage("Королевство не найдено!");
-                    break;
-
-                }
-
-                feudalKingdom(player, args[1], args[2]);
-
-                break;
-
-
-            default:
-                player.sendMessage("Неизвестная команда!");
-
-        }
+        if (commands.containsKey(args[0].toLowerCase()))
+            commands.get(args[0].toLowerCase()).invoke(sender, args);
 
         return false;
 
     }
 
-    private void feudalPlayerInt(@NotNull Player sender, Player player, String methodName, int value) {
+    private void feudalPlayerInt(CommandSender sender, String @NotNull [] args) {
+
+        assert sender instanceof Player;
+        Player player = (Player) sender;
+
+        if (args.length < 4) {
+
+            player.sendMessage("Недостаточно аргументов!");
+            return;
+
+        } else if (Bukkit.getPlayerExact(args[1]) == null) {
+
+            player.sendMessage("Игрок не найден!");
+            return;
+
+        } else if (args[3].length() > 10) {
+
+            player.sendMessage("Слишком большое число!");
+            return;
+
+        }
+
+
+        try {
+
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
+            feudalPlayer.getClass().getMethod(args[2], int.class).invoke(feudalPlayer, Integer.parseInt(args[3].replaceAll("[^0-9]", "")));
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
+
+    }
+
+    private void feudalPlayerString(CommandSender sender, String @NotNull [] args) {
+
+        assert sender instanceof Player;
+        Player player = (Player) sender;
+
+        if (args.length < 4) {
+
+            player.sendMessage("Недостаточно аргументов!");
+            return;
+
+        } else if (Bukkit.getPlayerExact(args[1]) == null) {
+
+            player.sendMessage("Игрок не найден!");
+            return;
+
+        }
+
+
+        try {
+
+            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayerExact(args[1]));
+            feudalPlayer.getClass().getMethod(args[2], String.class).invoke(feudalPlayer, args[3]);
+
+            sender.sendMessage("Метод был выполнен!");
+
+        } catch (NoSuchMethodException e) {
+
+            sender.sendMessage("Метод не найден!");
+
+        } catch (InvocationTargetException | IllegalAccessException e) {
+
+            sender.sendMessage("Не верные агрументы!");
+
+        }
+
+    }
+
+    private void feudalPlayer(CommandSender sender, String @NotNull [] args) {
+
+        assert sender instanceof Player;
+        Player player = (Player) sender;
+
+        if (args.length < 3) {
+
+            player.sendMessage("Недостаточно аргументов!");
+            return;
+
+        } else if (Bukkit.getPlayerExact(args[1]) == null) {
+
+            player.sendMessage("Игрок не найден!");
+            return;
+
+        }
+
 
         try {
 
             FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-            feudalPlayer.getClass().getMethod(methodName, int.class).invoke(feudalPlayer, value);
+            feudalPlayer.getClass().getMethod(args[1]).invoke(feudalPlayer);
 
             sender.sendMessage("Метод был выполнен!");
 
@@ -190,12 +175,33 @@ public class LocalStaffCommands implements CommandExecutor {
 
     }
 
-    private void feudalPlayerString(@NotNull Player sender, Player player, String methodName, String value) {
+    private void feudalKingdomInt(CommandSender sender, String @NotNull [] args) {
+
+        assert sender instanceof Player;
+        Player player = (Player) sender;
+
+        if (args.length < 4) {
+
+            player.sendMessage("Недостаточно аргументов!");
+            return;
+
+        } else if (CacheFeudalKingdoms.getKingdomInfo().get(args[1]) == null) {
+
+            player.sendMessage("Королевство не найдено!");
+            return;
+
+        } else if (args[3].length() > 10) {
+
+            player.sendMessage("Слишком большое число!");
+            return;
+
+        }
+
 
         try {
 
-            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-            feudalPlayer.getClass().getMethod(methodName, String.class).invoke(feudalPlayer, value);
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
+            feudalKingdom.getClass().getMethod(args[2], int.class).invoke(feudalKingdom, Integer.parseInt(args[3].replaceAll("[^0-9]", "")));
 
             sender.sendMessage("Метод был выполнен!");
 
@@ -211,12 +217,28 @@ public class LocalStaffCommands implements CommandExecutor {
 
     }
 
-    private void feudalPlayer(@NotNull Player sender, Player player, String methodName) {
+    private void feudalKingdomString(CommandSender sender, String @NotNull [] args) {
+
+        assert sender instanceof Player;
+        Player player = (Player) sender;
+
+        if (args.length < 4) {
+
+            player.sendMessage("Недостаточно аргументов!");
+            return;
+
+        } else if (CacheFeudalKingdoms.getKingdomInfo().get(args[1]) == null) {
+
+            player.sendMessage("Королевство не найдено!");
+            return;
+
+        }
+
 
         try {
 
-            FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-            feudalPlayer.getClass().getMethod(methodName).invoke(feudalPlayer);
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
+            feudalKingdom.getClass().getMethod(args[2], String.class).invoke(feudalKingdom, args[3]);
 
             sender.sendMessage("Метод был выполнен!");
 
@@ -232,12 +254,29 @@ public class LocalStaffCommands implements CommandExecutor {
 
     }
 
-    private void feudalKingdomInt(@NotNull Player sender, String kingdomName, String methodName, int value) {
+    @Contract("null, _, _, _ -> fail")
+    private void feudalKingdom(CommandSender sender, String @NotNull [] args) {
+
+        assert sender instanceof Player;
+        Player player = (Player) sender;
+
+        if (args.length < 3) {
+
+            player.sendMessage("Недостаточно аргументов!");
+            return;
+
+        } else if (CacheFeudalKingdoms.getKingdomInfo().get(args[1]) == null) {
+
+            player.sendMessage("Королевство не найдено!");
+            return;
+
+        }
+
 
         try {
 
-            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
-            feudalKingdom.getClass().getMethod(methodName, int.class).invoke(feudalKingdom, value);
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(args[1]);
+            feudalKingdom.getClass().getMethod(args[2]).invoke(feudalKingdom);
 
             sender.sendMessage("Метод был выполнен!");
 
@@ -253,45 +292,16 @@ public class LocalStaffCommands implements CommandExecutor {
 
     }
 
-    private void feudalKingdomString(@NotNull Player sender, String kingdomName, String methodName, String value) {
+    private void help(CommandSender sender, String[] args) {
 
-        try {
+        assert sender instanceof Player;
+        Player player = (Player) sender;
 
-            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
-            feudalKingdom.getClass().getMethod(methodName, String.class).invoke(feudalKingdom, value);
-
-            sender.sendMessage("Метод был выполнен!");
-
-        } catch (NoSuchMethodException e) {
-
-            sender.sendMessage("Метод не найден!");
-
-        } catch (InvocationTargetException | IllegalAccessException e) {
-
-            sender.sendMessage("Не верные агрументы!");
-
-        }
-
-    }
-
-    private void feudalKingdom(@NotNull Player sender, String kingdomName, String methodName) {
-
-        try {
-
-            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
-            feudalKingdom.getClass().getMethod(methodName).invoke(feudalKingdom);
-
-            sender.sendMessage("Метод был выполнен!");
-
-        } catch (NoSuchMethodException e) {
-
-            sender.sendMessage("Метод не найден!");
-
-        } catch (InvocationTargetException | IllegalAccessException e) {
-
-            sender.sendMessage("Не верные агрументы!");
-
-        }
-
+        player.sendMessage("/ls feudalplayerint [nick] [methodName] [int] \n (methodName: setExperience, setProfessionID, setBalance, setDeaths, setKills, setStrengthLvl, setSurvivabilityLvl, setSpeedLvl, setStaminaLvl, setLuckLvl, setProfessionLvl, setProfessionExperience, addExperience, addBalance, addDeaths, addKills, addStrengthLvl, addSurvivabilityLvl, addSpeedLvl, addStaminaLvl, addLuckLvl, addProfessionLvl, addProfessionExperience, takeExperience, takeBalance, takeDeaths, takeKills, takeStrengthLvl, takeSurvivabilityLvl, takeSpeedLvl, takeStaminaLvl, takeLuckLvl, takeProfessionLvl, takeProfessionExperience, addUpProfession, setUpProfession) \n" +
+                " \n /ls feudalplayerstr [nick] [methodName] [str] \n (methodName: setKingdomName, addInvitations, deleteInvitations, deleteLetter) \n" +
+                " \n /ls feudalplayer [nick] [methodName] \n (methodName: clearInvitations, clearLetters) \n" +
+                " \n /ls feudalkingdomint [kingdomName] [methodName] [int] \n (methodName: setBalance, setReputation, addTerritory, addBalance, addReputation, takeTerritory, takeBalance, takeReputation, setMaxNumberMembers, addMaxNumberMembers)" +
+                " \n /ls feudalkingdomstr [kingdomName] [methodName] [str] \n (methodName: setKingdomName)" +
+                " \n /ls feudalkingdom [kingdomName] [methodName] \n (methodName: takeAllTerritory, clearInvitation)");
     }
 }
