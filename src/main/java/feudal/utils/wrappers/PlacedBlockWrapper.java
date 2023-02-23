@@ -1,15 +1,8 @@
 package feudal.utils.wrappers;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-import lombok.experimental.FieldDefaults;
+import lombok.Value;
 
-@Getter
-@ToString
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Value
 public class PlacedBlockWrapper {
 
     String worldName;

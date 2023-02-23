@@ -1,5 +1,6 @@
 package feudal.listeners.fishing;
 
+import net.minecraft.server.v1_12_R1.NBTTagCompound;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Item;
@@ -21,17 +22,20 @@ public class PlayerCaughtFish implements Listener {
         if (event.getState() != PlayerFishEvent.State.CAUGHT_FISH ||
                 ((Item) event.getCaught()).getItemStack().getType() != Material.RAW_FISH) return;
 
-        ((Item) event.getCaught()).setItemStack(AddAttributesFish.setFishAttributes(((Item) event.getCaught()).getItemStack()));
+        Item item = (Item) event.getCaught();
+        item.setItemStack(AddAttributesFish.setFishAttributes(item.getItemStack()));
 
-        ItemMeta fishMeta = ((Item) event.getCaught()).getItemStack().getItemMeta();
+        ItemMeta fishMeta = item.getItemStack().getItemMeta();
         List<String> lore = new ArrayList<>();
 
-        lore.add("Редкость: " + Objects.requireNonNull(CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag()).getString("rare"));
-        lore.add("Размер: " + String.format("%.2f", Objects.requireNonNull(CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag()).getDouble("size")) + " см");
-        lore.add("Вес: " + String.format("%.2f", Objects.requireNonNull(CraftItemStack.asNMSCopy(((Item) event.getCaught()).getItemStack()).getTag()).getDouble("weight")) + " кг");
+        NBTTagCompound nbtTag = Objects.requireNonNull(CraftItemStack.asNMSCopy(item.getItemStack()).getTag());
+
+        lore.add("Редкость: " + nbtTag.getString("rare"));
+        lore.add("Размер: " + String.format("%.2f", nbtTag.getDouble("size")) + " см");
+        lore.add("Вес: " + String.format("%.2f", nbtTag.getDouble("weight")) + " кг");
 
         fishMeta.setLore(lore);
-        ((Item) event.getCaught()).getItemStack().setItemMeta(fishMeta);
+        item.getItemStack().setItemMeta(fishMeta);
 
     }
 }

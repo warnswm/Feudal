@@ -61,7 +61,6 @@ public class LocalStaffCommands implements CommandExecutor {
 
     private void feudalPlayerInt(CommandSender sender, String @NotNull [] args) {
 
-        assert sender instanceof Player;
         Player player = (Player) sender;
 
         if (args.length < 4) {
@@ -103,7 +102,6 @@ public class LocalStaffCommands implements CommandExecutor {
 
     private void feudalPlayerString(CommandSender sender, String @NotNull [] args) {
 
-        assert sender instanceof Player;
         Player player = (Player) sender;
 
         if (args.length < 4) {
@@ -140,7 +138,6 @@ public class LocalStaffCommands implements CommandExecutor {
 
     private void feudalPlayer(CommandSender sender, String @NotNull [] args) {
 
-        assert sender instanceof Player;
         Player player = (Player) sender;
 
         if (args.length < 3) {
@@ -177,7 +174,6 @@ public class LocalStaffCommands implements CommandExecutor {
 
     private void feudalKingdomInt(CommandSender sender, String @NotNull [] args) {
 
-        assert sender instanceof Player;
         Player player = (Player) sender;
 
         if (args.length < 4) {
@@ -257,7 +253,6 @@ public class LocalStaffCommands implements CommandExecutor {
     @Contract("null, _, _, _ -> fail")
     private void feudalKingdom(CommandSender sender, String @NotNull [] args) {
 
-        assert sender instanceof Player;
         Player player = (Player) sender;
 
         if (args.length < 3) {
@@ -294,7 +289,6 @@ public class LocalStaffCommands implements CommandExecutor {
 
     private void help(CommandSender sender, String[] args) {
 
-        assert sender instanceof Player;
         Player player = (Player) sender;
 
         player.sendMessage("/ls feudalplayerint [nick] [methodName] [int] \n (methodName: setExperience, setProfessionID, setBalance, setDeaths, setKills, setStrengthLvl, setSurvivabilityLvl, setSpeedLvl, setStaminaLvl, setLuckLvl, setProfessionLvl, setProfessionExperience, addExperience, addBalance, addDeaths, addKills, addStrengthLvl, addSurvivabilityLvl, addSpeedLvl, addStaminaLvl, addLuckLvl, addProfessionLvl, addProfessionExperience, takeExperience, takeBalance, takeDeaths, takeKills, takeStrengthLvl, takeSurvivabilityLvl, takeSpeedLvl, takeStaminaLvl, takeLuckLvl, takeProfessionLvl, takeProfessionExperience, addUpProfession, setUpProfession) \n" +

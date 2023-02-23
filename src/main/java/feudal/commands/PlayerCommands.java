@@ -36,20 +36,6 @@ public class PlayerCommands implements CommandExecutor {
 
         switch (args[0]) {
 
-            case "help":
-
-                player.sendMessage("/f claim - захватить чанк\n"
-                        + "/f create - создать королевство\n" +
-                        "/f help - меню коамнд\n" +
-                        "/f invite - добавить игрока в королевство\n" +
-                        "/f kick - удалить игрока из королевства\n" +
-                        "/f m - меню королевства\n" + "/f map - soon\n" +
-                        "/f shield - soon\n" +
-                        "/f location - указать локацию королевства\n" +
-                        "/f ah - открыть аукцион\n");
-
-                break;
-
             case "create":
 
                 if (args.length < 2) {
@@ -670,6 +656,19 @@ public class PlayerCommands implements CommandExecutor {
 
         feudalKingdom.removeBaron(baron);
         playerInviting.sendMessage("Игрок " + baron.getName() + " снят с поста барона!");
+
+    }
+
+    private void help(CommandSender sender, String[] args) {
+
+        Player player = (Player) sender;
+
+        player.sendMessage("/f claim - захватить чанк\n"
+                + "/f create - создать королевство\n" +
+                "/f help - меню команд\n" +
+                "/f invite - добавить игрока в королевство\n" +
+                "/f kick - удалить игрока из королевства\n" +
+                "/f ah - открыть аукцион\n");
 
     }
 }

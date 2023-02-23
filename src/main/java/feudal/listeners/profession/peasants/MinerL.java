@@ -1,4 +1,4 @@
-package feudal.listeners.profession.peasantsListeners;
+package feudal.listeners.profession.peasants;
 
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
