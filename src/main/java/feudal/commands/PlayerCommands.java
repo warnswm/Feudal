@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import feudal.data.Auction;
 import feudal.data.FeudalKingdom;
 import feudal.data.FeudalPlayer;
-import feudal.data.cache.CacheFeudalKingdoms;
 import feudal.data.cache.CacheFeudalPlayers;
 import feudal.data.database.KingdomDBHandler;
 import feudal.utils.RTPUtils;
@@ -27,6 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static feudal.data.cache.CacheFeudalKingdoms.*;
+import static feudal.data.cache.CacheFeudalPlayers.*;
+
 public class PlayerCommands implements CommandExecutor {
 
     private boolean confirmDeletion;
@@ -39,30 +41,6 @@ public class PlayerCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         switch (args[0]) {
-
-            case "create":
-
-                if (args.length < 2) {
-
-                    player.sendMessage("Пожалуйста укажите желаемое имя королевства!");
-                    break;
-
-                }
-
-                createKingdomCommand(player, args[1]);
-                break;
-
-            case "prof":
-
-                if (CacheFeudalPlayers.getFeudalPlayer(player).getProfessionID() != 0) {
-
-                    player.sendMessage("У вас уже есть профессия!");
-                    break;
-
-                }
-
-                new Menus(player).professionSelectionMenu();
-                break;
 
             case "withdraw":
 
@@ -82,118 +60,15 @@ public class PlayerCommands implements CommandExecutor {
 
                 break;
 
-            case "replenish":
-
-                if (args.length < 2) {
-
-                    player.sendMessage("Пожалуйста укажите сумму!");
-                    break;
-
-                } else if (args[1].length() > 10) {
-
-                    player.sendMessage("Слишком большая сумма для пополнения");
-                    break;
-
-                }
-
-                replenishMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1].replaceAll("[^0-9]", "")));
-
-                break;
-
-
-            case "invite":
-
-                invitePlayer(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
-
-                break;
-
-            case "kick":
-
-                kickPlayer(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
-
-                break;
-
-            case "reject":
-
-                reject(player, args[1]);
-
-                break;
-
-            case "disband":
-
-                disband(player);
-
-                break;
-
-            case "leave":
-
-                leave(player);
-
-                break;
-
-            case "addbaron":
-
-                addBaron(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
-
-                break;
-
-            case "removebaron":
-
-                removeBaron(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player, args[1]);
-
-                break;
-
             case "mail":
 
                 new Menus(player).mailMenu();
 
                 break;
 
-            case "claim":
-
-                claim(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player);
-
-                break;
-
-            case "up":
-
-                up(player);
-
-                break;
-
-            case "flag":
-
-                flag(CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName(), player);
-
-                break;
-
             case "rtp":
 
                 player.teleport(RTPUtils.rtpCalc(player, 10, 1000, 10, 1000));
-
-                break;
-
-            case "ah":
-
-                ah(player);
-
-                break;
-
-            case "sell":
-
-                if (player.getInventory().getItemInMainHand() == null) {
-
-                    player.sendMessage("Возьмите предмет в основную руку!");
-                    break;
-
-                } else if (args.length < 2) {
-
-                    player.sendMessage("Укажите сумму!");
-                    break;
-
-                }
-
-                sell(player.getInventory().getItemInMainHand(), Integer.parseInt(args[1].replaceAll("[^0-9]", "")));
 
                 break;
 
@@ -205,42 +80,24 @@ public class PlayerCommands implements CommandExecutor {
         return false;
     }
 
-    private void createKingdomCommand(@NotNull Player player, String kingdomName) {
+    private void createKingdomCommand(CommandSender sender, String @NotNull [] args) {
 
-        if (!checkKingdomName(kingdomName)) {
+        Player player = (Player) sender;
+
+        FeudalPlayer feudalPlayer = getFeudalPlayer(player);
+        ItemStack itemInHand = player.getInventory().getItemInMainHand();
+
+        if (args.length < 2) {
+
+            player.sendMessage("Пожалуйста укажите желаемое имя королевства!");
+            return;
+
+        } else if (!checkKingdomName(args[1])) {
 
             player.sendMessage("Нельзя создать королевство с таким именем!");
             return;
 
-        }
-
-        List<UUID> membersUUID = new ArrayList<>();
-        membersUUID.add(player.getUniqueId());
-
-        createKingdom(kingdomName, player, membersUUID);
-
-    }
-
-    private void up(@NotNull Player player) {
-        new Menus(player).upgradeProfessionMenu();
-    }
-
-    private boolean checkKingdomName(@NotNull String kingdomName) {
-
-        kingdomName.replaceAll("[^A-Za-zА-Яа-я0-9]", "");
-
-        return kingdomName.length() <= 16 &&
-                kingdomName.length() > 3 &&
-                CacheFeudalKingdoms.getKingdomInfo().get(kingdomName) == null;
-
-    }
-
-    private void createKingdom(@NotNull String kingdomName, @NotNull Player player, List<UUID> membersUUID) {
-
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-        ItemStack itemInHand = player.getInventory().getItemInMainHand();
-
-        if (!feudalPlayer.getKingdomName().equals("")) {
+        } else if (exitsKingdom(args[1])) {
 
             player.sendMessage("Вы уже состоите в королевстве!");
             return;
@@ -252,6 +109,10 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
+        List<UUID> membersUUID = new ArrayList<>();
+        membersUUID.add(player.getUniqueId());
+
+        String kingdomName = args[1];
         String flagGson = new Gson().toJson(new FlagWrapper("Флаг королевства - " + kingdomName, ((BannerMeta) itemInHand.getItemMeta()).getPatterns()));
 
         KingdomDBHandler.createNewKingdom(kingdomName, player, membersUUID, new ArrayList<>(), new ArrayList<>(), flagGson);
@@ -267,7 +128,7 @@ public class PlayerCommands implements CommandExecutor {
                 .setTerritory(new ArrayList<>())
                 .setFlagGson(flagGson);
 
-        CacheFeudalKingdoms.getKingdomInfo().put(kingdomName, feudalKingdom);
+        getKingdomInfo().put(kingdomName, feudalKingdom);
 
         feudalPlayer.setKingdomName(kingdomName);
         player.sendMessage("Вы успешно создали королевство: " + kingdomName);
@@ -276,17 +137,32 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
+    private void up(CommandSender sender, String[] args) {
+
+        new Menus((Player) sender).upgradeProfessionMenu();
+
+    }
+
+    private boolean checkKingdomName(@NotNull String kingdomName) {
+
+        kingdomName.replaceAll("[^A-Za-zА-Яа-я0-9]", "");
+
+        return kingdomName.length() <= 16 &&
+                kingdomName.length() > 3 &&
+                getKingdomInfo().get(kingdomName) == null;
+
+    }
+
     private void withdrawMoneyFromTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
 
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
 
-        if (kingdomName.equals("")) {
+        if (exitsKingdom(kingdomName)) {
 
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId()) &&
-                !feudalKingdom.getKingUUID().equals(player.getUniqueId())) {
+        } else if (!hasKingdomPosition(player)) {
 
             player.sendMessage("Недостаточно прав для снятия золота с казны!");
             return;
@@ -295,50 +171,68 @@ public class PlayerCommands implements CommandExecutor {
 
         if (feudalKingdom.getBalance() < colum) {
 
-            player.sendMessage("В казне недостаточно залота");
+            player.sendMessage("В казне недостаточно залота!");
             return;
 
         }
 
-        feudalKingdom.takeBalance(colum);
-        CacheFeudalPlayers.getFeudalPlayer(player).takeBalance(colum - colum / 100 * 5);
+        feudalKingdom.takeBalance(colum + 5);
+        getFeudalPlayer(player).takeBalance(colum - colum / 100 * 5);
 
     }
 
-    private void replenishMoneyFromTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
+    private void replenishMoneyFromTreasury(CommandSender sender, String @NotNull [] args) {
 
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        Player player = (Player) sender;
 
-        if (kingdomName.equals("")) {
+        if (args.length < 2) {
+
+            player.sendMessage("Пожалуйста укажите сумму!");
+            return;
+
+        } else if (args[1].length() > 10) {
+
+            player.sendMessage("Слишком большая сумма для пополнения");
+            return;
+
+        }
+
+        FeudalPlayer feudalPlayer = getFeudalPlayer(player);
+        String kingdomName = feudalPlayer.getKingdomName();
+
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
+
+        int colum = Integer.parseInt(args[1].replaceAll("[^0-9]", ""));
+
+        if (exitsKingdom(kingdomName)) {
 
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (!feudalKingdom.getBaronsUUID().contains(player.getUniqueId()) &&
-                !feudalKingdom.getKingUUID().equals(player.getUniqueId())) {
+        } else if (!hasKingdomPosition(player)) {
 
             player.sendMessage("Недостаточно прав для пополнения казны!");
             return;
 
-        }
+        } else if (feudalPlayer.getBalance() < colum) {
 
-        if (feudalPlayer.getBalance() < colum) {
-
-            player.sendMessage("Недостаточно средств!");
+            player.sendMessage("Недостаточно золота!");
             return;
 
         }
 
-        feudalPlayer.takeBalance(colum);
+        feudalPlayer.takeBalance(colum + 5);
         feudalKingdom.addBalance(colum - colum / 100 * 5);
 
     }
 
-    private void invitePlayer(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+    private void invitePlayer(CommandSender sender, String @NotNull [] args) {
 
-        Player invitedPlayer = Bukkit.getPlayerExact(nick);
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        Player playerInviting = (Player) sender;
+        String kingdomName = CacheFeudalPlayers.getFeudalPlayer(playerInviting).getKingdomName();
+
+        Player invitedPlayer = Bukkit.getPlayerExact(args[1]);
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
 
         if (kingdomName.equals("") || feudalKingdom == null) {
 
@@ -360,6 +254,11 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
 
+        } else if (feudalKingdom.getMembersUUID().contains(invitedPlayer.getUniqueId())) {
+
+            playerInviting.sendMessage("Игрок уже есть в вашем королевстве!");
+            return;
+
         } else if (feudalKingdom.getMaxNumberMembers() <= (feudalKingdom.getMembersUUID().size() + 1)) {
 
             playerInviting.sendMessage("В ваше королевство нельзя пригласить больше участников!");
@@ -372,7 +271,7 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        FeudalPlayer feudalInvitedPlayer = CacheFeudalPlayers.getFeudalPlayer(invitedPlayer);
+        FeudalPlayer feudalInvitedPlayer = getFeudalPlayer(invitedPlayer);
 
         if (!feudalInvitedPlayer.getKingdomName().equals("")) {
 
@@ -393,12 +292,15 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void kickPlayer(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+    private void kickPlayer(CommandSender sender, String @NotNull [] args) {
 
-        Player invitedPlayer = Bukkit.getPlayerExact(nick);
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        Player playerInviting = (Player) sender;
+        String kingdomName = CacheFeudalPlayers.getFeudalPlayer(playerInviting).getKingdomName();
 
-        if (kingdomName.equals("") || feudalKingdom == null) {
+        Player invitedPlayer = Bukkit.getPlayerExact(args[1]);
+        FeudalKingdom feudalKingdom = getFeudalKingdom(kingdomName);
+
+        if (exitsKingdom(kingdomName)) {
 
             playerInviting.sendMessage("Вы не состоите в королевстве!");
             return;
@@ -408,7 +310,7 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не можете кикнуть самого себя!");
             return;
 
-        } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId())) {
+        } else if (!hasKing(playerInviting)) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
@@ -431,15 +333,33 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void sell(@NotNull ItemStack itemStack, int price) {
+    private void sell(CommandSender sender, String[] args) {
 
-        Auction.getProducts().add(new ItemStackWrapper(itemStack.getType(), itemStack.getDurability(), itemStack.getAmount(), itemStack.getItemMeta().getDisplayName(), itemStack.getItemMeta().getLore(), itemStack.getEnchantments(), price));
+        Player player = (Player) sender;
+
+        if (player.getInventory().getItemInMainHand() == null) {
+
+            player.sendMessage("Возьмите предмет в основную руку!");
+            return;
+
+        } else if (args.length < 2) {
+
+            player.sendMessage("Укажите сумму!");
+            return;
+
+        }
+
+        ItemStack itemStack = player.getInventory().getItemInMainHand();
+        Auction.getProducts().add(new ItemStackWrapper(itemStack.getType(), itemStack.getDurability(), itemStack.getAmount(), itemStack.getItemMeta().getDisplayName(), itemStack.getItemMeta().getLore(), itemStack.getEnchantments(), Integer.parseInt(args[1].replaceAll("[^0-9]", ""))));
 
     }
 
-    private void reject(@NotNull Player player, String kingdomName) {
+    private void reject(CommandSender sender, String @NotNull [] args) {
 
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        Player player = (Player) sender;
+        FeudalPlayer feudalPlayer = getFeudalPlayer(player);
+
+        String kingdomName = args[1];
 
         if (!feudalPlayer.getInvitations().contains(kingdomName)) {
 
@@ -448,7 +368,7 @@ public class PlayerCommands implements CommandExecutor {
 
         }
 
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
 
         feudalKingdom.deleteInvitation(player);
         feudalPlayer.deleteInvitations(kingdomName);
@@ -461,12 +381,12 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void disband(@NotNull Player player) {
+    private void disband(CommandSender sender, String @NotNull [] args) {
 
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(feudalPlayer.getKingdomName());
+        Player player = (Player) sender;
+        FeudalPlayer feudalPlayer = getFeudalPlayer(player);
 
-        if (feudalPlayer.getKingdomName().equals("") || !feudalKingdom.getKingUUID().equals(player.getUniqueId())) {
+        if (hasKing(player)) {
 
             player.sendMessage("Вы не лидер королевства!");
             return;
@@ -483,9 +403,9 @@ public class PlayerCommands implements CommandExecutor {
 
         KingdomDBHandler.deleteKingdom(feudalPlayer.getKingdomName());
 
-        feudalKingdom.getMembersUUID().forEach(member -> {
+        getKingdomInfo().get(feudalPlayer.getKingdomName()).getMembersUUID().forEach(member -> {
 
-            FeudalPlayer feudalMember = CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(member));
+            FeudalPlayer feudalMember = getFeudalPlayer(Bukkit.getPlayer(member));
             feudalMember.setKingdomName("");
 
             if (Bukkit.getPlayer(member) != null)
@@ -493,18 +413,19 @@ public class PlayerCommands implements CommandExecutor {
 
         });
 
-        CacheFeudalKingdoms.getKingdomInfo().remove(feudalPlayer.getKingdomName());
+        getKingdomInfo().remove(feudalPlayer.getKingdomName());
 
     }
 
-    private void leave(@NotNull Player player) {
+    private void leave(CommandSender sender, String @NotNull [] args) {
 
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        Player player = (Player) sender;
+        FeudalPlayer feudalPlayer = getFeudalPlayer(player);
 
         String kingdomName = feudalPlayer.getKingdomName();
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
 
-        if (kingdomName.equals("")) {
+        if (exitsKingdom(kingdomName)) {
 
             player.sendMessage("Вы не состоите в королевстве!");
             return;
@@ -524,9 +445,11 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void ah(@NotNull Player player) {
+    private void ah(CommandSender sender, String[] args) {
 
-        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
+        Player player = (Player) sender;
+
+        FeudalPlayer feudalPlayer = getFeudalPlayer(player);
         if (feudalPlayer.getProfessionID() != ProfessionIDE.TRADER.getId()) {
 
             player.sendMessage("Вы не торговец!");
@@ -538,22 +461,25 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void claim(String kingdomName, @NotNull Player player) {
+    private void claim(CommandSender sender, String[] args) {
 
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        Player player = (Player) sender;
+        String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
 
-        if (kingdomName.equals("")) {
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
+
+        if (exitsKingdom(kingdomName)) {
 
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (!feudalKingdom.getKingUUID().equals(player.getUniqueId())) {
+        } else if (!hasKing(player)) {
 
             player.sendMessage("Вы не лидер королевства!");
             return;
 
         } else if (feudalKingdom.getTerritory().size() >= feudalKingdom.getMembersUUID().stream().map(member ->
-                CacheFeudalPlayers.getFeudalPlayer(Bukkit.getPlayer(member))).mapToInt(feudalPlayer ->
+                getFeudalPlayer(Bukkit.getPlayer(member))).mapToInt(feudalPlayer ->
                 ProfessionIDE.getContainsLandBYID(feudalPlayer.getProfessionID())).sum()) {
 
             player.sendMessage("Максимальное количество земель в королевстве!");
@@ -601,17 +527,21 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void addBaron(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+    private void addBaron(CommandSender sender, String @NotNull [] args) {
+
+        Player playerInviting = (Player) sender;
+        String kingdomName = CacheFeudalPlayers.getFeudalPlayer(playerInviting).getKingdomName();
+        String nick = args[1];
 
         Player baron = Bukkit.getPlayerExact(nick);
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
 
-        if (kingdomName.equals("") || feudalKingdom == null) {
+        if (exitsKingdom(kingdomName)) {
 
             playerInviting.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (baron == null || !baron.isOnline()) {
+        } else if (!exitsPlayer(nick)) {
 
             playerInviting.sendMessage("Игрок не найден на сервере!");
             return;
@@ -621,7 +551,7 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не можете назначить самого себя!");
             return;
 
-        } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId())) {
+        } else if (!hasKing(playerInviting)) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
@@ -631,7 +561,7 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("В королевстве максимальное количество баронов!");
             return;
 
-        } else if (feudalKingdom.getBaronsUUID().contains(baron.getUniqueId())) {
+        } else if (hasBaron(playerInviting)) {
 
             playerInviting.sendMessage("Игрок уже назначен бароном!");
             return;
@@ -643,17 +573,21 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void removeBaron(@NotNull String kingdomName, @NotNull Player playerInviting, String nick) {
+    private void removeBaron(CommandSender sender, String @NotNull [] args) {
+
+        Player playerInviting = (Player) sender;
+        String kingdomName = CacheFeudalPlayers.getFeudalPlayer(playerInviting).getKingdomName();
+        String nick = args[1];
 
         Player baron = Bukkit.getPlayerExact(nick);
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
 
-        if (kingdomName.equals("") || feudalKingdom == null) {
+        if (exitsKingdom(kingdomName)) {
 
             playerInviting.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        } else if (baron == null || !baron.isOnline()) {
+        } else if (!exitsPlayer(nick)) {
 
             playerInviting.sendMessage("Игрок не найден на сервере!");
             return;
@@ -663,12 +597,12 @@ public class PlayerCommands implements CommandExecutor {
             playerInviting.sendMessage("Вы не можете убрать барона с самого себя!");
             return;
 
-        } else if (!feudalKingdom.getKingUUID().equals(playerInviting.getUniqueId())) {
+        } else if (!hasKing(playerInviting)) {
 
             playerInviting.sendMessage("Вы не лидер королевства!");
             return;
 
-        } else if (!feudalKingdom.getBaronsUUID().contains(baron.getUniqueId())) {
+        } else if (!hasBaron(playerInviting)) {
 
             playerInviting.sendMessage("Игрок не назначен бароном!");
             return;
@@ -680,25 +614,24 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void flag(String kingdomName, Player player) {
+    private void flag(CommandSender sender, String[] args) {
 
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        Player player = (Player) sender;
+        String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
 
-        if (kingdomName.equals("") || feudalKingdom == null) {
+        if (exitsKingdom(kingdomName)) {
 
             player.sendMessage("Вы не состоите в королевстве!");
             return;
 
-        }
-        if (!feudalKingdom.getKingUUID().equals(player.getUniqueId()) &&
-                !feudalKingdom.getBaronsUUID().contains(player.getUniqueId())) {
+        } else if (hasKingdomPosition(player)) {
 
             player.sendMessage("Вы не занимаете должность в королевстве!");
             return;
 
         }
 
-        player.getInventory().addItem(new Gson().fromJson(feudalKingdom.getFlagGson(), FlagWrapper.class).create());
+        player.getInventory().addItem(new Gson().fromJson(getKingdomInfo().get(kingdomName).getFlagGson(), FlagWrapper.class).create());
 
     }
 
@@ -712,6 +645,21 @@ public class PlayerCommands implements CommandExecutor {
                 "/f invite - добавить игрока в королевство\n" +
                 "/f kick - удалить игрока из королевства\n" +
                 "/f ah - открыть аукцион\n");
+
+    }
+
+    private void prof(CommandSender sender, String[] args) {
+
+        Player player = (Player) sender;
+
+        if (!hasProfession(player)) {
+
+            player.sendMessage("У вас уже есть профессия!");
+            return;
+
+        }
+
+        new Menus(player).professionSelectionMenu();
 
     }
 }

@@ -37,9 +37,10 @@ public class LoadAndSaveDataUtils {
         if (!playerInKingdom(player)) return;
 
         String kingdomName = getPlayerKingdom(player);
+
+        if (CacheFeudalKingdoms.getKingdomInfo().get(kingdomName) != null) return;
+
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
-
-
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(UUID.fromString(getStringField(kingdomName, "king")))
                 .setMembers(getList(kingdomName, "members"))

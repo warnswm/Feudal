@@ -18,6 +18,10 @@ public class CacheFeudalKingdoms {
         return feudalKingdomCache;
     }
 
+    public FeudalKingdom getFeudalKingdom(@NotNull String kingdomName) {
+        return feudalKingdomCache.get(kingdomName);
+    }
+
     public boolean checkPrivate(Chunk chunk, @NotNull Player player) {
 
         for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet()) {
@@ -28,6 +32,13 @@ public class CacheFeudalKingdoms {
         }
 
         return false;
+
+    }
+
+    public boolean exitsKingdom(String kingdomName) {
+
+        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
+        return kingdomName.equals("") || feudalKingdom == null;
 
     }
 
