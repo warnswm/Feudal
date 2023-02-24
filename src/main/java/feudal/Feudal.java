@@ -26,9 +26,13 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.bukkit.Bukkit;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.lang.reflect.Field;
+
+import static org.bukkit.Bukkit.getPluginManager;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public final class Feudal extends JavaPlugin {
@@ -42,9 +46,6 @@ public final class Feudal extends JavaPlugin {
 
         setPlugin(this);
 
-        registerCommands();
-        registerListeners();
-
         LoadAndSaveDataUtils.loadAllConfigs();
         LoadAndSaveDataUtils.loadPlacedBlocks();
         LoadAndSaveDataUtils.loadAuction();
@@ -53,6 +54,10 @@ public final class Feudal extends JavaPlugin {
         PlannedActivitiesUtils.restart();
         PlannedActivitiesUtils.clearMail();
         PlannedActivitiesUtils.secretOrder();
+
+        registerCommands();
+        registerListeners();
+        registerEnchantments();
 
     }
 
@@ -83,53 +88,89 @@ public final class Feudal extends JavaPlugin {
 
     private void registerListeners() {
 
-        Bukkit.getPluginManager().registerEvents(new ProfessionChangeMenuL(), this);
-        Bukkit.getPluginManager().registerEvents(new AttributesUpMenuL(), this);
-        Bukkit.getPluginManager().registerEvents(new ProfessionUpMenuL(), this);
-        Bukkit.getPluginManager().registerEvents(new MailMenuL(), this);
-        Bukkit.getPluginManager().registerEvents(new ClerkMenuL(), this);
-        Bukkit.getPluginManager().registerEvents(new AuctionMenuL(), this);
-        Bukkit.getPluginManager().registerEvents(new SwitchingProfessionMenuL(), this);
+        getPluginManager().registerEvents(new ProfessionChangeMenuL(), this);
+        getPluginManager().registerEvents(new AttributesUpMenuL(), this);
+        getPluginManager().registerEvents(new ProfessionUpMenuL(), this);
+        getPluginManager().registerEvents(new MailMenuL(), this);
+        getPluginManager().registerEvents(new ClerkMenuL(), this);
+        getPluginManager().registerEvents(new AuctionMenuL(), this);
+        getPluginManager().registerEvents(new SwitchingProfessionMenuL(), this);
 
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinAndQuitL(), this);
-        Bukkit.getPluginManager().registerEvents(new CraftItemsL(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerL(), this);
+        getPluginManager().registerEvents(new PlayerJoinAndQuitL(), this);
+        getPluginManager().registerEvents(new CraftItemsL(), this);
+        getPluginManager().registerEvents(new PlayerL(), this);
 
-        Bukkit.getPluginManager().registerEvents(new BuilderL(), this);
-        Bukkit.getPluginManager().registerEvents(new ClerkL(), this);
-        Bukkit.getPluginManager().registerEvents(new FishermanL(), this);
-        Bukkit.getPluginManager().registerEvents(new MinerL(), this);
-        Bukkit.getPluginManager().registerEvents(new WoodcutterL(), this);
-        Bukkit.getPluginManager().registerEvents(new HunterL(), this);
-        Bukkit.getPluginManager().registerEvents(new FarmerL(), this);
-        Bukkit.getPluginManager().registerEvents(new CookL(), this);
+        getPluginManager().registerEvents(new BuilderL(), this);
+        getPluginManager().registerEvents(new ClerkL(), this);
+        getPluginManager().registerEvents(new FishermanL(), this);
+        getPluginManager().registerEvents(new MinerL(), this);
+        getPluginManager().registerEvents(new WoodcutterL(), this);
+        getPluginManager().registerEvents(new HunterL(), this);
+        getPluginManager().registerEvents(new FarmerL(), this);
+        getPluginManager().registerEvents(new CookL(), this);
 
-        Bukkit.getPluginManager().registerEvents(new MobL(), this);
-        Bukkit.getPluginManager().registerEvents(new BlocksL(), this);
-        Bukkit.getPluginManager().registerEvents(new InteractL(), this);
-        Bukkit.getPluginManager().registerEvents(new ArmorL(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
+        getPluginManager().registerEvents(new MobL(), this);
+        getPluginManager().registerEvents(new BlocksL(), this);
+        getPluginManager().registerEvents(new InteractL(), this);
+        getPluginManager().registerEvents(new ArmorL(), this);
+        getPluginManager().registerEvents(new PlayerCaughtFish(), this);
 
-        Bukkit.getPluginManager().registerEvents(new BlindnessL(72), this);
-        Bukkit.getPluginManager().registerEvents(new BowStunL(73), this);
-        Bukkit.getPluginManager().registerEvents(new DesiccationL(74), this);
-        Bukkit.getPluginManager().registerEvents(new DoubleDamageL(75), this);
-        Bukkit.getPluginManager().registerEvents(new HookL(76), this);
-        Bukkit.getPluginManager().registerEvents(new LevitationL(77), this);
-        Bukkit.getPluginManager().registerEvents(new MultiShootingL(78), this);
-        Bukkit.getPluginManager().registerEvents(new NauseaL(79), this);
-        Bukkit.getPluginManager().registerEvents(new PoisoningL(80), this);
-        Bukkit.getPluginManager().registerEvents(new SlowdownL(81), this);
-        Bukkit.getPluginManager().registerEvents(new SwordStunL(82), this);
-        Bukkit.getPluginManager().registerEvents(new VampirismL(83), this);
+        getPluginManager().registerEvents(new BlindnessL(72), this);
+        getPluginManager().registerEvents(new BowStunL(73), this);
+        getPluginManager().registerEvents(new DesiccationL(74), this);
+        getPluginManager().registerEvents(new DoubleDamageL(75), this);
+        getPluginManager().registerEvents(new HookL(76), this);
+        getPluginManager().registerEvents(new LevitationL(77), this);
+        getPluginManager().registerEvents(new MultiShootingL(78), this);
+        getPluginManager().registerEvents(new NauseaL(79), this);
+        getPluginManager().registerEvents(new PoisoningL(80), this);
+        getPluginManager().registerEvents(new SlowdownL(81), this);
+        getPluginManager().registerEvents(new SwordStunL(82), this);
+        getPluginManager().registerEvents(new VampirismL(83), this);
 
-        Bukkit.getPluginManager().registerEvents(new FarmerExpL(), this);
-        Bukkit.getPluginManager().registerEvents(new ClerkExpL(), this);
-        Bukkit.getPluginManager().registerEvents(new FishermanExpL(), this);
-        Bukkit.getPluginManager().registerEvents(new HunterExpL(), this);
-        Bukkit.getPluginManager().registerEvents(new MinerExpL(), this);
-        Bukkit.getPluginManager().registerEvents(new ShepherdExpL(), this);
-        Bukkit.getPluginManager().registerEvents(new WoodcutterExpL(), this);
+        getPluginManager().registerEvents(new FarmerExpL(), this);
+        getPluginManager().registerEvents(new ClerkExpL(), this);
+        getPluginManager().registerEvents(new FishermanExpL(), this);
+        getPluginManager().registerEvents(new HunterExpL(), this);
+        getPluginManager().registerEvents(new MinerExpL(), this);
+        getPluginManager().registerEvents(new ShepherdExpL(), this);
+        getPluginManager().registerEvents(new WoodcutterExpL(), this);
+
+    }
+
+    private void registerEnchantments() {
+
+        try {
+
+            try {
+
+                Field f = Enchantment.class.getDeclaredField("acceptingNew");
+                f.setAccessible(true);
+                f.set(null, Boolean.valueOf(true));
+
+                Enchantment.registerEnchantment(new BlindnessL(72));
+                Enchantment.registerEnchantment(new BowStunL(73));
+                Enchantment.registerEnchantment(new DesiccationL(74));
+                Enchantment.registerEnchantment(new DoubleDamageL(75));
+                Enchantment.registerEnchantment(new HookL(76));
+                Enchantment.registerEnchantment(new LevitationL(77));
+                Enchantment.registerEnchantment(new MultiShootingL(78));
+                Enchantment.registerEnchantment(new NauseaL(79));
+                Enchantment.registerEnchantment(new PoisoningL(80));
+                Enchantment.registerEnchantment(new SlowdownL(81));
+                Enchantment.registerEnchantment(new SwordStunL(82));
+                Enchantment.registerEnchantment(new VampirismL(83));
+
+
+            } catch (IllegalArgumentException e) {
+
+                e.printStackTrace();
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

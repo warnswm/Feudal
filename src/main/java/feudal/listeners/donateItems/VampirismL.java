@@ -69,10 +69,11 @@ public class VampirismL extends Enchantment implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
+        ItemStack item = player.getInventory().getItemInMainHand();
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
-                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("vampirism") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("vampirismLvl") * donatEnchantment.getPercentagePerLvl())
+        if (item == null ||
+                !item.containsEnchantment(new VampirismL(83)) ||
+                ThreadLocalRandom.current().nextInt(1, 101) > item.getEnchantmentLevel(new VampirismL(83)) * donatEnchantment.getPercentagePerLvl())
             return;
 
 

@@ -2,7 +2,6 @@ package feudal.listeners.donateItems;
 
 import feudal.data.DonatEnchantment;
 import feudal.data.cache.CacheFeudalValues;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
@@ -14,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MultiShootingL extends Enchantment implements Listener {
@@ -72,10 +70,11 @@ public class MultiShootingL extends Enchantment implements Listener {
 
         Arrow arrow = (Arrow) event.getDamager();
         Player player = (Player) arrow.getShooter();
+        ItemStack item = player.getInventory().getItemInMainHand();
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
-                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("multi-shooting") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("multi-shootingLvl") * donatEnchantment.getPercentagePerLvl())
+        if (item == null ||
+                !item.containsEnchantment(new MultiShootingL(78)) ||
+                ThreadLocalRandom.current().nextInt(1, 101) > item.getEnchantmentLevel(new MultiShootingL(78)) * donatEnchantment.getPercentagePerLvl())
             return;
 
         arrow.getWorld().spawnArrow(arrow.getLocation(), arrow.getVelocity(), 2.0F, 5.0F).setShooter((ProjectileSource) event.getEntity());

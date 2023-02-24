@@ -2,7 +2,6 @@ package feudal.listeners.donateItems;
 
 import feudal.data.DonatEnchantment;
 import feudal.data.cache.CacheFeudalValues;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
@@ -16,7 +15,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BowStunL extends Enchantment implements Listener {
@@ -74,10 +72,11 @@ public class BowStunL extends Enchantment implements Listener {
 
         Arrow arrow = (Arrow) event.getDamager();
         Player player = (Player) arrow.getShooter();
+        ItemStack item = player.getInventory().getItemInMainHand();
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
-                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("bowStun") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("bowStunLvl") * donatEnchantment.getPercentagePerLvl())
+        if (item == null ||
+                !item.containsEnchantment(new BowStunL(73)) ||
+                ThreadLocalRandom.current().nextInt(1, 101) > item.getEnchantmentLevel(new BowStunL(73)) * donatEnchantment.getPercentagePerLvl())
             return;
 
 
@@ -85,7 +84,7 @@ public class BowStunL extends Enchantment implements Listener {
         int effectTime = donatEnchantment.getTime();
 
         entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, (int) (effectTime + effectTime / 100 * donatEnchantment.getTimePercentagePerLvl()), 1, true, true));
-        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (effectTime + effectTime / 100 * donatEnchantment.getTimePercentagePerLvl()), 1, true, true));
+        entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, (int) (effectTime + effectTime / 100 * donatEnchantment.getTimePercentagePerLvl()), 255, true, true));
 
     }
 

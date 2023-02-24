@@ -2,7 +2,6 @@ package feudal.listeners.donateItems;
 
 import feudal.data.DonatEnchantment;
 import feudal.data.cache.CacheFeudalValues;
-import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.LivingEntity;
@@ -15,7 +14,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PoisoningL extends Enchantment implements Listener {
@@ -72,10 +70,11 @@ public class PoisoningL extends Enchantment implements Listener {
         if (!(event.getDamager() instanceof Player)) return;
 
         Player player = (Player) event.getDamager();
+        ItemStack item = player.getInventory().getItemInMainHand();
 
-        if (CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag() == null ||
-                !Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getBoolean("poisoning") ||
-                ThreadLocalRandom.current().nextInt(1, 101) > Objects.requireNonNull(CraftItemStack.asNMSCopy(player.getInventory().getItemInMainHand()).getTag()).getInt("poisoningLvl") * donatEnchantment.getPercentagePerLvl())
+        if (item == null ||
+                !item.containsEnchantment(new PoisoningL(80)) ||
+                ThreadLocalRandom.current().nextInt(1, 101) > item.getEnchantmentLevel(new PoisoningL(80)) * donatEnchantment.getPercentagePerLvl())
             return;
 
         LivingEntity entity = (LivingEntity) event.getEntity();
