@@ -87,11 +87,18 @@ public class LocalStaffCommands {
     }
 
     @Command(names = {"ls feudalkingdomint", "ls fki", "fki"}, permission = "feudal.ls", playerOnly = true)
-    public void feudalKingdomInt(@NotNull Player player, @Param(name = "kingomName") String target, @Param(name = "method") String methodName, @Param(name = "value") int value) {
+    public void feudalKingdomInt(@NotNull Player player, @Param(name = "kingomName") String kingomName, @Param(name = "method") String methodName, @Param(name = "value") int value) {
 
         try {
 
-            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(target);
+            if (!CacheFeudalKingdoms.exitsKingdom(kingomName)) {
+
+                player.sendMessage("Королевство не найдено!");
+                return;
+
+            }
+
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingomName);
             feudalKingdom.getClass().getMethod(methodName, int.class).invoke(feudalKingdom, value);
 
             player.sendMessage("Метод был выполнен!");
@@ -109,11 +116,18 @@ public class LocalStaffCommands {
     }
 
     @Command(names = {"ls feudalkingdomstr", "ls fks", "fks"}, permission = "feudal.ls", playerOnly = true)
-    public void feudalKingdomString(@NotNull Player player, @Param(name = "kingomName") String target, @Param(name = "method") String methodName, @Param(name = "value") String value) {
+    public void feudalKingdomString(@NotNull Player player, @Param(name = "kingomName") String kingomName, @Param(name = "method") String methodName, @Param(name = "value") String value) {
 
         try {
 
-            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(target);
+            if (!CacheFeudalKingdoms.exitsKingdom(kingomName)) {
+
+                player.sendMessage("Королевство не найдено!");
+                return;
+
+            }
+
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingomName);
             feudalKingdom.getClass().getMethod(methodName, String.class).invoke(feudalKingdom, value);
 
             player.sendMessage("Метод был выполнен!");
@@ -131,11 +145,18 @@ public class LocalStaffCommands {
     }
 
     @Command(names = {"ls feudalkingdom", "ls fk", "fk"}, permission = "feudal.ls", playerOnly = true)
-    public void feudalKingdom(@NotNull Player player, @Param(name = "kingomName") String target, @Param(name = "method") String methodName, @Param(name = "value") String value) {
+    public void feudalKingdom(@NotNull Player player, @Param(name = "kingomName") String kingomName, @Param(name = "method") String methodName, @Param(name = "value") String value) {
 
         try {
 
-            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(target);
+            if (!CacheFeudalKingdoms.exitsKingdom(kingomName)) {
+
+                player.sendMessage("Королевство не найдено!");
+                return;
+
+            }
+
+            FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingomName);
             feudalKingdom.getClass().getMethod(methodName).invoke(feudalKingdom);
 
             player.sendMessage("Метод был выполнен!");
