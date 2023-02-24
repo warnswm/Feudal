@@ -3,8 +3,3 @@ version: 1.0
 author: Alterrutm
 main: feudal.Feudal
 depend: [ ProtocolLib ]
-commands:
-  admin:
-  f:
-  ls:
-  s:

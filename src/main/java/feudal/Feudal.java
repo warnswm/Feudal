@@ -1,6 +1,7 @@
 package feudal;
 
-import feudal.commands.AdminCommands;
+import alterr.command.CommandHandler;
+import feudal.commands.KingdomCommands;
 import feudal.commands.LocalStaffCommands;
 import feudal.commands.PlayerCommands;
 import feudal.commands.StaffCommands;
@@ -73,10 +74,10 @@ public final class Feudal extends JavaPlugin {
 
     private void registerCommands() {
 
-        getCommand("admin").setExecutor(new AdminCommands());
-        getCommand("ls").setExecutor(new LocalStaffCommands());
-        getCommand("f").setExecutor(new PlayerCommands());
-        getCommand("s").setExecutor(new StaffCommands());
+        CommandHandler.registerCommands(StaffCommands.class, this);
+        CommandHandler.registerCommands(LocalStaffCommands.class, this);
+        CommandHandler.registerCommands(PlayerCommands.class, this);
+        CommandHandler.registerCommands(KingdomCommands.class, this);
 
     }
 
@@ -118,7 +119,6 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new SlowdownL(), this);
         Bukkit.getPluginManager().registerEvents(new SwordStunL(), this);
         Bukkit.getPluginManager().registerEvents(new VampirismL(), this);
-        Bukkit.getPluginManager().registerEvents(new ItemEnchantmentL(), this);
 
         Bukkit.getPluginManager().registerEvents(new FarmerExpL(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkExpL(), this);

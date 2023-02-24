@@ -1,50 +1,37 @@
 package feudal.commands;
 
+import alterr.command.Command;
 import feudal.data.SpyPlayer;
 import feudal.data.cache.CacheSpyPlayers;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 
-public class StaffCommands implements CommandExecutor {
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+public class StaffCommands {
 
-        if (!(sender instanceof Player) &&
-                !sender.hasPermission("feudal.staff") &&
-                !args[0].equals("s")) return false;
+    @Command(names = {"s spy"}, permission = "feudal.staff", playerOnly = true)
+    public void spy(@NotNull Player player) {
 
-        assert sender instanceof Player;
-        Player player = (Player) sender;
+        if (player.getGameMode().equals(GameMode.SPECTATOR)) {
 
-        if (args[0].equals("spy")) {
+            if (CacheSpyPlayers.getSpyPlayer(player) == null) return;
 
-            if (player.getGameMode().equals(GameMode.SPECTATOR)) {
+            CacheSpyPlayers.getSpyPlayer(player).show();
 
-                if (CacheSpyPlayers.getSpyPlayer(player) == null) return false;
+            if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
+                player.removePotionEffect(PotionEffectType.NIGHT_VISION);
 
-                CacheSpyPlayers.getSpyPlayer(player).show();
-
-                if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
-                    player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-
-                return false;
-
-            }
-
-            new SpyPlayer(player.getUniqueId(), player.getGameMode(), player.getLocation()).hide();
-            player.setGameMode(GameMode.SPECTATOR);
-
-            if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
-                player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0, true, true));
+            return;
 
         }
 
-        return false;
+        new SpyPlayer(player.getUniqueId(), player.getGameMode(), player.getLocation()).hide();
+        player.setGameMode(GameMode.SPECTATOR);
+
+        if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
+            player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0, true, true));
 
     }
 

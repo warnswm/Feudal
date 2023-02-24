@@ -13,7 +13,8 @@ public class CollectionUtils {
     public List<String> uuidListToStringList(@NotNull List<UUID> uuids) {
 
         List<String> strUuids = new ArrayList<>();
-        uuids.forEach(uuid -> strUuids.add(uuid.toString()));
+        for (int i = 0; i < uuids.size() - 1; i++)
+            strUuids.add(uuids.get(i).toString());
 
         return strUuids;
 
