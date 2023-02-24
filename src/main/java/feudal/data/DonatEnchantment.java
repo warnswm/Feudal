@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.bukkit.enchantments.EnchantmentTarget;
 
 @Getter
 @ToString
@@ -15,6 +16,7 @@ public class DonatEnchantment {
     final String name;
     int maxLvl, time;
     double percentagePerLvl, timePercentagePerLvl;
+    EnchantmentTarget enchantmentTarget;
 
     public DonatEnchantment(String displayName) {
         name = displayName;
@@ -37,6 +39,11 @@ public class DonatEnchantment {
 
     public DonatEnchantment setTimePercentagePerLvl(double value) {
         timePercentagePerLvl = value;
+        return this;
+    }
+
+    public DonatEnchantment setEnchantmentTarget(EnchantmentTarget target) {
+        enchantmentTarget = target;
         return this;
     }
 }

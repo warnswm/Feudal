@@ -8,6 +8,7 @@ import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.EntityType;
 import org.jetbrains.annotations.NonNls;
 
@@ -80,71 +81,84 @@ public class ConfigUtils {
 
         DonatEnchantment vampirism = new DonatEnchantment("vampirism")
                 .setMaxLvl((int) enchantmentsCfg.get("Vampirism.vampirismMaxLvl"))
-                .setPercentagePerLvl((double) enchantmentsCfg.get("Vampirism.vampirismPercentagePerLvl"));
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Vampirism.vampirismPercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment doubleDamage = new DonatEnchantment("doubleDamage")
                 .setMaxLvl((int) enchantmentsCfg.get("DoubleDamage.doubleDamageMaxLvl"))
-                .setPercentagePerLvl((double) enchantmentsCfg.get("DoubleDamage.doubleDamagePercentagePerLvl"));
+                .setPercentagePerLvl((double) enchantmentsCfg.get("DoubleDamage.doubleDamagePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment greed = new DonatEnchantment("greed")
                 .setMaxLvl((int) enchantmentsCfg.get("Greed.greedMaxLvl"))
-                .setPercentagePerLvl((double) enchantmentsCfg.get("Greed.greedPercentagePerLvl"));
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Greed.greedPercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEARABLE);
 
         DonatEnchantment hook = new DonatEnchantment("hook")
                 .setMaxLvl((int) enchantmentsCfg.get("Hook.hookMaxLvl"))
-                .setPercentagePerLvl((double) enchantmentsCfg.get("Hook.hookPercentagePerLvl"));
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Hook.hookPercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.BOW);
 
         DonatEnchantment multi_shooting = new DonatEnchantment("multi-shooting")
                 .setMaxLvl((int) enchantmentsCfg.get("Multi-shooting.multi_shootingMaxLvl"))
-                .setPercentagePerLvl((double) enchantmentsCfg.get("Multi-shooting.multi_shootingPercentagePerLvl"));
+                .setPercentagePerLvl((double) enchantmentsCfg.get("Multi-shooting.multi_shootingPercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.BOW);
 
         DonatEnchantment blindness = new DonatEnchantment("blindness")
                 .setMaxLvl((int) enchantmentsCfg.get("Blindness.blindnessMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("Blindness.blindnessTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Blindness.blindnessTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment slowdown = new DonatEnchantment("slowdown")
                 .setMaxLvl((int) enchantmentsCfg.get("Slowdown.slowdownMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("Slowdown.slowdownTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Slowdown.slowdownTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment desiccation = new DonatEnchantment("desiccation")
                 .setMaxLvl((int) enchantmentsCfg.get("Desiccation.desiccationMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("Desiccation.desiccationPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("Desiccation.slowdownTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Desiccation.slowdownTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Desiccation.slowdownTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment swordStun = new DonatEnchantment("swordStun")
                 .setMaxLvl((int) enchantmentsCfg.get("SwordStun.swordStunMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("SwordStun.swordStunTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("SwordStun.swordStunTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment levitation = new DonatEnchantment("levitation")
                 .setMaxLvl((int) enchantmentsCfg.get("Levitation.levitationMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("Levitation.levitationTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Levitation.levitationTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment poisoning = new DonatEnchantment("poisoning")
                 .setMaxLvl((int) enchantmentsCfg.get("Poisoning.poisoningMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("Poisoning.poisoningTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Poisoning.poisoningTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment nausea = new DonatEnchantment("nausea")
                 .setMaxLvl((int) enchantmentsCfg.get("Nausea.nauseaMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("Nausea.nauseaTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("Nausea.nauseaTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.WEAPON);
 
         DonatEnchantment bowStun = new DonatEnchantment("bowStun")
                 .setMaxLvl((int) enchantmentsCfg.get("BowStun.bowStunMaxLvl"))
                 .setPercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunPercentagePerLvl"))
                 .setTime((int) enchantmentsCfg.get("BowStun.bowStunTime"))
-                .setTimePercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunTimePercentagePerLvl"));
+                .setTimePercentagePerLvl((double) enchantmentsCfg.get("BowStun.bowStunTimePercentagePerLvl"))
+                .setEnchantmentTarget(EnchantmentTarget.BOW);
 
 
         CacheFeudalValues.getDonatEnchantment().put(vampirism.getName(), vampirism);

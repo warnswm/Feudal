@@ -110,15 +110,18 @@ public final class Feudal extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ArmorL(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCaughtFish(), this);
 
-        Bukkit.getPluginManager().registerEvents(new BlindnessL(), this);
-        Bukkit.getPluginManager().registerEvents(new DesiccationL(), this);
-        Bukkit.getPluginManager().registerEvents(new DoubleDamageL(), this);
-        Bukkit.getPluginManager().registerEvents(new LevitationL(), this);
-        Bukkit.getPluginManager().registerEvents(new NauseaL(), this);
-        Bukkit.getPluginManager().registerEvents(new PoisoningL(), this);
-        Bukkit.getPluginManager().registerEvents(new SlowdownL(), this);
-        Bukkit.getPluginManager().registerEvents(new SwordStunL(), this);
-        Bukkit.getPluginManager().registerEvents(new VampirismL(), this);
+        Bukkit.getPluginManager().registerEvents(new BlindnessL(72), this);
+        Bukkit.getPluginManager().registerEvents(new BowStunL(73), this);
+        Bukkit.getPluginManager().registerEvents(new DesiccationL(74), this);
+        Bukkit.getPluginManager().registerEvents(new DoubleDamageL(75), this);
+        Bukkit.getPluginManager().registerEvents(new HookL(76), this);
+        Bukkit.getPluginManager().registerEvents(new LevitationL(77), this);
+        Bukkit.getPluginManager().registerEvents(new MultiShootingL(78), this);
+        Bukkit.getPluginManager().registerEvents(new NauseaL(79), this);
+        Bukkit.getPluginManager().registerEvents(new PoisoningL(80), this);
+        Bukkit.getPluginManager().registerEvents(new SlowdownL(81), this);
+        Bukkit.getPluginManager().registerEvents(new SwordStunL(82), this);
+        Bukkit.getPluginManager().registerEvents(new VampirismL(83), this);
 
         Bukkit.getPluginManager().registerEvents(new FarmerExpL(), this);
         Bukkit.getPluginManager().registerEvents(new ClerkExpL(), this);
