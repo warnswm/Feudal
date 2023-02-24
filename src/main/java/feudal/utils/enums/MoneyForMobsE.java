@@ -68,6 +68,11 @@ public enum MoneyForMobsE {
     }
 
     private static int get(EntityType entity) {
-        return CacheFeudalValues.getMoneyForMobs().get(entity);
+
+        if (CacheFeudalValues.getMoneyForMobs().containsKey(entity))
+            return CacheFeudalValues.getMoneyForMobs().get(entity);
+
+        return 0;
+
     }
 }
