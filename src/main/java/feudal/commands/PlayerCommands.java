@@ -13,6 +13,7 @@ import feudal.utils.wrappers.FlagWrapper;
 import feudal.utils.wrappers.ItemStackWrapper;
 import feudal.visual.Menus;
 import feudal.visual.ScoreBoardGeneralInfo;
+import lombok.SneakyThrows;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,9 +23,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.lang.reflect.Method;
+import java.util.*;
 
 import static feudal.data.cache.CacheFeudalKingdoms.*;
 import static feudal.data.cache.CacheFeudalPlayers.*;
@@ -33,54 +33,60 @@ public class PlayerCommands implements CommandExecutor {
 
     private boolean confirmDeletion;
 
+    private final Map<String, Method> commands = new HashMap<>();
+
+    {
+
+        try {
+
+            commands.put("create", PlayerCommands.class.getDeclaredMethod("createKingdom", CommandSender.class, String[].class));
+            commands.put("up", PlayerCommands.class.getDeclaredMethod("up", CommandSender.class, String[].class));
+            commands.put("withdraw", PlayerCommands.class.getDeclaredMethod("withdraw", CommandSender.class, String[].class));
+            commands.put("replenish", PlayerCommands.class.getDeclaredMethod("replenish", CommandSender.class, String[].class));
+            commands.put("invite", PlayerCommands.class.getDeclaredMethod("invite", CommandSender.class, String[].class));
+            commands.put("kick", PlayerCommands.class.getDeclaredMethod("kick", CommandSender.class, String[].class));
+            commands.put("sell", PlayerCommands.class.getDeclaredMethod("sell", CommandSender.class, String[].class));
+            commands.put("reject", PlayerCommands.class.getDeclaredMethod("reject", CommandSender.class, String[].class));
+            commands.put("disband", PlayerCommands.class.getDeclaredMethod("disband", CommandSender.class, String[].class));
+            commands.put("leave", PlayerCommands.class.getDeclaredMethod("leave", CommandSender.class, String[].class));
+            commands.put("ah", PlayerCommands.class.getDeclaredMethod("ah", CommandSender.class, String[].class));
+            commands.put("claim", PlayerCommands.class.getDeclaredMethod("claim", CommandSender.class, String[].class));
+            commands.put("addbaron", PlayerCommands.class.getDeclaredMethod("addBaron", CommandSender.class, String[].class));
+            commands.put("removebaron", PlayerCommands.class.getDeclaredMethod("removeBaron", CommandSender.class, String[].class));
+            commands.put("help", PlayerCommands.class.getDeclaredMethod("help", CommandSender.class, String[].class));
+            commands.put("prof", PlayerCommands.class.getDeclaredMethod("prof", CommandSender.class, String[].class));
+            commands.put("rtp", PlayerCommands.class.getDeclaredMethod("rtp", CommandSender.class, String[].class));
+            commands.put("mail", PlayerCommands.class.getDeclaredMethod("mail", CommandSender.class, String[].class));
+
+        } catch (NoSuchMethodException e) {
+
+            throw new RuntimeException(e);
+
+        }
+
+    }
+
+
+    @SneakyThrows
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (!(sender instanceof Player)) return false;
 
-        Player player = (Player) sender;
+        if (!commands.containsKey(args[0].toLowerCase())) {
 
-        switch (args[0]) {
-
-            case "withdraw":
-
-                if (args.length < 2) {
-
-                    player.sendMessage("Пожалуйста укажите сумму!");
-                    break;
-
-                } else if (args[1].length() > 10) {
-
-                    player.sendMessage("Слишком большая сумма для снятия");
-                    break;
-
-                }
-
-                withdrawMoneyFromTreasury(KingdomDBHandler.getPlayerKingdom(player), player, Integer.parseInt(args[1].replaceAll("[^0-9]", "")));
-
-                break;
-
-            case "mail":
-
-                new Menus(player).mailMenu();
-
-                break;
-
-            case "rtp":
-
-                player.teleport(RTPUtils.rtpCalc(player, 10, 1000, 10, 1000));
-
-                break;
-
-            default:
-                player.sendMessage("Неизвестная команда! Введите /f help, чтобы посмотреть доступные команды");
+            sender.sendMessage("Команда не найдена! /f help - дотсупные команды");
+            return false;
 
         }
 
+        commands.get(args[0].toLowerCase()).invoke(sender, args);
+
         return false;
+
     }
 
-    private void createKingdomCommand(CommandSender sender, String @NotNull [] args) {
+    private void createKingdom(CommandSender sender, String @NotNull [] args) {
 
         Player player = (Player) sender;
 
@@ -143,19 +149,29 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private boolean checkKingdomName(@NotNull String kingdomName) {
+    private void withdraw(CommandSender sender, String @NotNull [] args) {
 
-        kingdomName.replaceAll("[^A-Za-zА-Яа-я0-9]", "");
+        Player player = (Player) sender;
 
-        return kingdomName.length() <= 16 &&
-                kingdomName.length() > 3 &&
-                getKingdomInfo().get(kingdomName) == null;
+        if (args.length < 2) {
 
-    }
+            player.sendMessage("Пожалуйста укажите сумму!");
+            return;
 
-    private void withdrawMoneyFromTreasury(@NotNull String kingdomName, @NotNull Player player, int colum) {
+        } else if (args[1].length() > 10) {
+
+            player.sendMessage("Слишком большая сумма для пополнения");
+            return;
+
+        }
+
+        FeudalPlayer feudalPlayer = getFeudalPlayer(player);
+        String kingdomName = feudalPlayer.getKingdomName();
 
         FeudalKingdom feudalKingdom = getKingdomInfo().get(kingdomName);
+
+        int colum = Integer.parseInt(args[1].replaceAll("[^0-9]", ""));
+
 
         if (exitsKingdom(kingdomName)) {
 
@@ -167,11 +183,9 @@ public class PlayerCommands implements CommandExecutor {
             player.sendMessage("Недостаточно прав для снятия золота с казны!");
             return;
 
-        }
+        } else if (feudalPlayer.getBalance() < colum) {
 
-        if (feudalKingdom.getBalance() < colum) {
-
-            player.sendMessage("В казне недостаточно залота!");
+            player.sendMessage("Недостаточно золота!");
             return;
 
         }
@@ -181,7 +195,7 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void replenishMoneyFromTreasury(CommandSender sender, String @NotNull [] args) {
+    private void replenish(CommandSender sender, String @NotNull [] args) {
 
         Player player = (Player) sender;
 
@@ -226,7 +240,7 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void invitePlayer(CommandSender sender, String @NotNull [] args) {
+    private void invite(CommandSender sender, String @NotNull [] args) {
 
         Player playerInviting = (Player) sender;
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(playerInviting).getKingdomName();
@@ -292,7 +306,7 @@ public class PlayerCommands implements CommandExecutor {
 
     }
 
-    private void kickPlayer(CommandSender sender, String @NotNull [] args) {
+    private void kick(CommandSender sender, String @NotNull [] args) {
 
         Player playerInviting = (Player) sender;
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(playerInviting).getKingdomName();
@@ -662,4 +676,26 @@ public class PlayerCommands implements CommandExecutor {
         new Menus(player).professionSelectionMenu();
 
     }
+
+    private void rtp(CommandSender sender, String[] args) {
+
+        Player player = (Player) sender;
+        player.teleport(RTPUtils.rtpCalc(player, -25000, 25000, -25000, 25000));
+
+    }
+
+    private void mail(CommandSender sender, String[] args) {
+        new Menus((Player) sender).mailMenu();
+    }
+
+    private boolean checkKingdomName(@NotNull String kingdomName) {
+
+        kingdomName.replaceAll("[^A-Za-zА-Яа-я0-9]", "");
+
+        return kingdomName.length() <= 16 &&
+                kingdomName.length() > 3 &&
+                getKingdomInfo().get(kingdomName) == null;
+
+    }
+
 }

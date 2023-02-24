@@ -52,8 +52,14 @@ public class LocalStaffCommands implements CommandExecutor {
 
         if (isLs(sender, args)) return false;
 
-        if (commands.containsKey(args[0].toLowerCase()))
-            commands.get(args[0].toLowerCase()).invoke(sender, args);
+        if (!commands.containsKey(args[0].toLowerCase())) {
+
+            sender.sendMessage("Команда не найдена! /ls help - дотсупные команды");
+            return false;
+
+        }
+
+        commands.get(args[0].toLowerCase()).invoke(sender, args);
 
         return false;
 
