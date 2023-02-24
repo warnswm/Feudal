@@ -28,7 +28,7 @@ public class KingdomCommands {
 
     private boolean confirmDeletion;
 
-    @Command(names = {"f create"}, playerOnly = true)
+    @Command(names = {"f create", "create"}, playerOnly = true)
     public void createKingdom(@NotNull Player player, @Param(name = "kingdomName") String kingdomName) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -78,7 +78,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f flag"}, playerOnly = true)
+    @Command(names = {"f flag", "flag"}, playerOnly = true)
     public void flag(@NotNull Player player) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -99,7 +99,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f removebaron"}, playerOnly = true)
+    @Command(names = {"f removebaron", "removebaron"}, playerOnly = true)
     public void removeBaron(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -132,7 +132,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f addbaron"}, playerOnly = true)
+    @Command(names = {"f addbaron", "addbaron"}, playerOnly = true)
     public void addBaron(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -170,7 +170,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f claim"}, playerOnly = true)
+    @Command(names = {"f claim", "claim"}, playerOnly = true)
     public void claim(Player player) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -208,7 +208,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f leave"}, playerOnly = true)
+    @Command(names = {"f leave", "leave"}, playerOnly = true)
     public void leave(@NotNull Player player) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -239,7 +239,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f disband"}, playerOnly = true)
+    @Command(names = {"f disband", "disband"}, playerOnly = true)
     public void disband(Player player) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -279,7 +279,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f reject"}, playerOnly = true)
+    @Command(names = {"f reject", "reject"}, playerOnly = true)
     public void reject(@NotNull Player player, @Param(name = "kingdomName") String kingdomName) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -304,7 +304,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f kick"}, playerOnly = true)
+    @Command(names = {"f kick", "kick"}, playerOnly = true)
     public void kick(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -344,7 +344,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f invite"}, playerOnly = true)
+    @Command(names = {"f invite", "invite"}, playerOnly = true)
     public void invite(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -403,7 +403,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f withdraw"}, playerOnly = true)
+    @Command(names = {"f withdraw", "withdraw"}, playerOnly = true)
     public void withdraw(@NotNull Player player, @Param(name = "value") int value) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -434,7 +434,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f replenish"}, playerOnly = true)
+    @Command(names = {"f replenish", "replenish"}, playerOnly = true)
     public void replenish(@NotNull Player player, @Param(name = "value") int value) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);

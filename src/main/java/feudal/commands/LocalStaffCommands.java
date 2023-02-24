@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class LocalStaffCommands {
 
-    @Command(names = {"ls feudalplayerint"}, permission = "feudal.ls", playerOnly = true)
+    @Command(names = {"ls feudalplayerint", "ls fpi", "fpi"}, permission = "feudal.ls", playerOnly = true)
     public void feudalPlayerInt(@NotNull Player player, @Param(name = "player") Player target, @Param(name = "method") String methodName, @Param(name = "value") int value) {
 
         try {
@@ -38,7 +38,7 @@ public class LocalStaffCommands {
 
     }
 
-    @Command(names = {"ls feudalplayerstr"}, permission = "feudal.ls", playerOnly = true)
+    @Command(names = {"ls feudalplayerstr", "ls fps", "fps"}, permission = "feudal.ls", playerOnly = true)
     public void feudalPlayerString(@NotNull Player player, @Param(name = "player") Player target, @Param(name = "method") String methodName, @Param(name = "value") String value) {
 
         try {
@@ -62,7 +62,7 @@ public class LocalStaffCommands {
 
     }
 
-    @Command(names = {"ls feudalplayer"}, permission = "feudal.ls", playerOnly = true)
+    @Command(names = {"ls feudalplayer", "ls fp", "fp"}, permission = "feudal.ls", playerOnly = true)
     public void feudalPlayer(@NotNull Player player, @Param(name = "player") Player target, @Param(name = "method") String methodName) {
 
         try {
@@ -86,7 +86,7 @@ public class LocalStaffCommands {
 
     }
 
-    @Command(names = {"ls feudalkingdomint"}, permission = "feudal.ls", playerOnly = true)
+    @Command(names = {"ls feudalkingdomint", "ls fki", "fki"}, permission = "feudal.ls", playerOnly = true)
     public void feudalKingdomInt(@NotNull Player player, @Param(name = "kingomName") String target, @Param(name = "method") String methodName, @Param(name = "value") int value) {
 
         try {
@@ -108,7 +108,7 @@ public class LocalStaffCommands {
 
     }
 
-    @Command(names = {"ls feudalkingdomstr"}, permission = "feudal.ls", playerOnly = true)
+    @Command(names = {"ls feudalkingdomstr", "ls fks", "fks"}, permission = "feudal.ls", playerOnly = true)
     public void feudalKingdomString(@NotNull Player player, @Param(name = "kingomName") String target, @Param(name = "method") String methodName, @Param(name = "value") String value) {
 
         try {
@@ -130,7 +130,7 @@ public class LocalStaffCommands {
 
     }
 
-    @Command(names = {"ls feudalkingdom"}, permission = "feudal.ls", playerOnly = true)
+    @Command(names = {"ls feudalkingdom", "ls fk", "fk"}, permission = "feudal.ls", playerOnly = true)
     public void feudalKingdom(@NotNull Player player, @Param(name = "kingomName") String target, @Param(name = "method") String methodName, @Param(name = "value") String value) {
 
         try {
@@ -152,7 +152,7 @@ public class LocalStaffCommands {
 
     }
 
-    @Command(names = {"ls help"}, permission = "feudal.ls", playerOnly = true)
+    @Command(names = {"ls help", "ls"}, permission = "feudal.ls", playerOnly = true)
     public void help(@NotNull Player player) {
 
         player.sendMessage("/ls feudalplayerint [nick] [methodName] [int] \n (methodName: setExperience, setProfessionID, setBalance, setDeaths, setKills, setStrengthLvl, setSurvivabilityLvl, setSpeedLvl, setStaminaLvl, setLuckLvl, setProfessionLvl, setProfessionExperience, addExperience, addBalance, addDeaths, addKills, addStrengthLvl, addSurvivabilityLvl, addSpeedLvl, addStaminaLvl, addLuckLvl, addProfessionLvl, addProfessionExperience, takeExperience, takeBalance, takeDeaths, takeKills, takeStrengthLvl, takeSurvivabilityLvl, takeSpeedLvl, takeStaminaLvl, takeLuckLvl, takeProfessionLvl, takeProfessionExperience, addUpProfession, setUpProfession) \n" +

@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class StaffCommands {
 
-    @Command(names = {"s spy"}, permission = "feudal.staff", playerOnly = true)
+    @Command(names = {"s spy", "spy"}, permission = "feudal.staff", playerOnly = true)
     public void spy(@NotNull Player player) {
 
         if (player.getGameMode().equals(GameMode.SPECTATOR)) {
@@ -33,6 +33,11 @@ public class StaffCommands {
         if (!player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
             player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 100000, 0, true, true));
 
+    }
+
+    @Command(names = {"s help", "s"}, permission = "feudal.staff", playerOnly = true)
+    public void help(@NotNull Player player) {
+        player.sendMessage("/s spy");
     }
 
 }

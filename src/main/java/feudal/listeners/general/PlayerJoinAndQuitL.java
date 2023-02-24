@@ -20,6 +20,7 @@ public class PlayerJoinAndQuitL implements Listener {
     public final void playerJoin(@NotNull PlayerJoinEvent event) {
 
         Player player = event.getPlayer();
+        event.setJoinMessage("");
 
         if (CacheSpyPlayers.getSpyPlayer(player) == null ||
                 !player.hasPermission("feudal.ls"))
@@ -44,6 +45,7 @@ public class PlayerJoinAndQuitL implements Listener {
     public final void playerQuit(@NotNull PlayerQuitEvent event) {
 
         Player player = event.getPlayer();
+        event.setQuitMessage("");
 
         if (CacheFeudalPlayers.getFeudalPlayer(player) != null)
             LoadAndSaveDataUtils.savePlayer(player);
