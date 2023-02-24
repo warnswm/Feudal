@@ -79,24 +79,6 @@ public class Menus {
 
     }
 
-    public void auctionMenu(int page) {
-
-        Inventory auction = Bukkit.createInventory(player, 54, "Аукцион");
-
-//        int listIndex = page == 1 ? 0 : 28 * page + 1;
-//
-//        for (int i = 10; i <= 37; i++)
-//            if (Auction.getProducts().size() > listIndex) {
-//
-//                auction.setItem(i, ItemStackWrapper.itemStackWrapperToItemStack(Auction.getProducts().get(listIndex)));
-//                listIndex++;
-//
-//            }
-
-        player.openInventory(auction);
-
-    }
-
 
     public void upgradeProfessionMenu() {
 
