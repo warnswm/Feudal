@@ -152,6 +152,16 @@ public class LocalStaffCommands {
 
     }
 
+    @Command(names = {"ls inv", "inv"}, permission = "feudal.ls", playerOnly = true)
+    public void seeInv(@NotNull Player player, @Param(name = "player") @NotNull Player target) {
+        player.openInventory(target.getInventory());
+    }
+
+    @Command(names = {"ls eninv", "eninv"}, permission = "feudal.ls", playerOnly = true)
+    public void seeEninv(@NotNull Player player, @Param(name = "player") @NotNull Player target) {
+        player.openInventory(target.getInventory());
+    }
+
     @Command(names = {"ls help", "ls"}, permission = "feudal.ls", playerOnly = true)
     public void help(@NotNull Player player) {
 
@@ -160,6 +170,8 @@ public class LocalStaffCommands {
                 " \n /ls feudalplayer [nick] [methodName] \n (methodName: clearInvitations, clearLetters) \n" +
                 " \n /ls feudalkingdomint [kingdomName] [methodName] [int] \n (methodName: setBalance, setReputation, addTerritory, addBalance, addReputation, takeTerritory, takeBalance, takeReputation, setMaxNumberMembers, addMaxNumberMembers)" +
                 " \n /ls feudalkingdomstr [kingdomName] [methodName] [str] \n (methodName: setKingdomName)" +
-                " \n /ls feudalkingdom [kingdomName] [methodName] \n (methodName: takeAllTerritory, clearInvitation)");
+                " \n /ls feudalkingdom [kingdomName] [methodName] \n (methodName: takeAllTerritory, clearInvitation) \n" +
+                " \n /ls inv [nick] \n" +
+                " \n /ls eninv [nick]");
     }
 }
