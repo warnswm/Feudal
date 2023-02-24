@@ -159,7 +159,7 @@ public class LocalStaffCommands {
 
     @Command(names = {"ls eninv", "eninv"}, permission = "feudal.ls", playerOnly = true)
     public void seeEninv(@NotNull Player player, @Param(name = "player") @NotNull Player target) {
-        player.openInventory(target.getInventory());
+        player.openInventory(target.getEnderChest());
     }
 
     @Command(names = {"ls help", "ls"}, permission = "feudal.ls", playerOnly = true)
