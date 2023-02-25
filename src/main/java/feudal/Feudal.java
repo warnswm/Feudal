@@ -16,8 +16,7 @@ import feudal.listeners.general.PlayerJoinAndQuitL;
 import feudal.listeners.general.PlayerL;
 import feudal.listeners.general.craftItems.CraftItemsL;
 import feudal.listeners.interact.*;
-import feudal.listeners.profession.exp.*;
-import feudal.listeners.profession.peasants.*;
+import feudal.listeners.profession.*;
 import feudal.listeners.territory.BlocksL;
 import feudal.listeners.territory.InteractL;
 import feudal.utils.LoadAndSaveDataUtils;
@@ -127,14 +126,6 @@ public final class Feudal extends JavaPlugin {
         getPluginManager().registerEvents(new SlowdownL(81), this);
         getPluginManager().registerEvents(new SwordStunL(82), this);
         getPluginManager().registerEvents(new VampirismL(83), this);
-
-        getPluginManager().registerEvents(new FarmerExpL(), this);
-        getPluginManager().registerEvents(new ClerkExpL(), this);
-        getPluginManager().registerEvents(new FishermanExpL(), this);
-        getPluginManager().registerEvents(new HunterExpL(), this);
-        getPluginManager().registerEvents(new MinerExpL(), this);
-        getPluginManager().registerEvents(new ShepherdExpL(), this);
-        getPluginManager().registerEvents(new WoodcutterExpL(), this);
 
     }
 

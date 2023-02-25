@@ -1,4 +1,4 @@
-package feudal.listeners.profession.peasants;
+package feudal.listeners.profession;
 
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
@@ -15,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static org.bukkit.Material.LOG;
+
 public class WoodcutterL implements Listener {
 
     @EventHandler
@@ -24,11 +26,15 @@ public class WoodcutterL implements Listener {
         Block block = event.getBlock();
 
         if (block.hasMetadata("PLACED") ||
-                feudalPlayer.getProfessionID() != ProfessionIDE.WOODCUTTER.getId()) return;
+                feudalPlayer.getProfessionID() != ProfessionIDE.WOODCUTTER.getId() ||
+                !block.getType().equals(LOG)) return;
 
 
         if (feudalPlayer.getProfessionLvl() >= 75 && ThreadLocalRandom.current().nextInt(1, 4) == 3)
             cutDownTree(block.getLocation(), event.getPlayer().getInventory().getItemInMainHand());
+
+        feudalPlayer.addExperience(2);
+        feudalPlayer.addProfessionExperience(8);
 
     }
 

@@ -1,4 +1,4 @@
-package feudal.listeners.profession.peasants;
+package feudal.listeners.profession;
 
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
@@ -43,6 +43,10 @@ public class FishermanL implements Listener {
         }
 
         event.getPlayer().getInventory().addItem(FishermanLootTableE.getItemByID(item));
+
+
+        feudalPlayer.addExperience(20);
+        feudalPlayer.addProfessionExperience(80);
 
     }
 }

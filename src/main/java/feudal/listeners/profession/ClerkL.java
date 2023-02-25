@@ -1,4 +1,4 @@
-package feudal.listeners.profession.peasants;
+package feudal.listeners.profession;
 
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
@@ -45,6 +45,26 @@ public class ClerkL implements Listener {
 
         else
             event.setExpLevelCost((int) (event.getExpLevelCost() - event.getExpLevelCost() * 0.3));
+
+
+        int expLevelCost = event.getExpLevelCost();
+
+        if (expLevelCost > 20) {
+
+            feudalPlayer.addExperience(17);
+            feudalPlayer.addProfessionExperience(68);
+
+        } else if (expLevelCost > 10) {
+
+            feudalPlayer.addExperience(10);
+            feudalPlayer.addProfessionExperience(40);
+
+        } else if (expLevelCost > 2) {
+
+            feudalPlayer.addExperience(5);
+            feudalPlayer.addProfessionExperience(20);
+
+        }
 
     }
 

@@ -1,4 +1,4 @@
-package feudal.listeners.profession.exp;
+package feudal.listeners.profession;
 
 import feudal.data.FeudalPlayer;
 import feudal.data.cache.CacheFeudalPlayers;
@@ -11,22 +11,22 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityBreedEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class HunterExpL implements Listener {
+public class ShepherdL implements Listener {
 
     @EventHandler
-    public final void playerHunted(@NotNull EntityDeathEvent event) {
+    public final void playerBreed(@NotNull EntityBreedEvent event) {
 
-        if (event.getEntity().getKiller() == null) return;
+        if (!(event.getBreeder() instanceof Player)) return;
 
-        Player player = event.getEntity().getKiller();
+        Player player = (Player) event.getBreeder();
         FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(player);
 
-        if (feudalPlayer.getProfessionID() != ProfessionIDE.HUNTER.getId()) return;
+        if (feudalPlayer.getProfessionID() != ProfessionIDE.SHEPHERD.getId()) return;
 
-        int exp = AnimalsForHuntedE.getAttributeExpByEntity(event.getEntityType());
+        int exp = AnimalsForShepherdE.getAttributeExpByEntity(event.getEntityType());
 
         feudalPlayer.addExperience(exp);
         feudalPlayer.addProfessionExperience(4 * exp);
@@ -37,10 +37,10 @@ public class HunterExpL implements Listener {
 @Getter
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-enum AnimalsForHuntedE {
+enum AnimalsForShepherdE {
     SHEEP(EntityType.SHEEP, 5), COW(EntityType.COW, 5), MUSHROOM_COW(EntityType.MUSHROOM_COW, 5),
     OCELOT(EntityType.OCELOT, 5), RABBIT(EntityType.RABBIT, 5), PIG(EntityType.PIG, 6),
-    HORSE(EntityType.HORSE, 15), DONKEY(EntityType.DONKEY, 15), CHICKEN(EntityType.CHICKEN, 3),
+    HORSE(EntityType.HORSE, 25), DONKEY(EntityType.DONKEY, 25), CHICKEN(EntityType.CHICKEN, 3),
     WOLF(EntityType.WOLF, 12), LLAMA(EntityType.LLAMA, 12);
 
     EntityType entity;
@@ -50,9 +50,9 @@ enum AnimalsForHuntedE {
 
         if (entity == null) return 0;
 
-        for (AnimalsForHuntedE animalsForHuntedE : values())
-            if (animalsForHuntedE.getEntity() == entity)
-                return animalsForHuntedE.getAttributeExp();
+        for (AnimalsForShepherdE animalsForShepherdE : values())
+            if (animalsForShepherdE.getEntity() == entity)
+                return animalsForShepherdE.getAttributeExp();
 
         return 0;
 
