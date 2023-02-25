@@ -43,8 +43,8 @@ public class LoadAndSaveDataUtils {
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(UUID.fromString(getStringField(kingdomName, "king")))
-                .setMembers(getList(kingdomName, "members"))
-                .setBarons(getList(kingdomName, "baron"))
+                .setMembers(CollectionUtils.stringListToSUUIDList(getList(kingdomName, "members")))
+                .setBarons(CollectionUtils.stringListToSUUIDList(getList(kingdomName, "barons")))
                 .setReputation(getIntegerField(kingdomName, "reputation"))
                 .setBalance(getIntegerField(kingdomName, "balance"))
                 .setMaxNumberMembers(getIntegerField(kingdomName, "maxNumberMembers"))
