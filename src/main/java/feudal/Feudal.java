@@ -160,7 +160,9 @@ public final class Feudal extends JavaPlugin {
             }
 
         } catch (Exception e) {
+
             e.printStackTrace();
+
         }
 
     }
