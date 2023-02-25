@@ -26,6 +26,7 @@ public class SwitchingProfessionMenuL implements Listener {
 
         feudalPlayer.setProfessionID(ProfessionIDE.getIDByString(event.getCurrentItem().getItemMeta().getDisplayName()));
         feudalPlayer.setProfessionLvl(0);
+        feudalPlayer.addUpProfession(1);
 
         ScoreBoardGeneralInfo.updateScoreBoardInfo(player);
         player.closeInventory();
