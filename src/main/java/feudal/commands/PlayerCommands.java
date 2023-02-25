@@ -67,7 +67,7 @@ public class PlayerCommands {
 
     }
 
-    @Command(names = {"f rtp", "rtp"}, playerOnly = true, cooldown = 10000)
+    @Command(names = {"f rtp", "rtp"}, playerOnly = true, async = true, cooldown = 20000)
     public void rtp(@NotNull Player player) {
 
         player.teleport(RTPUtils.rtpCalc(player, -25000, 25000, -25000, 25000));
