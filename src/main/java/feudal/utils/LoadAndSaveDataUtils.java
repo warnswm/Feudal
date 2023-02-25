@@ -40,6 +40,8 @@ public class LoadAndSaveDataUtils {
 
         if (CacheFeudalKingdoms.getKingdomInfo().get(kingdomName) != null) return;
 
+        Bukkit.getPlayer(UUID.fromString(getStringField(kingdomName, "king"))).sendMessage("ты дауни");
+
         FeudalKingdom feudalKingdom = new FeudalKingdom(kingdomName);
         feudalKingdom.setKingdomName(kingdomName)
                 .setKing(UUID.fromString(getStringField(kingdomName, "king")))

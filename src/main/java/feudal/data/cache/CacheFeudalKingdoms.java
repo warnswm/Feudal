@@ -35,11 +35,8 @@ public class CacheFeudalKingdoms {
 
     }
 
-    public boolean exitsKingdom(String kingdomName) {
-
-        FeudalKingdom feudalKingdom = CacheFeudalKingdoms.getKingdomInfo().get(kingdomName);
-        return kingdomName.equals("") || feudalKingdom == null;
-
+    public boolean exitsKingdom(@NotNull String kingdomName) {
+        return kingdomName.equals("");
     }
 
 }

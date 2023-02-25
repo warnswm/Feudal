@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 public class LocalStaffCommands {
 
@@ -181,6 +182,19 @@ public class LocalStaffCommands {
     @Command(names = {"ls eninv", "eninv", "ды утштм", "утштм"}, permission = "feudal.ls", playerOnly = true)
     public void seeEninv(@NotNull Player player, @Param(name = "player") @NotNull Player target) {
         player.openInventory(target.getEnderChest());
+    }
+
+    @Command(names = {"ls free", "free", "ды акуу", "акуу"}, permission = "feudal.ls", playerOnly = true)
+    public void free(@NotNull Player player) {
+
+        int privateChunks = 0;
+
+        for (Map.Entry<String, FeudalKingdom> kingdom : CacheFeudalKingdoms.getKingdomInfo().entrySet())
+            privateChunks += kingdom.getValue().getTerritory().size();
+
+
+        player.sendMessage("Захвачено: " + privateChunks + ". Всего: 3125. Процент захваченых земель: " + (privateChunks * 100 / 3125) + "%");
+
     }
 
     @Command(names = {"ls help", "ls", "ды рудз", "ды"}, permission = "feudal.ls", playerOnly = true)
