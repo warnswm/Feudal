@@ -28,7 +28,7 @@ public class KingdomCommands {
 
     private boolean confirmDeletion;
 
-    @Command(names = {"f create", "create"}, playerOnly = true, cooldown = 1800000)
+    @Command(names = {"f create", "create", "а скуфеу", "скуфеу"}, playerOnly = true, cooldown = 1800000)
     public void createKingdom(@NotNull Player player, @Param(name = "kingdomName") String kingdomName) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -78,7 +78,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f flag", "flag"}, playerOnly = true, cooldown = 10800000)
+    @Command(names = {"f flag", "flag", "а адфп", "адфп"}, playerOnly = true, cooldown = 10800000)
     public void flag(@NotNull Player player) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -99,7 +99,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f removebaron", "removebaron"}, playerOnly = true, cooldown = 30000)
+    @Command(names = {"f removebaron", "removebaron", "а куьщмуифкщт", "куьщмуифкщт"}, playerOnly = true, cooldown = 30000)
     public void removeBaron(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -132,7 +132,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f addbaron", "addbaron"}, playerOnly = true, cooldown = 30000)
+    @Command(names = {"f addbaron", "addbaron", "а фввифкщт", "фввифкщт"}, playerOnly = true, cooldown = 30000)
     public void addBaron(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -170,7 +170,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f claim", "claim"}, playerOnly = true, cooldown = 30000)
+    @Command(names = {"f claim", "claim", "а сдфшь", "сдфшь"}, playerOnly = true, cooldown = 30000)
     public void claim(Player player) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -208,7 +208,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f leave", "leave"}, playerOnly = true, cooldown = 1800000)
+    @Command(names = {"f leave", "leave", "а дуфму", "дуфму"}, playerOnly = true, cooldown = 1800000)
     public void leave(@NotNull Player player) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -239,7 +239,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f disband", "disband"}, playerOnly = true, cooldown = 1800000)
+    @Command(names = {"f disband", "disband", "а вшыифтв", "вшыифтв"}, playerOnly = true, cooldown = 1800000)
     public void disband(Player player) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -279,7 +279,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f reject", "reject"}, playerOnly = true)
+    @Command(names = {"f reject", "reject", "а куоусе", "куоусе"}, playerOnly = true)
     public void reject(@NotNull Player player, @Param(name = "kingdomName") String kingdomName) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -304,7 +304,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f kick", "kick"}, playerOnly = true, cooldown = 10000)
+    @Command(names = {"f kick", "kick", "а лшсл", "лшсл"}, playerOnly = true, cooldown = 10000)
     public void kick(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -344,7 +344,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f invite", "invite"}, playerOnly = true, cooldown = 10000)
+    @Command(names = {"f invite", "invite", "а штмшеу", "штмшеу"}, playerOnly = true, cooldown = 10000)
     public void invite(@NotNull Player player, @Param(name = "player") Player target) {
 
         String kingdomName = CacheFeudalPlayers.getFeudalPlayer(player).getKingdomName();
@@ -403,7 +403,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f withdraw", "withdraw"}, playerOnly = true, cooldown = 5000)
+    @Command(names = {"f withdraw", "withdraw", "а цшервкфц", "цшервкфц"}, playerOnly = true, cooldown = 5000)
     public void withdraw(@NotNull Player player, @Param(name = "value") int value) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -434,7 +434,7 @@ public class KingdomCommands {
 
     }
 
-    @Command(names = {"f replenish", "replenish"}, playerOnly = true, cooldown = 5000)
+    @Command(names = {"f replenish", "replenish", "а куздутшыр", "куздутшыр"}, playerOnly = true, cooldown = 5000)
     public void replenish(@NotNull Player player, @Param(name = "value") int value) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);

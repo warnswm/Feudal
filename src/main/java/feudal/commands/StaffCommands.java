@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class StaffCommands {
 
-    @Command(names = {"s spy", "spy"}, permission = "feudal.staff", playerOnly = true)
+    @Command(names = {"s spy", "spy", "ы ызн", "ызн"}, permission = "feudal.staff", playerOnly = true)
     public void spy(@NotNull Player player) {
 
         if (player.getGameMode().equals(GameMode.SPECTATOR)) {

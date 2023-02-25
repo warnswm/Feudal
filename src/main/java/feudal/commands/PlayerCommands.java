@@ -4,7 +4,7 @@ import alterr.command.Command;
 import alterr.command.paramter.Param;
 import feudal.data.Auction;
 import feudal.data.FeudalPlayer;
-import feudal.utils.RTPUtils;
+import feudal.utils.TeleportUtils;
 import feudal.utils.enums.professionEnums.ProfessionIDE;
 import feudal.utils.wrappers.ItemStackWrapper;
 import feudal.visual.Menus;
@@ -17,14 +17,14 @@ import static feudal.data.cache.CacheFeudalPlayers.hasProfession;
 
 public class PlayerCommands {
 
-    @Command(names = {"f up", "up"}, playerOnly = true)
+    @Command(names = {"f up", "up", "а гз", "гз"}, playerOnly = true)
     public void up(@NotNull Player player) {
 
         new Menus(player).upgradeProfessionMenu();
 
     }
 
-    @Command(names = {"f sell", "sell"}, playerOnly = true, cooldown = 5000)
+    @Command(names = {"f sell", "sell", "а ыудд", "ыудд"}, playerOnly = true, cooldown = 5000)
     public void sell(@NotNull Player player, @Param(name = "value") int value) {
 
         if (player.getInventory().getItemInMainHand() == null) {
@@ -39,7 +39,7 @@ public class PlayerCommands {
 
     }
 
-    @Command(names = {"f ah", "ah"}, playerOnly = true)
+    @Command(names = {"f ah", "ah", "а фр", "фр"}, playerOnly = true)
     public void ah(@NotNull Player player) {
 
         FeudalPlayer feudalPlayer = getFeudalPlayer(player);
@@ -53,7 +53,7 @@ public class PlayerCommands {
 
     }
 
-    @Command(names = {"f prof", "prof"}, playerOnly = true)
+    @Command(names = {"f prof", "prof", "а зкща", "зкща"}, playerOnly = true)
     public void prof(@NotNull Player player) {
 
         if (!hasProfession(player)) {
@@ -67,19 +67,19 @@ public class PlayerCommands {
 
     }
 
-    @Command(names = {"f rtp", "rtp"}, playerOnly = true, async = true, cooldown = 20000)
+    @Command(names = {"f rtp", "rtp", "а кез", "кез"}, playerOnly = true, async = true, cooldown = 20000)
     public void rtp(@NotNull Player player) {
 
-        player.teleport(RTPUtils.rtpCalc(player, -25000, 25000, -25000, 25000));
+        player.teleport(TeleportUtils.rtpCalc(player, -25000, 25000, -25000, 25000));
 
     }
 
-    @Command(names = {"f mail", "mail"}, playerOnly = true)
+    @Command(names = {"f mail", "mail", "а ьфшд", "ьфшд"}, playerOnly = true)
     public void mail(@NotNull Player player) {
         new Menus(player).mailMenu();
     }
 
-    @Command(names = {"f help", "f"}, playerOnly = true)
+    @Command(names = {"f help", "f", "а рудз", "а"}, playerOnly = true)
     public void help(@NotNull Player player) {
 
         player.sendMessage("/f up\n" +
