@@ -24,7 +24,7 @@ public class PlayerCommands {
 
     }
 
-    @Command(names = {"f sell", "sell"}, playerOnly = true)
+    @Command(names = {"f sell", "sell"}, playerOnly = true, cooldown = 5000)
     public void sell(@NotNull Player player, @Param(name = "value") int value) {
 
         if (player.getInventory().getItemInMainHand() == null) {
@@ -67,9 +67,11 @@ public class PlayerCommands {
 
     }
 
-    @Command(names = {"f rtp", "rtp"}, playerOnly = true)
+    @Command(names = {"f rtp", "rtp"}, playerOnly = true, cooldown = 10000)
     public void rtp(@NotNull Player player) {
+
         player.teleport(RTPUtils.rtpCalc(player, -25000, 25000, -25000, 25000));
+
     }
 
     @Command(names = {"f mail", "mail"}, playerOnly = true)
