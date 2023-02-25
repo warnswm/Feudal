@@ -193,7 +193,7 @@ public class LocalStaffCommands {
             privateChunks += kingdom.getValue().getTerritory().size();
 
 
-        player.sendMessage("Захвачено: " + privateChunks + ". Всего: 3125. Процент захваченых земель: " + (privateChunks * 100 / 3125) + "%");
+        player.sendMessage("Захвачено: " + privateChunks + ". Процент захваченых земель: " + (privateChunks * 100 / 3125) + "%");
 
     }
 
