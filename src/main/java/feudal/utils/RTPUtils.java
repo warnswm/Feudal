@@ -40,7 +40,7 @@ public class RTPUtils {
 
         }
 
-        return rtpCalc(player, minX, maxX, minZ, maxZ);
+        return player.getLocation();
 
     }
 }
