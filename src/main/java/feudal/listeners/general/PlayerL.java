@@ -234,6 +234,8 @@ enum BlockToSaveE {
 
     public static boolean checkBlockMaterial(Material blockMaterial) {
 
+        if (blockMaterial == null) return false;
+
         for (BlockToSaveE blockToSaveE : values())
             if (blockToSaveE.getBlockMaterial() == blockMaterial)
                 return true;
@@ -295,6 +297,8 @@ enum MoneyForMobsE {
 
     public static int getMoneyByEntity(EntityType entity) {
 
+        if (entity == null) return 0;
+
         for (MoneyForMobsE moneyForMobsE : values())
             if (moneyForMobsE.getEntity() == entity)
                 return moneyForMobsE.getMoney();
@@ -304,6 +308,8 @@ enum MoneyForMobsE {
     }
 
     private static int get(EntityType entity) {
+
+        if (entity == null) return 0;
 
         if (CacheFeudalValues.getMoneyForMobs().containsKey(entity))
             return CacheFeudalValues.getMoneyForMobs().get(entity);

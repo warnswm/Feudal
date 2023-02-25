@@ -47,6 +47,8 @@ enum BlocksForMinerE {
 
     public static int getAttributeExpByMaterial(Material material) {
 
+        if (material == null) return 0;
+
         for (BlocksForMinerE blocksForMiner : values())
             if (blocksForMiner.getMaterial() == material)
                 return blocksForMiner.getAttributeExp();

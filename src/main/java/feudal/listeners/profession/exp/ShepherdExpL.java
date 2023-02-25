@@ -48,6 +48,8 @@ enum AnimalsForShepherdE {
 
     public static int getAttributeExpByEntity(EntityType entity) {
 
+        if (entity == null) return 0;
+
         for (AnimalsForShepherdE animalsForShepherdE : values())
             if (animalsForShepherdE.getEntity() == entity)
                 return animalsForShepherdE.getAttributeExp();

@@ -41,6 +41,8 @@ enum MobsAttributesE {
 
     public static int getHPByEntity(EntityType entity) {
 
+        if (entity == null) return 0;
+
         for (MobsAttributesE mobsAttributesE : values())
             if (mobsAttributesE.getEntity() == entity)
                 return mobsAttributesE.getHp();

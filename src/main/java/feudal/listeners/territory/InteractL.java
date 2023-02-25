@@ -55,6 +55,8 @@ enum PrivateBlocksE {
 
     public static boolean checkMaterial(Material material) {
 
+        if (material == null) return false;
+
         for (PrivateBlocksE privateBlocksE : values())
             if (privateBlocksE.getMaterial() == material)
                 return true;

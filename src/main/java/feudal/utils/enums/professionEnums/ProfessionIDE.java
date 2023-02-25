@@ -24,6 +24,8 @@ public enum ProfessionIDE {
 
     public static int getIDByString(String professionName) {
 
+        if (professionName == null) return 0;
+
         for (ProfessionIDE professionIDE : values())
             if (professionIDE.getProfessionName().equals(professionName))
                 return professionIDE.getId();
