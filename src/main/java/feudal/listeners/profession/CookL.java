@@ -15,32 +15,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
 import org.jetbrains.annotations.NotNull;
 
-
-@Getter
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-enum FoodForCook {
-    COOKED_BEEF(Material.COOKED_BEEF, 15), GRILLED_PORK(Material.GRILLED_PORK, 15), COOKED_MUTTON(Material.COOKED_MUTTON, 10),
-    COOKED_CHICKEN(Material.COOKED_CHICKEN, 8), COOKED_FISH(Material.COOKED_FISH, 10), BAKED_POTATO(Material.BAKED_POTATO, 5),
-    COOKED_RABBIT(Material.COOKED_RABBIT, 5);
-
-    Material material;
-    int attributeExp;
-
-    public static int getAttributeExpByFood(Material material) {
-
-        if (material == null) return 0;
-
-        for (FoodForCook foodForCook : values())
-            if (foodForCook.getMaterial() == material)
-                return foodForCook.getAttributeExp();
-
-        return 0;
-
-    }
-
-}
-
 public class CookL implements Listener {
 
     @EventHandler
@@ -68,3 +42,29 @@ public class CookL implements Listener {
     }
 
 }
+
+@Getter
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+enum FoodForCook {
+    COOKED_BEEF(Material.COOKED_BEEF, 15), GRILLED_PORK(Material.GRILLED_PORK, 15), COOKED_MUTTON(Material.COOKED_MUTTON, 10),
+    COOKED_CHICKEN(Material.COOKED_CHICKEN, 8), COOKED_FISH(Material.COOKED_FISH, 10), BAKED_POTATO(Material.BAKED_POTATO, 5),
+    COOKED_RABBIT(Material.COOKED_RABBIT, 5);
+
+    Material material;
+    int attributeExp;
+
+    public static int getAttributeExpByFood(Material material) {
+
+        if (material == null) return 0;
+
+        for (FoodForCook foodForCook : values())
+            if (foodForCook.getMaterial() == material)
+                return foodForCook.getAttributeExp();
+
+        return 0;
+
+    }
+
+}
+

@@ -18,42 +18,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-@Getter
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-enum BlocksForFarmerE {
-    CROPS(Material.CROPS, 3), POTATO(Material.POTATO, 5), BEETROOT_BLOCK(Material.BEETROOT_BLOCK, 8),
-    CARROT(Material.CARROT, 15), PUMPKIN_STEM(Material.PUMPKIN_STEM, 25), COCOA(Material.COCOA, 25),
-    MELON_STEM(Material.MELON_STEM, 25);
-
-    Material material;
-    int attributeExp;
-
-    public static int getAttributeExpByMaterial(Material material) {
-
-        if (material == null) return 0;
-
-        for (BlocksForFarmerE blocksForFarmerE : values())
-            if (blocksForFarmerE.getMaterial() == material)
-                return blocksForFarmerE.getAttributeExp();
-
-        return 0;
-
-    }
-
-    public static boolean checkPlant(Material material) {
-
-        if (material == null) return false;
-
-        for (BlocksForFarmerE blocksForFarmerE : values())
-            if (blocksForFarmerE.getMaterial() == material)
-                return true;
-
-        return false;
-
-    }
-}
-
 public class FarmerL implements Listener {
 
     private static boolean isaBoolean(@NotNull PlayerInteractEvent event, Block block, ItemStack mainHand) {
@@ -103,3 +67,40 @@ public class FarmerL implements Listener {
     }
 
 }
+
+@Getter
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+enum BlocksForFarmerE {
+    CROPS(Material.CROPS, 3), POTATO(Material.POTATO, 5), BEETROOT_BLOCK(Material.BEETROOT_BLOCK, 8),
+    CARROT(Material.CARROT, 15), PUMPKIN_STEM(Material.PUMPKIN_STEM, 25), COCOA(Material.COCOA, 25),
+    MELON_STEM(Material.MELON_STEM, 25);
+
+    Material material;
+    int attributeExp;
+
+    public static int getAttributeExpByMaterial(Material material) {
+
+        if (material == null) return 0;
+
+        for (BlocksForFarmerE blocksForFarmerE : values())
+            if (blocksForFarmerE.getMaterial() == material)
+                return blocksForFarmerE.getAttributeExp();
+
+        return 0;
+
+    }
+
+    public static boolean checkPlant(Material material) {
+
+        if (material == null) return false;
+
+        for (BlocksForFarmerE blocksForFarmerE : values())
+            if (blocksForFarmerE.getMaterial() == material)
+                return true;
+
+        return false;
+
+    }
+}
+
