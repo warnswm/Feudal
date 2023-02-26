@@ -206,6 +206,7 @@ public class LoadAndSaveDataUtils {
         ConfigUtils.readMoneyForMobsConfig();
         ConfigUtils.readAttributesConfig();
         ConfigUtils.readGeneralConfig();
+        ConfigUtils.readProfessionConfig();
 
     }
 
@@ -217,6 +218,7 @@ public class LoadAndSaveDataUtils {
         ConfigUtils.saveMoneyForMobsConfig();
         ConfigUtils.saveAttributesConfig();
         ConfigUtils.saveGeneralConfig();
+        ConfigUtils.saveProfessionConfig();
 
     }
 

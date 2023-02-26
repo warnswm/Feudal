@@ -23,6 +23,7 @@ public class ConfigUtils {
     private @NonNls FileConfiguration moneyForMobsCfg;
     private @NonNls FileConfiguration attributesCfg;
     private @NonNls FileConfiguration generalCfg;
+    private @NonNls FileConfiguration professionCfg;
 
     public void readDatabaseConfig() {
 
@@ -520,6 +521,57 @@ public class ConfigUtils {
             generalCfg.set("Time.clearMail", 72);
 
             generalCfg.save(file);
+
+        }
+
+    }
+
+    public void readProfessionConfig() {
+
+        File file = new File(path, "profession.yml");
+        createProfessionConfig();
+
+        professionCfg = YamlConfiguration.loadConfiguration(file);
+
+        CacheFeudalValues.getClerkTakeExp().put(1, (float) professionCfg.get("Clerk.ClerkTakeExp.I"));
+        CacheFeudalValues.getClerkTakeExp().put(2, (float) professionCfg.get("Clerk.ClerkTakeExp.II"));
+        CacheFeudalValues.getClerkTakeExp().put(3, (float) professionCfg.get("Clerk.ClerkTakeExp.III"));
+        CacheFeudalValues.getClerkTakeExp().put(4, (float) professionCfg.get("Clerk.ClerkTakeExp.IV"));
+        CacheFeudalValues.getClerkTakeExp().put(5, (float) professionCfg.get("Clerk.ClerkTakeExp.V"));
+
+    }
+
+
+    @SneakyThrows
+    public void saveProfessionConfig() {
+
+        File file = new File(path, "profession.yml");
+        createProfessionConfig();
+
+        YamlConfiguration.loadConfiguration(file).save(file);
+
+    }
+
+    @SneakyThrows
+    public void createProfessionConfig() {
+
+        if (!path.exists())
+            path.mkdir();
+
+        File file = new File(path, "profession.yml");
+        if (!file.exists()) {
+
+            file.createNewFile();
+
+            professionCfg = YamlConfiguration.loadConfiguration(file);
+
+            professionCfg.set("Clerk.ClerkTakeExp.I", 1.5);
+            professionCfg.set("Clerk.ClerkTakeExp.II", 2.5);
+            professionCfg.set("Clerk.ClerkTakeExp.III", 4.0);
+            professionCfg.set("Clerk.ClerkTakeExp.IV", 5.0);
+            professionCfg.set("Clerk.ClerkTakeExp.V", 7.5);
+
+            professionCfg.save(file);
 
         }
 

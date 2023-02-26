@@ -1,7 +1,10 @@
 package feudal.listeners.interact;
 
 import feudal.utils.CreateItemUtils;
-import feudal.utils.enums.professionEnums.ClerkTakeExpE;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.experimental.FieldDefaults;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -9,6 +12,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.jetbrains.annotations.NotNull;
+
+import static feudal.data.cache.CacheFeudalValues.getClerkTakeExp;
 
 public class ClerkMenuL implements Listener {
 
@@ -50,3 +55,26 @@ public class ClerkMenuL implements Listener {
 
     }
 }
+
+@Getter
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+enum ClerkTakeExpE {
+
+    I(1, getClerkTakeExp().get(1)), II(2, getClerkTakeExp().get(2)), III(3, getClerkTakeExp().get(3)),
+    IV(4, getClerkTakeExp().get(4)), V(5, getClerkTakeExp().get(5));
+
+    int lvl;
+    float exp;
+
+    public static float getExpByLvl(int lvl) {
+
+        for (ClerkTakeExpE clerkTakeExpE : values())
+            if (clerkTakeExpE.getLvl() == lvl)
+                return clerkTakeExpE.getExp();
+
+        return 0;
+
+    }
+}
+

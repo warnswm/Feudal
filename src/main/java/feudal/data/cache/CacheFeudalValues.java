@@ -39,6 +39,10 @@ public class CacheFeudalValues {
 
     @Getter
     @Setter
+    private Map<Integer, Float> clerkTakeExp = new HashMap<>();
+
+    @Getter
+    @Setter
     private int landTax;
     @Getter
     @Setter
