@@ -60,18 +60,7 @@ public class WoodcutterL implements Listener {
 
         }
 
-        for (Block block : blocks) {
+        handStack.setDurability((short) (handStack.getDurability() + blocks.size()));
 
-            if (!block.breakNaturally(handStack)) return;
-            handStack.setDurability((short) (handStack.getDurability() + 1));
-
-            if (handStack.getType().getMaxDurability() == handStack.getDurability()) {
-
-                handStack.setType(Material.AIR);
-                return;
-
-            }
-
-        }
     }
 }
