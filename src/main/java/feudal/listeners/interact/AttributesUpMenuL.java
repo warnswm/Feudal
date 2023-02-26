@@ -31,8 +31,6 @@ public class AttributesUpMenuL implements Listener {
                 feudalPlayer.takeExperience((int) (Math.pow(1 + (CacheFeudalValues.getStrengthPercentageCost() / 100), feudalPlayer.getStrengthLvl()) * 100));
                 feudalPlayer.addStrengthLvl(1);
 
-                player.closeInventory();
-
                 break;
 
             case "Прокачать уровень выносливости":
@@ -40,16 +38,12 @@ public class AttributesUpMenuL implements Listener {
                 feudalPlayer.takeExperience((int) (Math.pow(1 + (CacheFeudalValues.getStaminaPercentageCost() / 100), feudalPlayer.getStaminaLvl()) * 100));
                 feudalPlayer.addStaminaLvl(1);
 
-                player.closeInventory();
-
                 break;
 
             case "Прокачать уровень удачи":
 
                 feudalPlayer.takeExperience((int) (Math.pow(1 + (CacheFeudalValues.getLuckPercentageCost() / 100), feudalPlayer.getLuckLvl()) * 100));
                 feudalPlayer.addLuckLvl(1);
-
-                player.closeInventory();
 
                 break;
 
@@ -61,8 +55,6 @@ public class AttributesUpMenuL implements Listener {
                 float tmpHealth = feudalPlayer.getSurvivabilityLvl();
                 player.setMaxHealth(20 * (tmpHealth / 100) + 20);
 
-                player.closeInventory();
-
                 break;
 
             case "Прокачать уровень скорости":
@@ -73,9 +65,11 @@ public class AttributesUpMenuL implements Listener {
                 float tmpSpeed = feudalPlayer.getSpeedLvl();
                 player.setWalkSpeed(0.2f * (tmpSpeed / 100) + 0.2f);
 
-                player.closeInventory();
-
                 break;
+
         }
+
+        player.closeInventory();
+
     }
 }
