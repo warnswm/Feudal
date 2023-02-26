@@ -21,7 +21,12 @@ import org.jetbrains.annotations.NotNull;
 public class FarmerL implements Listener {
 
     private static boolean isaBoolean(@NotNull PlayerInteractEvent event, Block block, ItemStack mainHand) {
-        return !event.getAction().equals(Action.RIGHT_CLICK_BLOCK) ||
+
+        FeudalPlayer feudalPlayer = CacheFeudalPlayers.getFeudalPlayer(event.getPlayer());
+
+        return feudalPlayer.getProfessionID() != ProfessionIDE.FARMER.getId() ||
+                feudalPlayer.getProfessionLvl() < 75 ||
+                !event.getAction().equals(Action.RIGHT_CLICK_BLOCK) ||
                 !mainHand.getType().equals(Material.INK_SACK) ||
                 !BlocksForFarmerE.checkPlant(block.getType()) ||
                 block.getData() == CropState.RIPE.getData();
@@ -45,7 +50,6 @@ public class FarmerL implements Listener {
         }
 
         block.setData(CropState.RIPE.getData());
-
 
     }
 

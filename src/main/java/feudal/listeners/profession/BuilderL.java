@@ -66,11 +66,14 @@ enum SpawnersForBuilderE {
 
     public static boolean canBreak(EntityType entity, int professionLvl) {
 
+        if (entity == null) return false;
+
         for (SpawnersForBuilderE spawnersForBuilderE : values())
             if (spawnersForBuilderE.getEntity() == entity &&
                     professionLvl >= spawnersForBuilderE.getProfessionLvl())
                 return true;
 
         return false;
+
     }
 }
